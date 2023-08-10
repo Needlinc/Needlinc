@@ -189,9 +189,19 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.star_border, size: 22,)),
+                      Row(
+                        children: [
+                          IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
+                          Text("1.2K", style: TextStyle(fontSize: 10))
+                        ],
+                      ),
                       SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.comment_outlined, size: 20,)),
+                      Row(
+                        children: [
+                          IconButton(onPressed: (){}, icon: Icon(Icons.comment_outlined, size: 20,)),
+                          Text("200", style: TextStyle(fontSize: 10))
+                        ],
+                      ),
                       SizedBox(width: 10.0,),
                       IconButton(onPressed: (){}, icon: Icon(Icons.save_as_outlined, size: 20,)),
                       SizedBox(width: 10.0,),
