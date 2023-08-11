@@ -1,4 +1,7 @@
+import 'dart:ui';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import '../../main.dart';
 import '../colors/colors.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -18,41 +21,127 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text(
-                'Side menu',
-                style: TextStyle(color: NeedlincColors.white, fontSize: 25),
+              child: Stack(
+                children: [
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       image: AssetImage(
+                  //         "assets/1.png",
+                  //       ),
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     color: Colors.blue,
+                  //     shape: BoxShape.rectangle,
+                  //   ),
+                  // ),
+                  //TODO Blurred overlay using BackdropFilter
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                    child: Container(
+                      color: NeedlincColors.blue2.withOpacity(0.5),
+                      width: 0.001,
+                      height: 0.001,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                        decoration: BoxDecoration(
+                            color: NeedlincColors.blue3,
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                                  ),
+                                  fit: BoxFit.contain,
+                                ),
+                                color: Colors.blue,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Emeka John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                  Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/cover.jpg'))),
             ),
             ListTile(
-              leading: Icon(Icons.input),
-              title: Text('Welcome'),
-              onTap: () => {Navigator.of(context).pop},
+              leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
+              title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Profile'),
+                leading: Icon(Icons.input, color: NeedlincColors.blue2,),
+                title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))}
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
+              title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
+              title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Feedback'),
+              leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
+              title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Logout'),
+              leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
+              title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.question_mark, color: NeedlincColors.blue2,),
+              title: Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
+              title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(20.0),
+                child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
+              ),
+            )
           ],
         ),
       ),
@@ -88,22 +177,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Emeka John",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: GoogleFonts.dosis(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
+                    SizedBox(height: 5.0,),
                     Text(
                       "070 8786 0987",
-                      style: TextStyle(
+                      style: GoogleFonts.arimo(
                         fontSize: 13,
                       ),
                     ),
+                    SizedBox(height: 5.0,),
                     Text(
                       "debra.holt@example.com",
-                      style: TextStyle(
+                      style: GoogleFonts.arimo(
                         fontSize: 13,
                       ),
                     ),
@@ -122,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   MaterialStateProperty.all<Color>(NeedlincColors.blue1),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       side: BorderSide(color: Colors.blue),
                     ),
                   ),
@@ -136,67 +227,91 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Account Information",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Account Information",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                   Divider(),
-                  Text(
-                    "Your Posts",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Your Posts",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                   Divider(),
-                  Text(
-                    "Saved & Favourited",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Saved & Favourited",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                   Divider(),
-                  Text(
-                    "Contracts",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Contracts",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                   Divider(),
-                  Text(
-                    "Transaction History",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Transaction History",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                   Divider(),
-                  Text(
-                    "Privacy Settings",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Privacy Settings",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                   Divider(),
-                  Text(
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                  child: Text(
                     "Reviews/Ratings",
-                    style: TextStyle(
+                    style: GoogleFonts.oxygen(
                       fontSize: 20,
                       color: Colors.blue[300],
                     ),
                   ),
+                 ),
                   Divider(),
-                  Text(
-                    "Help/Support",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue[300],
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Help/Support",
+                      style: GoogleFonts.oxygen(
+                        fontSize: 20,
+                        color: Colors.blue[300],
+                      ),
                     ),
                   ),
                 ],

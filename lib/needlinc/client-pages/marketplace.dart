@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import '../../main.dart';
 import '../colors/colors.dart';
 
 class MarketplacePage extends StatefulWidget {
@@ -19,41 +21,127 @@ class _MarketplacePageState extends State<MarketplacePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text(
-                'Side menu',
-                style: TextStyle(color: Colors.white, fontSize: 25),
+              child: Stack(
+                children: [
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //       image: AssetImage(
+                  //         "assets/1.png",
+                  //       ),
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     color: Colors.blue,
+                  //     shape: BoxShape.rectangle,
+                  //   ),
+                  // ),
+                  // TODO Blurred overlay using BackdropFilter
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                    child: Container(
+                      color: NeedlincColors.blue2.withOpacity(0.5),
+                      width: 0.001,
+                      height: 0.001,
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                        decoration: BoxDecoration(
+                            color: NeedlincColors.blue3,
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                                  ),
+                                  fit: BoxFit.contain,
+                                ),
+                                color: Colors.blue,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Emeka John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                  Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/cover.jpg'))),
             ),
             ListTile(
-              leading: Icon(Icons.input),
-              title: Text('Welcome'),
-              onTap: () => {Navigator.of(context).pop},
+              leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
+              title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Profile'),
+                leading: Icon(Icons.input, color: NeedlincColors.blue2,),
+                title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))}
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
+              title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
+              title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Feedback'),
+              leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
+              title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Logout'),
+              leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
+              title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.question_mark, color: NeedlincColors.blue2,),
+              title: Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
+              title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(20.0),
+                child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
+              ),
+            )
           ],
         ),
       ),
@@ -132,7 +220,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
               ],
             ),
           ],
-        toolbarHeight: 85,
+        toolbarHeight: 95,
       ),
       body: SingleChildScrollView(
         child:  Column(
@@ -171,29 +259,46 @@ class _MarketplacePageState extends State<MarketplacePage> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
+                        width: MediaQuery.of(context).size.width * 0.70,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
+                                Text(
+                                  "John Doe",
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "🟢 Now",
+                                  style: TextStyle(fontSize: 9),
+                                ),
+                                IconButton(
+                                    onPressed: () {}, icon: Icon(Icons.more_horiz))
                               ],
                             ),
-                            Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                            Text("📍John Paul's kitchen, eziobodor", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                            Text("~Electrician",
+                                style: TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.w600)),
+                            Text("📍John Paul's kitchen, eziobodor",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: NeedlincColors.black2))
                           ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10.0,),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Container(
                     margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                    child: Text("Second hand HP Laptop for sale going for #85,000", style: TextStyle(fontSize: 18)),
+                    child: Text(
+                        "Second hand HP Laptop for sale going for #85,000",
+                        style: TextStyle(fontSize: 18)),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -217,23 +322,41 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     children: [
                       Row(
                         children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.star_border, size: 22,)),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.favorite_border, size: 22)),
                           Text("1.2K", style: TextStyle(fontSize: 10))
                         ],
                       ),
-                      SizedBox(width: 10.0,),
+                      SizedBox(
+                        width: 10.0,
+                      ),
                       Row(
                         children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.comment_outlined, size: 20,)),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.comment_outlined, size: 20)),
                           Text("500", style: TextStyle(fontSize: 10))
                         ],
                       ),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.save_as_outlined, size: 20,)),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.shopping_cart_outlined, size: 22,)),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.bookmark_border, size: 20)),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.shopping_cart_outlined, size: 22)),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.share, size: 20))
                     ],
                   )
                 ],
@@ -241,7 +364,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

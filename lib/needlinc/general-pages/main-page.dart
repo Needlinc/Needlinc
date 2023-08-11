@@ -21,7 +21,7 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
   //TODO(Already done) This List is for Icons that are active
   List<IconData> _activeIcons = [
     Icons.home,
-    Icons.shop,
+    Icons.shopping_cart,
     Icons.people,
     Icons.notifications,
     Icons.person,
@@ -30,7 +30,7 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
   //TODO(Already done) This List is for Icons that are inactive
   List<IconData> _inactiveIcons = [
     Icons.home_outlined,
-    Icons.shop_outlined,
+    Icons.shopping_cart_outlined,
     Icons.people_outline,
     Icons.notifications_none,
     Icons.person_outline,
