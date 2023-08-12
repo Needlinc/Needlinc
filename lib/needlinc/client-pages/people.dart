@@ -15,7 +15,7 @@ class _PeoplePageState extends State<PeoplePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "FREELANCERSR",
+          "FREELANCERS",
           style: TextStyle(color: NeedlincColors.blue2, fontSize: 14),
         ),
         centerTitle: true,

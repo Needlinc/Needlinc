@@ -228,7 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Account Information",
                       style: GoogleFonts.oxygen(
@@ -239,7 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Your Posts",
                       style: GoogleFonts.oxygen(
@@ -250,7 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Saved & Favourited",
                       style: GoogleFonts.oxygen(
@@ -261,7 +261,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Contracts",
                       style: GoogleFonts.oxygen(
@@ -272,7 +272,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Transaction History",
                       style: GoogleFonts.oxygen(
@@ -283,7 +283,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Privacy Settings",
                       style: GoogleFonts.oxygen(
@@ -294,7 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                   child: Text(
                     "Reviews/Ratings",
                     style: GoogleFonts.oxygen(
@@ -305,7 +305,7 @@ class _ProfilePageState extends State<ProfilePage> {
                  ),
                   Divider(),
                   Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       "Help/Support",
                       style: GoogleFonts.oxygen(
