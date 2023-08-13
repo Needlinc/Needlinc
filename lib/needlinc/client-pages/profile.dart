@@ -232,7 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Account Information",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),
@@ -243,7 +243,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Your Posts",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),
@@ -254,7 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Saved & Favourited",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),
@@ -265,7 +265,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Contracts",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),
@@ -276,7 +276,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Transaction History",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),
@@ -287,7 +287,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Privacy Settings",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),
@@ -298,7 +298,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Text(
                     "Reviews/Ratings",
                     style: GoogleFonts.oxygen(
-                      fontSize: 20,
+                      fontSize: 16,
                       color: Colors.blue[300],
                     ),
                   ),
@@ -309,7 +309,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       "Help/Support",
                       style: GoogleFonts.oxygen(
-                        fontSize: 20,
+                        fontSize: 16,
                         color: Colors.blue[300],
                       ),
                     ),

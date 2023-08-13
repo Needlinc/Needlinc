@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/marketplace.dart';
+import 'package:needlinc/needlinc/client-pages/post.dart';
+import 'package:needlinc/needlinc/client-pages/profile.dart';
 import '../colors/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Emeka John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                  Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
                                   Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
                                 ],
                               ),
@@ -203,29 +205,43 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(15.0),
-                        margin: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                      //TODO Profile Picture
+                      GestureDetector(
+                        onTap: ()
+                        {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()),);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(15.0),
+                          margin: EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                              ),
+                              fit: BoxFit.fill,
                             ),
-                            fit: BoxFit.fill,
+                            color: NeedlincColors.black3,
+                            shape: BoxShape.circle,
                           ),
-                          color: NeedlincColors.black3,
-                          shape: BoxShape.circle,
                         ),
                       ),
-                      Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),)
+                      //TODO Write a post
+                      GestureDetector(
+                          onTap: ()
+                          {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()),);
+                          },
+                          child: Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
                     ],
                   ),
+                //TODO Select Gallary or Camera icon
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(width: 50.0,),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                    IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                    IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
                   ],
                 )
               ],
