@@ -49,8 +49,7 @@ class _PeoplePageState extends State<PeoplePage> {
             child: AnimationLimiter(
               child: ListView.builder(
                 padding: EdgeInsets.all(MediaQuery.of(context).size.width / 30),
-                physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 itemCount: 20,
                 itemBuilder: (BuildContext context, int index) {
                   return AnimationConfiguration.staggeredList(

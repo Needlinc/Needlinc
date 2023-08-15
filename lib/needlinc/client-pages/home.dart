@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/marketplace.dart';
 import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/client-pages/profile.dart';
+import 'package:needlinc/needlinc/widgets/comments-page.dart';
 import '../colors/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -303,7 +304,10 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(width: 10.0,),
                       Row(
                         children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.comment_outlined, size: 20,)),
+                          IconButton(onPressed: ()
+                          {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                          }, icon: Icon(Icons.comment_outlined, size: 20,)),
                           Text("200", style: TextStyle(fontSize: 10))
                         ],
                       ),

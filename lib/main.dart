@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/profile.dart';
-import 'package:needlinc/needlinc/general-pages/main-page.dart';
+import 'package:needlinc/needlinc/widgets/main-page.dart';
 import 'needlinc/colors/colors.dart';
 
 void main() => runApp(Home());

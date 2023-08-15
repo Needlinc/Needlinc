@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-
-import '../general-pages/dropdown-menu.dart';
+import '../widgets/dropdown-menu.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -64,7 +63,6 @@ class _PostPageState extends State<PostPage> {
                 margin: EdgeInsets.only(left: 8.0, top: 10.0),
                 child: DropdownMenuWidget(),
               ),
-
               Container(
                 margin: EdgeInsets.only(top: 25.0),
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
