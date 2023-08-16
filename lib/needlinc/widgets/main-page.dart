@@ -8,15 +8,22 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import '../client-pages/profile.dart';
 
 class NeedlincMainPage extends StatefulWidget {
-  const NeedlincMainPage({Key? key}) : super(key: key);
+  int? currentPage;
+   NeedlincMainPage({required this.currentPage});
 
   @override
   State<NeedlincMainPage> createState() => _NeedlincMainPageState();
 }
 
 class _NeedlincMainPageState extends State<NeedlincMainPage> {
+  int? _currentPage;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _currentPage = (widget.currentPage == null ? 0 : widget.currentPage)!;
+    super.initState();
+  }
 
-  int _currentPage = 0;
 
   //TODO(Already done) This List is for Icons that are active
   List<IconData> _activeIcons = [
@@ -71,7 +78,7 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
           ),
         ),
         //TODO(Already done) This is the App Body
-        body: PageTransition(_currentPage)
+        body: PageTransition(_currentPage!)
     );
   }
 }

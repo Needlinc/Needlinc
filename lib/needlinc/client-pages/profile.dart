@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
+import '../widgets/main-page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -20,109 +21,117 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Stack(
-                children: [
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     image: DecorationImage(
-                  //       image: AssetImage(
-                  //         "assets/1.png",
-                  //       ),
-                  //       fit: BoxFit.fill,
-                  //     ),
-                  //     color: Colors.blue,
-                  //     shape: BoxShape.rectangle,
-                  //   ),
-                  // ),
-                  //TODO Blurred overlay using BackdropFilter
-                  BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                    child: Container(
-                      color: NeedlincColors.blue2.withOpacity(0.5),
-                      width: 0.001,
-                      height: 0.001,
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                        decoration: BoxDecoration(
-                            color: NeedlincColors.blue3,
-                            borderRadius: BorderRadius.circular(10.0)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                                  ),
-                                  fit: BoxFit.contain,
-                                ),
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Emeka John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
-                                  Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+            Container(
+              height: 120,
+              child: DrawerHeader(
+                child: Stack(
+                  children: [
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     image: DecorationImage(
+                    //       image: AssetImage(
+                    //         "assets/1.png",
+                    //       ),
+                    //       fit: BoxFit.fill,
+                    //     ),
+                    //     color: Colors.blue,
+                    //     shape: BoxShape.rectangle,
+                    //   ),
+                    // ),
+                    //TODO Blurred overlay using BackdropFilter
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                      child: Container(
+                        color: NeedlincColors.blue2.withOpacity(0.5),
+                        width: 0.001,
+                        height: 0.001,
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                          decoration: BoxDecoration(
+                              color: NeedlincColors.blue3,
+                              borderRadius: BorderRadius.circular(10.0)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                    color: Colors.blue,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                    Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             ListTile(
               leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
               title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
             ),
             Divider(),
             ListTile(
                 leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))}
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pop()},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pop()},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pop()},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pop()},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)))},
             ),
             Divider(),
             ListTile(

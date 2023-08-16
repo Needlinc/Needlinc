@@ -32,6 +32,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return NeedlincMainPage();
+    return NeedlincMainPage(currentPage: 0);
   }
 }
