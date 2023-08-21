@@ -172,9 +172,9 @@ class _HomePageState extends State<HomePage> {
 
             _isNewsMenuOpen ?
 
-
         Stack(
           children: [
+            //TODO Blurred duplicate background
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -214,8 +214,8 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
                         margin: EdgeInsets.only(top: 10, bottom: 10,),
-                        padding: EdgeInsets.fromLTRB(0.0, 0.0, 170.0, 12.0),
                         decoration: BoxDecoration(
                           color: NeedlincColors.black3,
                           borderRadius: BorderRadius.circular(8.0),
@@ -266,38 +266,10 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      //TODO (This is the News Icon close to the write a post page)
-                      GestureDetector(
-                        onTap: _toggleNewsMenu,
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                          padding: EdgeInsets.all(5.0),
-                          margin: EdgeInsets.only(left: 16.0, right: 10.0),
-                          decoration: BoxDecoration(
-                            color: _isNewsMenuOpen ? Colors.blue : NeedlincColors.blue1,
-                            boxShadow: [
-                              BoxShadow(
-                                color: NeedlincColors.black2.withOpacity(0.6),
-                                spreadRadius: 2,
-                                blurRadius: 6.0,
-                                offset: Offset(0, 6),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Icon(Icons.newspaper, color: NeedlincColors.white, size: 30.0),
-                              Text("News", style: TextStyle(color: NeedlincColors.white, fontSize: 10.0)),
-                            ],
-                          ),
-                        ),
-                      ),
-
                     ],
                   ),
                   //TODO Individual post
+                  for(int individualPost = 0; individualPost < 16; individualPost++)
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10),
                     padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
@@ -377,114 +349,146 @@ class _HomePageState extends State<HomePage> {
                 ]
             ),
             //TODO seperation
-            Container(
-              margin: EdgeInsets.only(left: 40, bottom: 100),
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: NeedlincColors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
-                    spreadRadius: 4, // Spread radius
-                    blurRadius: 5, // Blur radius
-                    offset: Offset(0, 6), // Offset in the form of (dx, dy)
-                  ),
-                ],
-              ),
+            SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(onTap: _toggleNewsMenu ,
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18.0),
-                        border: Border.all(color: NeedlincColors.blue2)
-                      ),
-                      child: Row(
+                      color: NeedlincColors.blue2.withOpacity(0.8),
+                      width: 0.001,
+                      height: 0.001,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 40, bottom: 5),
+                    child: InkWell(onTap: _toggleNewsMenu ,
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18.0),
+                            border: Border.all(color: NeedlincColors.blue2)
+                        ),
+                        child: Row(
                           children: [
                             Text("Close"),
                             Icon(Icons.arrow_forward_ios_rounded,)
-                         ],
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                              ),
-                              fit: BoxFit.fill,
-                            ),
-                            color: NeedlincColors.black3,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
-                              ],
-                            ),
-                            Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                            Text("📍John Paul's kitchen, eziobodor", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
                           ],
                         ),
-                      )
-                    ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: NeedlincColors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: NeedlincColors.black2.withOpacity(0.5), // Shadow color
+                            spreadRadius: 8, // Spread radius
+                            blurRadius: 10, // Blur radius
+                            offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(20)
+                    ),
                   ),
-                  SizedBox(height: 30.0,),
-                  //TODO Icons on each news post
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
-                          Text("1.2K", style: TextStyle(fontSize: 10))
-                        ],
-                      ),
-                      SizedBox(width: 10.0,),
-                      Row(
-                        children: [
-                          IconButton(onPressed: ()
-                          {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
-                          }, icon: Icon(Icons.comment_outlined, size: 20,)),
-                          Text("200", style: TextStyle(fontSize: 10))
-                        ],
-                      ),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border, size: 20,)),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
-                    ],
-                  )
+                  for(int newsPost = 0; newsPost < 16; newsPost++)
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.only(left: 40, bottom: 10),
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: NeedlincColors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: NeedlincColors.black2.withOpacity(0.5), // Shadow color
+                          spreadRadius: 8, // Spread radius
+                          blurRadius: 10, // Blur radius
+                          offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(20),
+                                margin: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                                    ),
+                                    fit: BoxFit.fill,
+                                  ),
+                                  color: NeedlincColors.black3,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                      Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                      IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
+                                    ],
+                                  ),
+                                  Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                  Text("📍John Paul's kitchen, eziobodor", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 30.0,),
+                        //TODO Icons on each news post
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
+                                Text("1.2K", style: TextStyle(fontSize: 10))
+                              ],
+                            ),
+                            SizedBox(width: 10.0,),
+                            Row(
+                              children: [
+                                IconButton(onPressed: ()
+                                {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                                }, icon: Icon(Icons.comment_outlined, size: 20,)),
+                                Text("200", style: TextStyle(fontSize: 10))
+                              ],
+                            ),
+                            SizedBox(width: 10.0,),
+                            IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border, size: 20,)),
+                            SizedBox(width: 10.0,),
+                            IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
         )
 
-
                 :
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -524,8 +528,8 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
                       margin: EdgeInsets.only(top: 10, bottom: 10,),
-                      padding: EdgeInsets.fromLTRB(0.0, 0.0, 170.0, 12.0),
                     decoration: BoxDecoration(
                       color: NeedlincColors.black3,
                       borderRadius: BorderRadius.circular(8.0),
@@ -608,6 +612,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 //TODO Individual post
+                for(int individualPost = 0; individualPost < 16; individualPost++)
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
