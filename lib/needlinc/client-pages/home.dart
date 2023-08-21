@@ -143,12 +143,6 @@ class _HomePageState extends State<HomePage> {
               title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.all(20.0),
-                child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
-              ),
-            )
           ],
         ),
       ),

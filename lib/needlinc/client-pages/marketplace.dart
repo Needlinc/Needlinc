@@ -28,18 +28,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
               child: DrawerHeader(
                 child: Stack(
                   children: [
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     image: DecorationImage(
-                    //       image: AssetImage(
-                    //         "assets/1.png",
-                    //       ),
-                    //       fit: BoxFit.fill,
-                    //     ),
-                    //     color: Colors.blue,
-                    //     shape: BoxShape.rectangle,
-                    //   ),
-                    // ),
                     //TODO Blurred overlay using BackdropFilter
                     BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
@@ -147,12 +135,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
               title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.all(20.0),
-                child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
-              ),
-            )
           ],
         ),
       ),
