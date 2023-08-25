@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/widgets/main-page.dart';
 import '../colors/colors.dart';
 
@@ -85,6 +86,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 ],
               ),
               Divider(thickness: 2, color: NeedlincColors.black2,),
+              //TODO Individual comment
               Expanded(
                 child: ListView.builder(
                   itemCount: 20,
@@ -112,22 +114,50 @@ class _CommentsPageState extends State<CommentsPage> {
                         ),
                        ),
                         Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 10),
-                            child: Text("WOW!, I love this post soooo much, thank you so much and congratulations on your promotion sir", style: TextStyle(fontSize: 13),),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.75,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                        Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                        IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
+                                      ],
+                                    ),
+                                    Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                    Text("📍John Paul's kitchen, eziobodo", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5.0, bottom: 15.0),
+                                child: Text("WOW!, I love this post soooo much, thank you so much and congratulations on your promotion sir", style: TextStyle(fontSize: 13),),
+                              ),
+                            ],
                           ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 50.0, right: 5.0),
+                            child: Icon(Icons.favorite_outline)
                         ),
                       ],
                     );
                   },
                 ),
               ),
+              //TODO Write a comment textfield
               Row(
                 children: [
                   Container(
-                    width: 280,
-                    margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 10.0),
-                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
+                    width: 292,
+                    margin: EdgeInsets.only(top: 10.0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         border: Border.all(color: NeedlincColors.blue1),
@@ -138,7 +168,8 @@ class _CommentsPageState extends State<CommentsPage> {
                         Expanded(
                           child: TextField(
                             maxLines: null,
-                            maxLength: 250,
+                            maxLength: 200,
+                            maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
                             decoration: InputDecoration(
                               hintText: 'Drop a comment...',
                               border: InputBorder.none,
@@ -154,7 +185,7 @@ class _CommentsPageState extends State<CommentsPage> {
                       ],
                     ),
                   ),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.send), color: NeedlincColors.blue1,)
+                  IconButton(onPressed: (){}, icon: Icon(Icons.send), color: NeedlincColors.blue1, padding: EdgeInsets.all(2.0),)
                 ],
               ),
             ],

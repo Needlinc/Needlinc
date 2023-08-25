@@ -224,6 +224,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
         child:  Column(
           children: [
             SizedBox(child: Divider(thickness: 2, color: NeedlincColors.black2,), width: MediaQuery.of(context).size.width * 0.95,),
+            for(int newsPost = 0; newsPost < 16; newsPost++)
             Container(
               margin: EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
               padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
