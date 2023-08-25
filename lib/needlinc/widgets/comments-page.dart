@@ -176,9 +176,9 @@ class _CommentsPageState extends State<CommentsPage> {
                               contentPadding: EdgeInsets.symmetric(vertical: 1),
                             ),
                             onSubmitted: (value) {
-                              // TODO: Perform search action here
-                              // For simplicity, you can just print a message for now
+
                               print('Performing search for: $value');
+
                             },
                           ),
                         ),
