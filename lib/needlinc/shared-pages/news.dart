@@ -4,8 +4,8 @@ import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/client-pages/profile.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
-import '../widgets/comments-page.dart';
-import '../widgets/main-page.dart';
+import 'comments.dart';
+import 'main-page.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);

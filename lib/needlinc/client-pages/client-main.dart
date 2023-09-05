@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/marketplace.dart';
 import 'package:needlinc/needlinc/client-pages/notifications.dart';
-import 'package:needlinc/needlinc/client-pages/people.dart';
+import 'package:needlinc/needlinc/shared-pages/people.dart';
 import 'package:needlinc/needlinc/client-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import '../client-pages/profile.dart';
+import 'profile.dart';
 
 class NeedlincMainPage extends StatefulWidget {
   int? currentPage;

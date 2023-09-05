@@ -75,7 +75,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   SizedBox(width: 10.0,),
                   Row(
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.comment, size: 20, color: NeedlincColors.blue1,)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.maps_ugc, size: 20, color: NeedlincColors.blue1,)),
                       Text("200", style: TextStyle(fontSize: 10))
                     ],
                   ),
