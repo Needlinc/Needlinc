@@ -5,7 +5,7 @@ import 'package:needlinc/needlinc/client-pages/profile.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
 import 'comments.dart';
-import 'main-page.dart';
+import '../client-pages/client-main.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -53,7 +53,7 @@ class _NewsPageState extends State<NewsPage> {
                             children: [
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
                                 },
                                 child: Container(
                                   height: 40,
@@ -98,31 +98,31 @@ class _NewsPageState extends State<NewsPage> {
             ListTile(
                 leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 0)))}
+               // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 1)))},
+            //  onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 2)))},
+            //  onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 3)))},
+             // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)))},
+           //   onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)))},
             ),
             Divider(),
             ListTile(
@@ -210,7 +210,7 @@ class _NewsPageState extends State<NewsPage> {
                                 GestureDetector(
                                   onTap: ()
                                   {
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)),);
+                //                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)),);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(15.0),

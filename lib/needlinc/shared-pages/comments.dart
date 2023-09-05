@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:needlinc/needlinc/widgets/main-page.dart';
+import 'package:needlinc/needlinc/client-pages/client-main.dart';
 import '../colors/colors.dart';
 
 class CommentsPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
                     },
                     child: Container(
                       padding: EdgeInsets.all(20),
@@ -96,7 +96,7 @@ class _CommentsPageState extends State<CommentsPage> {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                        //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
                           },
                         child: Container(
                           padding: EdgeInsets.all(17),

@@ -1,11 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/post.dart';
-import 'package:needlinc/needlinc/widgets/comments-page.dart';
+import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
-import '../widgets/main-page.dart';
+import 'client-main.dart';
 
 class MarketplacePage extends StatefulWidget {
   const MarketplacePage({Key? key}) : super(key: key);
@@ -52,7 +51,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                             children: [
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                   height: 40,
@@ -97,31 +96,31 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ListTile(
                 leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 0)))}
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 1)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 2)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 3)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
             ),
             Divider(),
             ListTile(
@@ -172,7 +171,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     //TODO This container is for the small circular profile  picture  at the app bar in the market place page
                     GestureDetector(
                       onTap: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
                       },
                       child: Container(
                         padding: EdgeInsets.all(12.0),
@@ -245,7 +244,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
                         },
                         child: Container(
                           padding: EdgeInsets.all(25),
@@ -341,7 +340,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
                               },
-                              icon: Icon(Icons.comment_outlined, size: 20)),
+                              icon: Icon(Icons.maps_ugc_outlined, size: 20)),
                           Text("500", style: TextStyle(fontSize: 10))
                         ],
                       ),

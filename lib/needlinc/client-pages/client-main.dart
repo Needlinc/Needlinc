@@ -7,23 +7,24 @@ import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'profile.dart';
 
-class NeedlincMainPage extends StatefulWidget {
+class ClientMainPages extends StatefulWidget {
   int? currentPage;
-   NeedlincMainPage({required this.currentPage});
+  ClientMainPages({required this.currentPage});
 
   @override
-  State<NeedlincMainPage> createState() => _NeedlincMainPageState();
+  State<ClientMainPages> createState() => _ClientMainPagesState();
 }
 
-class _NeedlincMainPageState extends State<NeedlincMainPage> {
+class _ClientMainPagesState extends State<ClientMainPages> {
+
   int? _currentPage;
+
   @override
   void initState() {
     // TODO: implement initState
     _currentPage = (widget.currentPage == null ? 0 : widget.currentPage)!;
     super.initState();
   }
-
 
   //TODO(Already done) This List is for Icons that are active
   List<IconData> _activeIcons = [
@@ -78,7 +79,13 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
           ),
         ),
         //TODO(Already done) This is the App Body
-        body: PageTransition(_currentPage!)
+        body: PageTransition(_currentPage!),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.pop(context);
+        },
+        child: Text("Get\nOut"),
+      ),
     );
   }
 }

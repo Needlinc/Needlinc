@@ -1,9 +1,8 @@
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import '../../main.dart';
 import '../colors/colors.dart';
-import 'client-main.dart';
+import 'freelancer-main.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -52,37 +51,37 @@ class _ProfilePageState extends State<ProfilePage> {
                           ListTile(
                             leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
                             title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+                           // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
                           ),
                           Divider(),
                           ListTile(
                               leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                               title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
+                              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 0)))}
                           ),
                           Divider(),
                           ListTile(
                             leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
                             title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
+                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 1)))},
                           ),
                           Divider(),
                           ListTile(
                             leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
                             title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
+                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 2)))},
                           ),
                           Divider(),
                           ListTile(
                             leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
                             title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
+                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 3)))},
                           ),
                           Divider(),
                           ListTile(
                             leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
                             title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
+                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)))},
                           ),
                           Divider(),
                           ListTile(

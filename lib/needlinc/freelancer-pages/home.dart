@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
-import 'package:needlinc/needlinc/client-pages/client-main.dart';
+import '../freelancer-pages/post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
 import '../widgets/page-transition.dart';
+import 'freelancer-main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                    height: 40,
@@ -98,31 +98,31 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(Icons.input, color: NeedlincColors.blue2,),
               title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)))},
             ),
             Divider(),
             ListTile(
@@ -144,14 +144,30 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: NeedlincColors.white,
           elevation: 0,
           iconTheme: IconThemeData(color: NeedlincColors.blue1),
-          title: Center(child: Text("Needlinc", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)),
-          actions: [IconButton(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            icon: Icon(Icons.message),
-            onPressed: (){
-              //TODO Chat messaging feature
-            },
-          ),]
+          title: Container(
+              margin: EdgeInsets.only(left: 75),
+              child: Text("Needlinc", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1))
+          ),
+          actions: [
+            Row(
+              children: [
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  icon: Icon(Icons.people),
+                  onPressed: (){
+                    //TODO Chat messaging feature
+                  },
+                ),
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  icon: Icon(Icons.message),
+                  onPressed: (){
+                    //TODO Chat messaging feature
+                  },
+                ),
+              ],
+            ),
+          ]
       ),
       body: ListView(
         children: [
@@ -208,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                             GestureDetector(
                               onTap: ()
                               {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)),);
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)),);
                               },
                               child: Container(
                                 padding: EdgeInsets.all(15.0),
@@ -289,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
                           },
                           child: Container(
                             padding: EdgeInsets.all(20),
