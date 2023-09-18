@@ -63,7 +63,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage("images/logo.png"),
+                image: AssetImage("logo.png"),
               ),
             ),
           ),
