@@ -170,41 +170,9 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
-            //TODO Search bar
-            Container(
-              height: 40,
-              width: 400,
-              margin: EdgeInsets.symmetric(horizontal: 16.0),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                color: NeedlincColors.black3,
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Icon(Icons.search),
-                  SizedBox(width: 2),
-                  VerticalDivider(thickness: 2,),
-                  SizedBox(width: 4),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search...',
-                        border: InputBorder.none,
-                      ),
-                      onSubmitted: (value) {
-                        // TODO: Perform search action here
-                        // For simplicity, you can just print a message for now
-                        print('Performing search for: $value');
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 50.0, left: 10.0),
+              margin: EdgeInsets.only(top: 0.0, left: 10.0),
               child: Text(
                   "Pending Jobs",
                 style: GoogleFonts.oxygen(
@@ -216,7 +184,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.95,
-              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.6, left: 10.0),
+              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.77, left: 10.0),
               child: Divider(
                 color: NeedlincColors.blue2,
               ),
@@ -224,7 +192,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             //TODO Cards section
             Container(
               height: 135.0,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.11, left: 10.0),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05, left: 10.0),
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -314,7 +282,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3, left: 10.0),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.23, left: 10.0),
               child: Divider(
                 color: NeedlincColors.blue2,
               ),
@@ -322,7 +290,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             //TODO The text "Just for you"
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.315, left: 10.0),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.255, left: 10.0),
               child: Text(
                 "Jobs For You",
                 style: GoogleFonts.oxygen(
@@ -333,8 +301,8 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             ),
             //TODO List of Client Post just for your type of expertise
             Container(
-              height: MediaQuery.of(context).size.height * 0.4,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35, left: 10.0),
+              height: MediaQuery.of(context).size.height * 0.6,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3, left: 10.0),
               child: ListView(
                 physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 children: [

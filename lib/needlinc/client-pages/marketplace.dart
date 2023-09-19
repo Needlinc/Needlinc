@@ -140,20 +140,46 @@ class _MarketplacePageState extends State<MarketplacePage> {
       // TODO(Already done) This is the AppBar
       appBar: AppBar(
           backgroundColor: NeedlincColors.white,
-          elevation: 0,
+          elevation: 5.0,
+          shadowColor: NeedlincColors.black1,
           iconTheme: IconThemeData(color: NeedlincColors.blue1),
           title: Column(
             children: [
-              Center(child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)),
               Container(
-                margin: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
-                height: 15,
-                width: 100,
+                margin: EdgeInsets.only(bottom: 8.0),
+                  child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
+              ),
+              Container(
+                height: 30,
+                width: 300,
+                margin: EdgeInsets.only(bottom: 5.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                   color: NeedlincColors.black3,
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-              )
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.search),
+                    SizedBox(width: 2),
+                    VerticalDivider(thickness: 2,),
+                    SizedBox(width: 4),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Search...',
+                          border: InputBorder.none,
+                        ),
+                        onSubmitted: (value) {
+                          // TODO: Perform search action here
+                          // For simplicity, you can just print a message for now
+                          print('Performing search for: $value');
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           actions: [
@@ -222,7 +248,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
       body: SingleChildScrollView(
         child:  Column(
           children: [
-            SizedBox(child: Divider(thickness: 2, color: NeedlincColors.black2,), width: MediaQuery.of(context).size.width * 0.95,),
             for(int newsPost = 0; newsPost < 16; newsPost++)
             Container(
               margin: EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),

@@ -20,10 +20,41 @@ class _PeoplePageState extends State<PeoplePage> {
         ),
         centerTitle: true,
         backgroundColor: NeedlincColors.white,
-        elevation: 0,
+        elevation: 0.0,
       ),
       body: Column(
         children: [
+          Container(
+            height: 35,
+            width: 300,
+            margin: EdgeInsets.only(bottom: 5.0),
+            padding: EdgeInsets.symmetric(horizontal: 18.0),
+            decoration: BoxDecoration(
+              color: NeedlincColors.black3,
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.search),
+                SizedBox(width: 2),
+                VerticalDivider(thickness: 2,),
+                SizedBox(width: 4),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search for others...',
+                      border: InputBorder.none,
+                    ),
+                    onSubmitted: (value) {
+                      // TODO: Perform search action here
+                      // For simplicity, you can just print a message for now
+                      print('Performing search for: $value');
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
           Container(
             color: NeedlincColors.white,
             padding: EdgeInsets.symmetric(horizontal: 5.0),

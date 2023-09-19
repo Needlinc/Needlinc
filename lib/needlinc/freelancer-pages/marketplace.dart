@@ -139,84 +139,110 @@ class _MarketplacePageState extends State<MarketplacePage> {
       ),
       // TODO(Already done) This is the AppBar
       appBar: AppBar(
-          backgroundColor: NeedlincColors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: NeedlincColors.blue1),
-          title: Column(
+        backgroundColor: NeedlincColors.white,
+        elevation: 5.0,
+        shadowColor: NeedlincColors.black1,
+        iconTheme: IconThemeData(color: NeedlincColors.blue1),
+        title: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.only(bottom: 8.0),
+                child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
+            ),
+            Container(
+              height: 30,
+              width: 300,
+              margin: EdgeInsets.only(bottom: 5.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              decoration: BoxDecoration(
+                color: NeedlincColors.black3,
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Icon(Icons.search),
+                  SizedBox(width: 2),
+                  VerticalDivider(thickness: 2,),
+                  SizedBox(width: 4),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search...',
+                        border: InputBorder.none,
+                      ),
+                      onSubmitted: (value) {
+                        // TODO: Perform search action here
+                        // For simplicity, you can just print a message for now
+                        print('Performing search for: $value');
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Column(
             children: [
-              Center(child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)),
-              Container(
-                margin: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
-                height: 15,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: NeedlincColors.black3,
-                  borderRadius: BorderRadius.circular(20)
-                ),
-              )
-            ],
-          ),
-          actions: [
-            Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
+              Row(
+                children: [
+                  IconButton(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     icon: Icon(Icons.message),
                     onPressed: (){
                       //TODO Chat messaging feature
                     },
-                   ),
-                    //TODO This container is for the small circular profile  picture  at the app bar in the market place page
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(12.0),
-                        margin: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                            ),
-                            fit: BoxFit.fill,
+                  ),
+                  //TODO This container is for the small circular profile  picture  at the app bar in the market place page
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(12.0),
+                      margin: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
                           ),
-                          color: NeedlincColors.black3,
-                          shape: BoxShape.circle,
+                          fit: BoxFit.fill,
                         ),
+                        color: NeedlincColors.black3,
+                        shape: BoxShape.circle,
                       ),
+                    ),
+                  ),
+                ],
+              ),
+              //TODO This is the post button in the market-place page
+              Container(
+                width: 45,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: NeedlincColors.blue1,
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: NeedlincColors.black2.withOpacity(0.8), // Shadow color
+                      spreadRadius: 4, // Spread radius
+                      blurRadius: 5, // Blur radius
+                      offset: Offset(0, 6), // Offset in the form of (dx, dy)
                     ),
                   ],
                 ),
-                //TODO This is the post button in the market-place page
-                Container(
-                  width: 45,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: NeedlincColors.blue1,
-                    borderRadius: BorderRadius.circular(10.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: NeedlincColors.black2.withOpacity(0.8), // Shadow color
-                        spreadRadius: 4, // Spread radius
-                        blurRadius: 5, // Blur radius
-                        offset: Offset(0, 6), // Offset in the form of (dx, dy)
-                      ),
-                    ],
-                  ),
-                  child: IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    icon: Icon(Icons.draw_outlined, color: NeedlincColors.white,),
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));
-                    },
-                  ),
+                child: IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  icon: Icon(Icons.draw_outlined, color: NeedlincColors.white,),
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));
+                  },
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
+        ],
         toolbarHeight: 95,
       ),
       body: SingleChildScrollView(
