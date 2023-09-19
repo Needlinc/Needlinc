@@ -33,98 +33,101 @@ class _WelcomePage2State extends State<WelcomePage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Stack(
-            // Tripple Layer
-            children: [
-              backGround(),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.34,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 40, right: 40),
-                alignment: Alignment.center,
-                child: Text(
-                  showNext ? words.last : words.first,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          // NeedLinc image
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.37,
-            margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage("logo.png"),
-              ),
-            ),
-          ),
-          // Next button
-          Visibility(
-            visible: showNext,
-            child: Container(
-              alignment: Alignment.bottomRight,
-              margin: EdgeInsets.only(right: 20, top: 70),
-              child: ElevatedButton(
-                onPressed: () => print('pressed'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  backgroundColor: Colors.blue,
-                  padding: EdgeInsets.all(16),
-                ),
-                child: Text(
-                  "NEXT",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // Little circles below
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Stack(
+              // Tripple Layer
               children: [
-                GestureDetector(
-                  onTap: _HideNext,
-                  child: Container(
-                    width: showNext ? small : big,
-                    height: showNext ? small : big,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0.5 * (showNext ? small : big)),
-                      color: showNext ? inactiveColor : activeColor,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 4.0),
-                GestureDetector(
-                  onTap: _ShowNext,
-                  child: Container(
-                    width: showNext ? big : small,
-                    height: showNext ? big : small,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0.5 * (showNext ? big : small)),
-                      color: showNext ? activeColor : inactiveColor,
+                backGround(),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.34,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 40, right: 40),
+                  alignment: Alignment.center,
+                  child: Text(
+                    showNext ? words.last : words.first,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            // NeedLinc image
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.37,
+              margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("logo.png"),
+                ),
+              ),
+            ),
+            // Next button
+            Visibility(
+              visible: showNext,
+              child: Container(
+                alignment: Alignment.bottomRight,
+                margin: EdgeInsets.only(right: 20, top: 70),
+                child: ElevatedButton(
+                  onPressed: () => print('pressed'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    backgroundColor: Colors.blue,
+                    padding: EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    "NEXT",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Little circles below
+            Container(
+              padding: const EdgeInsets.all(30.0),
+              height: showNext ? null : MediaQuery.of(context).size.height * 0.37,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: _HideNext,
+                    child: Container(
+                      width: showNext ? small : big,
+                      height: showNext ? small : big,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(0.5 * (showNext ? small : big)),
+                        color: showNext ? inactiveColor : activeColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 4.0),
+                  GestureDetector(
+                    onTap: _ShowNext,
+                    child: Container(
+                      width: showNext ? big : small,
+                      height: showNext ? big : small,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(0.5 * (showNext ? big : small)),
+                        color: showNext ? activeColor : inactiveColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
