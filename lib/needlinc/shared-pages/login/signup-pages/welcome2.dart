@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 
@@ -17,7 +18,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
 
   bool showNext = false;
   double small = 15, big = 19;
-  final activeColor = Colors.blue, inactiveColor = const Color.fromARGB(255, 143, 196, 240);
+  final activeColor = NeedlincColors.blue1, inactiveColor = const Color.fromARGB(255, 143, 196, 240);
 
   void _ShowNext() {
     setState(() {
@@ -73,14 +74,14 @@ class _WelcomePage2State extends State<WelcomePage2> {
               visible: showNext,
               child: Container(
                 alignment: Alignment.bottomRight,
-                margin: EdgeInsets.only(right: 20, top: 70),
+                margin: EdgeInsets.only(right: 20, top: 75),
                 child: ElevatedButton(
                   onPressed: () => print('pressed'),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: NeedlincColors.blue1,
                     padding: EdgeInsets.all(16),
                   ),
                   child: Text(
