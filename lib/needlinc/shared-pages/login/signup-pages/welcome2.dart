@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
+import 'package:needlinc/needlinc/shared-pages/login/signup-pages/sign-up.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
-
 
 class WelcomePage2 extends StatefulWidget {
   const WelcomePage2({super.key});
@@ -18,13 +18,15 @@ class _WelcomePage2State extends State<WelcomePage2> {
 
   bool showNext = false;
   double small = 15, big = 19;
-  final activeColor = NeedlincColors.blue1, inactiveColor = const Color.fromARGB(255, 143, 196, 240);
+  final activeColor = NeedlincColors.blue1,
+      inactiveColor = NeedlincColors.grey;
 
   void _ShowNext() {
     setState(() {
       showNext = true;
     });
   }
+
   void _HideNext() {
     setState(() {
       showNext = false;
@@ -76,7 +78,8 @@ class _WelcomePage2State extends State<WelcomePage2> {
                 alignment: Alignment.bottomRight,
                 margin: EdgeInsets.only(right: 20, top: 75),
                 child: ElevatedButton(
-                  onPressed: () => print('pressed'),
+                  onPressed: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => SignupPage())),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -97,7 +100,8 @@ class _WelcomePage2State extends State<WelcomePage2> {
             // Little circles below
             Container(
               padding: const EdgeInsets.all(30.0),
-              height: showNext ? null : MediaQuery.of(context).size.height * 0.37,
+              height:
+                  showNext ? null : MediaQuery.of(context).size.height * 0.37,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -107,7 +111,8 @@ class _WelcomePage2State extends State<WelcomePage2> {
                       width: showNext ? small : big,
                       height: showNext ? small : big,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0.5 * (showNext ? small : big)),
+                        borderRadius: BorderRadius.circular(
+                            0.5 * (showNext ? small : big)),
                         color: showNext ? inactiveColor : activeColor,
                       ),
                     ),
@@ -119,7 +124,8 @@ class _WelcomePage2State extends State<WelcomePage2> {
                       width: showNext ? big : small,
                       height: showNext ? big : small,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0.5 * (showNext ? big : small)),
+                        borderRadius: BorderRadius.circular(
+                            0.5 * (showNext ? big : small)),
                         color: showNext ? activeColor : inactiveColor,
                       ),
                     ),

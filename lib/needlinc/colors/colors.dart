@@ -9,4 +9,5 @@ class NeedlincColors {
   static const Color black1 = Color(0xFF000000);
   static const Color black2 = Color(0xFF76767A);
   static const Color black3 = Color(0xFFE0E0E0);
+  static const Color red = Color.fromARGB(255, 243, 30, 30);
 }
