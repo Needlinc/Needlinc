@@ -148,7 +148,8 @@ class _SignupPageState extends State<SignupPage> {
                             },
                             child: Text('Sign in'),
                             style: ElevatedButton.styleFrom(
-                              fixedSize: Size(230, 30),
+                              backgroundColor: NeedlincColors.blue1,
+                              fixedSize: Size(double.maxFinite, 30),
                               shape: BeveledRectangleBorder(
                                 borderRadius: BorderRadius.zero,
                               ),
@@ -160,12 +161,17 @@ class _SignupPageState extends State<SignupPage> {
                             onPressed: () {
                               print('created new account');
                             },
-                            child: Text('Create New Account'),
+                            child: Text(
+                              'Create New Account',
+                              style: TextStyle(
+                                color: NeedlincColors.blue1,
+                              ),
+                            ),
                             style: TextButton.styleFrom(
-                              fixedSize: Size(230, 30),
+                              fixedSize: Size(double.maxFinite, 30),
                               shape: BeveledRectangleBorder(
                                 side: BorderSide(
-                                  color: Colors.blue,
+                                  color: NeedlincColors.blue1,
                                 ),
                                 borderRadius: BorderRadius.zero,
                               ),
@@ -178,7 +184,7 @@ class _SignupPageState extends State<SignupPage> {
                             child: Text(
                               'forgot password? Click here to reset',
                               style: TextStyle(
-                                color: Colors.blue,
+                                color: NeedlincColors.blue1,
                                 fontSize: 12,
                                 decoration: TextDecoration.underline,
                               ),
@@ -188,12 +194,24 @@ class _SignupPageState extends State<SignupPage> {
                           // or sign up as
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(height: 1, width: 78, color: Colors.black,),
+                              Container(
+                                height: 1,
+                                width: 78,
+                                color: NeedlincColors.black1,
+                              ),
                               SizedBox(width: 3),
-                              Text("or sign up as", style: TextStyle(fontSize: 10),),
+                              Text(
+                                "or sign up as",
+                                style: TextStyle(fontSize: 10),
+                              ),
                               SizedBox(width: 3),
-                              Container(height: 1, width: 78, color: Colors.black,),
+                              Container(
+                                height: 1,
+                                width: 78,
+                                color: NeedlincColors.black1,
+                              ),
                             ],
                           ),
                           SizedBox(height: 17),
@@ -205,13 +223,13 @@ class _SignupPageState extends State<SignupPage> {
                             icon: Icon(Icons.vpn_lock_rounded),
                             label: Text(
                               'Sign up with Google',
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: NeedlincColors.black1),
                             ),
                             style: TextButton.styleFrom(
-                              fixedSize: Size(230, 30),
+                              fixedSize: Size(double.maxFinite, 30),
                               shape: BeveledRectangleBorder(
                                 side: BorderSide(
-                                  color: Colors.black,
+                                  color: NeedlincColors.black1,
                                 ),
                                 borderRadius: BorderRadius.zero,
                               ),
@@ -226,13 +244,13 @@ class _SignupPageState extends State<SignupPage> {
                             icon: Icon(Icons.facebook),
                             label: Text(
                               'Sign up with Facebook',
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: NeedlincColors.black1),
                             ),
                             style: TextButton.styleFrom(
-                              fixedSize: Size(230, 30),
+                              fixedSize: Size(double.maxFinite, 30),
                               shape: BeveledRectangleBorder(
                                 side: BorderSide(
-                                  color: Colors.black,
+                                  color: NeedlincColors.black1,
                                 ),
                                 borderRadius: BorderRadius.zero,
                               ),

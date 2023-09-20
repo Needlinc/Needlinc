@@ -67,7 +67,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: AssetImage("logo.png"),
+                  image: AssetImage("assets/logo.png"),
                 ),
               ),
             ),
