@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
+import 'package:needlinc/needlinc/shared-pages/login/signup-pages/create-new-account.dart';
+import 'package:needlinc/needlinc/widgets/EnterApp.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
@@ -11,7 +13,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-
   final ErrorBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: NeedlincColors.red,
@@ -49,7 +50,6 @@ class _SignupPageState extends State<SignupPage> {
       throw 'Could not launch $url';
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,11 @@ class _SignupPageState extends State<SignupPage> {
                           // Sign in
                           ElevatedButton(
                             onPressed: () {
-                              print('Signed in');
+                              // Add your logic for Client sign-in here
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignInPage()));
                             },
                             child: Text('Sign in'),
                             style: ElevatedButton.styleFrom(
@@ -158,9 +162,10 @@ class _SignupPageState extends State<SignupPage> {
                           SizedBox(height: 10),
                           // create new account
                           TextButton(
-                            onPressed: () {
-                              print('created new account');
-                            },
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CreateAccountPage())),
                             child: Text(
                               'Create New Account',
                               style: TextStyle(
