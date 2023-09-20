@@ -150,10 +150,10 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
             ),
             Container(
-              height: 30,
+              height: 35,
               width: 300,
-              margin: EdgeInsets.only(bottom: 5.0),
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              margin: EdgeInsets.only(bottom: 5.0, top: 7.5),
+              padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
               decoration: BoxDecoration(
                 color: NeedlincColors.black3,
                 borderRadius: BorderRadius.circular(30.0),
@@ -161,7 +161,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
               child: Row(
                 children: <Widget>[
                   Icon(Icons.search),
-                  SizedBox(width: 2),
+                  SizedBox(width: 2.0),
                   VerticalDivider(thickness: 2,),
                   SizedBox(width: 4),
                   Expanded(

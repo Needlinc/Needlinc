@@ -184,7 +184,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.95,
-              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.77, left: 10.0),
+              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.74, left: 10.0),
               child: Divider(
                 color: NeedlincColors.blue2,
               ),
@@ -192,7 +192,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             //TODO Cards section
             Container(
               height: 135.0,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05, left: 10.0),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.055, left: 10.0),
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),

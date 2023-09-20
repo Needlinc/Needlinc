@@ -140,19 +140,7 @@ class _NewsPageState extends State<NewsPage> {
         ),
       ),
       //TODO(Already done) This is the AppBar
-      appBar: AppBar(
-          backgroundColor: NeedlincColors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: NeedlincColors.blue1),
-          title: Center(child: Text("Needlinc", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)),
-          actions: [IconButton(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            icon: Icon(Icons.message),
-            onPressed: (){
-              //TODO Chat messaging feature
-            },
-          ),]
-      ),
+
       body: SafeArea(
         child: Stack(
           children: [
@@ -210,7 +198,7 @@ class _NewsPageState extends State<NewsPage> {
                                 GestureDetector(
                                   onTap: ()
                                   {
-                //                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)),);
+
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(15.0),
@@ -331,143 +319,169 @@ class _NewsPageState extends State<NewsPage> {
                 ]
             ),
             //TODO seperation
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(
-                      color: NeedlincColors.blue2.withOpacity(0.5),
-                      width: 0.001,
-                      height: 0.001,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10.0, left: 40.0, bottom: 5.0),
-                    child: InkWell(onTap: (){
-                      Navigator.pop(context);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            border: Border.all(color: NeedlincColors.blue2)
-                        ),
-                        child: Row(
-                          children: [
-                            Text("Close"),
-                            Icon(Icons.arrow_forward_ios_rounded,)
-                          ],
-                        ),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                        color: NeedlincColors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: NeedlincColors.black2.withOpacity(0.5), // Shadow color
-                            spreadRadius: 8, // Spread radius
-                            blurRadius: 10, // Blur radius
-                            offset: Offset(0, 6), // Offset in the form of (dx, dy)
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(20)
-                    ),
-                  ),
-                  for(int newsPost = 0; newsPost < 16; newsPost++)
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 40, bottom: 10),
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                          color: NeedlincColors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: NeedlincColors.black2.withOpacity(0.5), // Shadow color
-                              spreadRadius: 8, // Spread radius
-                              blurRadius: 10, // Blur radius
-                              offset: Offset(0, 6), // Offset in the form of (dx, dy)
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(20)
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(20),
-                                  margin: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                    color: NeedlincColors.black3,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                        Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                        IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
-                                      ],
-                                    ),
-                                    Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                    Text("📍John Paul's kitchen, eziobodor", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 30.0,),
-                          //TODO Icons on each news post
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
-                                  Text("1.2K", style: TextStyle(fontSize: 10))
-                                ],
-                              ),
-                              SizedBox(width: 10.0,),
-                              Row(
-                                children: [
-                                  IconButton(onPressed: ()
-                                  {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
-                                  }, icon: Icon(Icons.comment_outlined, size: 20,)),
-                                  Text("200", style: TextStyle(fontSize: 10))
-                                ],
-                              ),
-                              SizedBox(width: 10.0,),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border, size: 20,)),
-                              SizedBox(width: 10.0,),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                ],
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(
+                color: NeedlincColors.blue2.withOpacity(0.5),
+                width: 0.001,
+                height: 0.001,
               ),
             ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.95,
+              margin: EdgeInsets.only(top: 50.0),
+              child: SingleChildScrollView(
+                physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+                child: Column(
+                  children: [
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                      child: Container(
+                        color: NeedlincColors.blue2.withOpacity(0.5),
+                        width: 0.001,
+                        height: 0.001,
+                      ),
+                    ),
+
+                    for(int newsPost = 0; newsPost < 16; newsPost++)
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(left: 40, bottom: 10),
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                            color: NeedlincColors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: NeedlincColors.black2.withOpacity(0.5), // Shadow color
+                                spreadRadius: 8, // Spread radius
+                                blurRadius: 10, // Blur radius
+                                offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    margin: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                                        ),
+                                        fit: BoxFit.fill,
+                                      ),
+                                      color: NeedlincColors.black3,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width * 0.6,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                          Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                          IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
+                                        ],
+                                      ),
+                                      Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                      Text("📍John Paul's kitchen, eziobodor", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 30.0,),
+                            //TODO Icons on each news post
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
+                                    Text("1.2K", style: TextStyle(fontSize: 10))
+                                  ],
+                                ),
+                                SizedBox(width: 10.0,),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                    onPressed: ()
+                                    {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                                    },
+                                     icon: Icon(Icons.comment_outlined, size: 20,)),
+                                    Text("200", style: TextStyle(fontSize: 10))
+                                  ],
+                                ),
+                                SizedBox(width: 10.0,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border, size: 20,)),
+                                SizedBox(width: 10.0,),
+                                IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 40.0),
+              child: InkWell(
+                onTap: ()
+                {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18.0),
+                      border: Border.all(color: NeedlincColors.blue2)
+                  ),
+                  child: Row(
+                    children: [
+                      Text("Close"),
+                      Icon(Icons.arrow_forward_ios_rounded,)
+                    ],
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                  color: NeedlincColors.white,
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: NeedlincColors.black2.withOpacity(0.5), // Shadow color
+                  //     spreadRadius: 8, // Spread radius
+                  //     blurRadius: 10, // Blur radius
+                  //     offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                  //   ),
+                  // ],
+                  borderRadius: BorderRadius.circular(20)
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.1,
+              ),
+            )
           ],
         ),
       ),
