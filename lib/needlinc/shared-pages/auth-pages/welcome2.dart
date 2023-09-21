@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/login/signup-pages/sign-up.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/sign-up.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 class WelcomePage2 extends StatefulWidget {

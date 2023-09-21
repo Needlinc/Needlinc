@@ -1,11 +1,5 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/profile.dart';
-import 'package:needlinc/needlinc/client-pages/client-main.dart';
-import 'package:needlinc/needlinc/shared-pages/login/signup-pages/welcome.dart';
-import 'needlinc/colors/colors.dart';
-import 'needlinc/freelancer-pages/freelancer-main.dart';
-import 'needlinc/widgets/EnterApp.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 
 void main() => runApp(Home());
 
