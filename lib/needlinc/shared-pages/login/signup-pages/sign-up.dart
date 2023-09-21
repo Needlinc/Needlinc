@@ -59,7 +59,7 @@ class _SignupPageState extends State<SignupPage> {
           backGround(),
           Center(
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.53,
+              height: MediaQuery.of(context).size.height * 0.6,
               width: MediaQuery.of(context).size.width * 0.9,
               margin: EdgeInsets.only(top: 60),
               decoration: BoxDecoration(

@@ -59,7 +59,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
                       child: IconButton(
-                        onPressed: _HideAddPhoto,
+                        onPressed: (){
+                          if(addPhoto == false){
+                            Navigator.pop(context);
+                          }
+                          _HideAddPhoto();
+                        },
                         icon: Icon(
                           Icons
                               .arrow_back_ios_new, // Specify the icon you want to use
@@ -110,7 +115,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     Visibility(
                       visible: !addPhoto,
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.48,
                         width: MediaQuery.of(context).size.width * 0.9,
                         decoration: BoxDecoration(
                           color: NeedlincColors.white,
@@ -125,7 +129,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 0),
+                          padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
                           child: Column(
                             children: [
                               // Create New Account
@@ -158,7 +162,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     // Enter User Name
                                     TextField(
                                       decoration: InputDecoration(
-                                        hintText: 'Enter User Nmae',
+                                        hintText: 'Enter User Name',
                                         contentPadding: EdgeInsets.symmetric(
                                             horizontal: 8.0),
                                         focusedBorder: FocusedBorder,
@@ -228,8 +232,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       visible: addPhoto,
                       child: Stack(alignment: Alignment.bottomRight, children: [
                         Container(
-                          height: 250,
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          height: 210,
+                          width: 210,
                           decoration: BoxDecoration(
                             color: NeedlincColors.white,
                             borderRadius: BorderRadius.circular(150),
@@ -243,7 +247,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             ],
                             image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: AssetImage("logo.png"),
+                              image: AssetImage("assets/logo.png"),
                             ),
                           ),
                         ),
