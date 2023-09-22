@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -284,7 +285,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     padding: EdgeInsets.only(right: 50, bottom: 70),
                     child: ElevatedButton(
                       onPressed: () {
-                        print('Next');
+                        Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Gender()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: NeedlincColors.blue1
