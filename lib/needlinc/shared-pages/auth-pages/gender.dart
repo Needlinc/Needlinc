@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/widgets/calendar.dart';
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
 
@@ -91,124 +92,117 @@ class _GenderState extends State<Gender> {
                 ],
               ),
               // main Card
-              Center(
-                heightFactor: 1.65,
-                child: Column(
-                  children: [
-                    // Card title
-                    Text(
-                      addBirth ? 'Add Date of Birth' : 'Choose Your Gender',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w400,
+              Column(
+                children: [
+                  // Card title
+                  Text(
+                    addBirth ? 'Add Date of Birth' : 'Choose Your Gender',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w400,
+                      color: NeedlincColors.white,
+                    ),
+                  ),
+                  // body
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Visibility(
+                    visible: !addBirth,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: BoxDecoration(
                         color: NeedlincColors.white,
-                      ),
-                    ),
-                    // body
-                    SizedBox(
-                      height: 36,
-                    ),
-                    Visibility(
-                      visible: !addBirth,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        decoration: BoxDecoration(
-                          color: NeedlincColors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: NeedlincColors.grey,
-                              offset: Offset(0, 3),
-                              blurRadius: 3.0,
-                              spreadRadius: 1.0,
-                            )
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
-                          child: Column(
-                            // choose Gender
-                            children: [
-                              // Male
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: isMale ? true : false,
-                                    onChanged: maleCheck,
-                                    visualDensity: VisualDensity(
-                                        horizontal: -1, vertical: -1),
-                                  ),
-                                  Text(
-                                    'Male',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                              // Female
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: isFemale ? true : false,
-                                    onChanged: femaleCheck,
-                                    visualDensity: VisualDensity(
-                                        horizontal: -1, vertical: -1),
-                                  ),
-                                  Text(
-                                    'Female',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    // Add Date of Birth container
-                    Visibility(
-                      visible: addBirth,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 250,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              decoration: BoxDecoration(
-                                color: NeedlincColors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: NeedlincColors.grey,
-                                    offset: Offset(0, 3),
-                                    blurRadius: 3.0,
-                                    spreadRadius: 1.0,
-                                  )
-                                ],
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
-                                child: Placeholder(),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: showOnProfile ? true : false,
-                                onChanged: showOnProfileCheck,
-                                visualDensity:
-                                    VisualDensity(horizontal: -1, vertical: -3),
-                              ),
-                              Text('Show on profile'),
-                            ],
-                          ),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: NeedlincColors.grey,
+                            offset: Offset(0, 3),
+                            blurRadius: 3.0,
+                            spreadRadius: 1.0,
+                          )
                         ],
                       ),
-                    )
-                  ],
-                ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
+                        child: Column(
+                          // choose Gender
+                          children: [
+                            // Male
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: isMale ? true : false,
+                                  onChanged: maleCheck,
+                                  visualDensity: VisualDensity(
+                                      horizontal: -1, vertical: -1),
+                                ),
+                                Text(
+                                  'Male',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ],
+                            ),
+                            // Female
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: isFemale ? true : false,
+                                  onChanged: femaleCheck,
+                                  visualDensity: VisualDensity(
+                                      horizontal: -1, vertical: -1),
+                                ),
+                                Text(
+                                  'Female',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Add Date of Birth container
+                  Visibility(
+                    visible: addBirth,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 350,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Calendar(title: "Helo"),
+                            decoration: BoxDecoration(
+                              color: NeedlincColors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: NeedlincColors.grey,
+                                  offset: Offset(0, 3),
+                                  blurRadius: 3.0,
+                                  spreadRadius: 1.0,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: showOnProfile ? true : false,
+                              onChanged: showOnProfileCheck,
+                              visualDensity:
+                                  VisualDensity(horizontal: -1, vertical: -3),
+                            ),
+                            Text('Show on profile'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
               // Next button
               Expanded(
