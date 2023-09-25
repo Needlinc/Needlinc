@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
-=======
 import 'package:needlinc/needlinc/widgets/calendar.dart';
->>>>>>> 5179fa9282296700943c5104a5c0d53a122264f6
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
 
@@ -95,6 +92,7 @@ class _GenderState extends State<Gender> {
                   )
                 ],
               ),
+              SizedBox(height: 80,),
               // main Card
               Column(
                 children: [
@@ -191,7 +189,6 @@ class _GenderState extends State<Gender> {
                             ),
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.2),
                         Row(
                           children: [
                             Checkbox(
