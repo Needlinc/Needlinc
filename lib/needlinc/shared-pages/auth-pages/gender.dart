@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
 
@@ -218,7 +219,10 @@ class _GenderState extends State<Gender> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (addBirth == true) {
-                        Navigator.pop(context);
+                        Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Location()));
                       }
                       _ShowAddBirth();
                     },
