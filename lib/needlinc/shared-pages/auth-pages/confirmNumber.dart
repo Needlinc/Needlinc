@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/confirmNumber.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
-class PhoneNumber extends StatefulWidget {
-  const PhoneNumber({super.key});
+import '../../colors/colors.dart';
+
+class confirmNumber extends StatefulWidget {
+  const confirmNumber({super.key});
 
   @override
-  State<PhoneNumber> createState() => _PhoneNumberState();
+  State<confirmNumber> createState() => _confirmNumberState();
 }
 
-class _PhoneNumberState extends State<PhoneNumber> {
+class _confirmNumberState extends State<confirmNumber> {
+  int lastDigit = 765;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +49,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   Container(
                     padding: EdgeInsets.only(right: 10),
                     child: Text(
-                      'Skip',
+                      '      ',
                       style:
                           TextStyle(color: NeedlincColors.white, fontSize: 21),
                     ),
@@ -59,19 +61,30 @@ class _PhoneNumberState extends State<PhoneNumber> {
               ),
               // main Card
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Card title
                   Text(
-                    'Add Phone Number',
+                    'Confirm code',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w400,
                       color: NeedlincColors.white,
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: Text(
+                      'You were sent a 4 digit code to your phone number ~ ********$lastDigit ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: NeedlincColors.white,
+                      ),
+                    ),
+                  ),
                   // body
                   SizedBox(
-                    height: 40.0,
+                    height: 20.0,
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
@@ -101,7 +114,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => confirmNumber()));
+                          MaterialPageRoute(builder: (context) => Location()));
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: NeedlincColors.blue1),
@@ -112,7 +125,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );
