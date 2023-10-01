@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/addNumber.dart';
 
 class Location extends StatefulWidget {
   const Location({super.key});
@@ -102,13 +103,8 @@ class _LocationState extends State<Location> {
               padding: EdgeInsets.only(right: 50, bottom: 70),
               child: ElevatedButton(
                 onPressed: () {
-                  // if (addBirth == true) {
-                  //   Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //                 builder: (context) => Location()));
-                  // }
-                  // _ShowAddBirth();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PhoneNumber()));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: NeedlincColors.blue1),
