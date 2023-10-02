@@ -279,7 +279,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 child: Expanded(
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.only(right: 50, bottom: 70),
+                    padding: EdgeInsets.only(right: 30, bottom: 70),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -288,12 +288,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                       builder: (context) => Gender()));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: NeedlincColors.blue1
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Text(
-                        'Next',
+                      backgroundColor: NeedlincColors.blue1,
+                      padding: EdgeInsets.all(16),
+                    ),
+                    child: Text(
+                      'NEXT',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
+                  ),
                   ),
                 ),
               )
