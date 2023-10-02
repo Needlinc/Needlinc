@@ -97,16 +97,25 @@ class _PhoneNumberState extends State<PhoneNumber> {
               Expanded(
                 child: Container(
                   alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.only(right: 50, bottom: 70),
+                  padding: EdgeInsets.only(right: 30, bottom: 70),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => confirmNumber()));
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: NeedlincColors.blue1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      backgroundColor: NeedlincColors.blue1,
+                      padding: EdgeInsets.all(16),
+                    ),
                     child: Text(
-                      'Next',
+                      'NEXT',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
