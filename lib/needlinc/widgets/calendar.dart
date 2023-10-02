@@ -1,5 +1,6 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/colors/colors.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key, required this.title}) : super(key: key);
@@ -40,33 +41,53 @@ class _CalendarState extends State<Calendar> {
         });
       },
       child: selectADate == null ?
-      Text(
-          "Select your date of birth",
-        style: TextStyle(
-            fontSize: 20.0
+      Container(
+        padding: EdgeInsets.all(5.0),
+        child: Text(
+            "Select your date of birth",
+            style: TextStyle(
+                fontSize: 20.0
+            ),
+          ),
+        decoration: BoxDecoration(
+          border: Border.all(color: NeedlincColors.black1),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-      ) : Text(
-          "${_buildSelectedDates()}",
-        style: TextStyle(
-          fontSize: 20.0
+      )
+       : Container(
+        padding: EdgeInsets.all(5.0),
+        child: Text(
+            "${_buildSelectedDates()}",
+          style: TextStyle(
+            fontSize: 20.0
+          ),
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(color: NeedlincColors.black1),
+          borderRadius: BorderRadius.circular(10.0),
         ),
       ),
     );
   }
 
   Widget _buildDatePickerWidget() {
-    return Column(
-      children: [
-        CalendarDatePicker2(
-          config: CalendarDatePicker2Config(
-            // Configure your calendar here
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0), // Adjust the border radius as needed
+      ),
+      elevation: 4.0, // Add elevation for a shadow effect
+      child: Column(
+        children: [
+          CalendarDatePicker2(
+            config: CalendarDatePicker2Config(),
+            value: _selectedDates,
+            onValueChanged: _handleDateSelection,
           ),
-          value: _selectedDates,
-          onValueChanged: _handleDateSelection,
-        ),
-      ],
+        ],
+      ),
     );
   }
+
 
   String _buildSelectedDates() {
     return _selectedDates.map((date) => date?.toString().substring(0, 10) ?? 'null').join(', ');

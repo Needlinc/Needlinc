@@ -170,23 +170,13 @@ class _GenderState extends State<Gender> {
                     visible: addBirth,
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 350,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: Calendar(title: "Helo"),
-                            decoration: BoxDecoration(
-                              color: NeedlincColors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: NeedlincColors.grey,
-                                  offset: Offset(0, 3),
-                                  blurRadius: 3.0,
-                                  spreadRadius: 1.0,
-                                )
-                              ],
-                            ),
+                        Container(
+                          height: 360,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Calendar(title: "Date of Birth"),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
                         Row(
