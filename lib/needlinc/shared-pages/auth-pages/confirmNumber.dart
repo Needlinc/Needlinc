@@ -115,14 +115,14 @@ class _confirmNumberState extends State<confirmNumber> {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
+                      padding: const EdgeInsets.fromLTRB(35, 50, 35, 50),
                       child: Form(
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            height: 68,
-                            width: 64,
+                            height: 54,
+                            width: 50,
                             child: TextFormField(
                               onChanged: (value) {
                                 if (value.length == 1) {
@@ -143,8 +143,8 @@ class _confirmNumberState extends State<confirmNumber> {
                             ),
                           ),
                           SizedBox(
-                            height: 68,
-                            width: 64,
+                            height: 54,
+                            width: 50,
                             child: TextFormField(
                               decoration: InputDecoration(
                                 focusedBorder: FocusedBorder,
@@ -165,8 +165,8 @@ class _confirmNumberState extends State<confirmNumber> {
                             ),
                           ),
                           SizedBox(
-                            height: 68,
-                            width: 64,
+                            height: 54,
+                            width: 50,
                             child: TextFormField(
                               onChanged: (value) {
                                 if (value.length == 1) {
@@ -187,8 +187,8 @@ class _confirmNumberState extends State<confirmNumber> {
                             ),
                           ),
                           SizedBox(
-                            height: 68,
-                            width: 64,
+                            height: 54,
+                            width: 50,
                             child: TextFormField(
                               onChanged: (value) {
                                 if (value.length == 1) {
