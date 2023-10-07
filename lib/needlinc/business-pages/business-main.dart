@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/freelancer-pages/marketplace.dart';
-import 'package:needlinc/needlinc/freelancer-pages/notifications.dart';
-import 'package:needlinc/needlinc/freelancer-pages/profile.dart';
+import 'package:needlinc/needlinc/business-pages/marketplace.dart';
+import 'package:needlinc/needlinc/business-pages/notifications.dart';
+import 'package:needlinc/needlinc/business-pages/profile.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:needlinc/needlinc/freelancer-pages/client-to-freelancer%20post.dart';
-import 'package:needlinc/needlinc/freelancer-pages/home.dart';
+import 'package:needlinc/needlinc/business-pages/client-to-freelancer%20post.dart';
+import 'package:needlinc/needlinc/business-pages/home.dart';
 
 
-class FreelancerMainPages extends StatefulWidget {
+class BusinessMainPages extends StatefulWidget {
   int? currentPage;
-  FreelancerMainPages({required this.currentPage});
+  BusinessMainPages({required this.currentPage});
 
   @override
-  State<FreelancerMainPages> createState() => _FreelancerMainPagesState();
+  State<BusinessMainPages> createState() => _FreelancerMainPagesState();
 }
 
-class _FreelancerMainPagesState extends State<FreelancerMainPages> {
+class _FreelancerMainPagesState extends State<BusinessMainPages> {
   int? _currentPage;
   @override
   void initState() {

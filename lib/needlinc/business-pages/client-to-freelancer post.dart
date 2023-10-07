@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:needlinc/needlinc/freelancer-pages/freelancer-main.dart';
 import '../colors/colors.dart';
+import 'business-main.dart';
 
 class ClientToFreelancer extends StatefulWidget {
   const ClientToFreelancer({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                             children: [
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                   height: 40,
@@ -94,31 +94,31 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             ListTile(
                 leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 0)))}
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 1)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 2)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 3)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
             ),
             Divider(),
             ListTile(
@@ -249,7 +249,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                             //TODO Profile picture for Pending appointments
                             GestureDetector(
                               onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                               },
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 45.0),
@@ -359,7 +359,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                               //TODO Profile picture for Pending appointments
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 45.0),
