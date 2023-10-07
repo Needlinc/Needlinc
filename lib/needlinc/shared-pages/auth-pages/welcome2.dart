@@ -55,18 +55,6 @@ class _WelcomePage2State extends State<WelcomePage2> {
                   ),
                 ),
                 SizedBox(height: 135),
-                // NEEDLINC Image
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.37,
-                  margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/logo.png"),
-                    ),
-                  ),
-                ),
               ],
             ),
             // NeedLinc image
