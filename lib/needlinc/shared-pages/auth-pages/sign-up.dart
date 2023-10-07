@@ -5,6 +5,8 @@ import 'package:needlinc/needlinc/widgets/EnterApp.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
+import '../../widgets/TextFieldBorder.dart';
+
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
@@ -13,19 +15,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final EnabledBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: NeedlincColors.black1,
-    ),
-    borderRadius: BorderRadius.zero,
-  );
-  final FocusedBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: NeedlincColors.blue1,
-    ),
-    borderRadius: BorderRadius.zero,
-  );
-
   bool isChecked = false;
 
   void check(bool? newValue) {
@@ -123,8 +112,8 @@ class _SignupPageState extends State<SignupPage> {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
                                   prefixIcon: Icon(Icons.email),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
                               SizedBox(height: 8),
@@ -141,8 +130,8 @@ class _SignupPageState extends State<SignupPage> {
                                   labelText: 'Password',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                   prefixIcon: Icon(Icons.lock),
                                   suffixIcon: InkWell(
                                     onTap: () {

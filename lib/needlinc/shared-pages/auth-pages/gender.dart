@@ -198,7 +198,7 @@ class _GenderState extends State<Gender> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.only(right: 30, bottom: 70),
+                    padding: EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
                         if (addBirth == true) {

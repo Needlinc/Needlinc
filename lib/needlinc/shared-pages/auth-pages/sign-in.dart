@@ -3,6 +3,7 @@ import 'package:needlinc/main.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
+import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 class CreateAccountPage extends StatefulWidget {
@@ -13,19 +14,6 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final EnabledBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: NeedlincColors.black1,
-    ),
-    borderRadius: BorderRadius.zero,
-  );
-  final FocusedBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: NeedlincColors.blue1,
-    ),
-    borderRadius: BorderRadius.zero,
-  );
-
   bool addPhoto = false;
 
   void _ShowAddPhoto() {
@@ -163,8 +151,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   hintText: 'Enter Full Name',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
                               SizedBox(height: 8),
@@ -181,8 +169,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   hintText: 'Enter User Name',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
                               SizedBox(height: 8),
@@ -199,8 +187,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   hintText: 'Email',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
                               SizedBox(height: 8),
@@ -230,8 +218,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   hintText: 'Create Password',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
                               SizedBox(height: 8),
@@ -261,8 +249,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   hintText: 'Confirm Password',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: FocusedBorder,
-                                  enabledBorder: EnabledBorder,
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
                               SizedBox(height: 17),
@@ -350,7 +338,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   child: Expanded(
                     child: Container(
                       alignment: Alignment.bottomRight,
-                      padding: EdgeInsets.only(right: 30, bottom: 70),
+                      padding: EdgeInsets.only(right: 15, bottom: 55),
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
