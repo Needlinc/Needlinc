@@ -61,25 +61,25 @@ class _FreelancerMainPagesState extends State<BusinessMainPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       //TODO(Already done) This is the Bottom Navigation bar
-        bottomNavigationBar: CurvedNavigationBar(
-          backgroundColor: Colors.transparent,
-          color: NeedlincColors.black3,
-          animationDuration: Duration(milliseconds: 400),
-          onTap: (index){
-            setState(() {});
-            _currentPage = index;
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        color: NeedlincColors.black3,
+        animationDuration: Duration(milliseconds: 400),
+        onTap: (index){
+          setState(() {});
+          _currentPage = index;
+        },
+        items: List.generate(
+          _activeIcons.length,
+              (index) {
+            return _currentPage == index
+                ? Icon((_activeIcons[index]),color: NeedlincColors.blue1) : (Icon(_inactiveIcons[index])
+            );
           },
-          items: List.generate(
-            _activeIcons.length,
-                (index) {
-              return _currentPage == index
-                  ? Icon((_activeIcons[index]),color: NeedlincColors.blue1) : (Icon(_inactiveIcons[index])
-              );
-            },
-          ),
         ),
-        //TODO(Already done) This is the App Body
-        body: PageTransition(_currentPage!),
+      ),
+      //TODO(Already done) This is the App Body
+      body: PageTransition(_currentPage!),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.pop(context);

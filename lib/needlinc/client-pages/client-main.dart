@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/marketplace.dart';
-import 'package:needlinc/needlinc/client-pages/notifications.dart';
+import 'package:needlinc/needlinc/shared-pages/notifications.dart';
 import 'package:needlinc/needlinc/shared-pages/people.dart';
 import 'package:needlinc/needlinc/client-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
