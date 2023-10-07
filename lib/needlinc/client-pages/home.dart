@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
           ),
           //TODO Write a post section
           Container(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: 160,
             child: Row(
               children: [
                 Container(
@@ -254,7 +254,8 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(context, SizeTransition5(NewsPage()));
                   },
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    alignment: Alignment.topCenter,
+                    height: 55,
                     margin: EdgeInsets.only(left: 16.0, right: 10.0, top: 48.0),
                     padding: EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
