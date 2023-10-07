@@ -92,7 +92,9 @@ class _GenderState extends State<Gender> {
                   )
                 ],
               ),
-              SizedBox(height: 80,),
+              SizedBox(
+                height: 80,
+              ),
               // main Card
               Column(
                 children: [
@@ -171,13 +173,7 @@ class _GenderState extends State<Gender> {
                     child: Column(
                       children: [
                         Container(
-                          height: 360,
-                          width: MediaQuery.of(context).size.width * 0.8,
                           child: Calendar(title: "Date of Birth"),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
                         ),
                         Row(
                           children: [
@@ -204,9 +200,9 @@ class _GenderState extends State<Gender> {
                     onPressed: () {
                       if (addBirth == true) {
                         Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Location()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Location()));
                       }
                       _ShowAddBirth();
                     },
