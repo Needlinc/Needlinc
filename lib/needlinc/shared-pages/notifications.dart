@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
+
 
 
 class NotificationsPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.blue,
-        title: Text(
+        title: const Text(
             "NOTIFICATION",
           style: TextStyle(
             //color: Colors.blue,
@@ -26,9 +26,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
         ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 2),
+          margin: const EdgeInsets.only(right: 2),
           child: IconButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             onPressed: () {},
           ),
         ),
@@ -36,212 +36,88 @@ class _NotificationsPageState extends State<NotificationsPage> {
         elevation: 0.0,
 
       ),
-      body: ListView(
-        children: [
-          Container(
-            margin: EdgeInsets.only(left: 11),
-            child: Text(
-                "Today",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: NotificationView()
+    );
+  }
+}
+// Create a custom class
+class Notification {
+  String? notification;
+  String? date;
+  String? time_diff;
+  Notification({this.notification, this.date, this.time_diff});
+}
+
+//Use the custom class to create a custom custom widget
+class NotificationView extends StatelessWidget {
+final List<Notification> Notifications = [
+Notification(
+notification: "You Just set an appointment with JOHN DOE an electrician by 7:30 on Thursday.",
+date: "Today",
+time_diff: "Now"
+),
+
+Notification(
+notification: "Hurray! Enjoy a special discount of 30% on Iphone 11 for sale on Marketplace. Valid for 3 weeks.",
+date: "Today",
+    time_diff: "3h"
+),
+Notification(
+notification: "your post on Marketplace hs received 12 reactions.Check out the engagement",
+date: "Yesterday",
+time_diff: "1d"
+),
+Notification(
+notification: "Congratulations! Your account has been successfully created.Start exploring NEEDLINC now!",
+date: "Yesterday",
+    time_diff: "1d"
+),
+Notification(
+notification: "Welcome to NEEDLINC! Get ready to explore and enjoy our app's exciting service and features",
+date: "Yesterday",
+    time_diff: "1d"
+)
+];
+
+
+@override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: Notifications.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              ListTile(
+                onTap: (){},
+                title: Text(
+                  "${Notifications[index].notification}",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: Text(
+                    "${Notifications[index].time_diff}",
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    )
+                ),
               ),
-            ),
+              const Divider(
+                height: 1,
+                color: Colors.grey,
+              ),
+            ],
           ),
 
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-          ListTile(
-            title: Text("${Notifications[0][0]??"No messages found"}"),
-            trailing: Text(
-              "Nov",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onTap: () {
-              // Handle tap on Item 2
-            },
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
 
-List<List> Notifications = [[
-  "You Just set an appointment with JOHN DOE an electrician by 7:30 on Thursday",
-  "Hurrray! Enjoy a special discount of 30% on Iphone 11 for sale on Marketplace. Valid for 3 weeks."
-  ],
-  ["your post on Markertplace hs recerived 12 reactions.Check out the engagement",
-  "Congratulations! Your account has been successfully created.Start exploring NEEDLINC now!",
-  "Welcome to NEEDLINC! Get ready to explore and enjoy our app's exciting service and features"
-]];

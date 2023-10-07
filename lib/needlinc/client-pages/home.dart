@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/client-pages/client-main.dart';
+import 'package:needlinc/needlinc/shared-pages/messages.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
 import '../widgets/page-transition.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -150,6 +152,7 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.message),
             onPressed: (){
               //TODO Chat messaging feature
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Message()),);
             },
           ),]
       ),

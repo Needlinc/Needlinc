@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
+import 'package:needlinc/needlinc/shared-pages/messages.dart';
 import '../freelancer-pages/post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
@@ -153,6 +154,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.people),
                   onPressed: (){
                     //TODO Chat messaging feature
+
                   },
                 ),
                 IconButton(
@@ -160,6 +162,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.message),
                   onPressed: (){
                     //TODO Chat messaging feature
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
                   },
                 ),
               ],
