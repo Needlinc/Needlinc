@@ -18,7 +18,8 @@ class _WelcomePage2State extends State<WelcomePage2> {
 
   bool showNext = false;
   double small = 15, big = 19;
-  final activeColor = NeedlincColors.blue1, inactiveColor = NeedlincColors.grey;
+  final activeColor = NeedlincColors.blue1,
+      inactiveColor = NeedlincColors.grey;
 
   void _ShowNext() {
     setState(() {
@@ -35,115 +36,106 @@ class _WelcomePage2State extends State<WelcomePage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Tripple layer
-          backGround(),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Stack(
+              // Tripple Layer
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 85, left: 10, right: 10),
+                backGround(),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.34,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 40, right: 40),
+                  alignment: Alignment.center,
                   child: Text(
                     showNext ? words.last : words.first,
-                    style: TextStyle(fontSize: 20, color: NeedlincColors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SizedBox(height: 120),
-                // NEEDLINC Image
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.37,
-                  margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/logo.png"),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
                     ),
-                  ),
-                ),
-
-                Flexible(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // Next buttons
-                      Visibility(
-                        visible: showNext,
-                        child: Container(
-                          alignment: Alignment.bottomRight,
-                          margin: EdgeInsets.only(right: 20, top: 75),
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignupPage())),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              backgroundColor: NeedlincColors.blue1,
-                              padding: EdgeInsets.all(16),
-                            ),
-                            child: Text(
-                              "NEXT",
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      // Little buttons
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: _HideNext,
-                              child: Container(
-                                width: showNext ? small : big,
-                                height: showNext ? small : big,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      0.5 * (showNext ? small : big)),
-                                  color: showNext ? inactiveColor : activeColor,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 4.0),
-                            GestureDetector(
-                              onTap: _ShowNext,
-                              child: Container(
-                                width: showNext ? big : small,
-                                height: showNext ? big : small,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      0.5 * (showNext ? big : small)),
-                                  color: showNext ? activeColor : inactiveColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            // NeedLinc image
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.37,
+              margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("assets/logo.png"),
+                ),
+              ),
+            ),
+            // Next button
+            Visibility(
+              visible: showNext,
+              child: Container(
+                alignment: Alignment.bottomRight,
+                margin: EdgeInsets.only(right: 20, top: 75),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => SignupPage())),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    backgroundColor: NeedlincColors.blue1,
+                    padding: EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    "NEXT",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            // Little circles below
+            Container(
+              padding: const EdgeInsets.all(30.0),
+              height:
+              showNext ? null : MediaQuery.of(context).size.height * 0.37,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: _HideNext,
+                    child: Container(
+                      width: showNext ? small : big,
+                      height: showNext ? small : big,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            0.5 * (showNext ? small : big)),
+                        color: showNext ? inactiveColor : activeColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 4.0),
+                  GestureDetector(
+                    onTap: _ShowNext,
+                    child: Container(
+                      width: showNext ? big : small,
+                      height: showNext ? big : small,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                            0.5 * (showNext ? big : small)),
+                        color: showNext ? activeColor : inactiveColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-
-//                     // Next button
-                     
