@@ -51,6 +51,11 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+  final _formField = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool passToggle = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,75 +64,104 @@ class _SignupPageState extends State<SignupPage> {
           backGround(),
           Center(
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.55,
               width: MediaQuery.of(context).size.width * 0.9,
-              margin: EdgeInsets.only(top: 60),
+              padding: EdgeInsets.fromLTRB(15, 30, 15, 10),
               decoration: BoxDecoration(
-                  color: NeedlincColors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0, 3),
-                      blurRadius: 3.0,
-                      spreadRadius: 1.0,
-                    )
-                  ]),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 0),
-                child: Column(
-                  children: [
-                    // Welcome to NEEDLINC
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'WELCOME TO',
-                          style: TextStyle(
-                            fontSize: 20,
+                color: NeedlincColors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0, 3),
+                    blurRadius: 3.0,
+                    spreadRadius: 1.0,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  // Welcome to NEEDLINC
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'WELCOME TO',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(width: 7.0),
+                      Text(
+                        'NEEDLINC',
+                        style: TextStyle(
+                            fontSize: 25,
                             fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        SizedBox(width: 7.0),
-                        Text(
-                          'NEEDLINC',
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w400,
-                              color: NeedlincColors.blue1),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
+                            color: NeedlincColors.blue1),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(22, 0, 22, 0),
+                    child: Form(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Email or username
-                          TextField(
+                          // input Email
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: emailController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter Email";
+                              }
+                              // Email Check function
+                            },
                             decoration: InputDecoration(
-                              hintText: 'Email or Username',
+                              labelText: 'Email or Username',
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 8.0),
+                              prefixIcon: Icon(Icons.email),
                               focusedBorder: FocusedBorder,
                               enabledBorder: EnabledBorder,
                               errorBorder: ErrorBorder,
                             ),
                           ),
-                          SizedBox(height: 10),
-                          // password
-                          TextField(
+                          SizedBox(height: 8),
+                          // input password
+                          TextFormField(
+                            controller: passwordController,
+                            obscureText: passToggle,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter Password";
+                              } else if (passwordController.text.length < 6) {
+                                return "Password length should be more than 6 characters";
+                              }
+                            },
                             decoration: InputDecoration(
-                              hintText: 'Password',
+                              labelText: 'Password',
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: 8.0),
                               focusedBorder: FocusedBorder,
                               enabledBorder: EnabledBorder,
                               errorBorder: ErrorBorder,
+                              prefixIcon: Icon(Icons.lock),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    passToggle = !passToggle;
+                                  });
+                                },
+                                child: Icon(passToggle
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                              ),
                             ),
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 3),
                           // Remember me
                           Row(
                             children: [
@@ -140,15 +174,20 @@ class _SignupPageState extends State<SignupPage> {
                               Text('Remember me'),
                             ],
                           ),
-                          SizedBox(height: 5),
-                          // Sign in
+                          SizedBox(height: 3),
+                          // Sign in button
                           ElevatedButton(
                             onPressed: () {
                               // Add your logic for Client sign-in here
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignInPage()));
+                              if (_formField.currentState!.validate()) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignInPage()));
+                                print("success");
+                                emailController.clear();
+                                passwordController.clear();
+                              }
                             },
                             child: Text('Sign in'),
                             style: ElevatedButton.styleFrom(
@@ -159,7 +198,7 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 8),
                           // create new account
                           TextButton(
                             onPressed: () => Navigator.push(
@@ -182,8 +221,8 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          // forgot password?
+                          SizedBox(height: 15),
+                          // forgot password
                           GestureDetector(
                             onTap: _launchGoogleHomePage,
                             child: Text(
@@ -195,15 +234,15 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 17),
+                          SizedBox(height: 15),
                           // or sign up as
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Container(
                                 height: 1,
-                                width: 78,
+                                width: 73,
                                 color: NeedlincColors.black1,
                               ),
                               SizedBox(width: 3),
@@ -214,13 +253,13 @@ class _SignupPageState extends State<SignupPage> {
                               SizedBox(width: 3),
                               Container(
                                 height: 1,
-                                width: 78,
+                                width: 73,
                                 color: NeedlincColors.black1,
                               ),
                             ],
                           ),
-                          SizedBox(height: 17),
-                          // Sign up with Google
+                          SizedBox(height: 15),
+                          // sign up with google
                           TextButton.icon(
                             onPressed: () {
                               print('Signed up with google');
@@ -240,8 +279,8 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          // Sign up with Facebook
+                          SizedBox(height: 8),
+                          // sign up with facebook
                           TextButton.icon(
                             onPressed: () {
                               print('Signed up with facebook');
@@ -264,8 +303,8 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

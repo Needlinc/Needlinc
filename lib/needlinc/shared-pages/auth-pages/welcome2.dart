@@ -52,7 +52,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 120),
+                SizedBox(height: 135),
                 // NEEDLINC Image
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -143,7 +143,3 @@ class _WelcomePage2State extends State<WelcomePage2> {
     );
   }
 }
-
-
-//                     // Next button
-                     
