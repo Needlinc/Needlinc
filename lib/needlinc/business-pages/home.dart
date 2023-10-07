@@ -1,12 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
-import 'package:needlinc/needlinc/client-pages/client-main.dart';
+import '../business-pages/post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
 import '../widgets/page-transition.dart';
-
+import 'business-main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -54,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 GestureDetector(
                                   onTap: (){
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                   },
                                   child: Container(
                                     height: 40,
@@ -99,31 +98,31 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                   leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                   title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                  onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
+                  onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
                 title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
                 title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
                 title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
               ),
               Divider(),
               ListTile(
                 leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
                 title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
               ),
               Divider(),
               ListTile(
@@ -146,14 +145,28 @@ class _HomePageState extends State<HomePage> {
             elevation: 0,
             iconTheme: IconThemeData(color: NeedlincColors.blue1),
             title: Center(child: Text("Needlinc", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)),
-            actions: [IconButton(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              icon: Icon(Icons.message),
-              onPressed: (){
-                //TODO Chat messaging feature
-                //  Navigator.push(context, MaterialPageRoute(builder: (context) => Message()),);
-              },
-            ),]
+            actions: [
+              Row(
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    icon: Icon(Icons.people),
+                    onPressed: (){
+                      //TODO Chat messaging feature
+
+                    },
+                  ),
+                  IconButton(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    icon: Icon(Icons.message),
+                    onPressed: (){
+                      //TODO Chat messaging feature
+                   //   Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
+                    },
+                  ),
+                ],
+              ),
+            ]
         ),
         body: Stack(
           children: [
@@ -209,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                             GestureDetector(
                               onTap: ()
                               {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)),);
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
                               },
                               child: Container(
                                 padding: EdgeInsets.all(15.0),
@@ -253,7 +266,6 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(context, SizeTransition5(NewsPage()));
                     },
                     child: Container(
-                      alignment: Alignment.topCenter,
                       height: 55,
                       margin: EdgeInsets.only(left: 16.0, right: 10.0, top: 48.0),
                       padding: EdgeInsets.all(5.0),
@@ -311,7 +323,7 @@ Widget HomePosts(BuildContext context){
                         children: [
                           GestureDetector(
                             onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                             },
                             child: Container(
                               padding: EdgeInsets.all(20),
