@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
+import 'package:needlinc/needlinc/widgets/EnterApp.dart';
 import 'package:needlinc/needlinc/widgets/calendar.dart';
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
@@ -51,17 +52,16 @@ class _GenderState extends State<Gender> {
       body: Stack(
         children: [
           backGround(),
-          Column(
-            children: [
-              // Top arrow
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Back arrow
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+            child: Column(
+              children: [
+                // Top arrow
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Back arrow
+                    IconButton(
                       onPressed: () {
                         if (addBirth == false) {
                           Navigator.pop(context);
@@ -75,155 +75,159 @@ class _GenderState extends State<Gender> {
                         color: NeedlincColors.white, // Customize the icon color
                       ),
                     ),
-                  ),
-                  // Page title
-                  Text(
-                    'NEEDLINC',
-                    style: TextStyle(color: NeedlincColors.white, fontSize: 12),
-                  ),
-                  // Skip button
-                  Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Text(
-                      'Skip',
+                    // Page title
+                    Text(
+                      'NEEDLINC',
                       style:
-                          TextStyle(color: NeedlincColors.white, fontSize: 21),
+                          TextStyle(color: NeedlincColors.white, fontSize: 12),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 80,
-              ),
-              // main Card
-              Column(
-                children: [
-                  // Card title
-                  Text(
-                    addBirth ? 'Add Date of Birth' : 'Choose Your Gender',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
-                      color: NeedlincColors.white,
-                    ),
-                  ),
-                  // body
-                  SizedBox(
-                    height: 40.0,
-                  ),
-                  Visibility(
-                    visible: !addBirth,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                        color: NeedlincColors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: NeedlincColors.grey,
-                            offset: Offset(0, 3),
-                            blurRadius: 3.0,
-                            spreadRadius: 1.0,
-                          )
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
-                        child: Column(
-                          // choose Gender
-                          children: [
-                            // Male
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: isMale ? true : false,
-                                  onChanged: maleCheck,
-                                  visualDensity: VisualDensity(
-                                      horizontal: -1, vertical: -1),
-                                ),
-                                Text(
-                                  'Male',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
-                            // Female
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: isFemale ? true : false,
-                                  onChanged: femaleCheck,
-                                  visualDensity: VisualDensity(
-                                      horizontal: -1, vertical: -1),
-                                ),
-                                Text(
-                                  'Female',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Add Date of Birth container
-                  Visibility(
-                    visible: addBirth,
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Calendar(title: "Date of Birth"),
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: showOnProfile ? true : false,
-                              onChanged: showOnProfileCheck,
-                              visualDensity:
-                                  VisualDensity(horizontal: -1, vertical: -3),
-                            ),
-                            Text('Show on profile'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              // Next button
-              Expanded(
-                child: Container(
-                  alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.only(right: 30, bottom: 70),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (addBirth == true) {
+                    // Skip button
+                    InkWell(
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Location()));
-                      }
-                      _ShowAddBirth();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                                builder: (context) => SignInPage()));
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(
+                            color: NeedlincColors.white, fontSize: 21),
                       ),
-                      backgroundColor: NeedlincColors.blue1,
-                      padding: EdgeInsets.all(16),
                     ),
-                    child: Text(
-                      'NEXT',
+                  ],
+                ),
+                SizedBox(height: 70),
+                // main Card
+                Column(
+                  children: [
+                    // Card title
+                    Text(
+                      addBirth ? 'Add Date of Birth' : 'Choose Your Gender',
                       style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                        color: NeedlincColors.white,
+                      ),
+                    ),
+                    // body
+                    SizedBox(height: 35),
+                    Visibility(
+                      visible: !addBirth,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: NeedlincColors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: NeedlincColors.grey,
+                              offset: Offset(0, 3),
+                              blurRadius: 3.0,
+                              spreadRadius: 1.0,
+                            )
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15.0, 28, 15, 30),
+                          // choose Gender
+                          child: Column(
+                            children: [
+                              // Male
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: isMale ? true : false,
+                                    onChanged: maleCheck,
+                                    visualDensity: VisualDensity(
+                                        horizontal: -1, vertical: -1),
+                                  ),
+                                  Text(
+                                    'Male',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                              // Female
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: isFemale ? true : false,
+                                    onChanged: femaleCheck,
+                                    visualDensity: VisualDensity(
+                                        horizontal: -1, vertical: -1),
+                                  ),
+                                  Text(
+                                    'Female',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Add Date of Birth container
+                    Visibility(
+                      visible: addBirth,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            child: Placeholder(),
+                            // child: Calendar(title: "Date of Birth"),
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: showOnProfile ? true : false,
+                                onChanged: showOnProfileCheck,
+                                visualDensity:
+                                    VisualDensity(horizontal: -1, vertical: -3),
+                              ),
+                              Text('Show on profile'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                // Next button
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.bottomRight,
+                    padding: EdgeInsets.only(right: 30, bottom: 70),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (addBirth == true) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Location()));
+                        }
+                        _ShowAddBirth();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        backgroundColor: NeedlincColors.blue1,
+                        padding: EdgeInsets.all(16),
+                      ),
+                      child: Text(
+                        'NEXT',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ],
       ),

@@ -107,7 +107,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 60),
+                SizedBox(height: 70),
                 // main Card
                 Column(
                   children: [
@@ -321,7 +321,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
-                            color: NeedlincColors.blue2,
+                            color: NeedlincColors.blue1,
                             borderRadius: BorderRadius.circular(28),
                             border: Border.all(
                               color: NeedlincColors.white,
