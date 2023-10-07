@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/freelancer-pages/freelancer-main.dart';
+import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import '../client-pages/client-main.dart';
 
 class SignInPage extends StatelessWidget {
@@ -24,7 +24,7 @@ class SignInPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Add your logic for Freelancer sign-in here
-                Navigator.push(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 0)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)));
               },
               child: Text("Sign In as Freelancer"),
             ),

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:needlinc/needlinc/freelancer-pages/freelancer-main.dart';
+import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import '../colors/colors.dart';
 
 class ClientToFreelancer extends StatefulWidget {
@@ -49,7 +49,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                             children: [
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                   height: 40,
@@ -88,37 +88,37 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             ListTile(
               leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
               title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-             // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+              // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
             ),
             Divider(),
             ListTile(
                 leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 0)))}
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 1)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 2)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 3)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
             ),
             Divider(),
             ListTile(
@@ -174,10 +174,10 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
               alignment: Alignment.topLeft,
               margin: EdgeInsets.only(top: 0.0, left: 10.0),
               child: Text(
-                  "Pending Jobs",
+                "Pending Jobs",
                 style: GoogleFonts.oxygen(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
@@ -199,84 +199,84 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                 children: [
                   //TODO Appointment Cards
                   for(int i = 0; i < 5; i++)
-                  Container(
-                    margin: EdgeInsets.only(right: 20.0),
-                    padding: EdgeInsets.all(8.0),
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: NeedlincColors.blue2,
-                      )
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //TODO Profile picture for Pending appointments
-                            GestureDetector(
-                              onTap: (){
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 45.0),
-                                padding: EdgeInsets.all(50.0),
-                                width: 40.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage("https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow"),
-                                    fit: BoxFit.cover
+                    Container(
+                      margin: EdgeInsets.only(right: 20.0),
+                      padding: EdgeInsets.all(8.0),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(
+                            color: NeedlincColors.blue2,
+                          )
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //TODO Profile picture for Pending appointments
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 45.0),
+                                  padding: EdgeInsets.all(50.0),
+                                  width: 40.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage("https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow"),
+                                          fit: BoxFit.cover
+                                      ),
+                                      borderRadius: BorderRadius.circular(30.0)
                                   ),
-                                  borderRadius: BorderRadius.circular(30.0)
                                 ),
                               ),
-                            ),
-                            //TODO Time registered for appointment
-                            Container(
-                              width: 200,
-                              margin: EdgeInsets.only(left: 5.0),
-                              child: Text(
+                              //TODO Time registered for appointment
+                              Container(
+                                width: 200,
+                                margin: EdgeInsets.only(left: 5.0),
+                                child: Text(
                                   "You have an appointment with Emeka John by 7:30pm on Friday 12th",
-                                textAlign: TextAlign.center,
-                              ),
-                            )
-                          ],
-                        ),
-                        //TODO The two buttons underneath the appointment cards
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(6.5),
-                              margin: EdgeInsets.only(left: 65.0,),
-                              child: Text(
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          ),
+                          //TODO The two buttons underneath the appointment cards
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(6.5),
+                                margin: EdgeInsets.only(left: 65.0,),
+                                child: Text(
                                   'Cancel',
-                                style: TextStyle(
-                                  color: NeedlincColors.blue2
+                                  style: TextStyle(
+                                      color: NeedlincColors.blue2
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                    color: NeedlincColors.grey,
+                                    borderRadius: BorderRadius.circular(20.0)
                                 ),
                               ),
-                              decoration: BoxDecoration(
-                                color: NeedlincColors.grey,
-                                borderRadius: BorderRadius.circular(20.0)
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 75.0,),
-                              child: Text(
+                              Container(
+                                margin: EdgeInsets.only(left: 75.0,),
+                                child: Text(
                                   "Edit",
-                                style: TextStyle(
+                                  style: TextStyle(
                                     color: NeedlincColors.blue2,
-                                  fontSize: 15,
-                                  decoration: TextDecoration.underline,
+                                    fontSize: 15,
+                                    decoration: TextDecoration.underline,
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -327,7 +327,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                               //TODO Profile picture for Pending appointments
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FreelancerMainPages(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 45.0),

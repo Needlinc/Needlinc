@@ -38,6 +38,9 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   flutter_staggered_animations: ^1.1.1
   google_fonts: ^5.1.0
+  animated_text_kit: ^4.2.2
+  url_launcher: ^6.1.14
+  calendar_date_picker2: ^0.5.3
 
 dev_dependencies:
   flutter_test:
