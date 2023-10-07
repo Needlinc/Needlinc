@@ -13,11 +13,6 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  final ErrorBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: NeedlincColors.red,
-    ),
-  );
   final EnabledBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: NeedlincColors.black1,
@@ -66,7 +61,7 @@ class _SignupPageState extends State<SignupPage> {
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Center(
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.55,
+                height: MediaQuery.of(context).size.height * 0.6,
                 width: double.infinity,
                 padding: EdgeInsets.fromLTRB(15, 30, 15, 10),
                 decoration: BoxDecoration(
@@ -108,6 +103,7 @@ class _SignupPageState extends State<SignupPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(22, 0, 22, 0),
                       child: Form(
+                        key: _formField,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -128,7 +124,6 @@ class _SignupPageState extends State<SignupPage> {
                                 prefixIcon: Icon(Icons.email),
                                 focusedBorder: FocusedBorder,
                                 enabledBorder: EnabledBorder,
-                                errorBorder: ErrorBorder,
                               ),
                             ),
                             SizedBox(height: 8),
@@ -139,8 +134,6 @@ class _SignupPageState extends State<SignupPage> {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Password";
-                                } else if (passwordController.text.length < 6) {
-                                  return "Password length should be more than 6 characters";
                                 }
                               },
                               decoration: InputDecoration(
@@ -149,7 +142,6 @@ class _SignupPageState extends State<SignupPage> {
                                     EdgeInsets.symmetric(horizontal: 8.0),
                                 focusedBorder: FocusedBorder,
                                 enabledBorder: EnabledBorder,
-                                errorBorder: ErrorBorder,
                                 prefixIcon: Icon(Icons.lock),
                                 suffixIcon: InkWell(
                                   onTap: () {
@@ -157,9 +149,11 @@ class _SignupPageState extends State<SignupPage> {
                                       passToggle = !passToggle;
                                     });
                                   },
-                                  child: Icon(passToggle
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
+                                  child: Icon(
+                                    passToggle
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
                                 ),
                               ),
                             ),
@@ -181,19 +175,15 @@ class _SignupPageState extends State<SignupPage> {
                             ElevatedButton(
                               onPressed: () {
                                 // Add your logic for Client sign-in here
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignInPage()));
-                                // if (_formField.currentState!.validate()) {
-                                //   Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //           builder: (context) => SignInPage()));
-                                // print("success");
-                                // emailController.clear();
-                                // passwordController.clear();
-                                // }
+                                if (_formField.currentState!.validate()) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignInPage()));
+                                  print("success");
+                                  emailController.clear();
+                                  passwordController.clear();
+                                }
                               },
                               child: Text('Sign in'),
                               style: ElevatedButton.styleFrom(

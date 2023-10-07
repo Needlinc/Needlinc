@@ -13,11 +13,6 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final ErrorBorder = OutlineInputBorder(
-    borderSide: BorderSide(
-      color: NeedlincColors.red,
-    ),
-  );
   final EnabledBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: NeedlincColors.black1,
@@ -45,6 +40,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     });
   }
 
+  final _formField = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPassController = TextEditingController();
+  bool passToggle = true, confirmToggle = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +61,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 // Top arrow
                 Row(
                   mainAxisAlignment: addPhoto
-                      ? MainAxisAlignment.spaceEvenly
+                      ? MainAxisAlignment.spaceBetween
                       : MainAxisAlignment.start,
                   children: [
                     // Back arrow
@@ -104,7 +107,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 52),
+                SizedBox(height: 60),
                 // main Card
                 Column(
                   children: [
@@ -117,14 +120,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       ),
                     ),
                     // body
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20),
                     Visibility(
                       visible: !addPhoto,
                       child: Container(
                         width: double.infinity,
-                        padding: EdgeInsets.fromLTRB(15, 30, 15, 10),
+                        padding: EdgeInsets.fromLTRB(27, 30, 27, 24),
                         decoration: BoxDecoration(
                           color: NeedlincColors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -137,8 +138,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             )
                           ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(22, 0, 22, 0),
+                        child: Form(
+                          key: _formField,
                           child: Column(
                             children: [
                               // Create New Account
@@ -149,86 +150,141 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(30, 15, 30, 0),
-                                // Create account fields
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Enter Full Name
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter Full Name',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        focusedBorder: FocusedBorder,
-                                        enabledBorder: EnabledBorder,
-                                        errorBorder: ErrorBorder,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    // Enter User Name
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'Enter User Name',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        focusedBorder: FocusedBorder,
-                                        enabledBorder: EnabledBorder,
-                                        errorBorder: ErrorBorder,
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    // Email
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'Email',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        focusedBorder: FocusedBorder,
-                                        enabledBorder: EnabledBorder,
-                                        errorBorder: ErrorBorder,
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    // Create Password
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'Create Password',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        focusedBorder: FocusedBorder,
-                                        enabledBorder: EnabledBorder,
-                                        errorBorder: ErrorBorder,
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    // Confirm Password
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        hintText: 'Confirm Password',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        focusedBorder: FocusedBorder,
-                                        enabledBorder: EnabledBorder,
-                                        errorBorder: ErrorBorder,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                    // Create New Account button
-                                    ElevatedButton(
-                                      onPressed: _ShowAddPhoto,
-                                      child: Text('Create New Account'),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: NeedlincColors.blue1,
-                                        fixedSize: Size(double.maxFinite, 30),
-                                        shape: BeveledRectangleBorder(
-                                          borderRadius: BorderRadius.zero,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              SizedBox(height: 8),
+                              // Enter Full Name
+                              TextFormField(
+                                controller: nameController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter full name";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Enter Full Name',
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  focusedBorder: FocusedBorder,
+                                  enabledBorder: EnabledBorder,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              // Enter User Name
+                              TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                controller: userNameController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter Username";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Enter User Name',
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  focusedBorder: FocusedBorder,
+                                  enabledBorder: EnabledBorder,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              // Email
+                              TextFormField(
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter Email";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Email',
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  focusedBorder: FocusedBorder,
+                                  enabledBorder: EnabledBorder,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              // Create Password
+                              TextFormField(
+                                obscureText: passToggle,
+                                controller: passwordController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Enter Password";
+                                  } else if (passwordController.text.length <
+                                      8) {
+                                    return "Password must be more than 8 characters";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  suffix: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        passToggle = !passToggle;
+                                      });
+                                    },
+                                    child: Icon(passToggle
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                  ),
+                                  hintText: 'Create Password',
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  focusedBorder: FocusedBorder,
+                                  enabledBorder: EnabledBorder,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              // Confirm Password
+                              TextFormField(
+                                obscureText: confirmToggle,
+                                controller: confirmPassController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "confirm Password";
+                                  } else if (confirmPassController.text !=
+                                      passwordController.text) {
+                                    return "Passwords not match";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                  suffix: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        confirmToggle = !confirmToggle;
+                                      });
+                                    },
+                                    child: Icon(confirmToggle
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                  ),
+                                  hintText: 'Confirm Password',
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  focusedBorder: FocusedBorder,
+                                  enabledBorder: EnabledBorder,
+                                ),
+                              ),
+                              SizedBox(height: 17),
+                              // create new account button
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (_formField.currentState!.validate()) {
+                                    _ShowAddPhoto();
+                                    emailController.clear();
+                                    nameController.clear();
+                                    userNameController.clear();
+                                    passwordController.clear();
+                                    confirmPassController.clear();
+                                  }
+                                },
+                                child: Text('Create New Account'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: NeedlincColors.blue1,
+                                  fixedSize: Size(double.maxFinite, 30),
+                                  shape: BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.zero,
+                                  ),
                                 ),
                               ),
                             ],
@@ -273,10 +329,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             ),
                           ),
                           child: Align(
-                            child: Icon(Icons.add,
-                                size: 35,
-                                weight: 50,
-                                color: NeedlincColors.white),
+                            child: InkWell(
+                              onTap: () {
+                                // function to add image
+                              },
+                              child: Icon(Icons.add,
+                                  size: 35,
+                                  weight: 50,
+                                  color: NeedlincColors.white),
+                            ),
                           ),
                         ),
                       ]),
