@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
@@ -221,7 +222,7 @@ class _confirmNumberState extends State<confirmNumber> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Location()));
+                          MaterialPageRoute(builder: (context) => Success()));
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
