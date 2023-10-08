@@ -170,7 +170,7 @@ class _SignupPageState extends State<SignupPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SignInPage()));
+                                                CategoryPage()));
                                     print("success");
                                     emailController.clear();
                                     passwordController.clear();

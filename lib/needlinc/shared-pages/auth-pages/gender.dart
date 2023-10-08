@@ -87,7 +87,7 @@ class _GenderState extends State<Gender> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignInPage()));
+                                builder: (context) => CategoryPage()));
                       },
                       child: Text(
                         'Skip',

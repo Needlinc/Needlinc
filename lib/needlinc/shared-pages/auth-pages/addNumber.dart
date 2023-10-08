@@ -55,7 +55,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignInPage()));
+                                builder: (context) => CategoryPage()));
                       },
                       child: Text(
                         'Skip',

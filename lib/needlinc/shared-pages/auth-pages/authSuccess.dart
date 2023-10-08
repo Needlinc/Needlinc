@@ -18,7 +18,7 @@ class _SuccessState extends State<Success> {
     // Set a delay to navigate to the second screen after 3 seconds
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => SignInPage()));
+          context, MaterialPageRoute(builder: (context) => CategoryPage()));
     });
   }
 

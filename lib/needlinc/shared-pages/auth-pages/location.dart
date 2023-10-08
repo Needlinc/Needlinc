@@ -44,8 +44,10 @@ class _LocationState extends State<Location> {
                 // Skip button
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignInPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryPage()));
                   },
                   child: Text(
                     'Skip',
