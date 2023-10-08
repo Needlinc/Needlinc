@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:needlinc/main.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
@@ -15,6 +17,8 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool addPhoto = false;
+  String selectedFileName = '';
+  XFile? file;
 
   void _ShowAddPhoto() {
     setState(() {
@@ -35,6 +39,105 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
   bool passToggle = true, confirmToggle = true;
+
+  //This modal shows image selection either from gallery or camera
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+      //backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.15,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25),
+                topRight: Radius.circular(25),
+              ),
+            ),
+            child: Wrap(
+              children: [
+                SizedBox(height: 10),
+                ListTile(
+                    leading: const Icon(
+                      Icons.photo_library,
+                    ),
+                    title: const Text(
+                      'Gallery',
+                      style: TextStyle(),
+                    ),
+                    onTap: () {
+                      _selectFile(true);
+                      Navigator.of(context).pop();
+                    }),
+                ListTile(
+                  leading: const Icon(
+                    Icons.photo_camera,
+                  ),
+                  title: const Text(
+                    'Camera',
+                    style: TextStyle(),
+                  ),
+                  onTap: () {
+                    _selectFile(false);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Future pickImage() async {
+  //   final ImagePicker imagePicker =
+  //       ImagePicker(); // Create an instance of ImagePicker
+  //   try {
+  //     final image = await imagePicker.pickImage(source: ImageSource.gallery);
+  //     if (image == null) return;
+  //     final imageTemporary = File(image.path);
+  //     setState(() => this.image = imageTemporary);
+  //   } on PlatformException catch (e) {
+  //     // TODO
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
+
+  Future _selectFile(bool imageFrom) async {
+    try {
+      final file = await ImagePicker().pickImage(
+          source: imageFrom ? ImageSource.gallery : ImageSource.camera);
+      if (file != null) {
+        // final picture = File(file.path);
+        setState(() {
+          selectedFileName = file.name;
+        });
+        print(selectedFileName);
+      }
+    } on PlatformException catch (e) {
+      // TODO
+      print('Failed to pick image: $e');
+    }
+  }
+
+  // _selectFile(bool imageFrom) async {
+  //   FilePickerResult fileResult =
+  //       await FilePicker.platform.pickFiles(allowMultiple: true);
+
+  //   if (fileResult != null) {
+  //     selectedFile = fileResult.files.first.name;
+  //     fileResult.files.forEach((element) {
+  //       setState(() {
+  //         pickedImagesInBytes.add(element.bytes);
+  //         //selectedImageInBytes = fileResult.files.first.bytes;
+  //         imageCounts += 1;
+  //       });
+  //     });
+  //   }
+  //   print(selectedFile);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -285,25 +388,33 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       visible: addPhoto,
                       child: Stack(alignment: Alignment.bottomRight, children: [
                         Container(
-                          height: 210,
-                          width: 210,
-                          decoration: BoxDecoration(
-                            color: NeedlincColors.white,
-                            borderRadius: BorderRadius.circular(150),
-                            boxShadow: [
-                              BoxShadow(
-                                color: NeedlincColors.grey,
-                                offset: Offset(0, 3),
-                                blurRadius: 3.0,
-                                spreadRadius: 1.0,
-                              )
-                            ],
-                            image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage("assets/logo.png"),
+                            height: 210,
+                            width: 210,
+                            decoration: BoxDecoration(
+                              color: NeedlincColors.white,
+                              borderRadius: BorderRadius.circular(150),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: NeedlincColors.grey,
+                                  offset: Offset(0, 3),
+                                  blurRadius: 3.0,
+                                  spreadRadius: 1.0,
+                                )
+                              ],
                             ),
-                          ),
-                        ),
+                            child: selectedFileName.isEmpty
+                                ? Image.asset(
+                                    "assets/logo.png",
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.file(
+                                    File(file!.path),
+                                    fit: BoxFit.fill,
+                                  )
+                            // child: image != null
+                            //     ? Image.file(image!)
+                            //     : Image.asset("assets/logo.png"),
+                            ),
                         Container(
                           margin: EdgeInsets.only(right: 30),
                           width: 45,
@@ -319,7 +430,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           child: Align(
                             child: InkWell(
                               onTap: () {
-                                // function to add image
+                                _showPicker(context);
                               },
                               child: Icon(Icons.add,
                                   size: 35,
