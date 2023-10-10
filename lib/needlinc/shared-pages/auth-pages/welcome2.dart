@@ -74,7 +74,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
               visible: showNext,
               child: Container(
                 alignment: Alignment.bottomRight,
-                margin: EdgeInsets.only(right: 20, top: 75),
+                margin: EdgeInsets.only(right: 20, top: 60),
                 child: ElevatedButton(
                   onPressed: () => Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => SignupPage())),
