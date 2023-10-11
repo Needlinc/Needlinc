@@ -17,8 +17,7 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool addPhoto = false;
-  String selectedFileName = '';
-  XFile? file;
+  Uint8List? profilePicture;
 
   void _ShowAddPhoto() {
     setState(() {
@@ -43,7 +42,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   //This modal shows image selection either from gallery or camera
   void _showPicker(BuildContext context) {
     showModalBottomSheet(
-      //backgroundColor: Colors.transparent,
       context: context,
       builder: (BuildContext bc) {
         return SafeArea(
@@ -91,53 +89,30 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     );
   }
 
-  // Future pickImage() async {
-  //   final ImagePicker imagePicker =
-  //       ImagePicker(); // Create an instance of ImagePicker
-  //   try {
-  //     final image = await imagePicker.pickImage(source: ImageSource.gallery);
-  //     if (image == null) return;
-  //     final imageTemporary = File(image.path);
-  //     setState(() => this.image = imageTemporary);
-  //   } on PlatformException catch (e) {
-  //     // TODO
-  //     print('Failed to pick image: $e');
-  //   }
-  // }
-
-  Future _selectFile(bool imageFrom) async {
-    try {
-      final file = await ImagePicker().pickImage(
-          source: imageFrom ? ImageSource.gallery : ImageSource.camera);
-      if (file != null) {
-        // final picture = File(file.path);
-        setState(() {
-          selectedFileName = file.name;
-        });
-        print(selectedFileName);
-      }
-    } on PlatformException catch (e) {
-      // TODO
-      print('Failed to pick image: $e');
+  pickImage(ImageSource source) async {
+    final ImagePicker _imagePicker = ImagePicker();
+    XFile? _file = await _imagePicker.pickImage(source: source);
+    if (_file != null) {
+      return await _file.readAsBytes();
     }
   }
 
-  // _selectFile(bool imageFrom) async {
-  //   FilePickerResult fileResult =
-  //       await FilePicker.platform.pickFiles(allowMultiple: true);
+  Future _selectFile(bool imageFrom) async {
+    try {
+      XFile? imageFile = await ImagePicker().pickImage(
+          source: imageFrom ? ImageSource.gallery : ImageSource.camera
+      );
+      if (imageFile != null){
+        profilePicture = await imageFile.readAsBytes();
+        setState(() {
 
-  //   if (fileResult != null) {
-  //     selectedFile = fileResult.files.first.name;
-  //     fileResult.files.forEach((element) {
-  //       setState(() {
-  //         pickedImagesInBytes.add(element.bytes);
-  //         //selectedImageInBytes = fileResult.files.first.bytes;
-  //         imageCounts += 1;
-  //       });
-  //     });
-  //   }
-  //   print(selectedFile);
-  // }
+        });
+      }
+    } on PlatformException catch (e) {
+      // TODO
+      print('Failed to select image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +228,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 decoration: InputDecoration(
                                   hintText: 'Enter Full Name',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -271,7 +246,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 decoration: InputDecoration(
                                   hintText: 'Enter User Name',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -289,7 +264,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 decoration: InputDecoration(
                                   hintText: 'Email',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -311,6 +286,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   suffix: InkWell(
                                     onTap: () {
                                       setState(() {
+                                        if(passToggle)
                                         passToggle = !passToggle;
                                       });
                                     },
@@ -320,7 +296,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   hintText: 'Create Password',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -351,7 +327,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   hintText: 'Confirm Password',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -402,19 +378,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 )
                               ],
                             ),
-                            child: selectedFileName.isEmpty
+                            child: profilePicture == null
                                 ? Image.asset(
-                                    "assets/logo.png",
-                                    fit: BoxFit.fill,
-                                  )
-                                : Image.file(
-                                    File(file!.path),
-                                    fit: BoxFit.fill,
-                                  )
-                            // child: image != null
-                            //     ? Image.file(image!)
-                            //     : Image.asset("assets/logo.png"),
-                            ),
+                              "assets/logo.png",
+                              fit: BoxFit.fill,
+                            )
+                                : CircleAvatar(
+                              radius: 60,
+                              backgroundImage: MemoryImage(profilePicture!),
+                            )
+                        ),
                         Container(
                           margin: EdgeInsets.only(right: 30),
                           width: 45,

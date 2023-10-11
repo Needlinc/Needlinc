@@ -15,18 +15,34 @@ class Gender extends StatefulWidget {
 class _GenderState extends State<Gender> {
   bool addBirth = false;
   bool isMale = false, isFemale = false, showOnProfile = false;
+  String genderValue = ''; // Initialize genderValue as an empty string
 
   void maleCheck(bool? newValue) {
     setState(() {
       isMale = newValue ?? false;
+      if (isMale) {
+        isFemale = false; // Unselect female if male is selected
+        genderValue = 'male'; // Set genderValue to 'male'
+      } else {
+        genderValue = ''; // Reset genderValue if male is unselected
+      }
+      print(genderValue);
     });
   }
 
   void femaleCheck(bool? newValue) {
     setState(() {
       isFemale = newValue ?? false;
+      if (isFemale) {
+        isMale = false; // Unselect male if female is selected
+        genderValue = 'female'; // Set genderValue to 'female'
+      } else {
+        genderValue = ''; // Reset genderValue if female is unselected
+      }
+      print(genderValue);
     });
   }
+
 
   void _ShowAddBirth() {
     setState(() {
@@ -43,6 +59,7 @@ class _GenderState extends State<Gender> {
   void showOnProfileCheck(bool? newValue) {
     setState(() {
       showOnProfile = newValue ?? false;
+      print(showOnProfile);
     });
   }
 
