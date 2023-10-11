@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/addNumber.dart';
+import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
+
+import '../../widgets/EnterApp.dart';
 
 class Location extends StatefulWidget {
   const Location({super.key});
@@ -10,29 +13,19 @@ class Location extends StatefulWidget {
 }
 
 class _LocationState extends State<Location> {
-  FocusNode _focusNode = FocusNode();
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
+  final locationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Back arrow
-              Container(
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.topLeft,
-                child: IconButton(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Back arrow
+                IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -43,87 +36,75 @@ class _LocationState extends State<Location> {
                     color: NeedlincColors.blue1, // Customize the icon color
                   ),
                 ),
-              ),
-              // Page title
-              Text(
-                'NEEDLINC',
-                style: TextStyle(color: NeedlincColors.blue1, fontSize: 12),
-              ),
-              // Skip button
-              Container(
-                padding: EdgeInsets.only(right: 10),
-                child: Text(
-                  'Skip',
-                  style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
+                // Page title
+                Text(
+                  'NEEDLINC',
+                  style: TextStyle(color: NeedlincColors.blue1, fontSize: 12),
                 ),
-              )
-            ],
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Add Location',
-            style: TextStyle(
-              color: NeedlincColors.blue1,
-              fontSize: 30,
-              fontWeight: FontWeight.w500,
+                // Skip button
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CategoryPage()));
+                  },
+                  child: Text(
+                    'Skip',
+                    style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              focusNode: _focusNode,
-              onTap: () {
-                if (_focusNode.hasFocus) {
-                  print('Textfield is Active');
-                } else
-                  print('Textfield not Active');
-              },
+            SizedBox(height: 70),
+            // Add location
+            Text(
+              'Add Location',
+              style: TextStyle(
+                color: NeedlincColors.blue1,
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 10),
+            TextFormField(
+              controller: locationController,
               decoration: InputDecoration(
                 hintText: 'Where do you stay?',
                 contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: NeedlincColors.blue1,
-                  ),
-                  borderRadius: BorderRadius.zero,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: NeedlincColors.grey,
-                  ),
-                  borderRadius: BorderRadius.zero,
-                ),
+                focusedBorder: Borders.FocusedBorder,
+                enabledBorder: Borders.EnabledBorder,
               ),
             ),
-          ),
-          // Next button
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomRight,
-              padding: EdgeInsets.only(right: 30, bottom: 70),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PhoneNumber()));
-                },
-                style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      backgroundColor: NeedlincColors.blue1,
-                      padding: EdgeInsets.all(16),
+            // Next button
+            Expanded(
+              child: Container(
+                alignment: Alignment.bottomRight,
+                padding: EdgeInsets.only(right: 15, bottom: 55),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PhoneNumber()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Text(
-                      'NEXT',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    backgroundColor: NeedlincColors.blue1,
+                    padding: EdgeInsets.all(16),
+                  ),
+                  child: Text(
+                    'NEXT',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-            ),
-          )
-        ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

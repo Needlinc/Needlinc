@@ -18,8 +18,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
 
   bool showNext = false;
   double small = 15, big = 19;
-  final activeColor = NeedlincColors.blue1,
-      inactiveColor = NeedlincColors.grey;
+  final activeColor = NeedlincColors.blue1, inactiveColor = NeedlincColors.grey;
 
   void _ShowNext() {
     setState(() {
@@ -51,12 +50,11 @@ class _WelcomePage2State extends State<WelcomePage2> {
                   alignment: Alignment.center,
                   child: Text(
                     showNext ? words.last : words.first,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(fontSize: 20, color: NeedlincColors.white),
+                    textAlign: TextAlign.center,
                   ),
                 ),
+                SizedBox(height: 135),
               ],
             ),
             // NeedLinc image
@@ -76,7 +74,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
               visible: showNext,
               child: Container(
                 alignment: Alignment.bottomRight,
-                margin: EdgeInsets.only(right: 20, top: 75),
+                margin: EdgeInsets.only(right: 20, top: 60),
                 child: ElevatedButton(
                   onPressed: () => Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => SignupPage())),
@@ -101,7 +99,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
             Container(
               padding: const EdgeInsets.all(30.0),
               height:
-              showNext ? null : MediaQuery.of(context).size.height * 0.37,
+                  showNext ? null : MediaQuery.of(context).size.height * 0.37,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
