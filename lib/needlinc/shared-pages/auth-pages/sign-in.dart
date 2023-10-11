@@ -241,6 +241,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
+                              SizedBox(height: 12),
                               // Enter Full Name
                               TextFormField(
                                 controller: nameController,
@@ -257,6 +258,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
+                              SizedBox(height: 8),
                               // Enter User Name
                               TextFormField(
                                 keyboardType: TextInputType.emailAddress,
@@ -274,6 +276,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
+                              SizedBox(height: 8),
                               // Email
                               TextFormField(
                                 controller: emailController,
@@ -291,6 +294,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
+                              SizedBox(height: 8),
                               // Create Password
                               TextFormField(
                                 obscureText: passToggle,
@@ -321,6 +325,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
+                              SizedBox(height: 8),
                               // Confirm Password
                               TextFormField(
                                 obscureText: confirmToggle,
