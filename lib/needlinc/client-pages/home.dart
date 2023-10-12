@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/client-pages/client-main.dart';
+import 'package:needlinc/needlinc/shared-pages/messages.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
 import '../widgets/page-transition.dart';
@@ -150,8 +151,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 10),
               icon: Icon(Icons.message),
               onPressed: (){
-                //TODO Chat messaging feature
-                //  Navigator.push(context, MaterialPageRoute(builder: (context) => Message()),);
+                //TODO Chat messaging feature(Already implemented UI)
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Message()),);
               },
             ),]
         ),
