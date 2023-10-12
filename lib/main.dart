@@ -1,7 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 
-void main() => runApp(Home());
+void main() async {
+  // Initialize Firebase
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure that Flutter is initialized
+
+  await Firebase.initializeApp(
+  );
+
+  runApp(Home());
+}
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);

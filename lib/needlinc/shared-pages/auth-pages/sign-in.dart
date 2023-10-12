@@ -2,11 +2,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:needlinc/needlinc/backend/authentication/sign-up.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
+
+import '../../backend/user-account/user-information.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -18,6 +21,21 @@ class CreateAccountPage extends StatefulWidget {
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool addPhoto = false;
   Uint8List? profilePicture;
+
+  void saveUserInformation(){
+    // Storing data in local storage
+   saveUserData('fullname', fullNameController.text.trim());
+   saveUserData('username', userNameController.text.trim());
+   saveUserData('email', emailController.text.trim());
+   saveUserData('password', passwordController.text.trim());
+   SignUp(
+       fullNameController.text.trim(),
+       userNameController.text.trim(),
+       emailController.text.trim(),
+       passwordController.text.trim(),
+       profilePicture!
+   );
+  }
 
   void _ShowAddPhoto() {
     setState(() {
@@ -33,7 +51,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   final _formField = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  final nameController = TextEditingController();
+  final fullNameController = TextEditingController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
@@ -219,7 +237,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               SizedBox(height: 12),
                               // Enter Full Name
                               TextFormField(
-                                controller: nameController,
+                                controller: fullNameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter full name";
@@ -338,8 +356,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 onPressed: () {
                                   if (_formField.currentState!.validate()) {
                                     _ShowAddPhoto();
+                                    saveUserInformation();
                                     emailController.clear();
-                                    nameController.clear();
+                                    fullNameController.clear();
                                     userNameController.clear();
                                     passwordController.clear();
                                     confirmPassController.clear();
