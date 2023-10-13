@@ -1,10 +1,19 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/profile.dart';
-import 'package:needlinc/needlinc/widgets/main-page.dart';
-import 'needlinc/colors/colors.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 
-void main() => runApp(Home());
+import 'firebase_options.dart';
+
+
+void main() async {
+  // Initialize Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  // Ensure that Flutter is initialized
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(Home());
+}
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -32,6 +41,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return NeedlincMainPage(currentPage: 0);
+    return WelcomePage();
   }
 }

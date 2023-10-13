@@ -1,10 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/post.dart';
+import '../business-pages/post.dart';
+import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
-import 'client-main.dart';
 
 class MarketplacePage extends StatefulWidget {
   const MarketplacePage({Key? key}) : super(key: key);
@@ -51,7 +51,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                             children: [
                               GestureDetector(
                                 onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
                                   height: 40,
@@ -96,31 +96,31 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ListTile(
                 leading: Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
             ),
             Divider(),
             ListTile(
               leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
             ),
             Divider(),
             ListTile(
@@ -150,10 +150,10 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
             ),
             Container(
-              height: 30,
+              height: 35,
               width: 300,
-              margin: EdgeInsets.only(bottom: 5.0),
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              margin: EdgeInsets.only(bottom: 5.0, top: 7.5),
+              padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
               decoration: BoxDecoration(
                 color: NeedlincColors.black3,
                 borderRadius: BorderRadius.circular(30.0),
@@ -161,7 +161,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
               child: Row(
                 children: <Widget>[
                   Icon(Icons.search),
-                  SizedBox(width: 2),
+                  SizedBox(width: 2.0),
                   VerticalDivider(thickness: 2,),
                   SizedBox(width: 4),
                   Expanded(
@@ -197,7 +197,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   //TODO This container is for the small circular profile  picture  at the app bar in the market place page
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                     },
                     child: Container(
                       padding: EdgeInsets.all(12.0),
@@ -248,6 +248,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
       body: SingleChildScrollView(
         child:  Column(
           children: [
+            SizedBox(child: Divider(thickness: 2, color: NeedlincColors.black2,), width: MediaQuery.of(context).size.width * 0.95,),
             for(int newsPost = 0; newsPost < 16; newsPost++)
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
@@ -269,7 +270,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       children: [
                         GestureDetector(
                           onTap: (){
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                           },
                           child: Container(
                             padding: EdgeInsets.all(25),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "922577193586",
+    "project_id": "needlinc-3cea4",
+    "storage_bucket": "needlinc-3cea4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922577193586:android:ea595f3ae817096c1710eb",
+        "android_client_info": {
+          "package_name": "com.needlinc.needlinc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFRyiK9SBX1rii0264tbDcNyGVRNeiw9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
