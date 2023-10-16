@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
+import 'package:needlinc/needlinc/business-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/confirmNumber.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
@@ -16,7 +19,48 @@ class PhoneNumber extends StatefulWidget {
 }
 
 class _PhoneNumberState extends State<PhoneNumber> {
-  final numberController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  void sendOTP() async {
+    final String phoneNumber = _phoneNumberController.text.trim();
+
+    // Perform phone number validation here if needed
+
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: "+234${phoneNumber}",
+        verificationCompleted: (PhoneAuthCredential credential) {
+          // Auto-retrieval or instant verification.
+          // In most cases, this callback is not needed.
+          // You can use the `signInWithCredential` method here.
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          // Handle verification failure, e.g., invalid phone number.
+          print('Verification failed: $e');
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          // OTP code has been sent to the user's phone number.
+          // You can navigate to a verification screen to enter the code.
+          print('OTP code sent. Verification ID: $verificationId');
+          // Navigate to the OTP verification screen.
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => confirmNumber(verificationId, phoneNumber: _phoneNumberController.text,)
+          ));
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // Handle timeout, e.g., the code auto-retrieval has timed out.
+          print('Code auto-retrieval timed out. Verification ID: $verificationId');
+        },
+      );
+    } catch (e) {
+      // Handle any errors
+      print('Error sending OTP: $e');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +99,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CategoryPage()));
+                                builder: (context) => HomePage()));
                       },
                       child: Text(
                         'Skip',
@@ -96,7 +140,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                       ),
                       padding: const EdgeInsets.fromLTRB(15, 40, 15, 45),
                       child: TextFormField(
-                        controller: numberController,
+                        controller: _phoneNumberController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(11),
@@ -118,10 +162,12 @@ class _PhoneNumberState extends State<PhoneNumber> {
                     padding: EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
+                        sendOTP();
+                        addPhoneNumber(phoneNumber: _phoneNumberController.text.trim());
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => confirmNumber()));
+                                builder: (context) => confirmNumber("", phoneNumber: _phoneNumberController.text,)));
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

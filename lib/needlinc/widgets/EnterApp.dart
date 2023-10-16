@@ -1,5 +1,7 @@
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
+import 'package:needlinc/needlinc/backend/user-account/user-online-information.dart';
 import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../client-pages/client-main.dart';
@@ -13,7 +15,7 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  String categtory = "notFreeLancers";
+  String categtory = "User";
   double mainWidth = 150, activeWidth = 156;
 
   @override
@@ -73,20 +75,20 @@ class _CategoryPageState extends State<CategoryPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // notFreeLancers
+                        // User
                         InkWell(
                           onTap: () {
                             setState(() {
-                              categtory = "notFreeLancers";
+                              categtory = "User";
                             });
                           },
                           child: Stack(
                             children: [
                               Container(
-                                width: (categtory == "notFreeLancers")
+                                width: (categtory == "User")
                                     ? activeWidth
                                     : mainWidth,
-                                height: (categtory == "notFreeLancers")
+                                height: (categtory == "User")
                                     ? activeWidth
                                     : mainWidth,
                                 alignment: Alignment.center,
@@ -94,7 +96,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   color: NeedlincColors.white,
                                   border: Border.all(
                                     width: 2,
-                                    color: (categtory == "notFreeLancers")
+                                    color: (categtory == "User")
                                         ? NeedlincColors.blue1
                                         : NeedlincColors.blue3,
                                   ),
@@ -113,7 +115,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 padding: const EdgeInsets.all(5),
                                 child: Icon(
                                   Icons.circle,
-                                  color: (categtory == "notFreeLancers")
+                                  color: (categtory == "User")
                                       ? NeedlincColors.blue1
                                       : NeedlincColors.white,
                                 ),
@@ -121,20 +123,20 @@ class _CategoryPageState extends State<CategoryPage> {
                             ],
                           ),
                         ),
-                        // FreeLancers
+                        // Freelancer
                         InkWell(
                           onTap: () {
                             setState(() {
-                              categtory = "FreeLancers";
+                              categtory = "Freelancer";
                             });
                           },
                           child: Stack(
                             children: [
                               Container(
-                                width: (categtory == "FreeLancers")
+                                width: (categtory == "Freelancer")
                                     ? activeWidth
                                     : mainWidth,
-                                height: (categtory == "FreeLancers")
+                                height: (categtory == "Freelancer")
                                     ? activeWidth
                                     : mainWidth,
                                 alignment: Alignment.center,
@@ -142,7 +144,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   color: NeedlincColors.white,
                                   border: Border.all(
                                     width: 2,
-                                    color: (categtory == "FreeLancers")
+                                    color: (categtory == "Freelancer")
                                         ? NeedlincColors.blue1
                                         : NeedlincColors.blue3,
                                   ),
@@ -161,7 +163,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 padding: const EdgeInsets.all(5),
                                 child: Icon(
                                   Icons.circle,
-                                  color: (categtory == "FreeLancers")
+                                  color: (categtory == "Freelancer")
                                       ? NeedlincColors.blue1
                                       : NeedlincColors.white,
                                 ),
@@ -175,20 +177,20 @@ class _CategoryPageState extends State<CategoryPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // businessOwner
+                        // Business
                         InkWell(
                           onTap: () {
                             setState(() {
-                              categtory = "businessOwner";
+                              categtory = "Business";
                             });
                           },
                           child: Stack(
                             children: [
                               Container(
-                                width: (categtory == "businessOwner")
+                                width: (categtory == "Business")
                                     ? activeWidth
                                     : mainWidth,
-                                height: (categtory == "businessOwner")
+                                height: (categtory == "Business")
                                     ? activeWidth
                                     : mainWidth,
                                 alignment: Alignment.center,
@@ -196,7 +198,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   color: NeedlincColors.white,
                                   border: Border.all(
                                     width: 2,
-                                    color: (categtory == "businessOwner")
+                                    color: (categtory == "Business")
                                         ? NeedlincColors.blue1
                                         : NeedlincColors.blue3,
                                   ),
@@ -215,7 +217,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 padding: const EdgeInsets.all(5),
                                 child: Icon(
                                   Icons.circle,
-                                  color: (categtory == "businessOwner")
+                                  color: (categtory == "Business")
                                       ? NeedlincColors.blue1
                                       : NeedlincColors.white,
                                 ),
@@ -282,9 +284,11 @@ class _CategoryPageState extends State<CategoryPage> {
                     padding: EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
+                        UserAccount(FirebaseAuth.instance.currentUser!.uid).updateUserCompleteProfile();
                         switch (categtory) {
-                          case 'notFreeLancers':
+                          case 'User':
                             {
+                              userCategory(userType: 'User');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -292,8 +296,9 @@ class _CategoryPageState extends State<CategoryPage> {
                                           ClientMainPages(currentPage: 0)));
                             }
                             break;
-                          case 'FreeLancers':
+                          case 'Freelancer':
                             {
+                              userCategory(userType: 'Freelancer');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -301,8 +306,9 @@ class _CategoryPageState extends State<CategoryPage> {
                                           ClientMainPages(currentPage: 0)));
                             }
                             break;
-                          case 'businessOwner':
+                          case 'Business':
                             {
+                              userCategory(userType: 'Business');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -312,11 +318,12 @@ class _CategoryPageState extends State<CategoryPage> {
                             break;
                           case 'Blogger':
                             {
+                              userCategory(userType: 'Blogger');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          BusinessMainPages(currentPage: 0)));
+                                          ClientMainPages(currentPage: 0)));
                             }
                             break;
                           default:

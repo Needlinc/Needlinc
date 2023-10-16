@@ -7,7 +7,7 @@ import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../backend/authentication/sign-up.dart';
-import '../../backend/user-account/user-information.dart';
+import '../../backend/user-account/functionality.dart';
 
 
 class CreateAccountPage extends StatefulWidget {
@@ -30,9 +30,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
    SignUp(
        fullNameController.text.trim(),
        userNameController.text.trim(),
-       emailController.text.trim(),
+       emailController.text,
        passwordController.text.trim(),
-     //  profilePicture!
+       profilePicture!
    ).signUpWithEmailPassword();
   }
 
@@ -355,12 +355,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 onPressed: () {
                                   if (_formField.currentState!.validate()) {
                                     _ShowAddPhoto();
-                                    saveUserInformation();
-                                    emailController.clear();
-                                    fullNameController.clear();
-                                    userNameController.clear();
-                                    passwordController.clear();
-                                    confirmPassController.clear();
                                   }
                                 },
                                 child: Text('Create New Account'),
@@ -407,10 +401,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   
                                 )
-                            // Image.asset(
-                            //   "assets/1.png",
-                            //   fit: BoxFit.fill,
-                            // )
                                 : CircleAvatar(
                               radius: 60,
                               backgroundImage: MemoryImage(profilePicture!),
@@ -453,6 +443,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       padding: EdgeInsets.only(right: 15, bottom: 55),
                       child: ElevatedButton(
                         onPressed: () {
+                          saveUserInformation();
+                          emailController.clear();
+                          fullNameController.clear();
+                          userNameController.clear();
+                          passwordController.clear();
+                          confirmPassController.clear();
                           Navigator.push(
                               context,
                               MaterialPageRoute(

@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'dart:typed_data';
-
-import '../user-account/user-information.dart';
+import '../user-account/functionality.dart';
 import '../user-account/user-online-information.dart';
 
 class SignUp {
@@ -11,9 +10,15 @@ class SignUp {
   final String nickName;
   final String email;
   final String password;
- // final Uint8List profilePicture;
+  final Uint8List profilePicture;
 
-  SignUp(this.fullName, this.nickName, this.email, this.password);
+  SignUp(
+      this.fullName,
+      this.nickName,
+      this.email,
+      this.password,
+      this.profilePicture
+      );
 
   Future<UserCredential?> signUpWithEmailPassword() async {
     try {
@@ -21,8 +26,15 @@ class SignUp {
         email: email,
         password: password,
       );
-  //    final pickedImage = await convertUint8ListToPickedFile(profilePicture);
-           UserAccount(userCredential.user!.uid).updateUserProfile(fullName: fullName, nickName: nickName, email: email, password: password);
+             String profilePictureURL = await uploadImageToFirebase(profilePicture);
+           UserAccount(userCredential.user!.uid).updateUserProfile(
+               fullName: fullName,
+               nickName: nickName,
+               email: email,
+               password: password,
+               profilePicture: profilePictureURL
+           );
+           await saveUserData('user-id', userCredential.user!.uid);
       // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
       return userCredential;
     } catch (e) {

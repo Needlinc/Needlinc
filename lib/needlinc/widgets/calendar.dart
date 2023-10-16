@@ -2,6 +2,8 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 
+import '../backend/user-account/functionality.dart';
+
 class Calendar extends StatefulWidget {
   const Calendar({Key? key, required this.title}) : super(key: key);
 
@@ -90,6 +92,8 @@ class _CalendarState extends State<Calendar> {
 
 
   String _buildSelectedDates() {
-    return _selectedDates.map((date) => date?.toString().substring(0, 10) ?? 'null').join(', ');
+    final dateOfBirth = _selectedDates.map((date) => date?.toString().substring(0, 10) ?? 'null').join(', ');
+    getDateOfBirth(birthDay: dateOfBirth);
+    return dateOfBirth;
   }
 }

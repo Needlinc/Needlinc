@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
+import '../../backend/user-account/functionality.dart';
 import '../../widgets/EnterApp.dart';
 
 class Location extends StatefulWidget {
@@ -82,6 +83,7 @@ class _LocationState extends State<Location> {
                 padding: EdgeInsets.only(right: 15, bottom: 55),
                 child: ElevatedButton(
                   onPressed: () {
+                    addLocation(location: locationController.text);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => PhoneNumber()));
                   },

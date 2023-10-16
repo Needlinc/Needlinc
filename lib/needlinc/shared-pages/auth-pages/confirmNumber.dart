@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
@@ -8,7 +9,9 @@ import '../../colors/colors.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class confirmNumber extends StatefulWidget {
-  const confirmNumber({super.key});
+  final String verificationId;
+  final String phoneNumber;
+  const confirmNumber(this.verificationId, {required this.phoneNumber});
 
   @override
   State<confirmNumber> createState() => _confirmNumberState();
@@ -16,6 +19,46 @@ class confirmNumber extends StatefulWidget {
 
 class _confirmNumberState extends State<confirmNumber> {
   int lastDigit = 765;
+  final TextEditingController _otpController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController pin1Controller = TextEditingController();
+  final TextEditingController pin2Controller = TextEditingController();
+  final TextEditingController pin3Controller = TextEditingController();
+  final TextEditingController pin4Controller = TextEditingController();
+  final TextEditingController pin5Controller = TextEditingController();
+  final TextEditingController pin6Controller = TextEditingController();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _otpController.text = widget.verificationId;
+  }
+
+  void verifyOTP() async {
+    print(_otpController.text);
+    if(_otpController.text == null){
+      _otpController.text = '${pin1Controller.text}${pin2Controller.text}${pin3Controller.text}${pin4Controller.text}${pin5Controller.text}${pin6Controller.text}';
+    print(_otpController.text);
+    }
+    final String otp = _otpController.text.trim();
+    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: widget.verificationId,
+      smsCode: otp,
+    );
+
+    try {
+      await _auth.signInWithCredential(credential);
+      // User is now authenticated, navigate to the home screen, for example.
+      // You can also store the user's session to keep them signed in.
+      // Handle success as needed.
+      print('Verification successful');
+    } catch (e) {
+      // Handle verification failure, e.g., invalid OTP.
+      print('Verification failed: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +156,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin1Controller,
                                 onSaved: (pin1) {},
                                 decoration: InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
@@ -139,6 +183,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin2Controller,
                                 onSaved: (pin2) {},
                                 keyboardType: TextInputType.number,
                                 textAlign: TextAlign.center,
@@ -157,6 +202,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin3Controller,
                                 onSaved: (pin3) {},
                                 decoration: InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
@@ -179,7 +225,54 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin4Controller,
                                 onSaved: (pin4) {},
+                                decoration: InputDecoration(
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
+                                ),
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(1),
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 54,
+                              width: 50,
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
+                                controller: pin5Controller,
+                                onSaved: (pin5) {},
+                                decoration: InputDecoration(
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
+                                ),
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(1),
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 54,
+                              width: 50,
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
+                                controller: pin6Controller,
+                                onSaved: (pin6) {},
                                 decoration: InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
@@ -204,6 +297,8 @@ class _confirmNumberState extends State<confirmNumber> {
                     padding: EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
+                        //TODO
+                        verifyOTP();
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => Success()));
                       },

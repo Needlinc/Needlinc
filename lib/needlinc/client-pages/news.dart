@@ -92,7 +92,7 @@ class _NewsPageState extends State<NewsPage> {
             ListTile(
               leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
               title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RootPage()))},
             ),
             Divider(),
             ListTile(

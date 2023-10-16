@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/widgets/calendar.dart';
+import '../../backend/user-account/functionality.dart';
+import '../../backend/user-account/user-online-information.dart';
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
 
@@ -25,7 +27,7 @@ class _GenderState extends State<Gender> {
       } else {
         genderValue = ''; // Reset genderValue if male is unselected
       }
-      print(genderValue);
+      getGender(gender: genderValue);
     });
   }
 
@@ -38,7 +40,7 @@ class _GenderState extends State<Gender> {
       } else {
         genderValue = ''; // Reset genderValue if female is unselected
       }
-      print(genderValue);
+      getGender(gender: genderValue);
     });
   }
 
@@ -58,7 +60,7 @@ class _GenderState extends State<Gender> {
   void showOnProfileCheck(bool? newValue) {
     setState(() {
       showOnProfile = newValue ?? false;
-      print(showOnProfile);
+      displayProfileOption(profileOption: showOnProfile);
     });
   }
 

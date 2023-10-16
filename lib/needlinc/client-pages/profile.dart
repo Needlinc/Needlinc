@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
 import 'client-main.dart';
 
@@ -52,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ListTile(
                             leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
                             title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RootPage()))},
                           ),
                           Divider(),
                           ListTile(
@@ -97,9 +98,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () => {Navigator.of(context).pop()},
                           ),
                           Center(
-                            child: Container(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
+                            child: GestureDetector(
+                              onTap: (){
+                                signOutUser();
+
+                                  Navigator.of(context).pushNamedAndRemoveUntil('//', (route) => false);
+
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(20.0),
+                                child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
+                              ),
                             ),
                           )
                         ],

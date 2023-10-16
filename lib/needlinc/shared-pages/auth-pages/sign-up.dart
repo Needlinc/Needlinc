@@ -5,6 +5,7 @@ import 'package:needlinc/needlinc/widgets/EnterApp.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
+import '../../backend/authentication/login.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class SignupPage extends StatefulWidget {
@@ -23,17 +24,7 @@ class _SignupPageState extends State<SignupPage> {
     });
   }
 
-  Future<void> _launchGoogleHomePage() async {
-    final url = Uri(
-      scheme: 'https',
-      host: 'google.com',
-    );
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+
 
   final _formField = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -164,6 +155,7 @@ class _SignupPageState extends State<SignupPage> {
                               // Sign in button
                               ElevatedButton(
                                 onPressed: () {
+                                  loginUser(emailController.text.trim(), passwordController.text);
                                   // Add your logic for Client sign-in here
                                   if (_formField.currentState!.validate()) {
                                     Navigator.push(
@@ -212,7 +204,9 @@ class _SignupPageState extends State<SignupPage> {
                               SizedBox(height: 15),
                               // forgot password
                               GestureDetector(
-                                onTap: _launchGoogleHomePage,
+                                onTap: (){
+                                  //TODO Write your code here
+                                },
                                 child: Text(
                                   'forgot password? Click here to reset',
                                   style: TextStyle(
