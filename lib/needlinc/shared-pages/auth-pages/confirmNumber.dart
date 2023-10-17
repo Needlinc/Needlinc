@@ -37,12 +37,23 @@ class _confirmNumberState extends State<confirmNumber> {
   }
 
   void verifyOTP() async {
-    print(_otpController.text);
-    if(_otpController.text == null){
-      _otpController.text = '${pin1Controller.text}${pin2Controller.text}${pin3Controller.text}${pin4Controller.text}${pin5Controller.text}${pin6Controller.text}';
-    print(_otpController.text);
+    // Combine the OTP digits from the controllers
+    String otp = '';
+    otp += pin1Controller.text;
+    otp += pin2Controller.text;
+    otp += pin3Controller.text;
+    otp += pin4Controller.text;
+    otp += pin5Controller.text;
+    otp += pin6Controller.text;
+
+    print('This is the OTP: $otp');
+
+    // Check if the OTP is valid
+    if (otp.length != 6) {
+      print('Invalid OTP');
+      return;
     }
-    final String otp = _otpController.text.trim();
+
     final PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: widget.verificationId,
       smsCode: otp,
@@ -50,15 +61,17 @@ class _confirmNumberState extends State<confirmNumber> {
 
     try {
       await _auth.signInWithCredential(credential);
-      // User is now authenticated, navigate to the home screen, for example.
-      // You can also store the user's session to keep them signed in.
-      // Handle success as needed.
-      print('Verification successful');
+      // User is now authenticated, navigate to the next page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Success()),
+      );
     } catch (e) {
       // Handle verification failure, e.g., invalid OTP.
       print('Verification failed: $e');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
