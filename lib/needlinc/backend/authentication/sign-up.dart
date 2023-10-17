@@ -32,9 +32,9 @@ class SignUp {
                nickName: nickName,
                email: email,
                password: password,
-               profilePicture: profilePictureURL
+               profilePicture: profilePictureURL,
+               userID: userCredential.user!.uid
            );
-           await saveUserData('user-id', userCredential.user!.uid);
       // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
       return userCredential;
     } catch (e) {

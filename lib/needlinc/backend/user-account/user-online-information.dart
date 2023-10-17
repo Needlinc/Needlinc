@@ -1,15 +1,9 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 
 class UserAccount {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String uid;
 
@@ -20,7 +14,8 @@ class UserAccount {
     required String nickName,
     required String email,
     required String password,
-    required String profilePicture
+    required String profilePicture,
+    required String userID
   }) async {
     try {
       // Use the provided uid for the user
@@ -32,7 +27,8 @@ class UserAccount {
         'nickName': nickName,
         'password': password,
         'email': email,
-        'pickedProfilePicture': profilePicture
+        'pickedProfilePicture': profilePicture,
+        'UserID': userID
       });
 
       print('User profile updated successfully!');
