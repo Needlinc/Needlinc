@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/client-pages/client-main.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 
 import 'firebase_options.dart';
-import 'needlinc/business-pages/home.dart';
+import 'needlinc/client-pages/home.dart';
+import 'needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'needlinc/shared-pages/auth-pages/sign-up.dart';
+import 'needlinc/shared-pages/user-type.dart';
 
 
 void main() async {
@@ -52,7 +55,7 @@ class _RootPageState extends State<RootPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
-            return HomePage();
+            return UserType();
           } else if (snapshot.hasError) {
             return Center(
               child: Text('${snapshot.error}'),

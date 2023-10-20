@@ -7,6 +7,7 @@ import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 import '../../colors/colors.dart';
 import '../../widgets/TextFieldBorder.dart';
+import '../user-type.dart';
 
 class confirmNumber extends StatefulWidget {
   final String verificationId;
@@ -104,14 +105,18 @@ class _confirmNumberState extends State<confirmNumber> {
                           TextStyle(color: NeedlincColors.white, fontSize: 12),
                     ),
                     // Skip button
-                    Container(
-                      padding: EdgeInsets.only(right: 10),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserType()));
+                      },
                       child: Text(
-                        '      ',
-                        style: TextStyle(
-                            color: NeedlincColors.white, fontSize: 21),
+                        '',
+                        style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(height: 70),

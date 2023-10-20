@@ -5,6 +5,7 @@ import '../../backend/user-account/functionality.dart';
 import '../../backend/user-account/user-online-information.dart';
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
+import '../user-type.dart';
 
 class Gender extends StatefulWidget {
   const Gender({super.key});
@@ -101,14 +102,18 @@ class _GenderState extends State<Gender> {
                     style: TextStyle(color: NeedlincColors.white, fontSize: 12),
                   ),
                   // Skip button
-                  Container(
-                    padding: EdgeInsets.only(right: 10),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserType()));
+                    },
                     child: Text(
-                      'Skip',
-                      style:
-                      TextStyle(color: NeedlincColors.white, fontSize: 21),
+                      '',
+                      style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
                     ),
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 80,),

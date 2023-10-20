@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/backend/user-account/user-online-information.dart';
 import 'package:needlinc/needlinc/business-pages/business-main.dart';
+import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
-import '../client-pages/client-main.dart';
-import '../colors/colors.dart';
+import '../../client-pages/client-main.dart';
+import '../../colors/colors.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -293,7 +294,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ClientMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           case 'Freelancer':
@@ -303,7 +304,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ClientMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           case 'Business':
@@ -313,7 +314,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          BusinessMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           case 'Blogger':
@@ -323,7 +324,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ClientMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           default:

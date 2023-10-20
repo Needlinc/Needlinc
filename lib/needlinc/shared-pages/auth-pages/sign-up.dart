@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/client-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/sign-in.dart';
-import 'package:needlinc/needlinc/widgets/EnterApp.dart';
+import 'package:needlinc/needlinc/shared-pages/user-type.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/EnterApp.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 import '../../backend/authentication/login.dart';
+import '../../business-pages/business-main.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class SignupPage extends StatefulWidget {
@@ -155,15 +158,9 @@ class _SignupPageState extends State<SignupPage> {
                               // Sign in button
                               ElevatedButton(
                                 onPressed: () {
-                                  loginUser(emailController.text.trim(), passwordController.text);
+                                  loginUser(emailController.text.trim(), passwordController.text, context);
                                   // Add your logic for Client sign-in here
                                   if (_formField.currentState!.validate()) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CategoryPage()));
-                                    print("success");
                                     emailController.clear();
                                     passwordController.clear();
                                   }

@@ -6,9 +6,10 @@ import 'package:needlinc/needlinc/business-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/confirmNumber.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
+import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
-import '../../widgets/EnterApp.dart';
+import 'EnterApp.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class PhoneNumber extends StatefulWidget {
@@ -99,10 +100,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                                builder: (context) => UserType()));
                       },
                       child: Text(
-                        'Skip',
+                        '',
                         style: TextStyle(
                             color: NeedlincColors.white, fontSize: 21),
                       ),
@@ -125,7 +126,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                     // body
                     SizedBox(height: 35),
                     Container(
-                      width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: BoxDecoration(
                         color: NeedlincColors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -143,12 +144,12 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         controller: _phoneNumberController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(11),
+                          LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                         decoration: InputDecoration(
-                          labelText: '08010002000',
-                          contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                          labelText: '8010002000',
+                          contentPadding: EdgeInsets.only(left: 50.0, right: 8.0),
                           focusedBorder: Borders.FocusedBorder,
                           enabledBorder: Borders.EnabledBorder,
                         ),
@@ -187,6 +188,21 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   ),
                 )
               ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 234.0, left: 50.0),
+            padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 3.0, right: 3.0),
+            child: Text(
+                '+234',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: NeedlincColors.white,
+              borderRadius: BorderRadius.circular(10),
             ),
           )
         ],

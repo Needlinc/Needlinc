@@ -80,12 +80,6 @@ class _ClientMainPagesState extends State<ClientMainPages> {
         ),
         //TODO(Already done) This is the App Body
         body: PageTransition(_currentPage!),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.pop(context);
-        },
-        child: Text("Get\nOut"),
-      ),
     );
   }
 }
