@@ -8,6 +8,7 @@ import 'firebase_options.dart';
 import 'needlinc/client-pages/home.dart';
 import 'needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'needlinc/shared-pages/auth-pages/sign-up.dart';
+import 'needlinc/shared-pages/market-place-post.dart';
 import 'needlinc/shared-pages/user-type.dart';
 
 

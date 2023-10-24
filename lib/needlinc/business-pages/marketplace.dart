@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../business-pages/post.dart';
+import '../shared-pages/market-place-post.dart';
 import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import '../../main.dart';
@@ -236,7 +236,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   icon: Icon(Icons.draw_outlined, color: NeedlincColors.white,),
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MarketPlacePostPage()));
                   },
                 ),
               ),

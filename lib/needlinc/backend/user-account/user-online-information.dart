@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 
 class UserAccount {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   final String uid;
 
   UserAccount(this.uid);
@@ -70,8 +72,6 @@ class UserAccount {
       print('Error updating user profile: $e');
     }
   }
-
-
 
 
 

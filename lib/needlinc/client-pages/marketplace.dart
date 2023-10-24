@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
+import '../shared-pages/market-place-post.dart';
 import 'client-main.dart';
 
 class MarketplacePage extends StatefulWidget {
@@ -236,7 +236,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   icon: Icon(Icons.draw_outlined, color: NeedlincColors.white,),
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MarketPlacePostPage()));
                   },
                 ),
               ),

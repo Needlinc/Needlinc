@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/post.dart';
+import 'package:needlinc/needlinc/shared-pages/home-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/client-pages/client-main.dart';
 import 'package:needlinc/needlinc/shared-pages/messages.dart';
@@ -83,8 +83,8 @@ class _HomePageState extends State<HomePage> {
                                 IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
                               ],
                             ),
-                            Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                            Text("📍John Paul's kitchen, eziobodo", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                            Text(data['userCategory'], style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                            Text("📍${data['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
                           ],
                         ),
                       )
@@ -402,7 +402,7 @@ class _HomePageState extends State<HomePage> {
                                   GestureDetector(
                                       onTap: ()
                                       {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()),);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
                                       },
                                       child: Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
                                 ],
@@ -412,8 +412,8 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(width: 50.0,),
-                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
                                 ],
                               )
                             ],
