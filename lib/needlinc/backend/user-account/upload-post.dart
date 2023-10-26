@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
+import 'package:needlinc/needlinc/shared-pages/market-place-post.dart';
 import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import 'package:random_string/random_string.dart';
+import 'package:flutter/material.dart';
 
 class UploadPost{
   
@@ -99,4 +101,60 @@ class UploadPost{
     }
     return true;
   }
+
+
+
+
+
+
+
+  Future<bool> MarketPlacePost(
+      {
+        required BuildContext context,
+        required image,
+        required String description,
+        required String productName,
+        required String price,
+        required String category
+      }) async {
+    try {
+      // Use the provided uid for the user
+      final User? user = _auth.currentUser;
+
+      final String randomUrl = randomAlphaNumeric(16);
+
+      final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/$randomUrl');
+      final UploadTask uploadTask = storageRef.putData(image);
+
+      await uploadTask;
+
+      final imageUrl = await storageRef.getDownloadURL();
+      int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
+      // Update user data in Firestore
+      await _firestore.collection('marketPlacePage').doc(randomUrl).set({
+        'userDetails': {
+          'profilePicture': await getUserData('profilePicture'),
+          'fullName': await getUserData('fullname'),
+          'nickName': await getUserData('username'),
+          'userCategory': await getUserData('userCategory'),
+          'address': await getUserData('address'),
+        },
+        'image': imageUrl,
+        'name': productName,
+        'description': description,
+        'price': price,
+        'category': category,
+        'userID': user!.uid,
+        'timeStamp': millisecondsSinceEpoch
+      });
+      showSnackBar(context, 'Market Place page post successfully uploaded!');
+      return true;
+    } catch (e) {
+      showSnackBar(context, 'Error uploading post to Market Place page $e');
+    }
+    return true;
+  }
+
+
+
 }

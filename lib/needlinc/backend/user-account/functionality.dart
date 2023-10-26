@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Storing data in local storage
@@ -75,13 +77,23 @@ Future<void> addPhoneNumber({
 
 }
 
+Future<void> addProfilePictureUrl({
+  required String url,
+}) async {
+
+  // Add user birth day date in local storage
+  saveUserData('profilePicture', url);
+
+}
+
 Future<void> userCategory({
+  required BuildContext context,
   required String userType,
 }) async {
 
   // Add user birth day date in local storage
   saveUserData('userCategory', userType);
-  print('User profile updated successfully!');
+  showSnackBar(context, 'User profile updated successfully!');
 }
 
 

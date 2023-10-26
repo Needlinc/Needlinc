@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'dart:typed_data';
@@ -11,8 +12,10 @@ class SignUp {
   final String email;
   final String password;
   final Uint8List profilePicture;
+  final BuildContext context;
 
   SignUp(
+      this.context,
       this.fullName,
       this.nickName,
       this.email,
@@ -28,6 +31,7 @@ class SignUp {
       );
              String profilePictureURL = await uploadImageToFirebase(profilePicture);
            UserAccount(userCredential.user!.uid).updateUserProfile(
+               context: context,
                fullName: fullName,
                nickName: nickName,
                email: email,

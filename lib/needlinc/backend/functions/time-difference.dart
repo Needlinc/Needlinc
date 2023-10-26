@@ -1,5 +1,9 @@
-String calculateTimeDifference(DateTime postTime) {
+
+
+
+String calculateTimeDifference(int postTimeInMilliSeconds) {
   final now = DateTime.now();
+  final postTime = DateTime.fromMillisecondsSinceEpoch(postTimeInMilliSeconds);
   final difference = now.difference(postTime);
 
   if (difference.inDays > 0) {

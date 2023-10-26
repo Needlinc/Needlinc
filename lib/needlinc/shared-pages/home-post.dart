@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import '../backend/user-account/upload-post.dart';
-import '../widgets/check-box.dart';
 import '../widgets/snack-bar.dart';
 
 class HomePostPage extends StatefulWidget {
@@ -19,11 +18,19 @@ class _HomePostPageState extends State<HomePostPage> {
 
   Uint8List? imagePost;
   TextEditingController writeUp = TextEditingController();
-  TextEditingController freelancerOption = TextEditingController();
+  bool freelancerOption = false;
   bool upLoading = true;
+  String selectedOccupations = "";
 
+  List<String> occupations = [
+    "Electrician",
+    "Mechanic",
+    "Makeup Artist",
+    "Plumber",
+    "Other",
+  ];
 
-  Future _selectFile(bool imageFrom) async {
+  Future _selectFile(context, bool imageFrom) async {
     try {
       XFile? imageFile = await ImagePicker().pickImage(
           source: imageFrom ? ImageSource.gallery : ImageSource.camera
@@ -34,7 +41,7 @@ class _HomePostPageState extends State<HomePostPage> {
       }
     } on PlatformException catch (e) {
       // TODO
-      print('Failed to select image: $e');
+      showSnackBar(context, "Failed to select image: $e");
     }
   }
 
@@ -132,14 +139,84 @@ class _HomePostPageState extends State<HomePostPage> {
                   ],
                 ),
               ),
+              // TODO Handle CheckBox
               Container(
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(left: 8.0, top: 10.0),
-                child: CheckboxWidget(),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: freelancerOption,
+                      onChanged: (bool? newValue) {
+                        setState(() {
+                          freelancerOption = newValue!;
+                          print(freelancerOption);
+                        });
+                      },
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Notify a freelancer',
+                          style: GoogleFonts.oxygen(fontWeight: FontWeight.w500),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Text(
+                            'This allows your post to directly notify a freelancer who you might need to come work for you.',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: NeedlincColors.black2
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
+
+              Visibility(
+                visible: freelancerOption,
+                child: Container(
+                  margin: EdgeInsets.only(top: 34.5, bottom: 31.4),
+                  child: Column(
+                    children: [
+                      Text('Select an Occupation::'),
+                      SizedBox(height: 6.0),
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: occupations.map((category) {
+                          return ChoiceChip(
+                            label: Text(
+                              category,
+                              style: TextStyle(
+                                color: selectedOccupations == category ? Colors.white : Colors.black,
+                              ),
+                            ),
+                            selected: selectedOccupations == category,
+                            onSelected: (selected) {
+                              setState(() {
+                                selectedOccupations = selected ? category : "";
+                                print('Selected Category: $selectedOccupations');
+                              });
+                            },
+                            backgroundColor: selectedOccupations == category ? Colors.blue : null, // Set the background color to blue when selected
+                            selectedColor: NeedlincColors.blue1, // Specify the selected color
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
               InkWell(
                 onTap: (){
-                  _selectFile(false);
+                  _selectFile(context, false);
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: 25.0),
@@ -160,7 +237,7 @@ class _HomePostPageState extends State<HomePostPage> {
               ),
               InkWell(
                 onTap: (){
-                  _selectFile(true);
+                  _selectFile(context, true);
                   },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
@@ -175,24 +252,23 @@ class _HomePostPageState extends State<HomePostPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 150.0, bottom: 10.0),
+                margin: EdgeInsets.only(top: 36.0, bottom: 10.0),
                 alignment: Alignment.bottomRight,
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
                     upLoading = false;
                     setState(() {});
-                    freelancerOption.text = "true";
                     if(imagePost != null && writeUp != null && freelancerOption != null) {
-                      upLoading = await UploadPost().homePagePostForImageAndWriteUp(context, imagePost,writeUp.text, freelancerOption.text);
+                      upLoading = await UploadPost().homePagePostForImageAndWriteUp(context, imagePost,writeUp.text, selectedOccupations);
                       upLoading ? Navigator.pop(context) : null;
                     }
                     else if(imagePost != null && writeUp == null){
-                      upLoading = await UploadPost().homePagePostForImage(context, imagePost, freelancerOption.text);
+                      upLoading = await UploadPost().homePagePostForImage(context, imagePost, selectedOccupations);
                       upLoading ? Navigator.pop(context) : null;
                     }
                     else if (imagePost == null && writeUp != null){
-                      upLoading = await UploadPost().homePagePostForWriteUp(context, writeUp.text, freelancerOption.text);
+                      upLoading = await UploadPost().homePagePostForWriteUp(context, writeUp.text, selectedOccupations);
                       upLoading ? Navigator.pop(context) : null;
                     }
                     else{

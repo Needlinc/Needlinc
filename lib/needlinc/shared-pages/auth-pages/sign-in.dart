@@ -28,6 +28,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
    saveUserData('email', emailController.text.trim());
    saveUserData('password', passwordController.text.trim());
    SignUp(
+       context,
        fullNameController.text.trim(),
        userNameController.text.trim(),
        emailController.text,

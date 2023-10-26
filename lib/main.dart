@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/client-main.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
-
 import 'firebase_options.dart';
-import 'needlinc/client-pages/home.dart';
-import 'needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'needlinc/shared-pages/auth-pages/sign-up.dart';
 import 'needlinc/shared-pages/market-place-post.dart';
 import 'needlinc/shared-pages/user-type.dart';
@@ -33,7 +29,8 @@ class Home extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => RootPage(),
+      //  '/': (context) => RootPage(),
+        '/': (context) => MarketPlacePostPage(),
         '//': (context) => SignupPage(),
       },
     );

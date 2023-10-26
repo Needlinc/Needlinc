@@ -289,7 +289,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         switch (categtory) {
                           case 'User':
                             {
-                              userCategory(userType: 'User');
+                              userCategory(context: context, userType: 'User');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -299,7 +299,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             break;
                           case 'Freelancer':
                             {
-                              userCategory(userType: 'Freelancer');
+                              userCategory(context: context, userType: 'Freelancer');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -309,7 +309,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             break;
                           case 'Business':
                             {
-                              userCategory(userType: 'Business');
+                              userCategory(context: context, userType: 'Business');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -319,7 +319,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             break;
                           case 'Blogger':
                             {
-                              userCategory(userType: 'Blogger');
+                              userCategory(context: context, userType: 'Blogger');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
