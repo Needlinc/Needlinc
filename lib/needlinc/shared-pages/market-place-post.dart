@@ -22,7 +22,7 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
   TextEditingController productDescription = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
-  bool uploading = false;
+  bool notLoading = true;
   bool pickedImage = false;
 
   String selectedCategory = "";
@@ -75,13 +75,13 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
         actions: [
           InkWell(
             onTap: () async {
-              uploading = true;
+              notLoading = false;
               setState(() {});
               if(imagePost != null && productDescription != null && productNameController.text != null && productPriceController.text != null && selectedCategory != null){
                 UploadPost().MarketPlacePost(context: context, image: imagePost, description: productDescription.text, productName: productNameController.text, price: productPriceController.text, category: selectedCategory);
-                uploading = false;
+                Navigator.pop(context);
               } else {
-                uploading = false;
+                notLoading = true;
                 // Handle the case where at least one field is empty
                 String errorMessage = 'The following fields are empty:';
 
@@ -119,7 +119,7 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
         leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.cancel),
       ),
     ),
-      body: uploading == false ? SingleChildScrollView(
+      body: notLoading ? SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -172,6 +172,7 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
                     child: TextField(
                           maxLines: 8,
                           keyboardType: TextInputType.multiline,
+                          controller: productDescription,
                           decoration: InputDecoration(
                             hintText: 'Product description...',
                             border: OutlineInputBorder(

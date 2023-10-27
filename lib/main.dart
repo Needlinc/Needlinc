@@ -29,8 +29,7 @@ class Home extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-      //  '/': (context) => RootPage(),
-        '/': (context) => MarketPlacePostPage(),
+        '/': (context) => RootPage(),
         '//': (context) => SignupPage(),
       },
     );

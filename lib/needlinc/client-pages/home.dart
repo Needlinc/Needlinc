@@ -21,109 +21,425 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference homePage = FirebaseFirestore.instance.collection('homePage');
 
-  //TODO These are the Post of different individuals
-  Widget HomePosts(BuildContext context){
-    return Container(
-      margin: EdgeInsets.only(top: 160.0),
-      child: FutureBuilder<DocumentSnapshot>(
-        future: users.doc(FirebaseAuth.instance.currentUser!.uid).get(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text("Something went wrong");
-          }
-
-          if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            Map<String, dynamic> data = snapshot.data!.data() as Map<
-                String,
-                dynamic>;
-
-            return Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-              color: NeedlincColors.white,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                data['pickedProfilePicture'],
-                              ),
-                              fit: BoxFit.fill,
-                            ),
-                            color: NeedlincColors.black3,
-                            shape: BoxShape.circle,
-                          ),
+// Get The post data from the HomePost widget and send it to the screen for users to view
+  Widget displayHomePosts({
+    required BuildContext context,
+    required String userName,
+    required String address,
+    required String userCategory,
+    required String profilePicture,
+    required String image,
+    required String writeUp,
+    required double hearts,
+    required List comments,
+    required int timeStamp
+  }){
+    if(image != "null" && writeUp != "null"){
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => ClientMainPages(currentPage: 4),
+                    ));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture,
                         ),
+                        fit: BoxFit.fill,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(data['fullName'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
-                              ],
-                            ),
-                            Text(data['userCategory'], style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                            Text("📍${data['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                          ],
-                        ),
-                      )
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName, style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory, style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍${address}", style: TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
                     ],
                   ),
-                  SizedBox(height: 30.0,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                )
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10, left: 65, bottom: 10),
+              alignment: Alignment.topLeft,
+              child: Text(
+                writeUp,
+                style: TextStyle(
+                  fontSize: 20
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width * 0.55,
+              margin: EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                color: NeedlincColors.black3,
+                shape: BoxShape.rectangle,
+              ),
+            ),
+            SizedBox(height: 30.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: Icon(
+                          Icons.favorite_border, size: 22,)),
+                    Text("$hearts", style: TextStyle(fontSize: 15))
+                  ],
+                ),
+                SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                              CommentsPage()));
+                    },
+                        icon: Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${comments.length}", style: TextStyle(fontSize: 15))
+                  ],
+                ),
+                SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: Icon(
+                      Icons.bookmark_border, size: 20,)),
+                SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    if(image != "null" && writeUp == "null"){
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => ClientMainPages(currentPage: 4),
+                    ));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
                         children: [
-                          IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
-                          Text("1.2K", style: TextStyle(fontSize: 10))
+                          Text(userName, style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: Icon(Icons.more_horiz))
                         ],
                       ),
-                      SizedBox(width: 10.0,),
-                      Row(
-                        children: [
-                          IconButton(onPressed: ()
-                          {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
-                          }, icon: Icon(Icons.maps_ugc_outlined, size: 20,)),
-                          Text("200", style: TextStyle(fontSize: 10))
-                        ],
-                      ),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border, size: 20,)),
-                      SizedBox(width: 10.0,),
-                      IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
+                      Text(userCategory, style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍${address}", style: TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
                     ],
-                  )
-                ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width * 0.55,
+              margin: EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                color: NeedlincColors.black3,
+                shape: BoxShape.rectangle,
               ),
-            );
-          }
-          // While waiting for the data to be fetched, show a loading indicator
-          return Center(child: CircularProgressIndicator());
-        },
-      )
+            ),
+            SizedBox(height: 30.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: Icon(
+                          Icons.favorite_border, size: 22,)),
+                    Text("$hearts", style: TextStyle(fontSize: 15))
+                  ],
+                ),
+                SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                              CommentsPage()));
+                    },
+                        icon: Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${comments.length}", style: TextStyle(fontSize: 15))
+                  ],
+                ),
+                SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: Icon(
+                      Icons.bookmark_border, size: 20,)),
+                SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    if(image == "null" && writeUp != "null"){
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => ClientMainPages(currentPage: 4),
+                    ));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName, style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory, style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍${address}", style: TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10, left: 65, bottom: 10),
+              alignment: Alignment.topLeft,
+              child: Text(
+                writeUp,
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: Icon(
+                          Icons.favorite_border, size: 22,)),
+                    Text('$hearts', style: TextStyle(fontSize: 15))
+                  ],
+                ),
+                SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                              CommentsPage()));
+                    },
+                        icon: Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${comments.length}", style: TextStyle(fontSize: 15))
+                  ],
+                ),
+                SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: Icon(
+                      Icons.bookmark_border, size: 20,)),
+                SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    return Center(child: CircularProgressIndicator(),);
+  }
+
+  //Get Data from firebase and send it to the Display widget
+  Widget HomePosts(BuildContext context){
+    return Container(
+        margin: EdgeInsets.only(top: 160.0),
+        child: FutureBuilder<QuerySnapshot>(
+          future: homePage.get(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text("Something went wrong");
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              List<DocumentSnapshot> dataList = snapshot.data!.docs;
+              return ListView.builder(
+                  itemCount: dataList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var data = dataList[index].data() as Map<String, dynamic>;
+                    Map<String, dynamic>? userDetails = data['userDetails'];
+                    Map<String, dynamic>? productDetails = data['postDetails'];
+                    if (userDetails == null) {
+                      print(userDetails);
+                      // Handle the case when userDetails are missing in a document.
+                      return Text("User details not found");
+                    }
+                    if (productDetails == null) {
+                      print(productDetails);
+                      // Handle the case when userDetails are missing in a document.
+                      return Text("User details not found");
+                    }
+                    return displayHomePosts(
+                      context: context,
+                      userName: userDetails['userName'],
+                      address: userDetails['address'],
+                      userCategory: userDetails['userCategory'],
+                      profilePicture: userDetails['profilePicture'],
+                      image: productDetails['image'],
+                      writeUp: productDetails['writeUp'],
+                      hearts: 1.2,
+                      comments: [],
+                      timeStamp: productDetails['timeStamp'],
+                    );
+                  }
+              );
+            }
+            // While waiting for the data to be fetched, show a loading indicator
+            return Center(child: CircularProgressIndicator());
+          },
+        )
     );
   }
 
@@ -312,7 +628,7 @@ class _HomePageState extends State<HomePage> {
             ]
         ),
         body: FutureBuilder<DocumentSnapshot>(
-          future: users.doc(FirebaseAuth.instance.currentUser!.uid).get(),
+          future: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -323,10 +639,7 @@ class _HomePageState extends State<HomePage> {
               return Text("Document does not exist");
             }
             if (snapshot.connectionState == ConnectionState.done) {
-              Map<String, dynamic> data = snapshot.data!.data() as Map<
-                  String,
-                  dynamic>;
-
+              Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
               return Stack(
                 children: [
                   //TODO Search bar
@@ -389,7 +702,7 @@ class _HomePageState extends State<HomePage> {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: NetworkImage(
-                                            data['pickedProfilePicture'],
+                                            data['profilePicture'],
                                           ),
                                           fit: BoxFit.fill,
                                         ),
@@ -404,7 +717,7 @@ class _HomePageState extends State<HomePage> {
                                       {
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
                                       },
-                                      child: Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
+                                      child: Padding(padding: EdgeInsets.all(8), child: Text("Write a post..."),))
                                 ],
                               ),
                               //TODO Select Gallary or Camera icon

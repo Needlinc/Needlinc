@@ -8,7 +8,7 @@ import '../user-account/user-online-information.dart';
 
 class SignUp {
   final String fullName;
-  final String nickName;
+  final String userName;
   final String email;
   final String password;
   final Uint8List profilePicture;
@@ -17,7 +17,7 @@ class SignUp {
   SignUp(
       this.context,
       this.fullName,
-      this.nickName,
+      this.userName,
       this.email,
       this.password,
       this.profilePicture
@@ -29,16 +29,23 @@ class SignUp {
         email: email,
         password: password,
       );
-             String profilePictureURL = await uploadImageToFirebase(profilePicture);
+             String profilePictureUrl = await uploadImageToFirebase(profilePicture);
            UserAccount(userCredential.user!.uid).updateUserProfile(
                context: context,
                fullName: fullName,
-               nickName: nickName,
+               nickName: userName,
                email: email,
                password: password,
-               profilePicture: profilePictureURL,
+               profilePicture: profilePictureUrl,
                userID: userCredential.user!.uid
            );
+
+      saveUserData('profilePicture', profilePictureUrl);
+      saveUserData('fullName', fullName);
+      saveUserData('userName', userName);
+      saveUserData('email', email);
+      saveUserData('password', password);
+
       // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
       return userCredential;
     } catch (e) {

@@ -19,7 +19,7 @@ class _HomePostPageState extends State<HomePostPage> {
   Uint8List? imagePost;
   TextEditingController writeUp = TextEditingController();
   bool freelancerOption = false;
-  bool upLoading = true;
+  bool notLoading = true;
   String selectedOccupations = "";
 
   List<String> occupations = [
@@ -63,7 +63,7 @@ class _HomePostPageState extends State<HomePostPage> {
         leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.cancel),
       ),
     ),
-      body: upLoading ? SingleChildScrollView(
+      body: notLoading ? SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
@@ -257,25 +257,25 @@ class _HomePostPageState extends State<HomePostPage> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    upLoading = false;
+                    notLoading = false;
                     setState(() {});
                     if(imagePost != null && writeUp != null && freelancerOption != null) {
-                      upLoading = await UploadPost().homePagePostForImageAndWriteUp(context, imagePost,writeUp.text, selectedOccupations);
-                      upLoading ? Navigator.pop(context) : null;
+                      notLoading = await UploadPost().homePagePostForImageAndWriteUp(context, imagePost,writeUp.text, selectedOccupations);
+                      Navigator.pop(context);
                     }
                     else if(imagePost != null && writeUp == null){
-                      upLoading = await UploadPost().homePagePostForImage(context, imagePost, selectedOccupations);
-                      upLoading ? Navigator.pop(context) : null;
+                      notLoading = await UploadPost().homePagePostForImage(context, imagePost, selectedOccupations);
+                      Navigator.pop(context);
                     }
                     else if (imagePost == null && writeUp != null){
-                      upLoading = await UploadPost().homePagePostForWriteUp(context, writeUp.text, selectedOccupations);
-                      upLoading ? Navigator.pop(context) : null;
+                      notLoading = await UploadPost().homePagePostForWriteUp(context, writeUp.text, selectedOccupations);
+                      Navigator.pop(context);
                     }
                     else{
                       showSnackBar(context, "Empty fields");
                     }
                   },
-                  child: upLoading ? Text("POST") : CircularProgressIndicator(),
+                  child: notLoading ? Text("POST") : CircularProgressIndicator(),
                   style: ButtonStyle(
                     backgroundColor:
                     MaterialStateProperty.all<Color>(NeedlincColors.blue1),

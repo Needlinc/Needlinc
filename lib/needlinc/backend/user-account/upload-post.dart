@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
-import 'package:needlinc/needlinc/shared-pages/market-place-post.dart';
 import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import 'package:random_string/random_string.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +30,23 @@ class UploadPost{
       int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
       // Update user data in Firestore
       await _firestore.collection('homePage').doc(randomUrl).set({
-        'image': imageUrl,
-        'writeUp': writeUp,
-        'freelancerOption': freelancerOption,
-        'UserID': user!.uid,
-        'timeStamp': millisecondsSinceEpoch
+        'userDetails': {
+          'profilePicture': await getUserData('profilePicture'),
+          'fullName': await getUserData('fullName'),
+          'userName': await getUserData('userName'),
+          'userCategory': await getUserData('userCategory'),
+          'address': await getUserData('address'),
+          'userId': user!.uid,
+        },
+        'postDetails': {
+          'image': imageUrl,
+          'writeUp': writeUp,
+          'freelancerOption': freelancerOption == null ? "null" : freelancerOption,
+          'hearts': 0,
+          'comments': [],
+          'userId': user!.uid,
+          'timeStamp': millisecondsSinceEpoch
+        }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
       return true;
@@ -62,11 +73,23 @@ class UploadPost{
       int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
       // Update user data in Firestore
       await _firestore.collection('homePage').doc(randomUrl).set({
-        'image': imageUrl,
-        'writeUp': null,
-        'freelancerOption': freelancerOption,
-        'UserID': user!.uid,
-        'timeStamp': millisecondsSinceEpoch
+        'userDetails': {
+          'profilePicture': await getUserData('profilePicture'),
+          'fullName': await getUserData('fullName'),
+          'userName': await getUserData('userName'),
+          'userCategory': await getUserData('userCategory'),
+          'address': await getUserData('address'),
+          'userId': user!.uid,
+        },
+        'postDetails': {
+          'image': imageUrl,
+          'writeUp': "null",
+          'freelancerOption': freelancerOption == null ? "null" : freelancerOption,
+          'hearts': 0,
+          'comments': [],
+          'userId': user!.uid,
+          'timeStamp': millisecondsSinceEpoch
+        }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
       return true;
@@ -88,11 +111,23 @@ class UploadPost{
       int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
       // Update user data in Firestore
       await _firestore.collection('homePage').doc(randomUrl).set({
-        'image': null,
-        'writeUp': writeUp,
-        'freelancerOption': freelancerOption,
-        'UserID': user!.uid,
-        'timeStamp': millisecondsSinceEpoch
+        'userDetails': {
+          'profilePicture': await getUserData('profilePicture'),
+          'fullName': await getUserData('fullName'),
+          'userName': await getUserData('userName'),
+          'userCategory': await getUserData('userCategory'),
+          'address': await getUserData('address'),
+          'userId': user!.uid,
+        },
+        'postDetails': {
+          'image': "null",
+          'writeUp': writeUp,
+          'freelancerOption': freelancerOption == null ? "null" : freelancerOption,
+          'userId': user!.uid,
+          'hearts': 0,
+          'comments': [],
+          'timeStamp': millisecondsSinceEpoch
+        }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
       return true;
@@ -134,18 +169,23 @@ class UploadPost{
       await _firestore.collection('marketPlacePage').doc(randomUrl).set({
         'userDetails': {
           'profilePicture': await getUserData('profilePicture'),
-          'fullName': await getUserData('fullname'),
-          'nickName': await getUserData('username'),
+          'fullName': await getUserData('fullName'),
+          'userName': await getUserData('userName'),
           'userCategory': await getUserData('userCategory'),
           'address': await getUserData('address'),
+          'userId': user!.uid,
         },
-        'image': imageUrl,
-        'name': productName,
-        'description': description,
-        'price': price,
-        'category': category,
-        'userID': user!.uid,
-        'timeStamp': millisecondsSinceEpoch
+        'productDetails': {
+          'image': imageUrl,
+          'name': productName,
+          'description': description,
+          'price': price,
+          'category': category,
+          'hearts': 0,
+          'comments': [],
+          'productId': randomUrl,
+          'timeStamp': millisecondsSinceEpoch
+        }
       });
       showSnackBar(context, 'Market Place page post successfully uploaded!');
       return true;

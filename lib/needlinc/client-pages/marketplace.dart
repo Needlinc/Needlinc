@@ -17,7 +17,8 @@ class MarketplacePage extends StatefulWidget {
 
 class _MarketplacePageState extends State<MarketplacePage> {
 
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference marketPlacePosts = FirebaseFirestore.instance.collection('marketPlacePage');
+  CollectionReference user = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +190,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
         ),
         actions: [
           FutureBuilder<DocumentSnapshot>(
-            future: users.doc(FirebaseAuth.instance.currentUser!.uid).get(),
+            future: user.doc(FirebaseAuth.instance.currentUser!.uid).get(),
             builder:
                 (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.hasError) {
@@ -226,7 +227,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
-                                  data["pickedProfilePicture"],
+                                  data["profilePicture"],
                                 ),
                                 fit: BoxFit.fill,
                               ),
@@ -273,7 +274,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
         toolbarHeight: 95,
       ),
       body: FutureBuilder<DocumentSnapshot>(
-        future: users.doc(FirebaseAuth.instance.currentUser!.uid).get(),
+        future: user.doc(FirebaseAuth.instance.currentUser!.uid).get(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -288,155 +289,205 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 String,
                 dynamic>;
 
-            return SingleChildScrollView(
-              child:  Column(
-                children: [
-                  for(int newsPost = 0; newsPost < 16; newsPost++)
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
-                      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-                      decoration: BoxDecoration(
-                        color: NeedlincColors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
-                            spreadRadius: 4, // Spread radius
-                            blurRadius: 5, // Blur radius
-                            offset: Offset(0, 6), // Offset in the form of (dx, dy)
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(25),
-                                  margin: EdgeInsets.all(10),
+            return Container(
+              child:  FutureBuilder<QuerySnapshot>(
+                future: marketPlacePosts.get(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text("Something went wrong");
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    List<DocumentSnapshot> dataList = snapshot.data!.docs;
+                    return ListView.builder(
+                        itemCount: dataList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var data = dataList[index].data() as Map<String, dynamic>;
+                          Map<String, dynamic>? userDetails = data['userDetails'];
+                          Map<String, dynamic>? productDetails = data['productDetails'];
+                          if (userDetails == null) {
+                            print(userDetails);
+                            // Handle the case when userDetails are missing in a document.
+                            return Text("User details not found");
+                          }
+                          if (productDetails == null) {
+                            print(productDetails);
+                            // Handle the case when userDetails are missing in a document.
+                            return Text("User details not found");
+                          }
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
+                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+                            decoration: BoxDecoration(
+                              color: NeedlincColors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
+                                  spreadRadius: 4, // Spread radius
+                                  blurRadius: 5, // Blur radius
+                                  offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: (){
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(25),
+                                        margin: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              userDetails["profilePicture"],
+                                            ),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          color: NeedlincColors.black3,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.70,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                userDetails["userName"],
+                                                style: TextStyle(
+                                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "🟢 Now",
+                                                style: TextStyle(fontSize: 9),
+                                              ),
+                                              IconButton(
+                                                  onPressed: () {}, icon: Icon(Icons.more_horiz))
+                                            ],
+                                          ),
+                                          Text("~${userDetails['userCategory']}",
+                                              style: TextStyle(
+                                                  fontSize: 13, fontWeight: FontWeight.w600)),
+                                          Text("📍 ${userDetails['address']}",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: NeedlincColors.black2))
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                  child: Text(
+                                      productDetails['name'],
+                                      style: TextStyle(
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                  child: Text(
+                                      "₦ ${productDetails['price']}",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                        color: Colors.green
+                                      )),
+                                ),
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                  child: Text(
+                                      productDetails['description'].length >= 100 ?
+                                      productDetails['description'].substring(0, 100)
+                                      :
+                                      productDetails['description'],
+                                      style: TextStyle(fontSize: 18)),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: MediaQuery.of(context).size.width * 0.55,
+                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
                                   decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        data["pickedProfilePicture"],
+                                        productDetails["image"],
                                       ),
                                       fit: BoxFit.fill,
                                     ),
                                     color: NeedlincColors.black3,
-                                    shape: BoxShape.circle,
+                                    shape: BoxShape.rectangle,
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.70,
-                                child: Column(
+                                Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          data["nickName"],
-                                          style: TextStyle(
-                                              fontSize: 14, fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "🟢 Now",
-                                          style: TextStyle(fontSize: 9),
-                                        ),
                                         IconButton(
-                                            onPressed: () {}, icon: Icon(Icons.more_horiz))
+                                            onPressed: () {},
+                                            icon: Icon(Icons.favorite_border, size: 22)),
+                                        Text("${productDetails['hearts']}", style: TextStyle(fontSize: 15))
                                       ],
                                     ),
-                                    Text("~${data['address']}",
-                                        style: TextStyle(
-                                            fontSize: 13, fontWeight: FontWeight.w600)),
-                                    Text("📍 ${data['address']}",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: NeedlincColors.black2))
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                                            },
+                                            icon: Icon(Icons.maps_ugc_outlined, size: 20)),
+                                        Text("${productDetails['comments'].length}", style: TextStyle(fontSize: 15))
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.bookmark_border, size: 20)),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.shopping_cart_outlined, size: 22)),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.share, size: 20))
                                   ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                            child: Text(
-                                "Second hand HP Laptop for sale going for #85,000",
-                                style: TextStyle(fontSize: 18)),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width * 0.55,
-                            margin: EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  data["pickedProfilePicture"],
-                                ),
-                                fit: BoxFit.fill,
-                              ),
-                              color: NeedlincColors.black3,
-                              shape: BoxShape.rectangle,
+                                )
+                              ],
                             ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.favorite_border, size: 22)),
-                                  Text("1.2K", style: TextStyle(fontSize: 10))
-                                ],
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
-                                      },
-                                      icon: Icon(Icons.maps_ugc_outlined, size: 20)),
-                                  Text("500", style: TextStyle(fontSize: 10))
-                                ],
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.bookmark_border, size: 20)),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.shopping_cart_outlined, size: 22)),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.share, size: 20))
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                ],
-              ),
+                          );
+                        }
+                    );
+                  }
+                  // While waiting for the data to be fetched, show a loading indicator
+                  return Center(child: CircularProgressIndicator());
+                },
+              )
             );
           }
 

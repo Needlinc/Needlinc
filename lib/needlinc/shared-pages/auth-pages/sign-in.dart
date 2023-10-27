@@ -6,7 +6,6 @@ import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../backend/authentication/sign-up.dart';
-import '../../backend/user-account/functionality.dart';
 import '../user-type.dart';
 
 
@@ -23,10 +22,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
 
   void saveUserInformation(){
     // Storing data in local storage
-   saveUserData('fullname', fullNameController.text.trim());
-   saveUserData('username', userNameController.text.trim());
-   saveUserData('email', emailController.text.trim());
-   saveUserData('password', passwordController.text.trim());
    SignUp(
        context,
        fullNameController.text.trim(),
@@ -106,14 +101,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       },
     );
   }
-
-  // pickImage(ImageSource source) async {
-  //   final ImagePicker _imagePicker = ImagePicker();
-  //   XFile? _file = await _imagePicker.pickImage(source: source);
-  //   if (_file != null) {
-  //     return await _file.readAsBytes();
-  //   }
-  // }
 
   Future _selectFile(bool imageFrom) async {
     try {

@@ -28,11 +28,11 @@ class UserAccount {
       // Update user data in Firestore
       await _firestore.collection('users').doc(user!.uid).set({
         'fullName': fullName,
-        'nickName': nickName,
+        'userName': nickName,
         'password': password,
         'email': email,
-        'pickedProfilePicture': profilePicture,
-        'UserID': userID
+        'profilePicture': profilePicture,
+        'userId': userID
       });
 
     } catch (e) {

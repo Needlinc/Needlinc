@@ -82,6 +82,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "User";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -130,6 +131,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "Freelancer";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -184,6 +186,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "Business";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -232,6 +235,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "Blogger";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
