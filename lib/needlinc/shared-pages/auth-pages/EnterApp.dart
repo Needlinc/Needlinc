@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/backend/user-account/user-online-information.dart';
-import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
-import '../../client-pages/client-main.dart';
 import '../../colors/colors.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -331,7 +329,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                           UserType()));
                             }
                             break;
-                          default:
+                          default:;
                         }
                       },
                       style: ElevatedButton.styleFrom(

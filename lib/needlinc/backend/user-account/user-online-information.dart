@@ -15,7 +15,7 @@ class UserAccount {
   Future<void> updateUserProfile({
     required BuildContext context,
     required String fullName,
-    required String nickName,
+    required String userName,
     required String email,
     required String password,
     required String profilePicture,
@@ -28,11 +28,12 @@ class UserAccount {
       // Update user data in Firestore
       await _firestore.collection('users').doc(user!.uid).set({
         'fullName': fullName,
-        'userName': nickName,
+        'userName': userName,
         'password': password,
         'email': email,
         'profilePicture': profilePicture,
-        'userId': userID
+        'userId': userID,
+        'userCategory': 'null'
       });
 
     } catch (e) {

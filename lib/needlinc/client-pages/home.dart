@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 import 'package:needlinc/needlinc/shared-pages/home-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/client-pages/client-main.dart';
@@ -421,6 +422,11 @@ class _HomePageState extends State<HomePage> {
                       // Handle the case when userDetails are missing in a document.
                       return Text("User details not found");
                     }
+                    if(userDetails['userCategory'] == 'null'){
+                      return Center(
+                        child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
+                      );
+                    }
                     return displayHomePosts(
                       context: context,
                       userName: userDetails['userName'],
@@ -437,7 +443,12 @@ class _HomePageState extends State<HomePage> {
               );
             }
             // While waiting for the data to be fetched, show a loading indicator
-            return Center(child: CircularProgressIndicator());
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return WelcomePage();
           },
         )
     );

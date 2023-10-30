@@ -18,9 +18,10 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool addPhoto = false;
+  bool notLoading = true;
   Uint8List? profilePicture;
 
-  void saveUserInformation(){
+  String saveUserInformation(){
     // Storing data in local storage
    SignUp(
        context,
@@ -30,6 +31,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
        passwordController.text.trim(),
        profilePicture!
    ).signUpWithEmailPassword();
+   return 'Success';
   }
 
   void _ShowAddPhoto() {
@@ -122,7 +124,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: notLoading ? Stack(
         children: [
           backGround(),
           Padding(
@@ -429,17 +431,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       alignment: Alignment.bottomRight,
                       padding: EdgeInsets.only(right: 15, bottom: 55),
                       child: ElevatedButton(
-                        onPressed: () {
-                          saveUserInformation();
+                        onPressed: () async {
+                          notLoading = false;
+                          setState(() {});
+                          await saveUserInformation();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Gender()));
+                          notLoading = true;
                           emailController.clear();
                           fullNameController.clear();
                           userNameController.clear();
                           passwordController.clear();
                           confirmPassController.clear();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Gender()));
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -463,7 +468,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             ),
           ),
         ],
-      ),
+      )
+          :
+          Center(child: CircularProgressIndicator(),)
     );
   }
 }

@@ -30,14 +30,15 @@ class SignUp {
         password: password,
       );
              String profilePictureUrl = await uploadImageToFirebase(profilePicture);
-           UserAccount(userCredential.user!.uid).updateUserProfile(
+
+             UserAccount(userCredential.user!.uid).updateUserProfile(
                context: context,
                fullName: fullName,
-               nickName: userName,
+               userName: userName,
                email: email,
                password: password,
                profilePicture: profilePictureUrl,
-               userID: userCredential.user!.uid
+               userID: userCredential.user!.uid,
            );
 
       saveUserData('profilePicture', profilePictureUrl);
@@ -49,7 +50,6 @@ class SignUp {
       // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
       return userCredential;
     } catch (e) {
-      print("Error signing up with email and password: $e");
       return null;
     }
   }
