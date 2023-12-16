@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/gender.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../backend/authentication/sign-up.dart';
-import '../../backend/user-account/functionality.dart';
+import '../user-type.dart';
 
 
 class CreateAccountPage extends StatefulWidget {
@@ -19,21 +18,20 @@ class CreateAccountPage extends StatefulWidget {
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
   bool addPhoto = false;
+  bool notLoading = true;
   Uint8List? profilePicture;
 
-  void saveUserInformation(){
+  String saveUserInformation(){
     // Storing data in local storage
-   saveUserData('fullname', fullNameController.text.trim());
-   saveUserData('username', userNameController.text.trim());
-   saveUserData('email', emailController.text.trim());
-   saveUserData('password', passwordController.text.trim());
    SignUp(
+       context,
        fullNameController.text.trim(),
        userNameController.text.trim(),
        emailController.text,
        passwordController.text.trim(),
        profilePicture!
    ).signUpWithEmailPassword();
+   return 'Success';
   }
 
   void _ShowAddPhoto() {
@@ -106,14 +104,6 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     );
   }
 
-  pickImage(ImageSource source) async {
-    final ImagePicker _imagePicker = ImagePicker();
-    XFile? _file = await _imagePicker.pickImage(source: source);
-    if (_file != null) {
-      return await _file.readAsBytes();
-    }
-  }
-
   Future _selectFile(bool imageFrom) async {
     try {
       XFile? imageFile = await ImagePicker().pickImage(
@@ -134,7 +124,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: notLoading ? Stack(
         children: [
           backGround(),
           Padding(
@@ -179,10 +169,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Success()));
+                                  builder: (context) => UserType()));
                         },
                         child: Text(
-                          'Skip',
+                          '',
                           style: TextStyle(
                               color: NeedlincColors.white, fontSize: 21),
                         ),
@@ -294,8 +284,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return "Enter Password";
-                                  } else if (passwordController.text.length <
-                                      8) {
+                                  } else if (passwordController.text.length < 8) {
                                     return "Password must be more than 8 characters";
                                   }
                                 },
@@ -442,17 +431,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       alignment: Alignment.bottomRight,
                       padding: EdgeInsets.only(right: 15, bottom: 55),
                       child: ElevatedButton(
-                        onPressed: () {
-                          saveUserInformation();
+                        onPressed: () async {
+                          notLoading = false;
+                          setState(() {});
+                          await saveUserInformation();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Gender()));
+                          notLoading = true;
                           emailController.clear();
                           fullNameController.clear();
                           userNameController.clear();
                           passwordController.clear();
                           confirmPassController.clear();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Gender()));
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -476,7 +468,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             ),
           ),
         ],
-      ),
+      )
+          :
+          Center(child: CircularProgressIndicator(),)
     );
   }
 }

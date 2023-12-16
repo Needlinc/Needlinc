@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'dart:typed_data';
@@ -7,14 +8,16 @@ import '../user-account/user-online-information.dart';
 
 class SignUp {
   final String fullName;
-  final String nickName;
+  final String userName;
   final String email;
   final String password;
   final Uint8List profilePicture;
+  final BuildContext context;
 
   SignUp(
+      this.context,
       this.fullName,
-      this.nickName,
+      this.userName,
       this.email,
       this.password,
       this.profilePicture
@@ -26,19 +29,27 @@ class SignUp {
         email: email,
         password: password,
       );
-             String profilePictureURL = await uploadImageToFirebase(profilePicture);
-           UserAccount(userCredential.user!.uid).updateUserProfile(
+             String profilePictureUrl = await uploadImageToFirebase(profilePicture);
+
+             UserAccount(userCredential.user!.uid).updateUserProfile(
+               context: context,
                fullName: fullName,
-               nickName: nickName,
+               userName: userName,
                email: email,
                password: password,
-               profilePicture: profilePictureURL,
-               userID: userCredential.user!.uid
+               profilePicture: profilePictureUrl,
+               userID: userCredential.user!.uid,
            );
+
+      saveUserData('profilePicture', profilePictureUrl);
+      saveUserData('fullName', fullName);
+      saveUserData('userName', userName);
+      saveUserData('email', email);
+      saveUserData('password', password);
+
       // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
       return userCredential;
     } catch (e) {
-      print("Error signing up with email and password: $e");
       return null;
     }
   }

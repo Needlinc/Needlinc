@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
+import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 
 class UserAccount {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,8 +13,9 @@ class UserAccount {
   UserAccount(this.uid);
 
   Future<void> updateUserProfile({
+    required BuildContext context,
     required String fullName,
-    required String nickName,
+    required String userName,
     required String email,
     required String password,
     required String profilePicture,
@@ -20,20 +24,20 @@ class UserAccount {
     try {
       // Use the provided uid for the user
       final User? user = _auth.currentUser;
-
+      addProfilePictureUrl(url: profilePicture);
       // Update user data in Firestore
       await _firestore.collection('users').doc(user!.uid).set({
         'fullName': fullName,
-        'nickName': nickName,
+        'userName': userName,
         'password': password,
         'email': email,
-        'pickedProfilePicture': profilePicture,
-        'UserID': userID
+        'profilePicture': profilePicture,
+        'userId': userID,
+        'userCategory': 'null'
       });
 
-      print('User profile updated successfully!');
     } catch (e) {
-      print('Error updating user profile: $e');
+      showSnackBar(context, 'Error $e');
     }
   }
 
@@ -70,8 +74,6 @@ class UserAccount {
       print('Error updating user profile: $e');
     }
   }
-
-
 
 
 

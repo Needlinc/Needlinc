@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/client-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/sign-in.dart';
-import 'package:needlinc/needlinc/widgets/EnterApp.dart';
+import 'package:needlinc/needlinc/shared-pages/user-type.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/EnterApp.dart';
+import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 import '../../backend/authentication/login.dart';
+import '../../business-pages/business-main.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class SignupPage extends StatefulWidget {
@@ -30,11 +34,12 @@ class _SignupPageState extends State<SignupPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool passToggle = true;
+  bool notLoading = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: notLoading ? Stack(
         children: [
           backGround(),
           Padding(
@@ -139,33 +144,25 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                               ),
                               SizedBox(height: 3),
-                              // Remember me
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: isChecked,
-                                    onChanged: check,
-                                    visualDensity: VisualDensity(
-                                        horizontal: -4, vertical: -4),
-                                  ),
-                                  Text('Remember me'),
-                                ],
-                              ),
                               SizedBox(height: 3),
                               // Sign in button
                               ElevatedButton(
-                                onPressed: () {
-                                  loginUser(emailController.text.trim(), passwordController.text);
-                                  // Add your logic for Client sign-in here
-                                  if (_formField.currentState!.validate()) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CategoryPage()));
-                                    print("success");
-                                    emailController.clear();
-                                    passwordController.clear();
+                                onPressed: () async {
+                                  try {
+                                    notLoading = false;
+                                    setState(() {});
+                                    await loginUser(emailController.text.trim(),
+                                        passwordController.text, context);
+                                    notLoading = true;
+                                    setState(() {});
+                                    // Add your logic for Client sign-in here
+                                    if (_formField.currentState!.validate()) {
+                                      emailController.clear();
+                                      passwordController.clear();
+                                    }
+                                  }
+                                  catch (error){
+                                    showSnackBar(context, '$error');
                                   }
                                 },
                                 child: Text('Sign in'),
@@ -296,7 +293,11 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ),
         ],
-      ),
+      )
+          :
+        Center(
+        child: CircularProgressIndicator()
+    ),
     );
   }
 }

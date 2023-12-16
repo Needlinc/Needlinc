@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/shared-pages/messages.dart';
-import '../business-pages/post.dart';
+import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
 import '../widgets/page-transition.dart';
@@ -244,7 +244,7 @@ class _HomePageState extends State<HomePage> {
                             GestureDetector(
                                 onTap: ()
                                 {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()),);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
                                 },
                                 child: Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
                           ],
@@ -254,8 +254,8 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(width: 50.0,),
-                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
                           ],
                         )
                       ],

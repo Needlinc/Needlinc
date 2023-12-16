@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/widgets/EnterApp.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/EnterApp.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../colors/colors.dart';
 

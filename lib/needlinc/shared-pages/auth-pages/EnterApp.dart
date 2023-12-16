@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/backend/user-account/user-online-information.dart';
-import 'package:needlinc/needlinc/business-pages/business-main.dart';
+import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
-import '../client-pages/client-main.dart';
-import '../colors/colors.dart';
+import '../../colors/colors.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -81,6 +80,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "User";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -129,6 +129,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "Freelancer";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -183,6 +184,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "Business";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -231,6 +233,7 @@ class _CategoryPageState extends State<CategoryPage> {
                             setState(() {
                               categtory = "Blogger";
                             });
+                            userCategory(context: context, userType: categtory);
                           },
                           child: Stack(
                             children: [
@@ -288,45 +291,45 @@ class _CategoryPageState extends State<CategoryPage> {
                         switch (categtory) {
                           case 'User':
                             {
-                              userCategory(userType: 'User');
+                              userCategory(context: context, userType: 'User');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ClientMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           case 'Freelancer':
                             {
-                              userCategory(userType: 'Freelancer');
+                              userCategory(context: context, userType: 'Freelancer');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ClientMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           case 'Business':
                             {
-                              userCategory(userType: 'Business');
+                              userCategory(context: context, userType: 'Business');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          BusinessMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
                           case 'Blogger':
                             {
-                              userCategory(userType: 'Blogger');
+                              userCategory(context: context, userType: 'Blogger');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ClientMainPages(currentPage: 0)));
+                                          UserType()));
                             }
                             break;
-                          default:
+                          default:;
                         }
                       },
                       style: ElevatedButton.styleFrom(

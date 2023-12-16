@@ -3,7 +3,8 @@ import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import '../../backend/user-account/functionality.dart';
-import '../../widgets/EnterApp.dart';
+import 'EnterApp.dart';
+import '../user-type.dart';
 
 class Location extends StatefulWidget {
   const Location({super.key});
@@ -47,10 +48,10 @@ class _LocationState extends State<Location> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CategoryPage()));
+                            builder: (context) => UserType()));
                   },
                   child: Text(
-                    'Skip',
+                    '',
                     style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
                   ),
                 ),

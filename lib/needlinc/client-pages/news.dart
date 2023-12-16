@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/post.dart';
+import 'package:needlinc/needlinc/shared-pages/home-post.dart';
 import 'package:needlinc/needlinc/client-pages/profile.dart';
 import '../../main.dart';
 import '../colors/colors.dart';
@@ -231,7 +231,7 @@ class _NewsPageState extends State<NewsPage> {
                                 GestureDetector(
                                     onTap: ()
                                     {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()),);
+                                 //     Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()),);
                                     },
                                     child: Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
                               ],
@@ -241,9 +241,9 @@ class _NewsPageState extends State<NewsPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(width: 50.0,),
-                                IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                                IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
-                              ],
+                              //   IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                              //   IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                               ],
                             )
                           ],
                         ),
