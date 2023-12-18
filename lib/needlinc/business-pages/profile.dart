@@ -16,7 +16,6 @@ class reviews {
   String name;
   int rating;
   String review;
-
   reviews({required this.name, required this.rating, required this.review});
 }
 

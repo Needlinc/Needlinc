@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 import 'firebase_options.dart';
 import 'needlinc/shared-pages/auth-pages/sign-up.dart';
-import 'needlinc/shared-pages/market-place-post.dart';
 import 'needlinc/shared-pages/user-type.dart';
 
 
