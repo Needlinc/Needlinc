@@ -74,25 +74,25 @@ class SignUp {
     }
   }
 
-  Future<UserCredential?> signUpWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login(permissions: ["email"]);
-
-      if (result.status == LoginStatus.success) {
-        final AuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.token);
-
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-
-        // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
-
-        return userCredential;
-      } else {
-        print("Error signing up with Facebook: ${result.status}");
-        return null;
-      }
-    } catch (e) {
-      print("Error signing up with Facebook: $e");
-      return null;
-    }
-  }
-}
+//   Future<UserCredential?> signUpWithFacebook() async {
+//     try {
+//       final LoginResult result = await FacebookAuth.instance.login(permissions: ["email"]);
+//
+//       if (result.status == LoginStatus.success) {
+//         final AuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.token);
+//
+//         UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+//
+//         // You can add more logic here to save additional user information to the database, like full name, nickname, and profile picture.
+//
+//         return userCredential;
+//       } else {
+//         print("Error signing up with Facebook: ${result.status}");
+//         return null;
+//       }
+//     } catch (e) {
+//       print("Error signing up with Facebook: $e");
+//       return null;
+//     }
+//   }
+ }
