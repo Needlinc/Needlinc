@@ -5,7 +5,6 @@ import 'package:needlinc/needlinc/business-pages/profile.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/chat_UI.dart';
 
-import '../client-pages/client-main.dart';
 
 class PeoplePage extends StatefulWidget {
   const PeoplePage({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class _PeoplePageState extends State<PeoplePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "FREELANCERS",
           style: TextStyle(color: NeedlincColors.blue2, fontSize: 14),
         ),
@@ -36,21 +35,21 @@ class _PeoplePageState extends State<PeoplePage> {
           Container(
             height: 35,
             width: 300,
-            margin: EdgeInsets.only(bottom: 5.0),
-            padding: EdgeInsets.symmetric(horizontal: 18.0),
+            margin: const EdgeInsets.only(bottom: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0),
             decoration: BoxDecoration(
               color: NeedlincColors.black3,
               borderRadius: BorderRadius.circular(30.0),
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.search),
-                SizedBox(width: 2),
-                VerticalDivider(thickness: 2,),
-                SizedBox(width: 4),
+                const Icon(Icons.search),
+                const SizedBox(width: 2),
+                const VerticalDivider(thickness: 2,),
+                const SizedBox(width: 4),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Search for others...',
                       border: InputBorder.none,
                     ),
@@ -66,12 +65,12 @@ class _PeoplePageState extends State<PeoplePage> {
           ),
           Container(
             color: NeedlincColors.white,
-            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
             width: MediaQuery.of(context).size.width,
             height: 45,
             child: ListView(
               physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
               scrollDirection: Axis.horizontal,
               children: [
                 _buildCategory("All", NeedlincColors.blue1),
@@ -100,54 +99,54 @@ class _PeoplePageState extends State<PeoplePage> {
         });
       },
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         alignment: Alignment.center,
-        padding: EdgeInsets.all(4),
-        child: Text(
-          text,
-          style: TextStyle(color: NeedlincColors.white),
-        ),
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(20)),
+        child: Text(
+          text,
+          style: const TextStyle(color: NeedlincColors.white),
+        ),
       ),
     );
   }
 
   Widget _buildFreelancerCard() {
     return Container(
-      margin: EdgeInsets.only(top: 50.0),
+      margin: const EdgeInsets.only(top: 50.0),
       child: FutureBuilder<QuerySnapshot>(
         future: usersCollection.where('userCategory', isEqualTo: freelancerType).get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text("Something went wrong");
+            return const Text("Something went wrong");
           }
           if (snapshot.connectionState == ConnectionState.done) {
             List<DocumentSnapshot> dataList = snapshot.data!.docs;
             return AnimationLimiter(
               child: ListView.builder(
                   padding: EdgeInsets.all(MediaQuery.of(context).size.width / 30),
-                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                  physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                   itemCount: dataList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var data = dataList[index].data() as Map<String, dynamic>;
                     if (data == null) {
                       // Handle the case when userDetails are missing in a document.
-                      return Text("User details not found");
+                      return const Text("User details not found");
                     }
                     return AnimationConfiguration.staggeredList(
                       position: index,
-                      delay: Duration(milliseconds: 100),
+                      delay: const Duration(milliseconds: 100),
                       child: SlideAnimation(
-                        duration: Duration(milliseconds: 2500),
+                        duration: const Duration(milliseconds: 2500),
                         curve: Curves.fastLinearToSlowEaseIn,
                         verticalOffset: -250,
                         child: ScaleAnimation(
-                          duration: Duration(milliseconds: 1500),
+                          duration: const Duration(milliseconds: 1500),
                           curve: Curves.fastLinearToSlowEaseIn,
                           child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 12.0),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 12.0),
                             decoration: BoxDecoration(
                               color: NeedlincColors.white,
                               borderRadius: BorderRadius.circular(16.0),
@@ -156,7 +155,7 @@ class _PeoplePageState extends State<PeoplePage> {
                                   color: NeedlincColors.black2.withOpacity(0.5),
                                   spreadRadius: 3,
                                   blurRadius: 10,
-                                  offset: Offset(0, 6),
+                                  offset: const Offset(0, 6),
                                 ),
                               ],
                             ),
@@ -166,8 +165,8 @@ class _PeoplePageState extends State<PeoplePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(20),
-                                      margin: EdgeInsets.all(10),
+                                      padding: const EdgeInsets.all(20),
+                                      margin: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: NetworkImage(
@@ -179,7 +178,7 @@ class _PeoplePageState extends State<PeoplePage> {
                                         shape: BoxShape.circle,
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: MediaQuery.of(context).size.width * 0.6,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,23 +186,22 @@ class _PeoplePageState extends State<PeoplePage> {
                                           Text(
                                            data['userName'],
                                             style:
-                                            TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                            const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                                           ),
                                           Text("~${data['userCategory']}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 13, fontWeight: FontWeight.w600)),
                                           Text("📍${data['address']}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 12, color: NeedlincColors.black2)),
-                                          SizedBox(height: 25.0),
+                                          const SizedBox(height: 25.0),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfilePage()));
+                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ProfilePage()));
                                                 },
-                                                child: Text("View Profile"),
                                                 style: ButtonStyle(
                                                   backgroundColor:
                                                   MaterialStateProperty.all<Color>(
@@ -212,16 +210,16 @@ class _PeoplePageState extends State<PeoplePage> {
                                                   MaterialStateProperty.all<RoundedRectangleBorder>(
                                                     RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(8.0),
-                                                      side: BorderSide(color: Colors.blue),
+                                                      side: const BorderSide(color: Colors.blue),
                                                     ),
                                                   ),
                                                 ),
+                                                child: const Text("View Profile"),
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Message()));
+                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Message()));
                                                 },
-                                                child: Text("Message"),
                                                 style: ButtonStyle(
                                                   backgroundColor:
                                                   MaterialStateProperty.all<Color>(
@@ -230,10 +228,11 @@ class _PeoplePageState extends State<PeoplePage> {
                                                   MaterialStateProperty.all<RoundedRectangleBorder>(
                                                     RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(8.0),
-                                                      side: BorderSide(color: Colors.blue),
+                                                      side: const BorderSide(color: Colors.blue),
                                                     ),
                                                   ),
                                                 ),
+                                                child: const Text("Message"),
                                               ),
                                             ],
                                           ),
@@ -253,7 +252,7 @@ class _PeoplePageState extends State<PeoplePage> {
             );
           }
           // While waiting for the data to be fetched, show a loading indicator
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

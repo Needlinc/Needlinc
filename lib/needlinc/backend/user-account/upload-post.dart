@@ -41,10 +41,10 @@ class UploadPost{
         'postDetails': {
           'image': imageUrl,
           'writeUp': writeUp,
-          'freelancerOption': freelancerOption == null ? "null" : freelancerOption,
+          'freelancerOption': freelancerOption ?? "null",
           'hearts': 0,
           'comments': [],
-          'userId': user!.uid,
+          'userId': user.uid,
           'timeStamp': millisecondsSinceEpoch
         }
       });
@@ -84,10 +84,10 @@ class UploadPost{
         'postDetails': {
           'image': imageUrl,
           'writeUp': "null",
-          'freelancerOption': freelancerOption == null ? "null" : freelancerOption,
+          'freelancerOption': freelancerOption ?? "null",
           'hearts': 0,
           'comments': [],
-          'userId': user!.uid,
+          'userId': user.uid,
           'timeStamp': millisecondsSinceEpoch
         }
       });
@@ -122,8 +122,8 @@ class UploadPost{
         'postDetails': {
           'image': "null",
           'writeUp': writeUp,
-          'freelancerOption': freelancerOption == null ? "null" : freelancerOption,
-          'userId': user!.uid,
+          'freelancerOption': freelancerOption ?? "null",
+          'userId': user.uid,
           'hearts': 0,
           'comments': [],
           'timeStamp': millisecondsSinceEpoch

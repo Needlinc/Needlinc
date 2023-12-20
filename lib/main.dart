@@ -14,7 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(Home());
+  runApp(const Home());
 }
 
 class Home extends StatelessWidget {
@@ -28,8 +28,8 @@ class Home extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => RootPage(),
-        '//': (context) => SignupPage(),
+        '/': (context) => const RootPage(),
+        '//': (context) => const SignupPage(),
       },
     );
   }
@@ -51,7 +51,7 @@ class _RootPageState extends State<RootPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
-            return UserType();
+            return const UserType();
           } else if (snapshot.hasError) {
             return Center(
               child: Text('${snapshot.error}'),

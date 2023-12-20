@@ -5,9 +5,7 @@ import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import 'package:needlinc/needlinc/client-pages/client-main.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/EnterApp.dart';
-import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 
-import 'auth-pages/welcome.dart';
 
 
 class UserType extends StatefulWidget {
@@ -36,7 +34,7 @@ class _UserTypeState extends State<UserType> {
                   return BusinessMainPages(currentPage: 0);
                 }
                 else if (snapshot.data?['userCategory'] == 'null') {
-                  return CategoryPage();
+                  return const CategoryPage();
                 }
               }
               else if (snapshot.hasError) {
@@ -58,8 +56,8 @@ class _UserTypeState extends State<UserType> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
                Container(
-                 padding: EdgeInsets.all(10.0),
-                 child: Center(
+                 padding: const EdgeInsets.all(10.0),
+                 child: const Center(
                    child: Text(
                        "There is a problem with your account, try creating a new account again or reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you."),
                  ),
@@ -70,13 +68,13 @@ class _UserTypeState extends State<UserType> {
                   FirebaseAuth.instance.currentUser!.delete();
                 },
                 child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(
-                    "Go back"
-                  ),
+                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: NeedlincColors.blue1)
+                  ),
+                  child: const Text(
+                    "Go back"
                   ),
                 ),
               )

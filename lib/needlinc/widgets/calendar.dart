@@ -44,29 +44,29 @@ class _CalendarState extends State<Calendar> {
       },
       child: selectADate == null ?
       Container(
-        padding: EdgeInsets.all(5.0),
-        child: Text(
+        padding: const EdgeInsets.all(5.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: NeedlincColors.black1),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: const Text(
             "Select your date of birth",
             style: TextStyle(
                 fontSize: 20.0
             ),
           ),
-        decoration: BoxDecoration(
-          border: Border.all(color: NeedlincColors.black1),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
       )
        : Container(
-        padding: EdgeInsets.all(5.0),
-        child: Text(
-            "${_buildSelectedDates()}",
-          style: TextStyle(
-            fontSize: 20.0
-          ),
-        ),
+        padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           border: Border.all(color: NeedlincColors.black1),
           borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Text(
+            _buildSelectedDates(),
+          style: const TextStyle(
+            fontSize: 20.0
+          ),
         ),
       ),
     );

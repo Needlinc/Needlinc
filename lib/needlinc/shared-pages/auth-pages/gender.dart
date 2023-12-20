@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/widgets/calendar.dart';
 import '../../backend/user-account/functionality.dart';
-import '../../backend/user-account/user-online-information.dart';
 import '../../colors/colors.dart';
 import '../../widgets/login-background.dart';
 import '../user-type.dart';
@@ -70,7 +69,7 @@ class _GenderState extends State<Gender> {
     return Scaffold(
       body: Stack(
         children: [
-          backGround(),
+          const backGround(),
           Column(
             children: [
               // Top arrow
@@ -79,7 +78,7 @@ class _GenderState extends State<Gender> {
                 children: [
                   // Back arrow
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     alignment: Alignment.topLeft,
                     child: IconButton(
                       onPressed: () {
@@ -88,7 +87,7 @@ class _GenderState extends State<Gender> {
                         }
                         _HideAddBirth();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons
                             .arrow_back_ios_new, // Specify the icon you want to use
                         size: 30, // Adjust the icon size as needed
@@ -97,7 +96,7 @@ class _GenderState extends State<Gender> {
                     ),
                   ),
                   // Page title
-                  Text(
+                  const Text(
                     'NEEDLINC',
                     style: TextStyle(color: NeedlincColors.white, fontSize: 12),
                   ),
@@ -107,30 +106,30 @@ class _GenderState extends State<Gender> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserType()));
+                              builder: (context) => const UserType()));
                     },
-                    child: Text(
+                    child: const Text(
                       '',
                       style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 80,),
+              const SizedBox(height: 80,),
               // main Card
               Column(
                 children: [
                   // Card title
                   Text(
                     addBirth ? 'Add Date of Birth' : 'Choose Your Gender',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w400,
                       color: NeedlincColors.white,
                     ),
                   ),
                   // body
-                  SizedBox(
+                  const SizedBox(
                     height: 40.0,
                   ),
                   Visibility(
@@ -140,7 +139,7 @@ class _GenderState extends State<Gender> {
                       decoration: BoxDecoration(
                         color: NeedlincColors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: NeedlincColors.grey,
                             offset: Offset(0, 3),
@@ -160,10 +159,10 @@ class _GenderState extends State<Gender> {
                                 Checkbox(
                                   value: isMale ? true : false,
                                   onChanged: maleCheck,
-                                  visualDensity: VisualDensity(
+                                  visualDensity: const VisualDensity(
                                       horizontal: -1, vertical: -1),
                                 ),
-                                Text(
+                                const Text(
                                   'Male',
                                   style: TextStyle(fontSize: 15),
                                 ),
@@ -175,10 +174,10 @@ class _GenderState extends State<Gender> {
                                 Checkbox(
                                   value: isFemale ? true : false,
                                   onChanged: femaleCheck,
-                                  visualDensity: VisualDensity(
+                                  visualDensity: const VisualDensity(
                                       horizontal: -1, vertical: -1),
                                 ),
-                                Text(
+                                const Text(
                                   'Female',
                                   style: TextStyle(fontSize: 15),
                                 ),
@@ -197,11 +196,11 @@ class _GenderState extends State<Gender> {
                         Container(
                           height: 360,
                           width: MediaQuery.of(context).size.width * 0.8,
-                          child: Calendar(title: "Date of Birth"),
                           decoration: BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(30.0),
                           ),
+                          child: const Calendar(title: "Date of Birth"),
                         ),
                         Row(
                           children: [
@@ -209,9 +208,9 @@ class _GenderState extends State<Gender> {
                               value: showOnProfile ? true : false,
                               onChanged: showOnProfileCheck,
                               visualDensity:
-                              VisualDensity(horizontal: -1, vertical: -3),
+                              const VisualDensity(horizontal: -1, vertical: -3),
                             ),
-                            Text('Show on profile'),
+                            const Text('Show on profile'),
                           ],
                         ),
                       ],
@@ -223,14 +222,14 @@ class _GenderState extends State<Gender> {
               Expanded(
                 child: Container(
                   alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.only(right: 30, bottom: 70),
+                  padding: const EdgeInsets.only(right: 30, bottom: 70),
                   child: ElevatedButton(
                     onPressed: () {
                       if (addBirth == true) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Location()));
+                                builder: (context) => const Location()));
                       }
                       _ShowAddBirth();
                     },
@@ -239,9 +238,9 @@ class _GenderState extends State<Gender> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       backgroundColor: NeedlincColors.blue1,
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                     ),
-                    child: Text(
+                    child: const Text(
                       'NEXT',
                       style: TextStyle(
                         fontSize: 17,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../colors/colors.dart';
 
 class Borders {
-  static final EnabledBorder = OutlineInputBorder(
+  static const EnabledBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: NeedlincColors.black1,
     ),
     borderRadius: BorderRadius.zero,
   );
-  static final FocusedBorder = OutlineInputBorder(
+  static const FocusedBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: NeedlincColors.blue1,
     ),

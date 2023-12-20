@@ -28,7 +28,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            Container(
+            SizedBox(
               height: 120,
               child: DrawerHeader(
                 child: Stack(
@@ -47,7 +47,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                           decoration: BoxDecoration(
                               color: NeedlincColors.blue3,
                               borderRadius: BorderRadius.circular(10.0)
@@ -62,7 +62,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                 child: Container(
                                   height: 40,
                                   width: 40,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: NetworkImage(
                                         "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -75,12 +75,12 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
-                                    Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                    const Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                    Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
                                   ],
                                 ),
                               ),
@@ -94,50 +94,50 @@ class _MarketplacePageState extends State<MarketplacePage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
-              title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RootPage()))},
+              leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
+              title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RootPage()))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-                leading: Icon(Icons.input, color: NeedlincColors.blue2,),
-                title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
+                title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
-              title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
+              title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
-              title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+              title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
-              title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
+              title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
-              title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
+              title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.question_mark, color: NeedlincColors.blue2,),
-              title: Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.question_mark, color: NeedlincColors.blue2,),
+              title: const Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
-              title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
+              title: const Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
           ],
@@ -148,31 +148,31 @@ class _MarketplacePageState extends State<MarketplacePage> {
         backgroundColor: NeedlincColors.white,
         elevation: 5.0,
         shadowColor: NeedlincColors.black1,
-        iconTheme: IconThemeData(color: NeedlincColors.blue1),
+        iconTheme: const IconThemeData(color: NeedlincColors.blue1),
         title: Column(
           children: [
             Container(
-                margin: EdgeInsets.only(bottom: 8.0),
-                child: Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
+                margin: const EdgeInsets.only(bottom: 8.0),
+                child: const Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
             ),
             Container(
               height: 30,
               width: 300,
-              margin: EdgeInsets.only(bottom: 5.0),
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              margin: const EdgeInsets.only(bottom: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               decoration: BoxDecoration(
                 color: NeedlincColors.black3,
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.search),
-                  SizedBox(width: 2),
-                  VerticalDivider(thickness: 2,),
-                  SizedBox(width: 4),
+                  const Icon(Icons.search),
+                  const SizedBox(width: 2),
+                  const VerticalDivider(thickness: 2,),
+                  const SizedBox(width: 4),
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Search...',
                         border: InputBorder.none,
                       ),
@@ -194,11 +194,11 @@ class _MarketplacePageState extends State<MarketplacePage> {
             builder:
                 (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               if (snapshot.hasError) {
-                return Text("Something went wrong");
+                return const Text("Something went wrong");
               }
 
               if (snapshot.hasData && !snapshot.data!.exists) {
-                return Text("Document does not exist");
+                return const Text("Document does not exist");
               }
               if (snapshot.connectionState == ConnectionState.done) {
                 Map<String, dynamic> data = snapshot.data!.data() as Map<
@@ -210,8 +210,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     Row(
                       children: [
                         IconButton(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          icon: Icon(Icons.message),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          icon: const Icon(Icons.message),
                           onPressed: (){
                             //TODO Chat messaging feature
                           },
@@ -222,8 +222,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(12.0),
-                            margin: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                            padding: const EdgeInsets.all(12.0),
+                            margin: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -250,15 +250,15 @@ class _MarketplacePageState extends State<MarketplacePage> {
                             color: NeedlincColors.black2.withOpacity(0.8), // Shadow color
                             spreadRadius: 4, // Spread radius
                             blurRadius: 5, // Blur radius
-                            offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                            offset: const Offset(0, 6), // Offset in the form of (dx, dy)
                           ),
                         ],
                       ),
                       child: IconButton(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        icon: Icon(Icons.draw_outlined, color: NeedlincColors.white,),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        icon: const Icon(Icons.draw_outlined, color: NeedlincColors.white,),
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => MarketPlacePostPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const MarketPlacePostPage()));
                         },
                       ),
                     ),
@@ -267,7 +267,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
               }
 
               // While waiting for the data to be fetched, show a loading indicator
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             },
           )
         ],
@@ -278,11 +278,11 @@ class _MarketplacePageState extends State<MarketplacePage> {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text("Something went wrong");
+            return const Text("Something went wrong");
           }
 
           if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
+            return const Text("Document does not exist");
           }
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data!.data() as Map<
@@ -294,7 +294,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 future: marketPlacePosts.get(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
-                    return Text("Something went wrong");
+                    return const Text("Something went wrong");
                   }
                   if (snapshot.connectionState == ConnectionState.done) {
                     List<DocumentSnapshot> dataList = snapshot.data!.docs;
@@ -307,16 +307,16 @@ class _MarketplacePageState extends State<MarketplacePage> {
                           if (userDetails == null) {
                             print(userDetails);
                             // Handle the case when userDetails are missing in a document.
-                            return Text("User details not found");
+                            return const Text("User details not found");
                           }
                           if (productDetails == null) {
                             print(productDetails);
                             // Handle the case when userDetails are missing in a document.
-                            return Text("User details not found");
+                            return const Text("User details not found");
                           }
                           return Container(
-                            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
-                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+                            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
+                            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
                             decoration: BoxDecoration(
                               color: NeedlincColors.white,
                               boxShadow: [
@@ -324,7 +324,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                   color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
                                   spreadRadius: 4, // Spread radius
                                   blurRadius: 5, // Blur radius
-                                  offset: Offset(0, 6), // Offset in the form of (dx, dy)
+                                  offset: const Offset(0, 6), // Offset in the form of (dx, dy)
                                 ),
                               ],
                             ),
@@ -337,8 +337,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)));
                                       },
                                       child: Container(
-                                        padding: EdgeInsets.all(25),
-                                        margin: EdgeInsets.all(10),
+                                        padding: const EdgeInsets.all(25),
+                                        margin: const EdgeInsets.all(10),
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: NetworkImage(
@@ -351,7 +351,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                         ),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: MediaQuery.of(context).size.width * 0.70,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -361,22 +361,22 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                             children: [
                                               Text(
                                                 userDetails["userName"],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14, fontWeight: FontWeight.bold),
                                               ),
-                                              Text(
+                                              const Text(
                                                 "🟢 Now",
                                                 style: TextStyle(fontSize: 9),
                                               ),
                                               IconButton(
-                                                  onPressed: () {}, icon: Icon(Icons.more_horiz))
+                                                  onPressed: () {}, icon: const Icon(Icons.more_horiz))
                                             ],
                                           ),
                                           Text("~${userDetails['userCategory']}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 13, fontWeight: FontWeight.w600)),
                                           Text("📍 ${userDetails['address']}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 12,
                                                   color: NeedlincColors.black2))
                                         ],
@@ -384,43 +384,43 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10.0,
                                 ),
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                  margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
                                   child: Text(
                                       productDetails['name'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 15.0,
                                         fontWeight: FontWeight.bold,
                                       )),
                                 ),
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                  margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
                                   child: Text(
                                       "₦ ${productDetails['price']}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 16,
                                         color: Colors.green
                                       )),
                                 ),
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                  margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
                                   child: Text(
                                       productDetails['description'].length >= 100 ?
                                       productDetails['description'].substring(0, 100)
                                       :
                                       productDetails['description'],
-                                      style: TextStyle(fontSize: 18)),
+                                      style: const TextStyle(fontSize: 18)),
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.width * 0.55,
-                                  margin: EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                                  margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
@@ -441,41 +441,41 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                       children: [
                                         IconButton(
                                             onPressed: () {},
-                                            icon: Icon(Icons.favorite_border, size: 22)),
-                                        Text("${productDetails['hearts']}", style: TextStyle(fontSize: 15))
+                                            icon: const Icon(Icons.favorite_border, size: 22)),
+                                        Text("${productDetails['hearts']}", style: const TextStyle(fontSize: 15))
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10.0,
                                     ),
                                     Row(
                                       children: [
                                         IconButton(
                                             onPressed: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
                                             },
-                                            icon: Icon(Icons.maps_ugc_outlined, size: 20)),
-                                        Text("${productDetails['comments'].length}", style: TextStyle(fontSize: 15))
+                                            icon: const Icon(Icons.maps_ugc_outlined, size: 20)),
+                                        Text("${productDetails['comments'].length}", style: const TextStyle(fontSize: 15))
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10.0,
                                     ),
                                     IconButton(
                                         onPressed: () {},
-                                        icon: Icon(Icons.bookmark_border, size: 20)),
-                                    SizedBox(
+                                        icon: const Icon(Icons.bookmark_border, size: 20)),
+                                    const SizedBox(
                                       width: 10.0,
                                     ),
                                     IconButton(
                                         onPressed: () {},
-                                        icon: Icon(Icons.shopping_cart_outlined, size: 22)),
-                                    SizedBox(
+                                        icon: const Icon(Icons.shopping_cart_outlined, size: 22)),
+                                    const SizedBox(
                                       width: 10.0,
                                     ),
                                     IconButton(
                                         onPressed: () {},
-                                        icon: Icon(Icons.share, size: 20))
+                                        icon: const Icon(Icons.share, size: 20))
                                   ],
                                 )
                               ],
@@ -485,14 +485,14 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     );
                   }
                   // While waiting for the data to be fetched, show a loading indicator
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 },
               )
             );
           }
 
           // While waiting for the data to be fetched, show a loading indicator
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       )
     );

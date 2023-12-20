@@ -17,9 +17,9 @@ class _WelcomePageState extends State<WelcomePage> {
     // TODO: implement initState
     super.initState();
     // Set a delay to navigate to the second screen after 3 seconds
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomePage2()));
+          context, MaterialPageRoute(builder: (context) => const WelcomePage2()));
     });
   }
 
@@ -29,7 +29,7 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Column(children: [
         Stack(
           children: [
-            backGround(),
+            const backGround(),
             Container(
               height: MediaQuery.of(context).size.height * 0.34,
               width: MediaQuery.of(context).size.width,
@@ -38,8 +38,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 animatedTexts: [
                   TypewriterAnimatedText(
                     'NEEDLINC',
-                    speed: Duration(milliseconds: 220),
-                    textStyle: TextStyle(
+                    speed: const Duration(milliseconds: 220),
+                    textStyle: const TextStyle(
                       color: NeedlincColors.white,
                       fontSize: 45,
                     ),
@@ -53,8 +53,8 @@ class _WelcomePageState extends State<WelcomePage> {
         Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.37,
-          margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-          decoration: BoxDecoration(
+          margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+          decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
               image: AssetImage("assets/1.png"),

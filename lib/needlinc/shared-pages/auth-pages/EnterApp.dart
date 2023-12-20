@@ -22,7 +22,7 @@ class _CategoryPageState extends State<CategoryPage> {
     return Scaffold(
       body: Stack(
         children: [
-          backGround(),
+          const backGround(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Column(
@@ -34,7 +34,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     // Back arrow
                     IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons
                             .arrow_back_ios_new, // Specify the icon you want to use
                         size: 30, // Adjust the icon size as needed
@@ -42,15 +42,15 @@ class _CategoryPageState extends State<CategoryPage> {
                       ),
                     ),
                     // Page title
-                    Text(
+                    const Text(
                       'NEEDLINC',
                       style:
                           TextStyle(color: NeedlincColors.white, fontSize: 12),
                     ),
                     // Skip button
                     Container(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Text(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: const Text(
                         '      ',
                         style: TextStyle(
                             color: NeedlincColors.white, fontSize: 21),
@@ -58,8 +58,8 @@ class _CategoryPageState extends State<CategoryPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 70),
-                Text(
+                const SizedBox(height: 70),
+                const Text(
                   'Choose your category',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -68,7 +68,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     color: NeedlincColors.white,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Column(
                   children: [
                     Row(
@@ -102,7 +102,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'I want to hire a freelancer',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -151,7 +151,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'I am a freelancer',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -174,7 +174,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -206,7 +206,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'I am a business owner',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -255,7 +255,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'I am a blogger',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -284,7 +284,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.only(right: 15, bottom: 55),
+                    padding: const EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
                         UserAccount(FirebaseAuth.instance.currentUser!.uid).updateUserCompleteProfile();
@@ -296,7 +296,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          UserType()));
+                                          const UserType()));
                             }
                             break;
                           case 'Freelancer':
@@ -306,7 +306,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          UserType()));
+                                          const UserType()));
                             }
                             break;
                           case 'Business':
@@ -316,7 +316,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          UserType()));
+                                          const UserType()));
                             }
                             break;
                           case 'Blogger':
@@ -326,10 +326,10 @@ class _CategoryPageState extends State<CategoryPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          UserType()));
+                                          const UserType()));
                             }
                             break;
-                          default:;
+                          default: {}
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -337,9 +337,9 @@ class _CategoryPageState extends State<CategoryPage> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         backgroundColor: NeedlincColors.blue1,
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                       ),
-                      child: Text(
+                      child: const Text(
                         'NEXT',
                         style: TextStyle(
                           fontSize: 17,

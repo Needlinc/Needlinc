@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
@@ -38,20 +36,20 @@ class _ProfilePageState extends State<ProfilePage> {
     showModalBottomSheet(
         showDragHandle: true,
         enableDrag: true,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
         context: context,
         builder: (BuildContext context) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.4,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25))),
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                ListTile(
+                const ListTile(
                   leading: Icon(
                     Icons.settings,
                     color: NeedlincColors.blue2,
@@ -60,13 +58,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(color: NeedlincColors.blue2)),
                   // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.input,
                       color: NeedlincColors.blue2,
                     ),
-                    title: Text('Back to Home',
+                    title: const Text('Back to Home',
                         style: TextStyle(color: NeedlincColors.blue2)),
                     onTap: () => {
                           Navigator.of(context).pushReplacement(
@@ -74,13 +72,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   builder: (context) =>
                                       BusinessMainPages(currentPage: 0)))
                         }),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.shopping_cart_outlined,
                     color: NeedlincColors.blue2,
                   ),
-                  title: Text('Marketplace',
+                  title: const Text('Marketplace',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -88,11 +86,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             BusinessMainPages(currentPage: 1)))
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
                   leading:
-                      Icon(Icons.people_outline, color: NeedlincColors.blue2),
-                  title: Text('Freelancers',
+                      const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+                  title: const Text('Freelancers',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -100,13 +98,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             BusinessMainPages(currentPage: 2)))
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.notifications,
                     color: NeedlincColors.blue2,
                   ),
-                  title: Text('Notifications',
+                  title: const Text('Notifications',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -114,13 +112,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             BusinessMainPages(currentPage: 3)))
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.person_outline,
                     color: NeedlincColors.blue2,
                   ),
-                  title: Text('Profile',
+                  title: const Text('Profile',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -128,23 +126,23 @@ class _ProfilePageState extends State<ProfilePage> {
                             BusinessMainPages(currentPage: 4)))
                   },
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.question_mark,
                     color: NeedlincColors.blue2,
                   ),
-                  title: Text('FAQs/Help',
+                  title: const Text('FAQs/Help',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {Navigator.of(context).pop()},
                 ),
-                Divider(),
+                const Divider(),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.headset_mic,
                     color: NeedlincColors.blue2,
                   ),
-                  title: Text('Contact Us',
+                  title: const Text('Contact Us',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {Navigator.of(context).pop()},
                 ),
@@ -157,8 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           .pushNamedAndRemoveUntil('//', (route) => false);
                     },
                     child: Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
+                      padding: const EdgeInsets.all(20.0),
+                      child: const Text(
                         "Sign Out/Log Out",
                         style: TextStyle(
                           color: Colors.red,
@@ -314,8 +312,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       //TODO(Already done) This is the App Menu Bar
       appBar: AppBar(
-        iconTheme: IconThemeData(color: NeedlincColors.blue1),
-        title: Text(
+        iconTheme: const IconThemeData(color: NeedlincColors.blue1),
+        title: const Text(
           "John Doe",
           style: TextStyle(
             color: Colors.blue,
@@ -328,13 +326,13 @@ class _ProfilePageState extends State<ProfilePage> {
             InkWell(
               onTap: bottomMenuBar,
               child: Container(
-                margin: EdgeInsets.only(right: 10.0),
-                child: Icon(Icons.menu_sharp),
+                margin: const EdgeInsets.only(right: 10.0),
+                child: const Icon(Icons.menu_sharp),
               ),
             )
         ],
         backgroundColor: NeedlincColors.white,
-        shape: Border(
+        shape: const Border(
           bottom: BorderSide(color: NeedlincColors.blue2),
         ),
       ),
@@ -342,7 +340,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 180,
               child: Stack(
@@ -355,16 +353,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 140,
                       decoration: BoxDecoration(
                         color: NeedlincColors.grey,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(30),
                           bottomRight: Radius.circular(30),
                         ),
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: isCoverPhoto
-                              ? NetworkImage(
+                              ? const NetworkImage(
                                   'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1')
-                              : NetworkImage(' '),
+                              : const NetworkImage(' '),
                         ),
                       ),
                     ),
@@ -376,10 +374,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         width: 120,
                         height: 120,
-                        margin: EdgeInsets.only(top: 55),
+                        margin: const EdgeInsets.only(top: 55),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(60),
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
                                 'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
@@ -397,23 +395,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Name and profile details
-                  Text(
+                  const Text(
                     'John Doe',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 2),
-                  Text(
+                  const SizedBox(height: 2),
+                  const Text(
                     '~Electrician',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 2),
-                  Row(
+                  const SizedBox(height: 2),
+                  const Row(
                     children: [
                       Icon(
                         Icons.location_on,
@@ -429,15 +427,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 2),
-                  Text(
+                  const SizedBox(height: 2),
+                  const Text(
                     '7 years Experience',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   // message button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -450,27 +448,27 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           backgroundColor: NeedlincColors.blue1,
                           padding:
-                              EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                              const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
                         ),
                         child: Text(
                           isOwner ? 'Edit Profile' : 'Message',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
                           ),
                         ),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       if (!isOwner)
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.pending_outlined,
                             size: 30,
                           ),
                         ),
                     ],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   // Rating & Review
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -484,13 +482,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             Container(
                               alignment: Alignment.center,
                               width: double.infinity,
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(5),
+                              decoration: const BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(),
                                 ),
                               ),
-                              child: Row(
+                              child: const Row(
                                 children: [
                                   Icon(
                                     Icons.star,
@@ -501,12 +499,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 5),
-                            Text("Rating"),
+                            const SizedBox(height: 5),
+                            const Text("Rating"),
                           ],
                         ),
                       ),
-                      SizedBox(width: 70),
+                      const SizedBox(width: 70),
                       SizedBox(
                         width: 53,
                         height: 55,
@@ -515,22 +513,22 @@ class _ProfilePageState extends State<ProfilePage> {
                             Container(
                               alignment: Alignment.center,
                               width: double.infinity,
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(5),
+                              decoration: const BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(),
                                 ),
                               ),
                               child: Text('${reviewList.length}'),
                             ),
-                            SizedBox(height: 5),
-                            Text("Reviews"),
+                            const SizedBox(height: 5),
+                            const Text("Reviews"),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -548,32 +546,35 @@ class _ProfilePageState extends State<ProfilePage> {
             if (listCounter != 0)
               Flexible(
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemCount: listCounter,
                   itemBuilder: (context, index) {
-                    if (isReviews)
+                    if (isReviews) {
                       return listReviewItems(
                         reviewList[index].name,
                         reviewList[index].rating,
                         reviewList[index].review,
                       );
-                    if (isPosts)
+                    }
+                    if (isPosts) {
                       return listPostItems(
                         postList[index].text,
                         postList[index].picture,
                       );
-                    if (isMarketPlace)
+                    }
+                    if (isMarketPlace) {
                       return listMarketPlaceItems(
                         marketPlaceList[index].text,
                         marketPlaceList[index].picture,
                       );
+                    }
                     return null;
                   },
                 ),
               ),
 
             if (listCounter == 0)
-              Flexible(
+              const Flexible(
                 child: Center(
                   child: Text(
                     'No Posts',
@@ -643,7 +644,7 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
       child: Container(
         decoration: BoxDecoration(
-          color: Color.fromRGBO(182, 203, 226, 1.0),
+          color: const Color.fromRGBO(182, 203, 226, 1.0),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(
@@ -655,7 +656,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Row(
                     children: List.generate(
@@ -669,7 +670,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(review)
             ],
           ),
@@ -694,7 +695,7 @@ Padding listPostItems(String? text, String? picture) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (text != null) Text(text),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             if (picture != null)
               Container(
                 width: double.infinity,
@@ -707,7 +708,7 @@ Padding listPostItems(String? text, String? picture) {
                   ),
                 ),
               ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // Icons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -716,33 +717,33 @@ Padding listPostItems(String? text, String? picture) {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.favorite,
                         color: NeedlincColors.red,
                       ),
                     ),
-                    Text('400'),
+                    const Text('400'),
                   ],
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.maps_ugc_outlined),
+                      icon: const Icon(Icons.maps_ugc_outlined),
                     ),
-                    Text('400'),
+                    const Text('400'),
                   ],
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.bookmark, color: Colors.amber[300]),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.share,
                     size: 20,
                   ),
@@ -771,7 +772,7 @@ Padding listMarketPlaceItems(String? text, String? picture) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (text != null) Text(text),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             if (picture != null)
               Container(
                 width: double.infinity,
@@ -784,7 +785,7 @@ Padding listMarketPlaceItems(String? text, String? picture) {
                   ),
                 ),
               ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             // Icons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -793,38 +794,38 @@ Padding listMarketPlaceItems(String? text, String? picture) {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.favorite,
                         color: NeedlincColors.red,
                       ),
                     ),
-                    Text('400'),
+                    const Text('400'),
                   ],
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.maps_ugc_outlined),
+                      icon: const Icon(Icons.maps_ugc_outlined),
                     ),
-                    Text('400'),
+                    const Text('400'),
                   ],
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.bookmark, color: Colors.amber[300]),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.shopping_cart_outlined),
+                  icon: const Icon(Icons.shopping_cart_outlined),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.share,
                     size: 20,
                   ),

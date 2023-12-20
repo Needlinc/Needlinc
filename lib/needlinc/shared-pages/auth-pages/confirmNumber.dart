@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 import '../../colors/colors.dart';
@@ -12,7 +11,7 @@ import '../user-type.dart';
 class confirmNumber extends StatefulWidget {
   final String verificationId;
   final String phoneNumber;
-  const confirmNumber(this.verificationId, {required this.phoneNumber});
+  const confirmNumber(this.verificationId, {super.key, required this.phoneNumber});
 
   @override
   State<confirmNumber> createState() => _confirmNumberState();
@@ -65,7 +64,7 @@ class _confirmNumberState extends State<confirmNumber> {
       // User is now authenticated, navigate to the next page
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Success()),
+        MaterialPageRoute(builder: (context) => const Success()),
       );
     } catch (e) {
       // Handle verification failure, e.g., invalid OTP.
@@ -79,7 +78,7 @@ class _confirmNumberState extends State<confirmNumber> {
     return Scaffold(
       body: Stack(
         children: [
-          backGround(),
+          const backGround(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Column(
@@ -91,7 +90,7 @@ class _confirmNumberState extends State<confirmNumber> {
                     // Back arrow
                     IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons
                             .arrow_back_ios_new, // Specify the icon you want to use
                         size: 30, // Adjust the icon size as needed
@@ -99,7 +98,7 @@ class _confirmNumberState extends State<confirmNumber> {
                       ),
                     ),
                     // Page title
-                    Text(
+                    const Text(
                       'NEEDLINC',
                       style:
                           TextStyle(color: NeedlincColors.white, fontSize: 12),
@@ -110,22 +109,22 @@ class _confirmNumberState extends State<confirmNumber> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserType()));
+                                builder: (context) => const UserType()));
                       },
-                      child: Text(
+                      child: const Text(
                         '',
                         style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 70),
+                const SizedBox(height: 70),
                 // main Card
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Card title
-                    Text(
+                    const Text(
                       'Confirm code',
                       style: TextStyle(
                         fontSize: 30,
@@ -138,7 +137,7 @@ class _confirmNumberState extends State<confirmNumber> {
                       child: Text(
                         'You were sent a 4 digit code to your phone number ~ ********$lastDigit ',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: NeedlincColors.white,
                         ),
@@ -150,7 +149,7 @@ class _confirmNumberState extends State<confirmNumber> {
                       decoration: BoxDecoration(
                         color: NeedlincColors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: NeedlincColors.grey,
                             offset: Offset(0, 3),
@@ -176,7 +175,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                 },
                                 controller: pin1Controller,
                                 onSaved: (pin1) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -192,7 +191,7 @@ class _confirmNumberState extends State<confirmNumber> {
                               height: 54,
                               width: 50,
                               child: TextFormField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -222,7 +221,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                 },
                                 controller: pin3Controller,
                                 onSaved: (pin3) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -245,7 +244,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                 },
                                 controller: pin4Controller,
                                 onSaved: (pin4) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -268,7 +267,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                 },
                                 controller: pin5Controller,
                                 onSaved: (pin5) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -291,7 +290,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                 },
                                 controller: pin6Controller,
                                 onSaved: (pin6) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -312,22 +311,22 @@ class _confirmNumberState extends State<confirmNumber> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.only(right: 15, bottom: 55),
+                    padding: const EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
                         //TODO
                         verifyOTP();
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Success()));
+                            MaterialPageRoute(builder: (context) => const Success()));
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                         backgroundColor: NeedlincColors.blue1,
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                       ),
-                      child: Text(
+                      child: const Text(
                         'NEXT',
                         style: TextStyle(
                           fontSize: 17,

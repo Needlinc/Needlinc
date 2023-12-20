@@ -16,20 +16,20 @@ class _SuccessState extends State<Success> {
     // TODO: implement initState
     super.initState();
     // Set a delay to navigate to the second screen after 3 seconds
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => CategoryPage()));
+          context, MaterialPageRoute(builder: (context) => const CategoryPage()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Stack(
         children: [
           backGround(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(25, 20, 25, 15),
+            padding: EdgeInsets.fromLTRB(25, 20, 25, 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

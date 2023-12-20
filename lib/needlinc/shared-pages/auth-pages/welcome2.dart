@@ -42,27 +42,27 @@ class _WelcomePage2State extends State<WelcomePage2> {
             Stack(
               // Tripple Layer
               children: [
-                backGround(),
+                const backGround(),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.34,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 40, right: 40),
+                  padding: const EdgeInsets.only(left: 40, right: 40),
                   alignment: Alignment.center,
                   child: Text(
                     showNext ? words.last : words.first,
-                    style: TextStyle(fontSize: 20, color: NeedlincColors.white),
+                    style: const TextStyle(fontSize: 20, color: NeedlincColors.white),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 135),
+                const SizedBox(height: 135),
               ],
             ),
             // NeedLinc image
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.37,
-              margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-              decoration: BoxDecoration(
+              margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
                   image: AssetImage("assets/1.png"),
@@ -74,18 +74,18 @@ class _WelcomePage2State extends State<WelcomePage2> {
               visible: showNext,
               child: Container(
                 alignment: Alignment.bottomRight,
-                margin: EdgeInsets.only(right: 20, top: 60),
+                margin: const EdgeInsets.only(right: 20, top: 60),
                 child: ElevatedButton(
                   onPressed: () => Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignupPage())),
+                      MaterialPageRoute(builder: (context) => const SignupPage())),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     backgroundColor: NeedlincColors.blue1,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                   ),
-                  child: Text(
+                  child: const Text(
                     "NEXT",
                     style: TextStyle(
                       fontSize: 17,
@@ -115,7 +115,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 4.0),
+                  const SizedBox(width: 4.0),
                   GestureDetector(
                     onTap: _ShowNext,
                     child: Container(

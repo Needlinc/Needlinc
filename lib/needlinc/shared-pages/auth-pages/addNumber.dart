@@ -2,14 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
-import 'package:needlinc/needlinc/business-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/confirmNumber.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
-import 'EnterApp.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class PhoneNumber extends StatefulWidget {
@@ -31,7 +28,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
 
     try {
       await _auth.verifyPhoneNumber(
-        phoneNumber: "+234${phoneNumber}",
+        phoneNumber: "+234$phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) {
           // Auto-retrieval or instant verification.
           // In most cases, this callback is not needed.
@@ -67,7 +64,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
     return Scaffold(
       body: Stack(
         children: [
-          backGround(),
+          const backGround(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Column(
@@ -81,7 +78,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons
                             .arrow_back_ios_new, // Specify the icon you want to use
                         size: 30, // Adjust the icon size as needed
@@ -89,7 +86,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                       ),
                     ),
                     // Page title
-                    Text(
+                    const Text(
                       'NEEDLINC',
                       style:
                           TextStyle(color: NeedlincColors.white, fontSize: 12),
@@ -100,9 +97,9 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => UserType()));
+                                builder: (context) => const UserType()));
                       },
-                      child: Text(
+                      child: const Text(
                         '',
                         style: TextStyle(
                             color: NeedlincColors.white, fontSize: 21),
@@ -110,12 +107,12 @@ class _PhoneNumberState extends State<PhoneNumber> {
                     ),
                   ],
                 ),
-                SizedBox(height: 70),
+                const SizedBox(height: 70),
                 // main Card
                 Column(
                   children: [
                     // Card title
-                    Text(
+                    const Text(
                       'Add Phone Number',
                       style: TextStyle(
                         fontSize: 30,
@@ -124,13 +121,13 @@ class _PhoneNumberState extends State<PhoneNumber> {
                       ),
                     ),
                     // body
-                    SizedBox(height: 35),
+                    const SizedBox(height: 35),
                     Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 15.0),
                       decoration: BoxDecoration(
                         color: NeedlincColors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: NeedlincColors.grey,
                             offset: Offset(0, 3),
@@ -147,7 +144,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly,
                         ],
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: '8010002000',
                           contentPadding: EdgeInsets.only(left: 50.0, right: 8.0),
                           focusedBorder: Borders.FocusedBorder,
@@ -160,7 +157,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.only(right: 15, bottom: 55),
+                    padding: const EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
                         sendOTP();
@@ -175,9 +172,9 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         backgroundColor: NeedlincColors.blue1,
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                       ),
-                      child: Text(
+                      child: const Text(
                         'NEXT',
                         style: TextStyle(
                           fontSize: 17,
@@ -191,18 +188,18 @@ class _PhoneNumberState extends State<PhoneNumber> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 234.0, left: 50.0),
-            padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 3.0, right: 3.0),
-            child: Text(
+            margin: const EdgeInsets.only(top: 234.0, left: 50.0),
+            padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 3.0, right: 3.0),
+            decoration: BoxDecoration(
+              color: NeedlincColors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Text(
                 '+234',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15
               ),
-            ),
-            decoration: BoxDecoration(
-              color: NeedlincColors.white,
-              borderRadius: BorderRadius.circular(10),
             ),
           )
         ],

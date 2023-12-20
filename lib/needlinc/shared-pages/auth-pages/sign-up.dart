@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:needlinc/needlinc/client-pages/home.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/sign-in.dart';
-import 'package:needlinc/needlinc/shared-pages/user-type.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/EnterApp.dart';
 import 'package:needlinc/needlinc/widgets/snack-bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 import '../../backend/authentication/login.dart';
-import '../../business-pages/business-main.dart';
 import '../../widgets/TextFieldBorder.dart';
 
 class SignupPage extends StatefulWidget {
@@ -41,7 +36,7 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       body: notLoading ? Stack(
         children: [
-          backGround(),
+          const backGround(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Column(
@@ -49,11 +44,11 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(15, 30, 15, 18),
+                  padding: const EdgeInsets.fromLTRB(15, 30, 15, 18),
                   decoration: BoxDecoration(
                     color: NeedlincColors.white,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
                         offset: Offset(0, 3),
@@ -65,7 +60,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: [
                       // Welcome to NEEDLINC
-                      Row(
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -85,7 +80,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(22, 0, 22, 0),
                         child: Form(
@@ -101,9 +96,10 @@ class _SignupPageState extends State<SignupPage> {
                                   if (value!.isEmpty) {
                                     return "Enter Email";
                                   }
+                                  return null;
                                   // Email Check function
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   labelText: 'Email or Username',
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 8.0),
@@ -112,7 +108,7 @@ class _SignupPageState extends State<SignupPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // input password
                               TextFormField(
                                 controller: passwordController,
@@ -121,14 +117,15 @@ class _SignupPageState extends State<SignupPage> {
                                   if (value!.isEmpty) {
                                     return "Enter Password";
                                   }
+                                  return null;
                                 },
                                 decoration: InputDecoration(
                                   labelText: 'Password',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                      const EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
-                                  prefixIcon: Icon(Icons.lock),
+                                  prefixIcon: const Icon(Icons.lock),
                                   suffixIcon: InkWell(
                                     onTap: () {
                                       setState(() {
@@ -143,8 +140,8 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 3),
-                              SizedBox(height: 3),
+                              const SizedBox(height: 3),
+                              const SizedBox(height: 3),
                               // Sign in button
                               ElevatedButton(
                                 onPressed: () async {
@@ -165,46 +162,46 @@ class _SignupPageState extends State<SignupPage> {
                                     showSnackBar(context, '$error');
                                   }
                                 },
-                                child: Text('Sign in'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: NeedlincColors.blue1,
-                                  fixedSize: Size(double.maxFinite, 30),
-                                  shape: BeveledRectangleBorder(
+                                  fixedSize: const Size(double.maxFinite, 30),
+                                  shape: const BeveledRectangleBorder(
                                     borderRadius: BorderRadius.zero,
                                   ),
                                 ),
+                                child: const Text('Sign in'),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // create new account
                               TextButton(
                                 onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            CreateAccountPage())),
-                                child: Text(
-                                  'Create New Account',
-                                  style: TextStyle(
-                                    color: NeedlincColors.blue1,
-                                  ),
-                                ),
+                                            const CreateAccountPage())),
                                 style: TextButton.styleFrom(
-                                  fixedSize: Size(double.maxFinite, 30),
-                                  shape: BeveledRectangleBorder(
+                                  fixedSize: const Size(double.maxFinite, 30),
+                                  shape: const BeveledRectangleBorder(
                                     side: BorderSide(
                                       color: NeedlincColors.blue1,
                                     ),
                                     borderRadius: BorderRadius.zero,
                                   ),
                                 ),
+                                child: const Text(
+                                  'Create New Account',
+                                  style: TextStyle(
+                                    color: NeedlincColors.blue1,
+                                  ),
+                                ),
                               ),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               // forgot password
                               GestureDetector(
                                 onTap: (){
                                   //TODO Write your code here
                                 },
-                                child: Text(
+                                child: const Text(
                                   'forgot password? Click here to reset',
                                   style: TextStyle(
                                     color: NeedlincColors.blue1,
@@ -213,7 +210,7 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               // or sign up as
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -225,12 +222,12 @@ class _SignupPageState extends State<SignupPage> {
                                     width: 73,
                                     color: NeedlincColors.black1,
                                   ),
-                                  SizedBox(width: 3),
-                                  Text(
+                                  const SizedBox(width: 3),
+                                  const Text(
                                     "or sign up as",
                                     style: TextStyle(fontSize: 10),
                                   ),
-                                  SizedBox(width: 3),
+                                  const SizedBox(width: 3),
                                   Container(
                                     height: 1,
                                     width: 73,
@@ -238,21 +235,21 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               // sign up with google
                               TextButton.icon(
                                 onPressed: () {
                                   print('Signed up with google');
                                 },
-                                icon: Icon(Icons.vpn_lock_rounded),
-                                label: Text(
+                                icon: const Icon(Icons.vpn_lock_rounded),
+                                label: const Text(
                                   'Sign up with Google',
                                   style:
                                       TextStyle(color: NeedlincColors.black1),
                                 ),
                                 style: TextButton.styleFrom(
-                                  fixedSize: Size(double.maxFinite, 30),
-                                  shape: BeveledRectangleBorder(
+                                  fixedSize: const Size(double.maxFinite, 30),
+                                  shape: const BeveledRectangleBorder(
                                     side: BorderSide(
                                       color: NeedlincColors.black1,
                                     ),
@@ -260,21 +257,21 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // sign up with facebook
                               TextButton.icon(
                                 onPressed: () {
                                   print('Signed up with facebook');
                                 },
-                                icon: Icon(Icons.facebook),
-                                label: Text(
+                                icon: const Icon(Icons.facebook),
+                                label: const Text(
                                   'Sign up with Facebook',
                                   style:
                                       TextStyle(color: NeedlincColors.black1),
                                 ),
                                 style: TextButton.styleFrom(
-                                  fixedSize: Size(double.maxFinite, 30),
-                                  shape: BeveledRectangleBorder(
+                                  fixedSize: const Size(double.maxFinite, 30),
+                                  shape: const BeveledRectangleBorder(
                                     side: BorderSide(
                                       color: NeedlincColors.black1,
                                     ),
@@ -295,7 +292,7 @@ class _SignupPageState extends State<SignupPage> {
         ],
       )
           :
-        Center(
+        const Center(
         child: CircularProgressIndicator()
     ),
     );

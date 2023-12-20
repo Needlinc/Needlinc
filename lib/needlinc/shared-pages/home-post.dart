@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,20 +51,20 @@ class _HomePostPageState extends State<HomePostPage> {
         centerTitle: true,
         backgroundColor: NeedlincColors.white,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: NeedlincColors.black1
         ),
         actions: [
           Container(
-            margin: EdgeInsets.only(top: 15.0, right: 15.0),
+            margin: const EdgeInsets.only(top: 15.0, right: 15.0),
               child: Text("SAVE", style: GoogleFonts.spaceGrotesk(color: NeedlincColors.black1, decoration: TextDecoration.underline,),))
         ],
-        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.cancel),
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.cancel),
       ),
     ),
       body: notLoading ? SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
             children: [
               imagePost != null ?
@@ -81,7 +80,7 @@ class _HomePostPageState extends State<HomePostPage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+                    margin: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
                     decoration: BoxDecoration(
                       color: NeedlincColors.black3,
                       borderRadius: BorderRadius.circular(9.0)
@@ -94,16 +93,16 @@ class _HomePostPageState extends State<HomePostPage> {
                               controller: writeUp,
                               decoration: InputDecoration(
                                 hintText: 'Write A Post...',
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                      borderSide: BorderSide.none
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  borderSide: BorderSide(color: Colors.blue),
+                                  borderSide: const BorderSide(color: Colors.blue),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                               ),
-                              style: TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 16.0),
                         ),
                       ],
                     ),
@@ -112,7 +111,7 @@ class _HomePostPageState extends State<HomePostPage> {
               )
               :
               Container(
-                margin: EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
+                margin: const EdgeInsets.only(left: 10.0, bottom: 10.0, right: 10.0),
                 decoration: BoxDecoration(
                     color: NeedlincColors.black3,
                     borderRadius: BorderRadius.circular(9.0)
@@ -125,16 +124,16 @@ class _HomePostPageState extends State<HomePostPage> {
                       controller: writeUp,
                       decoration: InputDecoration(
                         hintText: 'Write A Post...',
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide.none
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(color: Colors.blue),
+                          borderSide: const BorderSide(color: Colors.blue),
                         ),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                       ),
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 16.0),
                     ),
                   ],
                 ),
@@ -142,7 +141,7 @@ class _HomePostPageState extends State<HomePostPage> {
               // TODO Handle CheckBox
               Container(
                 alignment: Alignment.topLeft,
-                margin: EdgeInsets.only(left: 8.0, top: 10.0),
+                margin: const EdgeInsets.only(left: 8.0, top: 10.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -162,9 +161,9 @@ class _HomePostPageState extends State<HomePostPage> {
                           'Notify a freelancer',
                           style: GoogleFonts.oxygen(fontWeight: FontWeight.w500),
                         ),
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width * 0.6,
-                          child: Text(
+                          child: const Text(
                             'This allows your post to directly notify a freelancer who you might need to come work for you.',
                             style: TextStyle(
                                 fontSize: 12,
@@ -181,11 +180,11 @@ class _HomePostPageState extends State<HomePostPage> {
               Visibility(
                 visible: freelancerOption,
                 child: Container(
-                  margin: EdgeInsets.only(top: 34.5, bottom: 31.4),
+                  margin: const EdgeInsets.only(top: 34.5, bottom: 31.4),
                   child: Column(
                     children: [
-                      Text('Select an Occupation::'),
-                      SizedBox(height: 6.0),
+                      const Text('Select an Occupation::'),
+                      const SizedBox(height: 6.0),
                       Wrap(
                         spacing: 8.0,
                         runSpacing: 8.0,
@@ -219,19 +218,19 @@ class _HomePostPageState extends State<HomePostPage> {
                   _selectFile(context, false);
                 },
                 child: Container(
-                  margin: EdgeInsets.only(top: 25.0),
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                  margin: const EdgeInsets.only(top: 25.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue2,),
+                      const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue2,),
                       Text("Add a photo", style: GoogleFonts.oxygen( fontSize: 16),),
-                      Container(padding: EdgeInsets.only(left: 160.0),child: Icon(Icons.arrow_forward_ios_rounded,))
+                      Container(padding: const EdgeInsets.only(left: 160.0),child: const Icon(Icons.arrow_forward_ios_rounded,))
                     ],
                   ),
                 ),
               ),
-              Container(
+              const SizedBox(
                 width: 320,
                   child: Divider(color: NeedlincColors.black2,)
               ),
@@ -240,26 +239,26 @@ class _HomePostPageState extends State<HomePostPage> {
                   _selectFile(context, true);
                   },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.image_outlined, color: NeedlincColors.blue2,),
+                      const Icon(Icons.image_outlined, color: NeedlincColors.blue2,),
                       Text("Choose from gallery", style: GoogleFonts.oxygen( fontSize: 16),),
-                      Container(padding: EdgeInsets.only(left: 100.0),child: Icon(Icons.arrow_forward_ios_rounded,))
+                      Container(padding: const EdgeInsets.only(left: 100.0),child: const Icon(Icons.arrow_forward_ios_rounded,))
                     ],
                   ),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 36.0, bottom: 10.0),
+                margin: const EdgeInsets.only(top: 36.0, bottom: 10.0),
                 alignment: Alignment.bottomRight,
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
                     notLoading = false;
                     setState(() {});
-                    if(imagePost != null && writeUp != null && freelancerOption != null) {
+                    if(imagePost != null) {
                       notLoading = await UploadPost().homePagePostForImageAndWriteUp(context, imagePost,writeUp.text, selectedOccupations);
                       Navigator.pop(context);
                     }
@@ -267,7 +266,7 @@ class _HomePostPageState extends State<HomePostPage> {
                       notLoading = await UploadPost().homePagePostForImage(context, imagePost, selectedOccupations);
                       Navigator.pop(context);
                     }
-                    else if (imagePost == null && writeUp != null){
+                    else if (imagePost == null){
                       notLoading = await UploadPost().homePagePostForWriteUp(context, writeUp.text, selectedOccupations);
                       Navigator.pop(context);
                     }
@@ -275,17 +274,17 @@ class _HomePostPageState extends State<HomePostPage> {
                       showSnackBar(context, "Empty fields");
                     }
                   },
-                  child: notLoading ? Text("POST") : CircularProgressIndicator(),
                   style: ButtonStyle(
                     backgroundColor:
                     MaterialStateProperty.all<Color>(NeedlincColors.blue1),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Colors.blue),
+                        side: const BorderSide(color: Colors.blue),
                       ),
                     ),
                   ),
+                  child: notLoading ? const Text("POST") : const CircularProgressIndicator(),
                 ),
               ),
             ],
@@ -293,7 +292,7 @@ class _HomePostPageState extends State<HomePostPage> {
         )
       )
             :
-        Center(child: CircularProgressIndicator()),
+        const Center(child: CircularProgressIndicator()),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'package:needlinc/needlinc/widgets/TextFieldBorder.dart';
 import '../../backend/user-account/functionality.dart';
-import 'EnterApp.dart';
 import '../user-type.dart';
 
 class Location extends StatefulWidget {
@@ -30,7 +29,7 @@ class _LocationState extends State<Location> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons
                         .arrow_back_ios_new, // Specify the icon you want to use
                     size: 30, // Adjust the icon size as needed
@@ -38,7 +37,7 @@ class _LocationState extends State<Location> {
                   ),
                 ),
                 // Page title
-                Text(
+                const Text(
                   'NEEDLINC',
                   style: TextStyle(color: NeedlincColors.blue1, fontSize: 12),
                 ),
@@ -48,18 +47,18 @@ class _LocationState extends State<Location> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UserType()));
+                            builder: (context) => const UserType()));
                   },
-                  child: Text(
+                  child: const Text(
                     '',
                     style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 70),
+            const SizedBox(height: 70),
             // Add location
-            Text(
+            const Text(
               'Add Location',
               style: TextStyle(
                 color: NeedlincColors.blue1,
@@ -67,10 +66,10 @@ class _LocationState extends State<Location> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFormField(
               controller: locationController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Where do you stay?',
                 contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
                 focusedBorder: Borders.FocusedBorder,
@@ -81,21 +80,21 @@ class _LocationState extends State<Location> {
             Expanded(
               child: Container(
                 alignment: Alignment.bottomRight,
-                padding: EdgeInsets.only(right: 15, bottom: 55),
+                padding: const EdgeInsets.only(right: 15, bottom: 55),
                 child: ElevatedButton(
                   onPressed: () {
                     addLocation(location: locationController.text);
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PhoneNumber()));
+                        MaterialPageRoute(builder: (context) => const PhoneNumber()));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     backgroundColor: NeedlincColors.blue1,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                   ),
-                  child: Text(
+                  child: const Text(
                     'NEXT',
                     style: TextStyle(
                       fontSize: 17,

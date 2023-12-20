@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
@@ -20,8 +19,8 @@ class _ProfilePageState extends State<ProfilePage> {
       //TODO(Already done) This is the App Menu Bar
       appBar: AppBar(
         elevation: 0,
-        iconTheme: IconThemeData(color: NeedlincColors.blue1),
-        title: Text(
+        iconTheme: const IconThemeData(color: NeedlincColors.blue1),
+        title: const Text(
           "Emeka John",
           style: TextStyle(
             color: Colors.blue,
@@ -35,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
               showModalBottomSheet(
                 showDragHandle: true,
                 enableDrag: true,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(30)
                   )
@@ -44,57 +43,57 @@ class _ProfilePageState extends State<ProfilePage> {
                   builder: (BuildContext context){
                     return Container(
                       height: MediaQuery.of(context).size.height * 0.4,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))
                       ),
                       child: ListView(
                         padding: EdgeInsets.zero,
                         children: <Widget>[
                           ListTile(
-                            leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
-                            title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RootPage()))},
+                            leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
+                            title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
+                            onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RootPage()))},
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                              leading: Icon(Icons.input, color: NeedlincColors.blue2,),
-                              title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
+                              leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
+                              title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
                               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                            leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
-                            title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
+                            leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
+                            title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
                             onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                            leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
-                            title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
+                            leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+                            title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
                             onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                            leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
-                            title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
+                            leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
+                            title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
                             onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                            leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
-                            title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
+                            leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
+                            title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
                             onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                            leading: Icon(Icons.question_mark, color: NeedlincColors.blue2,),
-                            title: Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+                            leading: const Icon(Icons.question_mark, color: NeedlincColors.blue2,),
+                            title: const Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
                             onTap: () => {Navigator.of(context).pop()},
                           ),
-                          Divider(),
+                          const Divider(),
                           ListTile(
-                            leading: Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
-                            title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+                            leading: const Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
+                            title: const Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
                             onTap: () => {Navigator.of(context).pop()},
                           ),
                           Center(
@@ -106,8 +105,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
                               },
                               child: Container(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
+                                padding: const EdgeInsets.all(20.0),
+                                child: const Text("Sign Out/Log Out", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, decoration: TextDecoration.underline,),),
                               ),
                             ),
                           )
@@ -118,8 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
               child: Container(
-                margin: EdgeInsets.only(right: 10.0),
-                  child: Icon(Icons.menu)
+                margin: const EdgeInsets.only(right: 10.0),
+                  child: const Icon(Icons.menu)
               )
           )
         ],
@@ -131,9 +130,9 @@ class _ProfilePageState extends State<ProfilePage> {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(40),
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(40),
+                  margin: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
                         "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -152,14 +151,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       "Emeka John",
                       style: GoogleFonts.dosis(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
-                    SizedBox(height: 5.0,),
+                    const SizedBox(height: 5.0,),
                     Text(
                       "070 8786 0987",
                       style: GoogleFonts.arimo(
                         fontSize: 13,
                       ),
                     ),
-                    SizedBox(height: 5.0,),
+                    const SizedBox(height: 5.0,),
                     Text(
                       "debra.holt@example.com",
                       style: GoogleFonts.arimo(
@@ -175,28 +174,28 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 35,
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text("Edit Profile"),
                 style: ButtonStyle(
                   backgroundColor:
                   MaterialStateProperty.all<Color>(NeedlincColors.blue1),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: Colors.blue),
+                      side: const BorderSide(color: Colors.blue),
                     ),
                   ),
                 ),
+                child: const Text("Edit Profile"),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
-              padding: EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Account Information",
                       style: GoogleFonts.oxygen(
@@ -205,9 +204,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Your Posts",
                       style: GoogleFonts.oxygen(
@@ -216,9 +215,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Saved & Favourited",
                       style: GoogleFonts.oxygen(
@@ -227,9 +226,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Contracts",
                       style: GoogleFonts.oxygen(
@@ -238,9 +237,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Transaction History",
                       style: GoogleFonts.oxygen(
@@ -249,9 +248,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Privacy Settings",
                       style: GoogleFonts.oxygen(
@@ -260,9 +259,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                   child: Text(
                     "Reviews/Ratings",
                     style: GoogleFonts.oxygen(
@@ -271,9 +270,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                  ),
-                  Divider(),
+                  const Divider(),
                   Container(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       "Help/Support",
                       style: GoogleFonts.oxygen(

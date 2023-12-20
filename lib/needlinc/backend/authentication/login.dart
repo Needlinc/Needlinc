@@ -17,21 +17,21 @@ Future<User?> loginUser(String email, String password, BuildContext context) asy
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => UserType(),
+          builder: (context) => const UserType(),
         ),
       );
 
       showSnackBar(context, 'Welcome back!');
     } else {
       // The user document does not exist in Firestore.
-      CircularProgressIndicator();
+      const CircularProgressIndicator();
     }
 
     return userCredential.user!;
   } catch (e) {
     showSnackBar(context,'Error logging in: $e');
     Container(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: const Center(
         child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
       ),

@@ -70,7 +70,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             ),
             child: Wrap(
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 ListTile(
                     leading: const Icon(
                       Icons.photo_library,
@@ -126,7 +126,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     return Scaffold(
       body: notLoading ? Stack(
         children: [
-          backGround(),
+          const backGround(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Column(
@@ -145,7 +145,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         }
                         _HideAddPhoto();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons
                             .arrow_back_ios_new, // Specify the icon you want to use
                         size: 30, // Adjust the icon size as needed
@@ -155,7 +155,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     // Page title
                     Visibility(
                       visible: addPhoto,
-                      child: Text(
+                      child: const Text(
                         'NEEDLINC',
                         style: TextStyle(
                             color: NeedlincColors.white, fontSize: 12),
@@ -169,9 +169,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => UserType()));
+                                  builder: (context) => const UserType()));
                         },
-                        child: Text(
+                        child: const Text(
                           '',
                           style: TextStyle(
                               color: NeedlincColors.white, fontSize: 21),
@@ -180,29 +180,29 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     )
                   ],
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 // main Card
                 Column(
                   children: [
                     Text(
                       addPhoto ? 'Add Profile photo' : 'NEEDLINC',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                         color: NeedlincColors.white,
                       ),
                     ),
                     // body
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Visibility(
                       visible: !addPhoto,
                       child: Container(
                         width: double.infinity,
-                        padding: EdgeInsets.fromLTRB(27, 30, 27, 24),
+                        padding: const EdgeInsets.fromLTRB(27, 30, 27, 24),
                         decoration: BoxDecoration(
                           color: NeedlincColors.white,
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: NeedlincColors.grey,
                               offset: Offset(0, 3),
@@ -216,14 +216,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           child: Column(
                             children: [
                               // Create New Account
-                              Text(
+                              const Text(
                                 'Create New Account',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               // Enter Full Name
                               TextFormField(
                                 controller: fullNameController,
@@ -231,8 +231,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   if (value!.isEmpty) {
                                     return "Enter full name";
                                   }
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Enter Full Name',
                                   contentPadding:
                                   EdgeInsets.symmetric(horizontal: 8.0),
@@ -240,7 +241,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // Enter User Name
                               TextFormField(
                                 keyboardType: TextInputType.emailAddress,
@@ -249,8 +250,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   if (value!.isEmpty) {
                                     return "Enter Username";
                                   }
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Enter User Name',
                                   contentPadding:
                                   EdgeInsets.symmetric(horizontal: 8.0),
@@ -258,7 +260,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // Email
                               TextFormField(
                                 controller: emailController,
@@ -267,8 +269,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   if (value!.isEmpty) {
                                     return "Enter Email";
                                   }
+                                  return null;
                                 },
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   hintText: 'Email',
                                   contentPadding:
                                   EdgeInsets.symmetric(horizontal: 8.0),
@@ -276,7 +279,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // Create Password
                               TextFormField(
                                 obscureText: passToggle,
@@ -287,13 +290,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   } else if (passwordController.text.length < 8) {
                                     return "Password must be more than 8 characters";
                                   }
+                                  return null;
                                 },
                                 decoration: InputDecoration(
                                   suffix: InkWell(
                                     onTap: () {
                                       setState(() {
-                                        if(passToggle)
-                                        passToggle = !passToggle;
+                                        if(passToggle) {
+                                          passToggle = !passToggle;
+                                        }
                                       });
                                     },
                                     child: Icon(passToggle
@@ -302,12 +307,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   hintText: 'Create Password',
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 8.0),
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               // Confirm Password
                               TextFormField(
                                 obscureText: confirmToggle,
@@ -319,6 +324,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                       passwordController.text) {
                                     return "Passwords not match";
                                   }
+                                  return null;
                                 },
                                 decoration: InputDecoration(
                                   suffix: InkWell(
@@ -333,12 +339,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                   ),
                                   hintText: 'Confirm Password',
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 8.0),
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
                               ),
-                              SizedBox(height: 17),
+                              const SizedBox(height: 17),
                               // create new account button
                               ElevatedButton(
                                 onPressed: () {
@@ -346,14 +352,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                     _ShowAddPhoto();
                                   }
                                 },
-                                child: Text('Create New Account'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: NeedlincColors.blue1,
-                                  fixedSize: Size(double.maxFinite, 30),
-                                  shape: BeveledRectangleBorder(
+                                  fixedSize: const Size(double.maxFinite, 30),
+                                  shape: const BeveledRectangleBorder(
                                     borderRadius: BorderRadius.zero,
                                   ),
                                 ),
+                                child: const Text('Create New Account'),
                               ),
                             ],
                           ),
@@ -370,7 +376,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             decoration: BoxDecoration(
                               color: NeedlincColors.white,
                               borderRadius: BorderRadius.circular(150),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: NeedlincColors.grey,
                                   offset: Offset(0, 3),
@@ -383,7 +389,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 ? 
                                 Container(
                                   decoration: BoxDecoration(
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                         image: AssetImage("assets/1.png"),
                                     ),
                                     borderRadius: BorderRadius.circular(200)
@@ -396,7 +402,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             )
                         ),
                         Container(
-                          margin: EdgeInsets.only(right: 30),
+                          margin: const EdgeInsets.only(right: 30),
                           width: 45,
                           height: 45,
                           decoration: BoxDecoration(
@@ -412,7 +418,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               onTap: () {
                                 _showPicker(context);
                               },
-                              child: Icon(Icons.add,
+                              child: const Icon(Icons.add,
                                   size: 35,
                                   weight: 50,
                                   color: NeedlincColors.white),
@@ -429,16 +435,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   child: Expanded(
                     child: Container(
                       alignment: Alignment.bottomRight,
-                      padding: EdgeInsets.only(right: 15, bottom: 55),
+                      padding: const EdgeInsets.only(right: 15, bottom: 55),
                       child: ElevatedButton(
                         onPressed: () async {
                           notLoading = false;
                           setState(() {});
-                          await saveUserInformation();
+                          saveUserInformation();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Gender()));
+                                  builder: (context) => const Gender()));
                           notLoading = true;
                           emailController.clear();
                           fullNameController.clear();
@@ -451,9 +457,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           backgroundColor: NeedlincColors.blue1,
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                         ),
-                        child: Text(
+                        child: const Text(
                           'NEXT',
                           style: TextStyle(
                             fontSize: 17,
@@ -470,7 +476,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         ],
       )
           :
-          Center(child: CircularProgressIndicator(),)
+          const Center(child: CircularProgressIndicator(),)
     );
   }
 }

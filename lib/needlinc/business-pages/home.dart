@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              Container(
+              SizedBox(
                 height: 120,
                 child: DrawerHeader(
                   child: Stack(
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                             decoration: BoxDecoration(
                                 color: NeedlincColors.blue3,
                                 borderRadius: BorderRadius.circular(10.0)
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     height: 40,
                                     width: 40,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: NetworkImage(
                                           "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -72,12 +72,12 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
-                                      Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                      const Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                      Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
                                     ],
                                   ),
                                 ),
@@ -91,50 +91,50 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
-                title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+                leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
+                title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
+                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()))},
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                  leading: Icon(Icons.input, color: NeedlincColors.blue2,),
-                  title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
+                  leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
+                  title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
-                title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
+                title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
-                title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+                title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
-                title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
+                title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
-                title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
+                title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.question_mark, color: NeedlincColors.blue2,),
-                title: Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.question_mark, color: NeedlincColors.blue2,),
+                title: const Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pop()},
               ),
-              Divider(),
+              const Divider(),
               ListTile(
-                leading: Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
-                title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
+                title: const Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pop()},
               ),
             ],
@@ -144,25 +144,25 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
             backgroundColor: NeedlincColors.white,
             elevation: 0,
-            iconTheme: IconThemeData(color: NeedlincColors.blue1),
-            title: Center(child: Text("Needlinc", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)),
+            iconTheme: const IconThemeData(color: NeedlincColors.blue1),
+            title: const Center(child: Text("Needlinc", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)),
             actions: [
               Row(
                 children: [
                   IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    icon: Icon(Icons.people),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    icon: const Icon(Icons.people),
                     onPressed: (){
                       //TODO Chat messaging feature
 
                     },
                   ),
                   IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    icon: Icon(Icons.message),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    icon: const Icon(Icons.message),
                     onPressed: (){
                       //TODO Chat messaging feature(Already implemented message UI)
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const Message()),);
                     },
                   ),
                 ],
@@ -175,21 +175,21 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 40,
               width: 400,
-              margin: EdgeInsets.symmetric(horizontal: 16.0),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
                 color: NeedlincColors.black3,
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.search),
-                  SizedBox(width: 2),
-                  VerticalDivider(thickness: 2,),
-                  SizedBox(width: 4),
+                  const Icon(Icons.search),
+                  const SizedBox(width: 2),
+                  const VerticalDivider(thickness: 2,),
+                  const SizedBox(width: 4),
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Search...',
                         border: InputBorder.none,
                       ),
@@ -204,13 +204,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             //TODO Write a post section
-            Container(
+            SizedBox(
               height: 160,
               child: Row(
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(top: 50, bottom: 10,),
+                    margin: const EdgeInsets.only(top: 50, bottom: 10,),
                     decoration: BoxDecoration(
                       color: NeedlincColors.black3,
                       borderRadius: BorderRadius.circular(8.0),
@@ -226,9 +226,9 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
                               },
                               child: Container(
-                                padding: EdgeInsets.all(15.0),
-                                margin: EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
+                                padding: const EdgeInsets.all(15.0),
+                                margin: const EdgeInsets.all(10.0),
+                                decoration: const BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(
                                       "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -244,18 +244,18 @@ class _HomePageState extends State<HomePage> {
                             GestureDetector(
                                 onTap: ()
                                 {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()),);
                                 },
-                                child: Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
+                                child: const Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
                           ],
                         ),
                         //TODO Select Gallary or Camera icon
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            SizedBox(width: 50.0,),
-                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()));}, icon: Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()));}, icon: Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                            const SizedBox(width: 50.0,),
+                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
                           ],
                         )
                       ],
@@ -264,12 +264,12 @@ class _HomePageState extends State<HomePage> {
                   //TODO (This is the News Icon close to the write a post page)
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(context, SizeTransition5(NewsPage()));
+                      Navigator.push(context, SizeTransition5(const NewsPage()));
                     },
                     child: Container(
                       height: 55,
-                      margin: EdgeInsets.only(left: 16.0, right: 10.0, top: 48.0),
-                      padding: EdgeInsets.all(5.0),
+                      margin: const EdgeInsets.only(left: 16.0, right: 10.0, top: 48.0),
+                      padding: const EdgeInsets.all(5.0),
                       decoration: BoxDecoration(
                         color: NeedlincColors.blue1,
                         boxShadow: [
@@ -277,12 +277,12 @@ class _HomePageState extends State<HomePage> {
                             color: NeedlincColors.black2.withOpacity(0.6),
                             spreadRadius: 2,
                             blurRadius: 6.0,
-                            offset: Offset(0, 6),
+                            offset: const Offset(0, 6),
                           ),
                         ],
                         borderRadius: BorderRadius.circular(5.0),
                       ),
-                      child: Column(
+                      child: const Column(
                         children: [
                           Icon(Icons.newspaper, color: NeedlincColors.white, size: 30.0),
                           Text("News", style: TextStyle(color: NeedlincColors.white, fontSize: 10.0)),
@@ -306,7 +306,7 @@ class _HomePageState extends State<HomePage> {
 
 Widget HomePosts(BuildContext context){
   return Container(
-    margin: EdgeInsets.only(top: 160.0),
+    margin: const EdgeInsets.only(top: 160.0),
     child: ListView(
       children: [
         Column(
@@ -315,8 +315,8 @@ Widget HomePosts(BuildContext context){
               //TODO Individual post
               for(int individualPost = 0; individualPost < 16; individualPost++)
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
                   color: NeedlincColors.white,
                   child: Column(
                     children: [
@@ -327,9 +327,9 @@ Widget HomePosts(BuildContext context){
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(20),
-                              margin: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(20),
+                              margin: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
                                     "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -341,7 +341,7 @@ Widget HomePosts(BuildContext context){
                               ),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.75,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,42 +349,42 @@ Widget HomePosts(BuildContext context){
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                    Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                    IconButton(onPressed: (){}, icon: Icon(Icons.more_horiz))
+                                    const Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                    const Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                    IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
                                   ],
                                 ),
-                                Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                Text("📍John Paul's kitchen, eziobodo", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                const Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                const Text("📍John Paul's kitchen, eziobodo", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
                               ],
                             ),
                           )
                         ],
                       ),
-                      SizedBox(height: 30.0,),
+                      const SizedBox(height: 30.0,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(
                             children: [
-                              IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border, size: 22,)),
-                              Text("1.2K", style: TextStyle(fontSize: 10))
+                              IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border, size: 22,)),
+                              const Text("1.2K", style: TextStyle(fontSize: 10))
                             ],
                           ),
-                          SizedBox(width: 10.0,),
+                          const SizedBox(width: 10.0,),
                           Row(
                             children: [
                               IconButton(onPressed: ()
                               {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage()));
-                              }, icon: Icon(Icons.maps_ugc_outlined, size: 20,)),
-                              Text("200", style: TextStyle(fontSize: 10))
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
+                              }, icon: const Icon(Icons.maps_ugc_outlined, size: 20,)),
+                              const Text("200", style: TextStyle(fontSize: 10))
                             ],
                           ),
-                          SizedBox(width: 10.0,),
-                          IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border, size: 20,)),
-                          SizedBox(width: 10.0,),
-                          IconButton(onPressed: (){}, icon: Icon(Icons.share,size: 20,))
+                          const SizedBox(width: 10.0,),
+                          IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border, size: 20,)),
+                          const SizedBox(width: 10.0,),
+                          IconButton(onPressed: (){}, icon: const Icon(Icons.share,size: 20,))
                         ],
                       )
                     ],

@@ -16,6 +16,8 @@ class MessageTab {
 
 
 class Message extends StatefulWidget {
+  const Message({super.key});
+
   @override
   State<Message> createState() => _MessageState();
 }
@@ -39,13 +41,13 @@ class _MessageState extends State<Message> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           iconSize: 20,
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: (){
             Navigator.pop(context);
           },
         ),
-        iconTheme: IconThemeData(color: Colors.blue),
-        title: Text(
+        iconTheme: const IconThemeData(color: Colors.blue),
+        title: const Text(
           "MESSAGES",
           style: TextStyle(
               color: Colors.blue,
@@ -54,7 +56,7 @@ class _MessageState extends State<Message> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: (){}, iconSize: 25, icon: Icon(Icons.more_vert))
+          IconButton(onPressed: (){}, iconSize: 25, icon: const Icon(Icons.more_vert))
         ],
         elevation: 0.0,
       ),
@@ -64,21 +66,21 @@ class _MessageState extends State<Message> {
           Container(
             height: 26,
             width: 400,
-            margin: EdgeInsets.only(left: 50, right: 50),
-            padding: EdgeInsets.all(1.0),
+            margin: const EdgeInsets.only(left: 50, right: 50),
+            padding: const EdgeInsets.all(1.0),
             decoration: BoxDecoration(
               color: NeedlincColors.black3,
               borderRadius: BorderRadius.circular(30.0),
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.search, color: NeedlincColors.blue1,),
-                SizedBox(width: 1),
-                VerticalDivider(thickness: 2,),
-                SizedBox(width: 1),
+                const Icon(Icons.search, color: NeedlincColors.blue1,),
+                const SizedBox(width: 1),
+                const VerticalDivider(thickness: 2,),
+                const SizedBox(width: 1),
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Search...',
                       border: InputBorder.none,
                     ),
@@ -94,7 +96,7 @@ class _MessageState extends State<Message> {
           ),
 
           Container(
-            margin: EdgeInsets.only(top:40),
+            margin: const EdgeInsets.only(top:40),
             child: ListView.builder(
                 itemCount: MessageTabs.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -103,33 +105,33 @@ class _MessageState extends State<Message> {
                     children: [
                       ListTile(
                         onTap: () {},
-                        leading: CircleAvatar(child: Image.asset("assets/logo.png"), radius: 25),
+                        leading: CircleAvatar(radius: 25, child: Image.asset("assets/logo.png")),
                         title: Text(
-                          "${MessageTabs[index].sender}",
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          MessageTabs[index].sender,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                         subtitle: Text(
-                          "${MessageTabs[index].newMessage}",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                          MessageTabs[index].newMessage,
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                           overflow: TextOverflow.ellipsis,
                         ),
                         trailing: MessageTabs[index].messageCount > 0 ? Container(
                           width: 20,
                           height: 20,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: NeedlincColors.blue1,
                           ),
                           child: Center(
                             child: Text(
                                 "${MessageTabs[index].messageCount}",
-                                style: TextStyle(fontWeight: FontWeight.w600, color: NeedlincColors.white )),
+                                style: const TextStyle(fontWeight: FontWeight.w600, color: NeedlincColors.white )),
                           ),
                         )
                             :
                         null,
                       ),
-                      Divider(thickness: 1.2, color:NeedlincColors.black2),
+                      const Divider(thickness: 1.2, color:NeedlincColors.black2),
                     ],
                   );
                 }
