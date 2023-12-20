@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/shared-pages/messages.dart';
+import '../shared-pages/auth-pages/welcome.dart';
 import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
@@ -16,6 +19,441 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+  CollectionReference homePage = FirebaseFirestore.instance.collection('homePage');
+
+// Get The post data from the HomePost widget and send it to the screen for users to view
+  Widget displayHomePosts({
+    required BuildContext context,
+    required String userName,
+    required String address,
+    required String userCategory,
+    required String profilePicture,
+    required String image,
+    required String writeUp,
+    required double hearts,
+    required List comments,
+    required int timeStamp
+  }){
+    if(image != "null" && writeUp != "null"){
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => BusinessMainPages(currentPage: 4),
+                    ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName, style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          const Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: const Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory, style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍$address", style: const TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
+              alignment: Alignment.topLeft,
+              child: Text(
+                writeUp,
+                style: const TextStyle(
+                    fontSize: 20
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width * 0.55,
+              margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                color: NeedlincColors.black3,
+                shape: BoxShape.rectangle,
+              ),
+            ),
+            const SizedBox(height: 30.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite_border, size: 22,)),
+                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                          const CommentsPage()));
+                    },
+                        icon: const Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_border, size: 20,)),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    if(image != "null" && writeUp == "null"){
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => BusinessMainPages(currentPage: 4),
+                    ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName, style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          const Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: const Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory, style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍$address", style: const TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width * 0.55,
+              margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                color: NeedlincColors.black3,
+                shape: BoxShape.rectangle,
+              ),
+            ),
+            const SizedBox(height: 30.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite_border, size: 22,)),
+                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                          const CommentsPage()));
+                    },
+                        icon: const Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_border, size: 20,)),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    if(image == "null" && writeUp != "null"){
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => BusinessMainPages(currentPage: 4),
+                    ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName, style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          const Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: const Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory, style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍$address", style: const TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
+              alignment: Alignment.topLeft,
+              child: Text(
+                writeUp,
+                style: const TextStyle(
+                    fontSize: 20
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite_border, size: 22,)),
+                    Text('$hearts', style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                          const CommentsPage()));
+                    },
+                        icon: const Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_border, size: 20,)),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    return const Center(child: CircularProgressIndicator(),);
+  }
+
+  //Get Data from firebase and send it to the Display widget
+  Widget HomePosts(BuildContext context){
+    return Container(
+        margin: const EdgeInsets.only(top: 160.0),
+        child: FutureBuilder<QuerySnapshot>(
+          future: homePage.get(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text("Something went wrong");
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              List<DocumentSnapshot> dataList = snapshot.data!.docs;
+              return ListView.builder(
+                  itemCount: dataList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var data = dataList[index].data() as Map<String, dynamic>;
+                    Map<String, dynamic>? userDetails = data['userDetails'];
+                    Map<String, dynamic>? productDetails = data['postDetails'];
+                    if (userDetails == null) {
+                      print(userDetails);
+                      // Handle the case when userDetails are missing in a document.
+                      return const Text("User details not found");
+                    }
+                    if (productDetails == null) {
+                      print(productDetails);
+                      // Handle the case when userDetails are missing in a document.
+                      return const Text("User details not found");
+                    }
+                    if(userDetails['userCategory'] == 'null'){
+                      return const Center(
+                        child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
+                      );
+                    }
+                    return displayHomePosts(
+                      context: context,
+                      userName: userDetails['userName'],
+                      address: userDetails['address'],
+                      userCategory: userDetails['userCategory'],
+                      profilePicture: userDetails['profilePicture'],
+                      image: productDetails['image'],
+                      writeUp: productDetails['writeUp'],
+                      hearts: 1.2,
+                      comments: [],
+                      timeStamp: productDetails['timeStamp'],
+                    );
+                  }
+              );
+            }
+            // While waiting for the data to be fetched, show a loading indicator
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return const WelcomePage();
+          },
+        )
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,230 +607,154 @@ class _HomePageState extends State<HomePage> {
               ),
             ]
         ),
-        body: Stack(
-          children: [
-            //TODO Search bar
-            Container(
-              height: 40,
-              width: 400,
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                color: NeedlincColors.black3,
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: Row(
-                children: <Widget>[
-                  const Icon(Icons.search),
-                  const SizedBox(width: 2),
-                  const VerticalDivider(thickness: 2,),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        hintText: 'Search...',
-                        border: InputBorder.none,
-                      ),
-                      onSubmitted: (value) {
-                        // TODO: Perform search action here
-                        // For simplicity, you can just print a message for now
-                        print('Performing search for: $value');
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            //TODO Write a post section
-            SizedBox(
-              height: 160,
-              child: Row(
+        body: FutureBuilder<DocumentSnapshot>(
+          future: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text("Something went wrong");
+            }
+
+            if (snapshot.hasData && !snapshot.data!.exists) {
+              return const Text("Document does not exist");
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+              return Stack(
                 children: [
+                  //TODO Search bar
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: const EdgeInsets.only(top: 50, bottom: 10,),
+                    height: 40,
+                    width: 400,
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     decoration: BoxDecoration(
                       color: NeedlincColors.black3,
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            //TODO Profile Picture
-                            GestureDetector(
-                              onTap: ()
-                              {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(15.0),
-                                margin: const EdgeInsets.all(10.0),
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                                    ),
-                                    fit: BoxFit.fill,
-                                  ),
-                                  color: NeedlincColors.black3,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
+                    child: Row(
+                      children: <Widget>[
+                        const Icon(Icons.search),
+                        const SizedBox(width: 2),
+                        const VerticalDivider(thickness: 2,),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              hintText: 'Search...',
+                              border: InputBorder.none,
                             ),
-                            //TODO Write a post
-                            GestureDetector(
-                                onTap: ()
-                                {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()),);
-                                },
-                                child: const Padding(padding: EdgeInsets.all(8), child: Text("Write A Post"),))
-                          ],
+                            onSubmitted: (value) {
+                              // TODO: Perform search action here
+                              // For simplicity, you can just print a message for now
+                              print('Performing search for: $value');
+                            },
+                          ),
                         ),
-                        //TODO Select Gallary or Camera icon
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const SizedBox(width: 50.0,),
-                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                            IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
-                          ],
-                        )
                       ],
                     ),
                   ),
-                  //TODO (This is the News Icon close to the write a post page)
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, SizeTransition5(const NewsPage()));
-                    },
-                    child: Container(
-                      height: 55,
-                      margin: const EdgeInsets.only(left: 16.0, right: 10.0, top: 48.0),
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                        color: NeedlincColors.blue1,
-                        boxShadow: [
-                          BoxShadow(
-                            color: NeedlincColors.black2.withOpacity(0.6),
-                            spreadRadius: 2,
-                            blurRadius: 6.0,
-                            offset: const Offset(0, 6),
+                  //TODO Write a post section
+                  SizedBox(
+                    height: 160,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          margin: const EdgeInsets.only(top: 50, bottom: 10,),
+                          decoration: BoxDecoration(
+                            color: NeedlincColors.black3,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                        ],
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: const Column(
-                        children: [
-                          Icon(Icons.newspaper, color: NeedlincColors.white, size: 30.0),
-                          Text("News", style: TextStyle(color: NeedlincColors.white, fontSize: 10.0)),
-                        ],
-                      ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  //TODO Profile Picture
+                                  GestureDetector(
+                                    onTap: ()
+                                    {
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(15.0),
+                                      margin: const EdgeInsets.all(10.0),
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            data['profilePicture'],
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
+                                        color: NeedlincColors.black3,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                  ),
+                                  //TODO Write a post
+                                  GestureDetector(
+                                      onTap: ()
+                                      {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()),);
+                                      },
+                                      child: const Padding(padding: EdgeInsets.all(8), child: Text("Write a post..."),))
+                                ],
+                              ),
+                              //TODO Select Gallary or Camera icon
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const SizedBox(width: 50.0,),
+                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        //TODO (This is the News Icon close to the write a post page)
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, SizeTransition5(const NewsPage()));
+                          },
+                          child: Container(
+                            alignment: Alignment.topCenter,
+                            height: 55,
+                            margin: const EdgeInsets.only(left: 16.0, right: 10.0, top: 48.0),
+                            padding: const EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                              color: NeedlincColors.blue1,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: NeedlincColors.black2.withOpacity(0.6),
+                                  spreadRadius: 2,
+                                  blurRadius: 6.0,
+                                  offset: const Offset(0, 6),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: const Column(
+                              children: [
+                                Icon(Icons.newspaper, color: NeedlincColors.white, size: 30.0),
+                                Text("News", style: TextStyle(color: NeedlincColors.white, fontSize: 10.0)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  HomePosts(context)
                 ],
-              ),
-            ),
-            HomePosts(context)
-          ],
+              );
+            }
+
+            // While waiting for the data to be fetched, show a loading indicator
+            return const Center(child: CircularProgressIndicator());
+          },
         )
     );
   }
 }
 
-
-
-
-
-Widget HomePosts(BuildContext context){
-  return Container(
-    margin: const EdgeInsets.only(top: 160.0),
-    child: ListView(
-      children: [
-        Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //TODO Individual post
-              for(int individualPost = 0; individualPost < 16; individualPost++)
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-                  color: NeedlincColors.white,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20),
-                              margin: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                                  ),
-                                  fit: BoxFit.fill,
-                                ),
-                                color: NeedlincColors.black3,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.75,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                    const Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                    IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
-                                  ],
-                                ),
-                                const Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                const Text("📍John Paul's kitchen, eziobodo", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 30.0,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border, size: 22,)),
-                              const Text("1.2K", style: TextStyle(fontSize: 10))
-                            ],
-                          ),
-                          const SizedBox(width: 10.0,),
-                          Row(
-                            children: [
-                              IconButton(onPressed: ()
-                              {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
-                              }, icon: const Icon(Icons.maps_ugc_outlined, size: 20,)),
-                              const Text("200", style: TextStyle(fontSize: 10))
-                            ],
-                          ),
-                          const SizedBox(width: 10.0,),
-                          IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border, size: 20,)),
-                          const SizedBox(width: 10.0,),
-                          IconButton(onPressed: (){}, icon: const Icon(Icons.share,size: 20,))
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-            ]
-        ),
-      ],
-    ),
-  );
-}
