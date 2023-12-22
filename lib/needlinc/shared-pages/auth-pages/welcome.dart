@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome2.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/intro-page.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -26,24 +26,25 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Stack(
+      body: Column(
           children: [
-            const backGround(),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.34,
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  TypewriterAnimatedText(
-                    'NEEDLINC',
-                    speed: const Duration(milliseconds: 220),
-                    textStyle: const TextStyle(
-                      color: NeedlincColors.white,
-                      fontSize: 45,
+            Stack(
+              children: [
+                const backGround(),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.34,
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'NEEDLINC',
+                        speed: const Duration(milliseconds: 220),
+                        textStyle: const TextStyle(
+                          color: NeedlincColors.white,
+                          fontSize: 45,
+                       ),
                     ),
-                  ),
                 ],
                 isRepeatingAnimation: false,
               ),

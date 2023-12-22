@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/EnterApp.dart';
+import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../colors/colors.dart';
 
@@ -42,7 +43,7 @@ class _SuccessState extends State<Success> {
                 SizedBox(height: 130),
                 // Successful message
                 Text(
-                  'You have Successfully confirmed your number',
+                  'You have Successfully created your Needlinc account',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,

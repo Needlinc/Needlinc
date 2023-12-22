@@ -85,7 +85,7 @@ class _LocationState extends State<Location> {
                   onPressed: () {
                     addLocation(location: locationController.text);
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const PhoneNumber()));
+                        MaterialPageRoute(builder: (context) => PhoneNumber()));
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
