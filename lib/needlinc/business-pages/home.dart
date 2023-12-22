@@ -8,6 +8,7 @@ import '../shared-pages/auth-pages/welcome.dart';
 import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
+import '../widgets/image-viewer.dart';
 import '../widgets/page-transition.dart';
 import 'business-main.dart';
 
@@ -109,20 +110,30 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width * 0.55,
-              margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                  imageUrls: [image],
+                  initialIndex: 0,
+                 ),
+               ),
+             );
+            },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width * 0.55,
+                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image,
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
+                  color: NeedlincColors.black3,
+                  shape: BoxShape.rectangle,
                 ),
-                color: NeedlincColors.black3,
-                shape: BoxShape.rectangle,
               ),
             ),
             const SizedBox(height: 30.0,),
@@ -178,18 +189,28 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => BusinessMainPages(currentPage: 4),
                     ));
                   },
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          profilePicture,
+                  child: InkWell(
+                    onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                          imageUrls: [image],
+                          initialIndex: 0,
+                          ),
                         ),
-                        fit: BoxFit.fill,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            profilePicture,
+                          ),
+                          fit: BoxFit.fill,
+                        ),
+                        color: NeedlincColors.black3,
+                        shape: BoxShape.circle,
                       ),
-                      color: NeedlincColors.black3,
-                      shape: BoxShape.circle,
                     ),
                   ),
                 ),
@@ -749,7 +770,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               );
             }
-
             // While waiting for the data to be fetched, show a loading indicator
             return const Center(child: CircularProgressIndicator());
           },

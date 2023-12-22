@@ -9,6 +9,7 @@ import 'package:needlinc/needlinc/client-pages/client-main.dart';
 import 'package:needlinc/needlinc/shared-pages/messages.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
+import '../widgets/image-viewer.dart';
 import '../widgets/page-transition.dart';
 
 
@@ -106,24 +107,34 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 writeUp,
                 style: const TextStyle(
-                  fontSize: 20
+                    fontSize: 20
                 ),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width * 0.55,
-              margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
-                  ),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                  imageUrls: [image],
+                  initialIndex: 0,
                 ),
-                color: NeedlincColors.black3,
-                shape: BoxShape.rectangle,
+                ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width * 0.55,
+                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  color: NeedlincColors.black3,
+                  shape: BoxShape.rectangle,
+                ),
               ),
             ),
             const SizedBox(height: 30.0,),
@@ -144,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              const CommentsPage()));
+                          const CommentsPage()));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -179,18 +190,28 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => ClientMainPages(currentPage: 4),
                     ));
                   },
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          profilePicture,
-                        ),
-                        fit: BoxFit.fill,
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                        imageUrls: [image],
+                        initialIndex: 0,
                       ),
-                      color: NeedlincColors.black3,
-                      shape: BoxShape.circle,
+                      ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            profilePicture,
+                          ),
+                          fit: BoxFit.fill,
+                        ),
+                        color: NeedlincColors.black3,
+                        shape: BoxShape.circle,
+                      ),
                     ),
                   ),
                 ),
@@ -261,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              const CommentsPage()));
+                          const CommentsPage()));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -371,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              const CommentsPage()));
+                          const CommentsPage()));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
