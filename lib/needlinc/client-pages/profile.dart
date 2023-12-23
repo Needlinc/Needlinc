@@ -1,5 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/shared-pages/edit-profile.dart';
 import '../../main.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
@@ -167,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  bool isOwner = false;
+  bool isOwner = true;
   bool isPosts = true;
   bool isMarketPlace = false;
   static List<posts> postList = [
@@ -352,7 +353,14 @@ class _ProfilePageState extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (isOwner) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const editProfile()));
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),

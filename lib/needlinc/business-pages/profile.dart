@@ -173,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  bool isBlogger = false;
+  bool isBlogger = true;
   bool isOwner = true;
   bool isCoverPhoto = true;
   bool isReviews = true;
