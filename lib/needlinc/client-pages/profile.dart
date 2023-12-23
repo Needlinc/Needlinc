@@ -12,13 +12,6 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class reviews {
-  String name;
-  int rating;
-  String review;
-  reviews({required this.name, required this.rating, required this.review});
-}
-
 class posts {
   String? text;
   String? picture;
@@ -175,87 +168,52 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool isOwner = false;
-  bool isReviews = true;
-  bool isPosts = false;
+  bool isPosts = true;
   bool isMarketPlace = false;
-  static List<reviews> reviewList = [
-    reviews(name: 'Esther Howard', rating: 4, review: 'Nice working with you'),
-    reviews(
-        name: 'Annette Black',
-        rating: 5,
-        review:
-            'Lets just leave it this way, but Bobby is just recovering so that will be on hold till further notice.'),
-    reviews(
-        name: 'Black Marvin',
-        rating: 3,
-        review:
-            'I think that better, were suppose to upload the app to play store this week,'),
-    // reviews(
-    //     name: 'Jenny Wilson',
-    //     rating: 1,
-    //     review:
-    //         'hopefully December the app will be complete and ready for testing directly on the play store.'),
-    reviews(
-        name: 'Jerome Bell',
-        rating: 2,
-        review: 'Nice work tho, but you dint do exactly as i wanted'),
-    reviews(
-        name: 'Oguzie-Ibeh Richard',
-        rating: 3,
-        review: 'Nice work, but the job had errors after you left'),
-    reviews(
-        name: 'Ebolom Mcsaint', rating: 5, review: 'Nice but EXPENSIVE work'),
-    reviews(
-        name: 'Nmesoma Chiwuba',
-        rating: 4,
-        review: 'Try to clean up your workspace after working'),
-    reviews(name: 'Wade Warren', rating: 5, review: 'Excellent work man'),
-  ];
-
   static List<posts> postList = [
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture: null),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text: null,
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    // posts(
-    //     text:
-    //         'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-    //     picture:
-    //         'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture: null),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text: null,
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    posts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
   ];
 
   static List<marketPlace> marketPlaceList = [
@@ -304,7 +262,7 @@ class _ProfilePageState extends State<ProfilePage> {
             'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
   ];
 
-  int listCounter = reviewList.length;
+  int listCounter = postList.length;
 
   @override
   Widget build(BuildContext context) {
@@ -390,48 +348,54 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           // message or edit button
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  backgroundColor: NeedlincColors.blue1,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                ),
+                child: Text(
+                  isOwner ? 'Edit Profile' : 'Message',
+                  style: const TextStyle(
+                    fontSize: 17,
+                  ),
+                ),
               ),
-              backgroundColor: NeedlincColors.blue1,
-              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
-            ),
-            child: Text(
-              isOwner ? 'Edit Profile' : 'Message',
-              style: const TextStyle(
-                fontSize: 17,
-              ),
-            ),
+              const SizedBox(width: 5),
+              if (!isOwner)
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.pending_outlined,
+                    size: 30,
+                  ),
+                ),
+            ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           // Toggle options
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Options('Reviews', isReviews),
-                Options('Posts', isPosts),
-                Options('MarketPlace', isMarketPlace),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Options('Posts', isPosts),
+              Options('MarketPlace', isMarketPlace),
+            ],
           ),
-          // Review / posts / marketPlace Renderer
+          const SizedBox(height: 10),
+          // posts / marketPlace Renderer
           if (listCounter != 0)
             Flexible(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: listCounter,
                 itemBuilder: (context, index) {
-                  if (isReviews) {
-                    return listReviewItems(
-                      reviewList[index].name,
-                      reviewList[index].rating,
-                      reviewList[index].review,
-                    );
-                  }
                   if (isPosts) {
                     return listPostItems(
                       postList[index].text,
@@ -458,104 +422,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-
-          // Container(
-          //   margin: const EdgeInsets.symmetric(vertical: 20),
-          //   padding: const EdgeInsets.all(10),
-          //   width: MediaQuery.of(context).size.width,
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Account Information",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Your Posts",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Saved & Favourited",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Contracts",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Transaction History",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Privacy Settings",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Reviews/Ratings",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //       const Divider(),
-          //       Container(
-          //         padding: const EdgeInsets.all(5.0),
-          //         child: Text(
-          //           "Help/Support",
-          //           style: GoogleFonts.oxygen(
-          //             fontSize: 16,
-          //             color: Colors.blue[300],
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // )
         ],
       ),
     );
@@ -566,17 +432,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return GestureDetector(
       onTap: () {
         switch (text) {
-          case 'Reviews':
-            setState(() {
-              isReviews = true;
-              isPosts = false;
-              isMarketPlace = false;
-              listCounter = reviewList.length;
-            });
-            break;
           case 'Posts':
             setState(() {
-              isReviews = false;
               isPosts = true;
               isMarketPlace = false;
               listCounter = postList.length;
@@ -584,7 +441,6 @@ class _ProfilePageState extends State<ProfilePage> {
             break;
           case 'MarketPlace':
             setState(() {
-              isReviews = false;
               isPosts = false;
               isMarketPlace = true;
               listCounter = marketPlaceList.length;
@@ -610,47 +466,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-}
-
-// Review list container
-Padding listReviewItems(String name, int rate, String review) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: Container(
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(182, 203, 226, 1.0),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: List.generate(
-                    rate,
-                    (index) => Icon(
-                      Icons.star,
-                      color: Colors.amber[300],
-                      size: 13,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(review)
-          ],
-        ),
-      ),
-    ),
-  );
 }
 
 // Post list container
