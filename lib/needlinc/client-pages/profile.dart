@@ -13,6 +13,13 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+class broadcasts {
+  String? text;
+  String? picture;
+
+  broadcasts({required this.text, required this.picture});
+}
+
 class posts {
   String? text;
   String? picture;
@@ -169,12 +176,40 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool isOwner = true;
-  bool isPosts = true;
+  static bool isBlogger = false;
+  bool isBroadcast = true;
+  bool isPosts = !isBlogger;
   bool isMarketPlace = false;
+  static List<broadcasts> broadcastList = [
+    broadcasts(
+        text:
+            'BROADCAST Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    broadcasts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture: null),
+    broadcasts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    broadcasts(
+        text: null,
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+    broadcasts(
+        text:
+            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+        picture:
+            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
+  ];
+
   static List<posts> postList = [
     posts(
         text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+            'POST Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
         picture:
             'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
     posts(
@@ -220,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
   static List<marketPlace> marketPlaceList = [
     marketPlace(
         text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
+            'MARKETPLACE Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
         picture:
             'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
     marketPlace(
@@ -263,7 +298,7 @@ class _ProfilePageState extends State<ProfilePage> {
             'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
   ];
 
-  int listCounter = postList.length;
+  int listCounter = isBlogger ? broadcastList.length : postList.length;
 
   @override
   Widget build(BuildContext context) {
@@ -271,12 +306,17 @@ class _ProfilePageState extends State<ProfilePage> {
       //TODO(Already done) This is the App Menu Bar
       appBar: AppBar(
         iconTheme: const IconThemeData(color: NeedlincColors.blue1),
-        title: const Text(
-          "John Doe",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 13,
-          ),
+        title: Row(
+          children: [
+            const Text(
+              'John Doe',
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 13,
+              ),
+            ),
+            if (isBlogger) const Icon(Icons.mic, size: 16)
+          ],
         ),
         actions: [
           // TODO Drop down menu for Profile page
@@ -320,10 +360,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Emeka John",
-                      style: GoogleFonts.dosis(
-                          fontWeight: FontWeight.w600, fontSize: 16),
+                    Row(
+                      children: [
+                        Text(
+                          isOwner ? 'John Doe' : 'Emeka Doe',
+                          style: GoogleFonts.dosis(
+                              fontWeight: FontWeight.w600, fontSize: 16),
+                        ),
+                        if (isBlogger) Icon(Icons.mic, size: 22)
+                      ],
                     ),
                     const SizedBox(
                       height: 5.0,
@@ -392,8 +437,9 @@ class _ProfilePageState extends State<ProfilePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Options('Posts', isPosts),
-              Options('MarketPlace', isMarketPlace),
+              if (isBlogger) options('Broadcast', isBroadcast),
+              options('Posts', isPosts),
+              options('MarketPlace', isMarketPlace),
             ],
           ),
           const SizedBox(height: 10),
@@ -404,6 +450,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: listCounter,
                 itemBuilder: (context, index) {
+                  if (isBlogger) if (isBroadcast) {
+                    return listBroadcastItems(
+                      broadcastList[index].text,
+                      broadcastList[index].picture,
+                    );
+                  }
                   if (isPosts) {
                     return listPostItems(
                       postList[index].text,
@@ -436,12 +488,21 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   // ShowOption widget
-  GestureDetector Options(String text, bool activeOption) {
+  GestureDetector options(String text, bool activeOption) {
     return GestureDetector(
       onTap: () {
         switch (text) {
+          case 'Broadcast':
+            setState(() {
+              isBroadcast = true;
+              isPosts = false;
+              isMarketPlace = false;
+              listCounter = broadcastList.length;
+            });
+            break;
           case 'Posts':
             setState(() {
+              isBroadcast = false;
               isPosts = true;
               isMarketPlace = false;
               listCounter = postList.length;
@@ -449,6 +510,7 @@ class _ProfilePageState extends State<ProfilePage> {
             break;
           case 'MarketPlace':
             setState(() {
+              isBroadcast = false;
               isPosts = false;
               isMarketPlace = true;
               listCounter = marketPlaceList.length;
@@ -474,6 +536,83 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+}
+
+// Broadcast list container
+Padding listBroadcastItems(String? text, String? picture) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+    child: Container(
+      decoration: BoxDecoration(
+        color: NeedlincColors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (text != null) Text(text),
+            const SizedBox(height: 8),
+            if (picture != null)
+              Container(
+                width: double.infinity,
+                height: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(picture),
+                  ),
+                ),
+              ),
+            const SizedBox(height: 8),
+            // Icons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.favorite,
+                        color: NeedlincColors.red,
+                      ),
+                    ),
+                    const Text('400'),
+                  ],
+                ),
+                const SizedBox(width: 12),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.maps_ugc_outlined),
+                    ),
+                    const Text('400'),
+                  ],
+                ),
+                const SizedBox(width: 12),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.bookmark, color: Colors.amber[300]),
+                ),
+                const SizedBox(width: 12),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.share,
+                    size: 20,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 // Post list container
