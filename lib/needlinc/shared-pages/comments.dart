@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import '../colors/colors.dart';
 
 class CommentsPage extends StatefulWidget {
-  const CommentsPage({Key? key}) : super(key: key);
+  final String pageIndex;
+  const CommentsPage({Key? key, required this.pageIndex}) : super(key: key);
 
   @override
   State<CommentsPage> createState() => _CommentsPageState();

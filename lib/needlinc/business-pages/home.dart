@@ -422,7 +422,7 @@ class _HomePageState extends State<HomePage> {
           future: homePage.get(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return const Text("Something went wrong");
+              return Center(child: const Text("Something went wrong"));
             }
             if (snapshot.connectionState == ConnectionState.done) {
               List<DocumentSnapshot> dataList = snapshot.data!.docs;
@@ -435,12 +435,12 @@ class _HomePageState extends State<HomePage> {
                     if (userDetails == null) {
                       print(userDetails);
                       // Handle the case when userDetails are missing in a document.
-                      return const Text("User details not found");
+                      return Center(child: const Text("User details not found"));
                     }
                     if (productDetails == null) {
                       print(productDetails);
                       // Handle the case when userDetails are missing in a document.
-                      return const Text("User details not found");
+                      return Center(child: const Text("User details not found"));
                     }
                     if(userDetails['userCategory'] == 'null'){
                       return const Center(

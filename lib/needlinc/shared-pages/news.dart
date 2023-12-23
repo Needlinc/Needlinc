@@ -300,7 +300,7 @@ class _NewsPageState extends State<NewsPage> {
                                 children: [
                                   IconButton(onPressed: ()
                                   {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
+                              //      Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
                                   }, icon: const Icon(Icons.comment_outlined, size: 20,)),
                                   const Text("200", style: TextStyle(fontSize: 10))
                                 ],
@@ -419,7 +419,7 @@ class _NewsPageState extends State<NewsPage> {
                                     IconButton(
                                     onPressed: ()
                                     {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
+                          //            Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
                                     },
                                      icon: const Icon(Icons.comment_outlined, size: 20,)),
                                     const Text("200", style: TextStyle(fontSize: 10))
