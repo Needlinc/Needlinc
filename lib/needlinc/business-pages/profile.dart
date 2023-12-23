@@ -88,8 +88,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const Divider(),
                 ListTile(
-                  leading:
-                      const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+                  leading: const Icon(Icons.people_outline,
+                      color: NeedlincColors.blue2),
                   title: const Text('Freelancers',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
@@ -436,7 +436,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // message button
+                  // message or edit button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -447,8 +447,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             borderRadius: BorderRadius.circular(6),
                           ),
                           backgroundColor: NeedlincColors.blue1,
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 22, vertical: 8),
                         ),
                         child: Text(
                           isOwner ? 'Edit Profile' : 'Message',
@@ -542,7 +542,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            // Review Renderer
+            // Review / posts / marketPlace Renderer
             if (listCounter != 0)
               Flexible(
                 child: ListView.builder(
@@ -588,7 +588,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-// ShowOption widget
+  // ShowOption widget
   GestureDetector Options(String text, bool activeOption) {
     return GestureDetector(
       onTap: () {
@@ -637,47 +637,47 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+}
 
 // Review list container
-  Padding listReviewItems(String name, int rate, String review) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(182, 203, 226, 1.0),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: List.generate(
-                      rate,
-                      (index) => Icon(
-                        Icons.star,
-                        color: Colors.amber[300],
-                        size: 13,
-                      ),
+Padding listReviewItems(String name, int rate, String review) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+    child: Container(
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(182, 203, 226, 1.0),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: List.generate(
+                    rate,
+                    (index) => Icon(
+                      Icons.star,
+                      color: Colors.amber[300],
+                      size: 13,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(review)
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(review)
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }
 
 // Post list container
