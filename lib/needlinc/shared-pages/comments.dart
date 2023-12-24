@@ -3,14 +3,26 @@ import 'package:flutter/services.dart';
 import '../colors/colors.dart';
 
 class CommentsPage extends StatefulWidget {
-  final String pageIndex;
-  const CommentsPage({Key? key, required this.pageIndex}) : super(key: key);
+  final Map<String, dynamic> post;
+  const CommentsPage({Key? key, required this.post}) : super(key: key);
 
   @override
   State<CommentsPage> createState() => _CommentsPageState();
 }
 
 class _CommentsPageState extends State<CommentsPage> {
+
+  Map<String, dynamic>? userDetails;
+  Map<String, dynamic>? productDetails;
+
+  @override
+    void initState() {
+    userDetails = widget.post['userDetails'];
+    productDetails = widget.post['postDetails'];
+      // TODO: implement initState
+      super.initState();
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +40,14 @@ class _CommentsPageState extends State<CommentsPage> {
                     //  Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
                     },
                     child: Container(
-                      padding: const EdgeInsets.all(20),
-                      margin: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
+                      padding: EdgeInsets.all(20),
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                            "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                            "${userDetails!['profilePicture']}",
                           ),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                         color: NeedlincColors.black3,
                         shape: BoxShape.circle,
@@ -50,13 +62,13 @@ class _CommentsPageState extends State<CommentsPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                            const Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                             Text("${userDetails!['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                             Text("🟢 Now", style: TextStyle(fontSize: 9)),
                             IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
                           ],
                         ),
-                        const Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                        const Text("📍John Paul's kitchen, eziobodor", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                         Text("~${userDetails!['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                         Text("📍${userDetails!['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
                       ],
                     ),
                   )
@@ -89,7 +101,7 @@ class _CommentsPageState extends State<CommentsPage> {
               //TODO Individual comment
               Expanded(
                 child: ListView.builder(
-                  itemCount: 20,
+                  itemCount: productDetails!['comments'].length,
                   itemBuilder: (BuildContext context, int index) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,12 +113,12 @@ class _CommentsPageState extends State<CommentsPage> {
                         child: Container(
                           padding: const EdgeInsets.all(17),
                           margin: const EdgeInsets.all(10),
-                          decoration: const BoxDecoration(
+                          decoration:  BoxDecoration(
                             image: DecorationImage(
                               image: NetworkImage(
-                                "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
+                                "${productDetails!['comments'][index]['comment']['profilePicture']}",
                               ),
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                             color: NeedlincColors.black3,
                             shape: BoxShape.circle,
@@ -125,26 +137,36 @@ class _CommentsPageState extends State<CommentsPage> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text("John Doe", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                        const Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                         Text("${productDetails!['comments'][index]['comment']['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                         Text("🟢 Now", style: TextStyle(fontSize: 9)),
                                         IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
                                       ],
                                     ),
-                                    const Text("~Electrician", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                    const Text("📍John Paul's kitchen, eziobodo", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                     Text("~${productDetails!['comments'][index]['comment']['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                     Text("📍${productDetails!['comments'][index]['comment']['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
                                   ],
                                 ),
                               ),
                               Container(
                                 margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
-                                child: const Text("WOW!, I love this post soooo much, thank you so much and congratulations on your promotion sir", style: TextStyle(fontSize: 13),),
+                                child: Text("${productDetails!['comments'][index]['comment']['message']}", style: TextStyle(fontSize: 13),),
                               ),
                             ],
                           ),
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 50.0, right: 5.0),
-                            child: const Icon(Icons.favorite_outline)
+                            child: Row(
+                              children: [
+                                IconButton(onPressed: () {},
+                                    icon:  Icon(
+                                      productDetails!['comments'][index]['comment']['hearts'] == 0 ?
+                                      Icons.favorite_border
+                                      :
+                                      Icons.favorite, size: 22, color: NeedlincColors.red,)),
+                                Text("${productDetails!['comments'][index]['comment']['hearts']}", style: const TextStyle(fontSize: 15))
+                              ],
+                            )
                         ),
                       ],
                     );

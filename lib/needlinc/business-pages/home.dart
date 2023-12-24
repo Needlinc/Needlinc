@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     required String writeUp,
     required double hearts,
     required List comments,
+    required Map<String, dynamic> Post,
     required int timeStamp
   }){
     if(image != "null" && writeUp != "null"){
@@ -154,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          const CommentsPage()));
+                              CommentsPage(post: Post)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -281,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          const CommentsPage()));
+                              CommentsPage(post: Post)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -391,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          const CommentsPage()));
+                          CommentsPage(post: Post)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -433,12 +434,10 @@ class _HomePageState extends State<HomePage> {
                     Map<String, dynamic>? userDetails = data['userDetails'];
                     Map<String, dynamic>? productDetails = data['postDetails'];
                     if (userDetails == null) {
-                      print(userDetails);
                       // Handle the case when userDetails are missing in a document.
                       return Center(child: const Text("User details not found"));
                     }
                     if (productDetails == null) {
-                      print(productDetails);
                       // Handle the case when userDetails are missing in a document.
                       return Center(child: const Text("User details not found"));
                     }
@@ -457,6 +456,7 @@ class _HomePageState extends State<HomePage> {
                       writeUp: productDetails['writeUp'],
                       hearts: 1.2,
                       comments: [],
+                      Post: data,
                       timeStamp: productDetails['timeStamp'],
                     );
                   }

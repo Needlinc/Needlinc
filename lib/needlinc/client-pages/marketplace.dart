@@ -458,7 +458,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                         children: [
                                           IconButton(
                                               onPressed: () {
-                                                Navigator.push(context, MaterialPageRoute(builder: (context) => const CommentsPage()));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage(post: data)));
                                               },
                                               icon: const Icon(Icons.maps_ugc_outlined, size: 20)),
                                           Text("${productDetails['comments'].length}", style: const TextStyle(fontSize: 15))

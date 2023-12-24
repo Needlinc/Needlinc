@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
     required String writeUp,
     required double hearts,
     required List comments,
+    required Map<String, dynamic> Post,
     required int timeStamp
   }){
     if(image != "null" && writeUp != "null"){
@@ -155,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          const CommentsPage()));
+                              CommentsPage(post: Post)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -282,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          const CommentsPage()));
+                              CommentsPage(post: Post)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -392,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          const CommentsPage()));
+                              CommentsPage(post: Post)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -423,7 +424,7 @@ class _HomePageState extends State<HomePage> {
           future: homePage.get(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return const Text("Something went wrong");
+              return Center(child: const Text("Something went wrong"));
             }
             if (snapshot.connectionState == ConnectionState.done) {
               List<DocumentSnapshot> dataList = snapshot.data!.docs;
@@ -434,14 +435,12 @@ class _HomePageState extends State<HomePage> {
                     Map<String, dynamic>? userDetails = data['userDetails'];
                     Map<String, dynamic>? productDetails = data['postDetails'];
                     if (userDetails == null) {
-                      print(userDetails);
                       // Handle the case when userDetails are missing in a document.
-                      return const Text("User details not found");
+                      return Center(child: const Text("User details not found"));
                     }
                     if (productDetails == null) {
-                      print(productDetails);
                       // Handle the case when userDetails are missing in a document.
-                      return const Text("User details not found");
+                      return Center(child: const Text("User details not found"));
                     }
                     if(userDetails['userCategory'] == 'null'){
                       return const Center(
@@ -458,6 +457,7 @@ class _HomePageState extends State<HomePage> {
                       writeUp: productDetails['writeUp'],
                       hearts: 1.2,
                       comments: [],
+                      Post: data,
                       timeStamp: productDetails['timeStamp'],
                     );
                   }
