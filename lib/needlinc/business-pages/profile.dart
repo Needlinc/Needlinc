@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
+import '../shared-pages/edit-profile.dart';
 import 'business-main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -441,7 +442,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (isOwner) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const editProfile()));
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6),
