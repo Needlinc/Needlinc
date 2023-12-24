@@ -175,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool isBlogger = true;
-  bool isOwner = true;
+  bool isOwner = false;
   bool isCoverPhoto = true;
   bool isReviews = true;
   bool isPosts = false;
@@ -468,7 +468,37 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(width: 5),
                       if (!isOwner)
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                contentPadding: EdgeInsets.all(0),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    dialogMenu(
+                                      'Add Rating',
+                                      Icons.star,
+                                      Colors.amber[400],
+                                    ),
+                                    dialogMenu(
+                                      'Share profile link',
+                                      Icons.link,
+                                    ),
+                                    dialogMenu(
+                                      'Report this account',
+                                      Icons.report,
+                                      NeedlincColors.red,
+                                    ),
+                                    dialogMenu(
+                                      'Block',
+                                      Icons.block,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                           icon: const Icon(
                             Icons.pending_outlined,
                             size: 30,
@@ -641,6 +671,39 @@ class _ProfilePageState extends State<ProfilePage> {
               width: 60,
               color: NeedlincColors.blue1,
             )
+        ],
+      ),
+    );
+  }
+
+  // Show Dialog Widget
+  Container dialogMenu(String text,
+      [IconData? icon, Color? iconColor, Widget? location]) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(7),
+      decoration: BoxDecoration(
+        color: NeedlincColors.grey,
+        border: Border.symmetric(
+          horizontal: BorderSide(
+              width: 0.5, color: NeedlincColors.black1.withOpacity(0.5)),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            icon,
+            color: iconColor,
+          ),
+          Text(text),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.arrow_forward_ios,
+              color: NeedlincColors.blue2,
+            ),
+          )
         ],
       ),
     );
