@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
     required String image,
     required String writeUp,
     required double hearts,
-    required List comments,
-    required Map<String, dynamic> Post,
+    required int commentCount,
+    required Map<String, dynamic> post,
     required int timeStamp
   }){
     if(image != "null" && writeUp != "null"){
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                         image: NetworkImage(
                           profilePicture,
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                       color: NeedlincColors.black3,
                       shape: BoxShape.circle,
@@ -145,8 +145,12 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     IconButton(onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border, size: 22,)),
+                        icon: hearts == 0 ? Icon(
+                          Icons.favorite_border, size: 22,)
+                            : Icon(
+                          Icons.favorite, size: 22,
+                          color: NeedlincColors.red,)
+                    ),
                     Text("$hearts", style: const TextStyle(fontSize: 15))
                   ],
                 ),
@@ -156,11 +160,11 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              CommentsPage(post: Post)));
+                              CommentsPage(post: post, sourceOption: 'homePage',)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
-                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
+                    Text("${commentCount}", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -208,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                           image: NetworkImage(
                             profilePicture,
                           ),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                         color: NeedlincColors.black3,
                         shape: BoxShape.circle,
@@ -272,8 +276,12 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     IconButton(onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border, size: 22,)),
+                        icon: hearts == 0 ? Icon(
+                          Icons.favorite_border, size: 22,)
+                            : Icon(
+                          Icons.favorite, size: 22,
+                          color: NeedlincColors.red,)
+                    ),
                     Text("$hearts", style: const TextStyle(fontSize: 15))
                   ],
                 ),
@@ -283,11 +291,11 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              CommentsPage(post: Post)));
+                              CommentsPage(post: post, sourceOption: 'homePage',)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
-                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
+                    Text("${commentCount}", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -326,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                         image: NetworkImage(
                           profilePicture,
                         ),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                       color: NeedlincColors.black3,
                       shape: BoxShape.circle,
@@ -382,8 +390,12 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     IconButton(onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border, size: 22,)),
+                        icon: hearts == 0 ? Icon(
+                          Icons.favorite_border, size: 22,)
+                            : Icon(
+                          Icons.favorite, size: 22,
+                          color: NeedlincColors.red,)
+                    ),
                     Text('$hearts', style: const TextStyle(fontSize: 15))
                   ],
                 ),
@@ -393,11 +405,11 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              CommentsPage(post: Post)));
+                              CommentsPage(post: post, sourceOption: 'homePage',)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
-                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
+                    Text("${commentCount}", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -433,12 +445,12 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (BuildContext context, int index) {
                     var data = dataList[index].data() as Map<String, dynamic>;
                     Map<String, dynamic>? userDetails = data['userDetails'];
-                    Map<String, dynamic>? productDetails = data['postDetails'];
+                    Map<String, dynamic>? postDetails = data['postDetails'];
                     if (userDetails == null) {
                       // Handle the case when userDetails are missing in a document.
                       return Center(child: const Text("User details not found"));
                     }
-                    if (productDetails == null) {
+                    if (postDetails == null) {
                       // Handle the case when userDetails are missing in a document.
                       return Center(child: const Text("User details not found"));
                     }
@@ -453,12 +465,12 @@ class _HomePageState extends State<HomePage> {
                       address: userDetails['address'],
                       userCategory: userDetails['userCategory'],
                       profilePicture: userDetails['profilePicture'],
-                      image: productDetails['image'],
-                      writeUp: productDetails['writeUp'],
-                      hearts: 1.2,
-                      comments: [],
-                      Post: data,
-                      timeStamp: productDetails['timeStamp'],
+                      image: postDetails['image'],
+                      writeUp: postDetails['writeUp'],
+                      hearts: postDetails['hearts'],
+                      commentCount: postDetails['comments'].length,
+                      post: data,
+                      timeStamp: postDetails['timeStamp'],
                     );
                   }
               );

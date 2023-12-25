@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import '../../shared-pages/user-type.dart';
 import '../../widgets/snack-bar.dart';
 
@@ -21,14 +22,27 @@ Future<User?> loginUser(String email, String password, BuildContext context) asy
         ),
       );
 
+      saveUserData('address', await userSnapshot['address']);
+      saveUserData('fullName', await userSnapshot['fullName']);
+      saveUserData('profilePicture', await userSnapshot['profilePicture']);
+      saveUserData('userCategory', await userSnapshot['userCategory']);
+      saveUserData('userId', await userSnapshot['userId']);
+      saveUserData('userName', await userSnapshot['userName']);
+
       showSnackBar(context, 'Welcome back!');
     } else {
       // The user document does not exist in Firestore.
-      const CircularProgressIndicator();
+      const Center(
+        child: Text("We are sorry, try reloading or check your internet connection"),
+      );
     }
 
     return userCredential.user!;
-  } catch (e) {
+  }
+  
+  catch (e)
+  
+  {
     showSnackBar(context,'Error logging in: $e');
     Container(
       padding: const EdgeInsets.all(10.0),

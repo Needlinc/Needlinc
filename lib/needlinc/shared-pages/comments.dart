@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
+import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import '../colors/colors.dart';
 import '../widgets/image-viewer.dart';
 
 class CommentsPage extends StatefulWidget {
   final Map<String, dynamic> post;
-  const CommentsPage({Key? key, required this.post}) : super(key: key);
+  final String sourceOption;
+
+  const CommentsPage({Key? key, required this.post, required this.sourceOption}) : super(key: key);
 
   @override
   State<CommentsPage> createState() => _CommentsPageState();
@@ -14,9 +18,28 @@ class CommentsPage extends StatefulWidget {
 class _CommentsPageState extends State<CommentsPage> {
 
   Map<String, dynamic>? userDetails;
-  Map<String, dynamic>? productDetails;
-  String? image, profilePicture, writeUp, userName, userCategory, address;
+  Map<String, dynamic>? postDetails;
+  String? image, profilePicture, writeUp, userName, userCategory, address, id, sourceOption;
   int? hearts, commentCount;
+  TextEditingController commentController = TextEditingController();
+  bool isNotLoading = true;
+
+  sendCommentMessageToServer({required BuildContext context, required String comment, required String sourceOption, required String id}) async {
+    if(comment.isEmpty){
+      showSnackBar(context, "Empty");
+    }
+    else {
+      setState(() {
+        isNotLoading = false;
+      });
+      await UploadPost().uploadComments(
+          context: context, message: comment, sourceOption: sourceOption, id: id);
+      setState(() {
+        commentController.text = '';
+        isNotLoading = true;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -26,11 +49,13 @@ class _CommentsPageState extends State<CommentsPage> {
     userCategory = userDetails!['userCategory'];
     address = userDetails!['address'];
 
-    productDetails = widget.post['postDetails'];
-    image = productDetails!['image'];
-    writeUp = productDetails!['writeUp'];
-    commentCount = productDetails!['comments'].length;
-    hearts = productDetails!['hearts'];
+    sourceOption = widget.sourceOption;
+    postDetails = sourceOption == 'homePage' ? widget.post['postDetails'] : widget.post['productDetails'];
+    image = postDetails!['image'];
+    writeUp = sourceOption == 'homePage' ? postDetails!['writeUp'] : postDetails!['description'];
+    commentCount = postDetails!['comments'].length;
+    id = sourceOption == 'homePage' ? postDetails!['userId'] : postDetails!['productId'];
+    hearts = postDetails!['hearts'];
 
     // TODO: implement initState
     super.initState();
@@ -47,11 +72,7 @@ class _CommentsPageState extends State<CommentsPage> {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    // Navigator.pushReplacement(context, MaterialPageRoute(
-                    //   builder: (context) => BusinessMainPages(currentPage: 4),
-                    // ));
-                  },
+                  onTap: () { },
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.all(10),
@@ -428,82 +449,99 @@ class _CommentsPageState extends State<CommentsPage> {
           margin: const EdgeInsets.symmetric(vertical: 10),
           padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
           color: NeedlincColors.white,
-          child: Stack(
+          child: isNotLoading ?
+          Stack(
             children: [
-              ListView(
-                children: [
-                  displayHomePosts(),
-                  const Divider(thickness: 2, color: NeedlincColors.black2,),
-                  //TODO Individual comment
-                  for(int index = 0; index < productDetails!['comments'].length; index++)
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                              onTap: (){
-                                //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(17),
-                                margin: const EdgeInsets.all(10),
-                                decoration:  BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      "${productDetails!['comments'][index]['comment']['profilePicture']}",
+              Container(
+                margin: EdgeInsets.only(bottom: 65),
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    displayHomePosts(),
+                    const Divider(thickness: 2, color: NeedlincColors.black2,),
+                    //TODO Individual comment
+                    for(int index = postDetails!['comments'].length -1; index >= 0; index--)
+                      postDetails!['comments'].length != 0 ?
+                      Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: (){
+                                  //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(17),
+                                  margin: const EdgeInsets.all(10),
+                                  decoration:  BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        "${postDetails!['comments'][index]['profilePicture']}",
+                                      ),
+                                      fit: BoxFit.cover,
                                     ),
-                                    fit: BoxFit.cover,
+                                    color: NeedlincColors.black3,
+                                    shape: BoxShape.circle,
                                   ),
-                                  color: NeedlincColors.black3,
-                                  shape: BoxShape.circle,
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.75,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("${productDetails!['comments'][index]['comment']['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                            Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                            IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
-                                          ],
-                                        ),
-                                        Text("~${productDetails!['comments'][index]['comment']['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                        Text("📍${productDetails!['comments'][index]['comment']['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
-                                    child: Text("${productDetails!['comments'][index]['comment']['message']}", style: TextStyle(fontSize: 13),),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                                margin: const EdgeInsets.only(top: 50.0, right: 5.0),
-                                child: Row(
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconButton(onPressed: () {},
-                                        icon:  Icon(
-                                          productDetails!['comments'][index]['comment']['hearts'] == 0 ?
-                                          Icons.favorite_border
-                                              :
-                                          Icons.favorite, size: 22, color: NeedlincColors.red,)),
-                                    Text("${productDetails!['comments'][index]['comment']['hearts']}", style: const TextStyle(fontSize: 15))
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.75,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("${postDetails!['comments'][index]['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                              Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                              IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
+                                            ],
+                                          ),
+                                          Text("~${postDetails!['comments'][index]['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                          Text("📍${postDetails!['comments'][index]['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
+                                      child: Text("${postDetails!['comments'][index]['message']}", style: TextStyle(fontSize: 13),),
+                                    ),
                                   ],
+                                ),
+                              ),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 50.0, right: 5.0),
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: () {},
+                                          icon:  Icon(
+                                            postDetails!['comments'][index]['hearts'] == 0 ?
+                                            Icons.favorite_border
+                                                :
+                                            Icons.favorite, size: 22, color: NeedlincColors.red,)),
+                                      Text("${postDetails!['comments'][index]['hearts']}", style: const TextStyle(fontSize: 15))
+                                    ],
+                                  )
+                              ),
+                            ],
+                       )
+                          :
+                          Center(
+                            child: Container(
+                              child: Text(
+                                'Be the first to comment',
+                                    style: TextStyle(
+                                      fontSize: 20,
                                 )
                             ),
-                          ],
-                     ),
-                ],
+                        ),
+                     )
+                  ],
+                ),
               ),
               //TODO Write a comment textfield
               Row(
@@ -524,6 +562,7 @@ class _CommentsPageState extends State<CommentsPage> {
                           child: TextField(
                             maxLines: 8,
                             maxLength: 500,
+                            controller: commentController,
                             maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
                             decoration: const InputDecoration(
                               hintText: 'Drop a comment...',
@@ -543,14 +582,20 @@ class _CommentsPageState extends State<CommentsPage> {
                   Container(
                       margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.85),
                       child: IconButton(
-                        onPressed: (){}, icon: const Icon(Icons.send),
+                        onPressed: (){
+                          sendCommentMessageToServer(context: context, comment: commentController.text, sourceOption: sourceOption!, id: id!);
+                        }, icon: const Icon(Icons.send),
                         color: NeedlincColors.blue1,
                       )
                   )
                 ],
               ),
             ],
-          ),
+          )
+              :
+              Center(
+                child: CircularProgressIndicator(),
+              )
         ),
       ),
     );

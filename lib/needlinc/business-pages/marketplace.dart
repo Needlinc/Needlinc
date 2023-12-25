@@ -264,10 +264,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
             return const Text("Document does not exist");
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            // Map<String, dynamic> data = snapshot.data!.data() as Map<
-            //     String,
-            //     dynamic>;
-
             return Container(
                 child:  FutureBuilder<QuerySnapshot>(
                   future: marketPlacePosts.get(),
@@ -284,12 +280,10 @@ class _MarketplacePageState extends State<MarketplacePage> {
                             Map<String, dynamic>? userDetails = data['userDetails'];
                             Map<String, dynamic>? productDetails = data['productDetails'];
                             if (userDetails == null) {
-                              print(userDetails);
                               // Handle the case when userDetails are missing in a document.
                               return const Text("User details not found");
                             }
                             if (productDetails == null) {
-                              print(productDetails);
                               // Handle the case when userDetails are missing in a document.
                               return const Text("User details not found");
                             }
@@ -441,7 +435,10 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                           children: [
                                             IconButton(
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CommentsPage(post: data,)));
+                                                  Navigator.push(context, MaterialPageRoute(
+                                                      builder: (context) => CommentsPage(post: data, sourceOption: 'marketPlacePage',)
+                                                    )
+                                                  );
                                                 },
                                                 icon: const Icon(Icons.maps_ugc_outlined, size: 20)),
                                             Text("${productDetails['comments'].length}", style: const TextStyle(fontSize: 15))
@@ -475,7 +472,9 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       );
                     }
                     // While waiting for the data to be fetched, show a loading indicator
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                        child: CircularProgressIndicator(),
+                    );
                   },
                 )
             );

@@ -3,7 +3,6 @@ import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/sign-up.dart';
 import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
-
 import '../../backend/authentication/login.dart';
 import '../../widgets/TextFieldBorder.dart';
 
@@ -158,9 +157,7 @@ class _SignupPageState extends State<SignupPage> {
                                       passwordController.clear();
                                     }
                                   }
-                                  catch (error){
-                                    showSnackBar(context, '$error');
-                                  }
+                                  catch (error){}
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: NeedlincColors.blue1,

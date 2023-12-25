@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     required String writeUp,
     required double hearts,
     required int commentCount,
-    required Map<String, dynamic> Post,
+    required Map<String, dynamic> post,
     required int timeStamp
   }){
     if(image != "null" && writeUp != "null"){
@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              CommentsPage(post: Post)));
+                              CommentsPage(post: post, sourceOption: 'homePage',)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -290,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                              CommentsPage(post: Post)));
+                              CommentsPage(post: post, sourceOption: 'homePage',)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -404,7 +404,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context) =>
-                          CommentsPage(post: Post)));
+                          CommentsPage(post: post, sourceOption: 'homePage',)));
                     },
                         icon: const Icon(
                           Icons.maps_ugc_outlined, size: 20,)),
@@ -444,12 +444,12 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (BuildContext context, int index) {
                     var data = dataList[index].data() as Map<String, dynamic>;
                     Map<String, dynamic>? userDetails = data['userDetails'];
-                    Map<String, dynamic>? productDetails = data['postDetails'];
+                    Map<String, dynamic>? postDetails = data['postDetails'];
                     if (userDetails == null) {
                       // Handle the case when userDetails are missing in a document.
                       return Center(child: const Text("User details not found"));
                     }
-                    if (productDetails == null) {
+                    if (postDetails == null) {
                       // Handle the case when userDetails are missing in a document.
                       return Center(child: const Text("User details not found"));
                     }
@@ -464,12 +464,12 @@ class _HomePageState extends State<HomePage> {
                       address: userDetails['address'],
                       userCategory: userDetails['userCategory'],
                       profilePicture: userDetails['profilePicture'],
-                      image: productDetails['image'],
-                      writeUp: productDetails['writeUp'],
-                      hearts: productDetails['hearts'],
-                      commentCount: productDetails['comments'].length,
-                      Post: data,
-                      timeStamp: productDetails['timeStamp'],
+                      image: postDetails['image'],
+                      writeUp: postDetails['writeUp'],
+                      hearts: postDetails['hearts'],
+                      commentCount: postDetails['comments'].length,
+                      post: data,
+                      timeStamp: postDetails['timeStamp'],
                     );
                   }
               );
