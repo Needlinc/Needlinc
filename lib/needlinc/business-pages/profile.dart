@@ -861,6 +861,24 @@ Padding listMarketPlaceItems(String? text, String? picture) {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.shopping_cart_outlined,
+                    color: NeedlincColors.white,
+                  ),
+                  label: const Text(
+                    'Buy',
+                    style: TextStyle(color: NeedlincColors.white),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: NeedlincColors.blue1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
                 Row(
                   children: [
                     IconButton(
@@ -887,11 +905,6 @@ Padding listMarketPlaceItems(String? text, String? picture) {
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.shopping_cart_outlined),
                 ),
                 const SizedBox(width: 12),
                 IconButton(
