@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../colors/colors.dart';
+import '../widgets/image-viewer.dart';
 
 class CommentsPage extends StatefulWidget {
   final Map<String, dynamic> post;
@@ -14,38 +15,196 @@ class _CommentsPageState extends State<CommentsPage> {
 
   Map<String, dynamic>? userDetails;
   Map<String, dynamic>? productDetails;
+  String? image, profilePicture, writeUp, userName, userCategory, address;
+  int? hearts, commentCount;
 
   @override
-    void initState() {
+  void initState() {
     userDetails = widget.post['userDetails'];
-    productDetails = widget.post['postDetails'];
-      // TODO: implement initState
-      super.initState();
-    }
+    userName = userDetails!['userName'];
+    profilePicture = userDetails!['profilePicture'];
+    userCategory = userDetails!['userCategory'];
+    address = userDetails!['address'];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-          color: NeedlincColors.white,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
+    productDetails = widget.post['postDetails'];
+    image = productDetails!['image'];
+    writeUp = productDetails!['writeUp'];
+    commentCount = productDetails!['comments'].length;
+    hearts = productDetails!['hearts'];
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Widget displayHomePosts(){
+    if(image != "null" && writeUp != "null"){
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.pushReplacement(context, MaterialPageRoute(
+                    //   builder: (context) => BusinessMainPages(currentPage: 4),
+                    // ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture!,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName!, style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          const Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: const Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory!, style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍$address", style: const TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 5, left: 65, bottom: 5),
+              alignment: Alignment.topLeft,
+              child: Text(
+                writeUp!,
+                style: const TextStyle(
+                    fontSize: 18
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                  imageUrls: [image!],
+                  initialIndex: 0,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                height: MediaQuery.of(context).size.width * 0.40,
+                margin: const EdgeInsets.fromLTRB(40.0, 0.0, 10.0, 8.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image!,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  color: NeedlincColors.black3,
+                  shape: BoxShape.rectangle,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: hearts == 0 ? Icon(
+                          Icons.favorite_border, size: 22,)
+                            : Icon(
+                          Icons.favorite, size: 22,
+                          color: NeedlincColors.red,)
+                    ),
+                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.maps_ugc_outlined, size: 20,)),
+                    Text("${commentCount}", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_border, size: 20,)),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    if(image != "null" && writeUp == "null"){
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.pushReplacement(context, MaterialPageRoute(
+                    //   builder: (context) => BusinessMainPages(currentPage: 4),
+                    // ));
+                  },
+                  child: InkWell(
                     onTap: (){
-                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                        imageUrls: [image!],
+                        initialIndex: 0,
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
-                      padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                            "${userDetails!['profilePicture']}",
+                            profilePicture!,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -54,143 +213,317 @@ class _CommentsPageState extends State<CommentsPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.75,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                             Text("${userDetails!['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                             Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                            IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
-                          ],
-                        ),
-                         Text("~${userDetails!['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                         Text("📍${userDetails!['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                      ],
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName!, style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          const Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: const Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory!, style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍$address", style: const TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.width * 0.40,
+              margin: const EdgeInsets.fromLTRB(40.0, 0.0, 10.0, 8.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    image!,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+                color: NeedlincColors.black3,
+                shape: BoxShape.rectangle,
+              ),
+            ),
+            const SizedBox(height: 30.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: hearts == 0 ? Icon(
+                          Icons.favorite_border, size: 22,)
+                            : Icon(
+                          Icons.favorite, size: 22,
+                          color: NeedlincColors.red,)
                     ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 30.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border, size: 22,)),
-                      const Text("1.2K", style: TextStyle(fontSize: 10))
-                    ],
-                  ),
-                  const SizedBox(width: 10.0,),
-                  Row(
-                    children: [
-                      IconButton(onPressed: (){}, icon: const Icon(Icons.maps_ugc, size: 20, color: NeedlincColors.blue1,)),
-                      const Text("200", style: TextStyle(fontSize: 10))
-                    ],
-                  ),
-                  const SizedBox(width: 10.0,),
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.bookmark_border, size: 20,)),
-                  const SizedBox(width: 10.0,),
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.share,size: 20,))
-                ],
-              ),
-              const Divider(thickness: 2, color: NeedlincColors.black2,),
-              //TODO Individual comment
-              Expanded(
-                child: ListView.builder(
-                  itemCount: productDetails!['comments'].length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                        //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
-                          },
-                        child: Container(
-                          padding: const EdgeInsets.all(17),
-                          margin: const EdgeInsets.all(10),
-                          decoration:  BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                "${productDetails!['comments'][index]['comment']['profilePicture']}",
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                            color: NeedlincColors.black3,
-                            shape: BoxShape.circle,
-                          ),
+                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.maps_ugc_outlined, size: 20,
+                        color: NeedlincColors.blue2,),
+                    ),
+                    Text("${commentCount}", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_border, size: 20,)),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    if(image == "null" && writeUp != "null"){
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        color: NeedlincColors.white,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.pushReplacement(context, MaterialPageRoute(
+                    //   builder: (context) => BusinessMainPages(currentPage: 4),
+                    // ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          profilePicture!,
                         ),
-                       ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.75,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                         Text("${productDetails!['comments'][index]['comment']['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                         Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                        IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
-                                      ],
+                        fit: BoxFit.fill,
+                      ),
+                      color: NeedlincColors.black3,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.75,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween,
+                        children: [
+                          Text(userName!, style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),),
+                          const Text("🟢 Now",
+                              style: TextStyle(fontSize: 9)),
+                          IconButton(onPressed: () {},
+                              icon: const Icon(Icons.more_horiz))
+                        ],
+                      ),
+                      Text(userCategory!, style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                      Text("📍$address", style: const TextStyle(
+                          fontSize: 12,
+                          color: NeedlincColors.black2))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 5, left: 65, bottom: 5),
+              alignment: Alignment.topLeft,
+              child: Text(
+                writeUp!,
+                style: const TextStyle(
+                    fontSize: 18
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: hearts == 0 ? Icon(
+                          Icons.favorite_border, size: 22,)
+                            : Icon(
+                          Icons.favorite, size: 22,
+                          color: NeedlincColors.red,)
+                    ),
+                    Text('$hearts', style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.maps_ugc_outlined, size: 20,),
+                    ),
+                    Text("${commentCount}", style: const TextStyle(fontSize: 15))
+                  ],
+                ),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(
+                      Icons.bookmark_border, size: 20,)),
+                const SizedBox(width: 10.0,),
+                IconButton(onPressed: () {},
+                    icon: const Icon(Icons.share, size: 20,))
+              ],
+            )
+          ],
+        ),
+      );
+    }
+    return Center(child: CircularProgressIndicator(),);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+          color: NeedlincColors.white,
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  displayHomePosts(),
+                  const Divider(thickness: 2, color: NeedlincColors.black2,),
+                  //TODO Individual comment
+                  for(int index = 0; index < productDetails!['comments'].length; index++)
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(17),
+                                margin: const EdgeInsets.all(10),
+                                decoration:  BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      "${productDetails!['comments'][index]['comment']['profilePicture']}",
                                     ),
-                                     Text("~${productDetails!['comments'][index]['comment']['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                     Text("📍${productDetails!['comments'][index]['comment']['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                                  ],
+                                    fit: BoxFit.cover,
+                                  ),
+                                  color: NeedlincColors.black3,
+                                  shape: BoxShape.circle,
                                 ),
                               ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
-                                child: Text("${productDetails!['comments'][index]['comment']['message']}", style: TextStyle(fontSize: 13),),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("${productDetails!['comments'][index]['comment']['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                            Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                            IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
+                                          ],
+                                        ),
+                                        Text("~${productDetails!['comments'][index]['comment']['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                        Text("📍${productDetails!['comments'][index]['comment']['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
+                                    child: Text("${productDetails!['comments'][index]['comment']['message']}", style: TextStyle(fontSize: 13),),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 50.0, right: 5.0),
-                            child: Row(
-                              children: [
-                                IconButton(onPressed: () {},
-                                    icon:  Icon(
-                                      productDetails!['comments'][index]['comment']['hearts'] == 0 ?
-                                      Icons.favorite_border
-                                      :
-                                      Icons.favorite, size: 22, color: NeedlincColors.red,)),
-                                Text("${productDetails!['comments'][index]['comment']['hearts']}", style: const TextStyle(fontSize: 15))
-                              ],
-                            )
-                        ),
-                      ],
-                    );
-                  },
-                ),
+                            ),
+                            Container(
+                                margin: const EdgeInsets.only(top: 50.0, right: 5.0),
+                                child: Row(
+                                  children: [
+                                    IconButton(onPressed: () {},
+                                        icon:  Icon(
+                                          productDetails!['comments'][index]['comment']['hearts'] == 0 ?
+                                          Icons.favorite_border
+                                              :
+                                          Icons.favorite, size: 22, color: NeedlincColors.red,)),
+                                    Text("${productDetails!['comments'][index]['comment']['hearts']}", style: const TextStyle(fontSize: 15))
+                                  ],
+                                )
+                            ),
+                          ],
+                     ),
+                ],
               ),
               //TODO Write a comment textfield
               Row(
                 children: [
                   Container(
+                    height: 65,
                     width: 292,
-                    margin: const EdgeInsets.only(top: 10.0),
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.85),
+                    padding:  EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        border: Border.all(color: NeedlincColors.blue1),
+                      borderRadius: BorderRadius.circular(30.0),
+                      border: Border.all(color: NeedlincColors.blue1),
                       color: NeedlincColors.black3,
                     ),
                     child: Row(
                       children: <Widget>[
                         Expanded(
                           child: TextField(
-                            maxLines: null,
-                            maxLength: 200,
+                            maxLines: 8,
+                            maxLength: 500,
                             maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
                             decoration: const InputDecoration(
                               hintText: 'Drop a comment...',
@@ -207,7 +540,13 @@ class _CommentsPageState extends State<CommentsPage> {
                       ],
                     ),
                   ),
-                  IconButton(onPressed: (){}, icon: const Icon(Icons.send), color: NeedlincColors.blue1, padding: const EdgeInsets.all(2.0),)
+                  Container(
+                      margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.85),
+                      child: IconButton(
+                        onPressed: (){}, icon: const Icon(Icons.send),
+                        color: NeedlincColors.blue1,
+                      )
+                  )
                 ],
               ),
             ],
