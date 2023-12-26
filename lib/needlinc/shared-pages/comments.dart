@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
 import 'package:needlinc/needlinc/widgets/snack-bar.dart';
+import '../backend/user-account/functionality.dart';
 import '../colors/colors.dart';
 import '../widgets/image-viewer.dart';
 
@@ -24,6 +25,8 @@ class _CommentsPageState extends State<CommentsPage> {
   TextEditingController commentController = TextEditingController();
   bool isNotLoading = true;
 
+
+
   sendCommentMessageToServer({required BuildContext context, required String comment, required String sourceOption, required String id}) async {
     if(comment.isEmpty){
       showSnackBar(context, "Empty");
@@ -32,6 +35,25 @@ class _CommentsPageState extends State<CommentsPage> {
       setState(() {
         isNotLoading = false;
       });
+
+      DateTime now = DateTime.now();
+      int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
+
+      Map<String, dynamic> commentDetails = {
+        'profilePicture': await getUserData('profilePicture'),
+        'fullName': await getUserData('fullName'),
+        'userName': await getUserData('userName'),
+        'userCategory': await getUserData('userCategory'),
+        'address': await getUserData('address'),
+        'userId': await getUserData('userId'),
+        'message': comment,
+        'timeStamp': millisecondsSinceEpoch,
+        'hearts': 0,
+      };
+
+      postDetails!['comments'].add(commentDetails);
+      commentCount = postDetails!['comments'].length;
+
       await UploadPost().uploadComments(
           context: context, message: comment, sourceOption: sourceOption, id: id);
       setState(() {
@@ -54,18 +76,19 @@ class _CommentsPageState extends State<CommentsPage> {
     image = postDetails!['image'];
     writeUp = sourceOption == 'homePage' ? postDetails!['writeUp'] : postDetails!['description'];
     commentCount = postDetails!['comments'].length;
-    id = sourceOption == 'homePage' ? postDetails!['userId'] : postDetails!['productId'];
+    id = sourceOption == 'homePage' ? postDetails!['postId'] : postDetails!['productId'];
     hearts = postDetails!['hearts'];
 
     // TODO: implement initState
     super.initState();
   }
 
+
   Widget displayHomePosts(){
     if(image != "null" && writeUp != "null"){
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 12.0),
         color: NeedlincColors.white,
         child: Column(
           children: [
@@ -198,7 +221,7 @@ class _CommentsPageState extends State<CommentsPage> {
     if(image != "null" && writeUp == "null"){
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 12.0),
         color: NeedlincColors.white,
         child: Column(
           children: [
@@ -328,7 +351,7 @@ class _CommentsPageState extends State<CommentsPage> {
     if(image == "null" && writeUp != "null"){
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+        padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 12.0),
         color: NeedlincColors.white,
         child: Column(
           children: [
@@ -447,21 +470,65 @@ class _CommentsPageState extends State<CommentsPage> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           margin: const EdgeInsets.symmetric(vertical: 10),
-          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
           color: NeedlincColors.white,
           child: isNotLoading ?
-          Stack(
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 65),
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
+          Container(
+            margin: EdgeInsets.only(bottom: 35),
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                displayHomePosts(),
+                const Divider(thickness: 2, color: NeedlincColors.black2,),
+                Row(
                   children: [
-                    displayHomePosts(),
-                    const Divider(thickness: 2, color: NeedlincColors.black2,),
-                    //TODO Individual comment
-                    for(int index = postDetails!['comments'].length -1; index >= 0; index--)
-                      postDetails!['comments'].length != 0 ?
+                    Container(
+                      height: 65,
+                      width: 292,
+                      padding:  EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        border: Border.all(color: NeedlincColors.blue1),
+                        color: NeedlincColors.black3,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextField(
+                              maxLines: 8,
+                              maxLength: 500,
+                              controller: commentController,
+                              maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
+                              decoration: const InputDecoration(
+                                hintText: 'Drop a comment...',
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(vertical: 1),
+                              ),
+                              onSubmitted: (value) {
+
+                                print('Performing search for: $value');
+
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                        child: IconButton(
+                          onPressed: (){
+                            sendCommentMessageToServer(context: context, comment: commentController.text, sourceOption: sourceOption!, id: id!);
+                          }, icon: const Icon(Icons.send),
+                          color: NeedlincColors.blue1,
+                        )
+                    )
+                  ],
+                ),
+                //TODO Individual comment
+                  postDetails!['comments'].length != 0 ?
+                  Column(
+                    children: [
+                      for(int index = postDetails!['comments'].length -1; index >= 0; index--)
                       Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -528,69 +595,22 @@ class _CommentsPageState extends State<CommentsPage> {
                                   )
                               ),
                             ],
-                       )
-                          :
-                          Center(
-                            child: Container(
-                              child: Text(
-                                'Be the first to comment',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                )
-                            ),
-                        ),
-                     )
-                  ],
-                ),
-              ),
-              //TODO Write a comment textfield
-              Row(
-                children: [
-                  Container(
-                    height: 65,
-                    width: 292,
-                    margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.85),
-                    padding:  EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      border: Border.all(color: NeedlincColors.blue1),
-                      color: NeedlincColors.black3,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: TextField(
-                            maxLines: 8,
-                            maxLength: 500,
-                            controller: commentController,
-                            maxLengthEnforcement: MaxLengthEnforcement.truncateAfterCompositionEnds,
-                            decoration: const InputDecoration(
-                              hintText: 'Drop a comment...',
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(vertical: 1),
-                            ),
-                            onSubmitted: (value) {
-
-                              print('Performing search for: $value');
-
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      margin:  EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.85),
-                      child: IconButton(
-                        onPressed: (){
-                          sendCommentMessageToServer(context: context, comment: commentController.text, sourceOption: sourceOption!, id: id!);
-                        }, icon: const Icon(Icons.send),
-                        color: NeedlincColors.blue1,
-                      )
+                       ),
+                    ],
                   )
-                ],
-              ),
-            ],
+                      :
+                      Center(
+                        child: Container(
+                          child: Text(
+                            'Be the first to comment',
+                                style: TextStyle(
+                                  fontSize: 20,
+                            )
+                        ),
+                    ),
+                 ),
+              ],
+            ),
           )
               :
               Center(

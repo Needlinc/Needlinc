@@ -23,7 +23,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-  CollectionReference homePage = FirebaseFirestore.instance.collection('homePage');
 
 // Get The post data from the HomePost widget and send it to the screen for users to view
   Widget displayHomePosts({
@@ -34,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     required String profilePicture,
     required String image,
     required String writeUp,
-    required double hearts,
+    required int hearts,
     required int commentCount,
     required Map<String, dynamic> post,
     required int timeStamp
@@ -432,18 +431,23 @@ class _HomePageState extends State<HomePage> {
   Widget HomePosts(BuildContext context){
     return Container(
         margin: const EdgeInsets.only(top: 160.0),
-        child: FutureBuilder<QuerySnapshot>(
-          future: homePage.get(),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('homePage')
+              .orderBy('postDetails.timeStamp', descending: true)
+              .snapshots(), // Use the stream method instead of the get method
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Center(child: const Text("Something went wrong"));
             }
-            if (snapshot.connectionState == ConnectionState.done) {
+
+            if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
               List<DocumentSnapshot> dataList = snapshot.data!.docs;
               return ListView.builder(
                   itemCount: dataList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var data = dataList[index].data() as Map<String, dynamic>;
+
                     Map<String, dynamic>? userDetails = data['userDetails'];
                     Map<String, dynamic>? postDetails = data['postDetails'];
                     if (userDetails == null) {

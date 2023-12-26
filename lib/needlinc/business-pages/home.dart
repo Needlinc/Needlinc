@@ -22,8 +22,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-  CollectionReference homePage = FirebaseFirestore.instance.collection('homePage');
-
 // Get The post data from the HomePost widget and send it to the screen for users to view
   Widget displayHomePosts({
     required BuildContext context,
@@ -33,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     required String profilePicture,
     required String image,
     required String writeUp,
-    required double hearts,
+    required int hearts,
     required int commentCount,
     required Map<String, dynamic> post,
     required int timeStamp
@@ -431,55 +429,61 @@ class _HomePageState extends State<HomePage> {
   Widget HomePosts(BuildContext context){
     return Container(
         margin: const EdgeInsets.only(top: 160.0),
-        child: FutureBuilder<QuerySnapshot>(
-          future: homePage.get(),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('homePage')
+              .orderBy('postDetails.timeStamp', descending: true)
+              .snapshots(), // Use the stream method instead of the get method
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Center(child: const Text("Something went wrong"));
             }
-            if (snapshot.connectionState == ConnectionState.done) {
+
+            if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
               List<DocumentSnapshot> dataList = snapshot.data!.docs;
               return ListView.builder(
-                  itemCount: dataList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var data = dataList[index].data() as Map<String, dynamic>;
-                    Map<String, dynamic>? userDetails = data['userDetails'];
-                    Map<String, dynamic>? postDetails = data['postDetails'];
-                    if (userDetails == null) {
-                      // Handle the case when userDetails are missing in a document.
-                      return Center(child: const Text("User details not found"));
-                    }
-                    if (postDetails == null) {
-                      // Handle the case when userDetails are missing in a document.
-                      return Center(child: const Text("User details not found"));
-                    }
-                    if(userDetails['userCategory'] == 'null'){
-                      return const Center(
-                        child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
-                      );
-                    }
-                    return displayHomePosts(
-                      context: context,
-                      userName: userDetails['userName'],
-                      address: userDetails['address'],
-                      userCategory: userDetails['userCategory'],
-                      profilePicture: userDetails['profilePicture'],
-                      image: postDetails['image'],
-                      writeUp: postDetails['writeUp'],
-                      hearts: postDetails['hearts'],
-                      commentCount: postDetails['comments'].length,
-                      post: data,
-                      timeStamp: postDetails['timeStamp'],
+                itemCount: dataList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = dataList[index].data() as Map<String, dynamic>;
+
+                  Map<String, dynamic>? userDetails = data['userDetails'];
+                  Map<String, dynamic>? postDetails = data['postDetails'];
+                  if (userDetails == null) {
+                    // Handle the case when userDetails are missing in a document.
+                    return Center(child: const Text("User details not found"));
+                  }
+                  if (postDetails == null) {
+                    // Handle the case when userDetails are missing in a document.
+                    return Center(child: const Text("User details not found"));
+                  }
+                  if(userDetails['userCategory'] == 'null'){
+                    return const Center(
+                      child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
                     );
                   }
+                  return displayHomePosts(
+                    context: context,
+                    userName: userDetails['userName'],
+                    address: userDetails['address'],
+                    userCategory: userDetails['userCategory'],
+                    profilePicture: userDetails['profilePicture'],
+                    image: postDetails['image'],
+                    writeUp: postDetails['writeUp'],
+                    hearts: postDetails['hearts'],
+                    commentCount: postDetails['comments'].length,
+                    post: data,
+                    timeStamp: postDetails['timeStamp'],
+                  );
+                },
               );
             }
-            // While waiting for the data to be fetched, show a loading indicator
+
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
+
             return const WelcomePage();
           },
         )

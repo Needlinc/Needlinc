@@ -252,238 +252,236 @@ class _MarketplacePageState extends State<MarketplacePage> {
         ],
         toolbarHeight: 95,
       ),
-      body: FutureBuilder<DocumentSnapshot>(
-        future: user.doc(FirebaseAuth.instance.currentUser!.uid).get(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: user.doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> userSnapshot) {
+          if (userSnapshot.hasError) {
             return const Text("Something went wrong");
           }
 
-          if (snapshot.hasData && !snapshot.data!.exists) {
+          if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
             return const Text("Document does not exist");
           }
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Container(
-                child:  FutureBuilder<QuerySnapshot>(
-                  future: marketPlacePosts.get(),
-                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text("Something went wrong");
-                    }
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      List<DocumentSnapshot> dataList = snapshot.data!.docs;
-                      return ListView.builder(
-                          itemCount: dataList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var data = dataList[index].data() as Map<String, dynamic>;
-                            Map<String, dynamic>? userDetails = data['userDetails'];
-                            Map<String, dynamic>? productDetails = data['productDetails'];
-                            if (userDetails == null) {
-                              // Handle the case when userDetails are missing in a document.
-                              return const Text("User details not found");
-                            }
-                            if (productDetails == null) {
-                              // Handle the case when userDetails are missing in a document.
-                              return const Text("User details not found");
-                            }
-                            return InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                ProductDetailsPage(userDetails: data['userDetails'], productDetails: data['productDetails'],)));
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
-                                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-                                decoration: BoxDecoration(
-                                  color: NeedlincColors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
-                                      spreadRadius: 4, // Spread radius
-                                      blurRadius: 5, // Blur radius
-                                      offset: const Offset(0, 6), // Offset in the form of (dx, dy)
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: (){
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => BusinessMainPages(currentPage: 4),
-                                                ),
-                                            );
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(25),
-                                            margin: const EdgeInsets.all(10),
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  userDetails["profilePicture"],
-                                                ),
-                                                fit: BoxFit.fill,
-                                              ),
-                                              color: NeedlincColors.black3,
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
+
+          Map<String, dynamic>? userDetails = userSnapshot.data!.data() as Map<String, dynamic>;
+
+          return StreamBuilder<QuerySnapshot>(
+            stream: marketPlacePosts.snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> postsSnapshot) {
+              if (postsSnapshot.hasError) {
+                return const Text("Something went wrong");
+              }
+
+              if (postsSnapshot.connectionState == ConnectionState.active ||
+                  postsSnapshot.connectionState == ConnectionState.done) {
+                List<DocumentSnapshot> dataList = postsSnapshot.data!.docs;
+                return ListView.builder(
+                    itemCount: dataList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var data = dataList[index].data() as Map<String, dynamic>;
+                      Map<String, dynamic>? productDetails = data['productDetails'];
+
+                      if (productDetails == null) {
+                        // Handle the case when productDetails are missing in a document.
+                        return const Text("Product details not found");
+                      }
+
+                      return InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                              ProductDetailsPage(userDetails: data['userDetails'], productDetails: data['productDetails'],)));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
+                          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+                          decoration: BoxDecoration(
+                            color: NeedlincColors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
+                                spreadRadius: 4, // Spread radius
+                                blurRadius: 5, // Blur radius
+                                offset: const Offset(0, 6), // Offset in the form of (dx, dy)
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BusinessMainPages(currentPage: 4),
                                         ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context).size.width * 0.70,
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    userDetails["userName"],
-                                                    style: const TextStyle(
-                                                        fontSize: 14, fontWeight: FontWeight.bold),
-                                                  ),
-                                                  const Text(
-                                                    "🟢 Now",
-                                                    style: TextStyle(fontSize: 9),
-                                                  ),
-                                                  IconButton(
-                                                      onPressed: () {}, icon: const Icon(Icons.more_horiz))
-                                                ],
-                                              ),
-                                              Text("~${userDetails['userCategory']}",
-                                                  style: const TextStyle(
-                                                      fontSize: 13, fontWeight: FontWeight.w600)),
-                                              Text("📍 ${userDetails['address']}",
-                                                  style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: NeedlincColors.black2))
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                                      child: Text(
-                                          productDetails['name'],
-                                          style: const TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                                      child: Text(
-                                          "₦ ${productDetails['price']}",
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.green
-                                          )),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                                      child: Text(
-                                          productDetails['description'].length >= 100 ?
-                                          productDetails['description'].substring(0, 100)
-                                              :
-                                          productDetails['description'],
-                                          style: const TextStyle(fontSize: 18)),
-                                    ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: MediaQuery.of(context).size.width * 0.55,
-                                      margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(25),
+                                      margin: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
                                         image: DecorationImage(
                                           image: NetworkImage(
-                                            productDetails["image"],
+                                            userDetails["profilePicture"],
                                           ),
                                           fit: BoxFit.fill,
                                         ),
                                         color: NeedlincColors.black3,
-                                        shape: BoxShape.rectangle,
+                                        shape: BoxShape.circle,
                                       ),
                                     ),
-                                    Row(
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.70,
+                                    child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
+                                            Text(
+                                              userDetails["userName"],
+                                              style: const TextStyle(
+                                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                            ),
+                                            const Text(
+                                              "🟢 Now",
+                                              style: TextStyle(fontSize: 9),
+                                            ),
                                             IconButton(
-                                                onPressed: () {},
-                                                icon: const Icon(Icons.favorite_border, size: 22)),
-                                            Text("${productDetails['hearts']}", style: const TextStyle(fontSize: 15))
+                                                onPressed: () {}, icon: const Icon(Icons.more_horiz))
                                           ],
                                         ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(
-                                                      builder: (context) => CommentsPage(post: data, sourceOption: 'marketPlacePage',)
-                                                    )
-                                                  );
-                                                },
-                                                icon: const Icon(Icons.maps_ugc_outlined, size: 20)),
-                                            Text("${productDetails['comments'].length}", style: const TextStyle(fontSize: 15))
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.bookmark_border, size: 20)),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.shopping_cart_outlined, size: 22)),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(Icons.share, size: 20))
+                                        Text("~${userDetails['userCategory']}",
+                                            style: const TextStyle(
+                                                fontSize: 13, fontWeight: FontWeight.w600)),
+                                        Text("📍 ${userDetails['address']}",
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                color: NeedlincColors.black2))
                                       ],
-                                    )
-                                  ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                alignment: Alignment.topLeft,
+                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                child: Text(
+                                    productDetails['name'],
+                                    style: const TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              Container(
+                                alignment: Alignment.topLeft,
+                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                child: Text(
+                                    "₦ ${productDetails['price']}",
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.green
+                                    )),
+                              ),
+                              Container(
+                                alignment: Alignment.topLeft,
+                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                child: Text(
+                                    productDetails['description'].length >= 100 ?
+                                    productDetails['description'].substring(0, 100)
+                                        :
+                                    productDetails['description'],
+                                    style: const TextStyle(fontSize: 18)),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.width * 0.55,
+                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      productDetails["image"],
+                                    ),
+                                    fit: BoxFit.fill,
+                                  ),
+                                  color: NeedlincColors.black3,
+                                  shape: BoxShape.rectangle,
                                 ),
                               ),
-                            );
-                          }
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.favorite_border, size: 22)),
+                                      Text("${productDetails['hearts']}", style: const TextStyle(fontSize: 15))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.push(context, MaterialPageRoute(
+                                                builder: (context) => CommentsPage(post: data, sourceOption: 'marketPlacePage',)
+                                            )
+                                            );
+                                          },
+                                          icon: const Icon(Icons.maps_ugc_outlined, size: 20)),
+                                      Text("${productDetails['comments'].length}", style: const TextStyle(fontSize: 15))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.bookmark_border, size: 20)),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.shopping_cart_outlined, size: 22)),
+                                  const SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.share, size: 20))
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                       );
                     }
-                    // While waiting for the data to be fetched, show a loading indicator
-                    return const Center(
-                        child: CircularProgressIndicator(),
-                    );
-                  },
-                )
-            );
-          }
+                );
+              }
 
-          // While waiting for the data to be fetched, show a loading indicator
-          return const Center(child: CircularProgressIndicator());
+              if (postsSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          );
         },
-      )
+      ),
     );
   }
 }
