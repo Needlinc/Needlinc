@@ -3,6 +3,7 @@ import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
 import '../shared-pages/edit-profile.dart';
 import 'business-main.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -174,7 +175,6 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  bool isBlogger = true;
   bool isOwner = false;
   bool isCoverPhoto = true;
   bool isReviews = true;
@@ -592,18 +592,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         reviewList[index].name,
                         reviewList[index].rating,
                         reviewList[index].review,
+                        index,
                       );
                     }
                     if (isPosts) {
                       return listPostItems(
                         postList[index].text,
                         postList[index].picture,
+                        index,
                       );
                     }
                     if (isMarketPlace) {
                       return listMarketPlaceItems(
                         marketPlaceList[index].text,
                         marketPlaceList[index].picture,
+                        index,
                       );
                     }
                     return null;
@@ -711,40 +714,52 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 // Review list container
-Padding listReviewItems(String name, int rate, String review) {
+Padding listReviewItems(String name, int rate, String review, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: Container(
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(182, 203, 226, 1.0),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: List.generate(
-                    rate,
-                    (index) => Icon(
-                      Icons.star,
-                      color: Colors.amber[300],
-                      size: 13,
-                    ),
-                  ),
-                ),
-              ],
+    child: AnimationConfiguration.staggeredList(
+      position: index,
+      delay: const Duration(milliseconds: 100),
+      child: SlideAnimation(
+        duration: const Duration(milliseconds: 2500),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: FadeInAnimation(
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 2500),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(182, 203, 226, 1.0),
+              borderRadius: BorderRadius.circular(8),
             ),
-            const SizedBox(height: 8),
-            Text(review)
-          ],
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: List.generate(
+                          rate,
+                          (index) => Icon(
+                            Icons.star,
+                            color: Colors.amber[300],
+                            size: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(review)
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     ),
@@ -752,7 +767,7 @@ Padding listReviewItems(String name, int rate, String review) {
 }
 
 // Post list container
-Padding listPostItems(String? text, String? picture) {
+Padding listPostItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
     child: Container(
@@ -829,7 +844,7 @@ Padding listPostItems(String? text, String? picture) {
 }
 
 // market list container
-Padding listMarketPlaceItems(String? text, String? picture) {
+Padding listMarketPlaceItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
     child: Container(

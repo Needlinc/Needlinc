@@ -5,6 +5,7 @@ import '../../main.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
 import 'client-main.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -176,7 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool isOwner = true;
-  static bool isBlogger = false;
+  static bool isBlogger = true;
   bool isBroadcast = true;
   bool isPosts = !isBlogger;
   bool isMarketPlace = false;
@@ -476,30 +477,36 @@ class _ProfilePageState extends State<ProfilePage> {
           // posts / marketPlace Renderer
           if (listCounter != 0)
             Flexible(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: listCounter,
-                itemBuilder: (context, index) {
-                  if (isBlogger) if (isBroadcast) {
-                    return listBroadcastItems(
-                      broadcastList[index].text,
-                      broadcastList[index].picture,
-                    );
-                  }
-                  if (isPosts) {
-                    return listPostItems(
-                      postList[index].text,
-                      postList[index].picture,
-                    );
-                  }
-                  if (isMarketPlace) {
-                    return listMarketPlaceItems(
-                      marketPlaceList[index].text,
-                      marketPlaceList[index].picture,
-                    );
-                  }
-                  return null;
-                },
+              child: AnimationLimiter(
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  itemCount: listCounter,
+                  itemBuilder: (context, index) {
+                    if (isBlogger) if (isBroadcast) {
+                      return listBroadcastItems(
+                        broadcastList[index].text,
+                        broadcastList[index].picture,
+                        index,
+                      );
+                    }
+                    if (isPosts) {
+                      return listPostItems(
+                        postList[index].text,
+                        postList[index].picture,
+                        index,
+                      );
+                    }
+                    if (isMarketPlace) {
+                      return listMarketPlaceItems(
+                        marketPlaceList[index].text,
+                        marketPlaceList[index].picture,
+                        index,
+                      );
+                    }
+                    return null;
+                  },
+                ),
               ),
             ),
 
@@ -602,76 +609,88 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 // Broadcast list container
-Padding listBroadcastItems(String? text, String? picture) {
+Padding listBroadcastItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: Container(
-      decoration: BoxDecoration(
-        color: NeedlincColors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (text != null) Text(text),
-            const SizedBox(height: 8),
-            if (picture != null)
-              Container(
-                width: double.infinity,
-                height: 130,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(picture),
-                  ),
-                ),
-              ),
-            const SizedBox(height: 8),
-            // Icons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: NeedlincColors.red,
+    child: AnimationConfiguration.staggeredList(
+      position: index,
+      delay: Duration(milliseconds: 100),
+      child: SlideAnimation(
+        duration: const Duration(milliseconds: 2500),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: FadeInAnimation(
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 2500),
+          child: Container(
+            decoration: BoxDecoration(
+              color: NeedlincColors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (text != null) Text(text),
+                  const SizedBox(height: 8),
+                  if (picture != null)
+                    Container(
+                      width: double.infinity,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(picture),
+                        ),
                       ),
                     ),
-                    const Text('400'),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.maps_ugc_outlined),
-                    ),
-                    const Text('400'),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.share,
-                    size: 20,
+                  const SizedBox(height: 8),
+                  // Icons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.favorite,
+                              color: NeedlincColors.red,
+                            ),
+                          ),
+                          const Text('400'),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.maps_ugc_outlined),
+                          ),
+                          const Text('400'),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.bookmark, color: Colors.amber[300]),
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.share,
+                          size: 20,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     ),
@@ -679,76 +698,88 @@ Padding listBroadcastItems(String? text, String? picture) {
 }
 
 // Post list container
-Padding listPostItems(String? text, String? picture) {
+Padding listPostItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: Container(
-      decoration: BoxDecoration(
-        color: NeedlincColors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (text != null) Text(text),
-            const SizedBox(height: 8),
-            if (picture != null)
-              Container(
-                width: double.infinity,
-                height: 130,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(picture),
-                  ),
-                ),
-              ),
-            const SizedBox(height: 8),
-            // Icons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: NeedlincColors.red,
+    child: AnimationConfiguration.staggeredList(
+      position: index,
+      delay: const Duration(milliseconds: 100),
+      child: SlideAnimation(
+        duration: const Duration(milliseconds: 2500),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: FadeInAnimation(
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 2500),
+          child: Container(
+            decoration: BoxDecoration(
+              color: NeedlincColors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (text != null) Text(text),
+                  const SizedBox(height: 8),
+                  if (picture != null)
+                    Container(
+                      width: double.infinity,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(picture),
+                        ),
                       ),
                     ),
-                    const Text('400'),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.maps_ugc_outlined),
-                    ),
-                    const Text('400'),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.share,
-                    size: 20,
+                  const SizedBox(height: 8),
+                  // Icons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.favorite,
+                              color: NeedlincColors.red,
+                            ),
+                          ),
+                          const Text('400'),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.maps_ugc_outlined),
+                          ),
+                          const Text('400'),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.bookmark, color: Colors.amber[300]),
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.share,
+                          size: 20,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     ),
@@ -756,94 +787,106 @@ Padding listPostItems(String? text, String? picture) {
 }
 
 // market list container
-Padding listMarketPlaceItems(String? text, String? picture) {
+Padding listMarketPlaceItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: Container(
-      decoration: BoxDecoration(
-        color: NeedlincColors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (text != null) Text(text),
-            const SizedBox(height: 8),
-            if (picture != null)
-              Container(
-                width: double.infinity,
-                height: 130,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(picture),
-                  ),
-                ),
-              ),
-            const SizedBox(height: 8),
-            // Icons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.shopping_cart_outlined,
-                    color: NeedlincColors.white,
-                  ),
-                  label: const Text(
-                    'Buy',
-                    style: TextStyle(color: NeedlincColors.white),
-                  ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: NeedlincColors.blue1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: NeedlincColors.red,
+    child: AnimationConfiguration.staggeredList(
+      position: index,
+      delay: Duration(milliseconds: 100),
+      child: SlideAnimation(
+        duration: const Duration(milliseconds: 2500),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: FadeInAnimation(
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 2500),
+          child: Container(
+            decoration: BoxDecoration(
+              color: NeedlincColors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (text != null) Text(text),
+                  const SizedBox(height: 8),
+                  if (picture != null)
+                    Container(
+                      width: double.infinity,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(picture),
+                        ),
                       ),
                     ),
-                    const Text('400'),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.maps_ugc_outlined),
-                    ),
-                    const Text('400'),
-                  ],
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.share,
-                    size: 20,
+                  const SizedBox(height: 8),
+                  // Icons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.shopping_cart_outlined,
+                          color: NeedlincColors.white,
+                        ),
+                        label: const Text(
+                          'Buy',
+                          style: TextStyle(color: NeedlincColors.white),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: NeedlincColors.blue1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.favorite,
+                              color: NeedlincColors.red,
+                            ),
+                          ),
+                          const Text('400'),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.maps_ugc_outlined),
+                          ),
+                          const Text('400'),
+                        ],
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.bookmark, color: Colors.amber[300]),
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.share,
+                          size: 20,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     ),
