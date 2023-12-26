@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
+import '../shared-pages/edit-profile.dart';
 import 'business-main.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -88,8 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const Divider(),
                 ListTile(
-                  leading:
-                      const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+                  leading: const Icon(Icons.people_outline,
+                      color: NeedlincColors.blue2),
                   title: const Text('Freelancers',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
@@ -173,8 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  bool isBlogger = false;
-  bool isOwner = true;
+  bool isOwner = false;
   bool isCoverPhoto = true;
   bool isReviews = true;
   bool isPosts = false;
@@ -436,19 +437,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // message button
+                  // message or edit button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (isOwner) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const editProfile()));
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6),
                           ),
                           backgroundColor: NeedlincColors.blue1,
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 22, vertical: 8),
                         ),
                         child: Text(
                           isOwner ? 'Edit Profile' : 'Message',
@@ -460,7 +468,37 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(width: 5),
                       if (!isOwner)
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                contentPadding: EdgeInsets.all(0),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    dialogMenu(
+                                      'Add Rating',
+                                      Icons.star,
+                                      Colors.amber[400],
+                                    ),
+                                    dialogMenu(
+                                      'Share profile link',
+                                      Icons.link,
+                                    ),
+                                    dialogMenu(
+                                      'Report this account',
+                                      Icons.report,
+                                      NeedlincColors.red,
+                                    ),
+                                    dialogMenu(
+                                      'Block',
+                                      Icons.block,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                           icon: const Icon(
                             Icons.pending_outlined,
                             size: 30,
@@ -542,7 +580,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            // Review Renderer
+            // Review / posts / marketPlace Renderer
             if (listCounter != 0)
               Flexible(
                 child: ListView.builder(
@@ -554,18 +592,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         reviewList[index].name,
                         reviewList[index].rating,
                         reviewList[index].review,
+                        index,
                       );
                     }
                     if (isPosts) {
                       return listPostItems(
                         postList[index].text,
                         postList[index].picture,
+                        index,
                       );
                     }
                     if (isMarketPlace) {
                       return listMarketPlaceItems(
                         marketPlaceList[index].text,
                         marketPlaceList[index].picture,
+                        index,
                       );
                     }
                     return null;
@@ -588,7 +629,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-// ShowOption widget
+  // ShowOption widget
   GestureDetector Options(String text, bool activeOption) {
     return GestureDetector(
       onTap: () {
@@ -638,50 +679,95 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-// Review list container
-  Padding listReviewItems(String name, int rate, String review) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(182, 203, 226, 1.0),
-          borderRadius: BorderRadius.circular(8),
+  // Show Dialog Widget
+  Container dialogMenu(String text,
+      [IconData? icon, Color? iconColor, Widget? location]) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(7),
+      decoration: BoxDecoration(
+        color: NeedlincColors.grey,
+        border: Border.symmetric(
+          horizontal: BorderSide(
+              width: 0.5, color: NeedlincColors.black1.withOpacity(0.5)),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: List.generate(
-                      rate,
-                      (index) => Icon(
-                        Icons.star,
-                        color: Colors.amber[300],
-                        size: 13,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(review)
-            ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            icon,
+            color: iconColor,
           ),
-        ),
+          Text(text),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.arrow_forward_ios,
+              color: NeedlincColors.blue2,
+            ),
+          )
+        ],
       ),
     );
   }
 }
 
+// Review list container
+Padding listReviewItems(String name, int rate, String review, int index) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+    child: AnimationConfiguration.staggeredList(
+      position: index,
+      delay: const Duration(milliseconds: 100),
+      child: SlideAnimation(
+        duration: const Duration(milliseconds: 2500),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: FadeInAnimation(
+          curve: Curves.fastLinearToSlowEaseIn,
+          duration: const Duration(milliseconds: 2500),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(182, 203, 226, 1.0),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: List.generate(
+                          rate,
+                          (index) => Icon(
+                            Icons.star,
+                            color: Colors.amber[300],
+                            size: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(review)
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 // Post list container
-Padding listPostItems(String? text, String? picture) {
+Padding listPostItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
     child: Container(
@@ -758,7 +844,7 @@ Padding listPostItems(String? text, String? picture) {
 }
 
 // market list container
-Padding listMarketPlaceItems(String? text, String? picture) {
+Padding listMarketPlaceItems(String? text, String? picture, int index) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
     child: Container(
@@ -790,6 +876,24 @@ Padding listMarketPlaceItems(String? text, String? picture) {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                TextButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.shopping_cart_outlined,
+                    color: NeedlincColors.white,
+                  ),
+                  label: const Text(
+                    'Buy',
+                    style: TextStyle(color: NeedlincColors.white),
+                  ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: NeedlincColors.blue1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
                 Row(
                   children: [
                     IconButton(
@@ -816,11 +920,6 @@ Padding listMarketPlaceItems(String? text, String? picture) {
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                ),
-                const SizedBox(width: 12),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.shopping_cart_outlined),
                 ),
                 const SizedBox(width: 12),
                 IconButton(
