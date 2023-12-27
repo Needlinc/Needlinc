@@ -9,7 +9,7 @@ class backGround extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 0.38,
+          height: 290,
           decoration: const BoxDecoration(
             color: NeedlincColors.blue3,
             borderRadius: BorderRadius.only(
@@ -19,7 +19,7 @@ class backGround extends StatelessWidget {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.36,
+          height: 270,
           decoration: const BoxDecoration(
             color: NeedlincColors.blue2,
             borderRadius: BorderRadius.only(
@@ -29,8 +29,8 @@ class backGround extends StatelessWidget {
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.34,
-          width: MediaQuery.of(context).size.width,
+          height: 250,
+          width: double.infinity,
           decoration: const BoxDecoration(
             color: NeedlincColors.blue1,
             borderRadius: BorderRadius.only(
