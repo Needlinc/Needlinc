@@ -11,11 +11,6 @@ class WelcomePage2 extends StatefulWidget {
 }
 
 class _WelcomePage2State extends State<WelcomePage2> {
-  final words = [
-    'NEEDLINC connects all FUTO students to freelancers or workers who are nearby',
-    'We provide a secure, safe and fast environment for both artisians and students'
-  ];
-
   bool showNext = false;
   double small = 15, big = 19;
   final activeColor = NeedlincColors.blue1, inactiveColor = NeedlincColors.grey;
@@ -57,24 +52,34 @@ class _WelcomePage2State extends State<WelcomePage2> {
                     height: 310,
                     padding: const EdgeInsets.only(left: 40, right: 40),
                     alignment: Alignment.center,
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        text: 'NEEDLINC ',
-                        style: TextStyle(
-                            fontSize: 23, color: NeedlincColors.white),
-                        children: [
-                          TextSpan(
-                            text:
-                                'connects all FUTO students to freelancers or workers who are nearby',
-                            style: TextStyle(
-                                fontSize: 23,
-                                color: NeedlincColors.white,
-                                fontFamily: 'Comfortaa-Regular'),
+                    child: !showNext
+                        ? RichText(
+                            textAlign: TextAlign.center,
+                            text: const TextSpan(
+                              text: 'NEEDLINC ',
+                              style: TextStyle(
+                                  fontSize: 23, color: NeedlincColors.white),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      'connects all FUTO students to freelancers or workers who are nearby',
+                                  style: TextStyle(
+                                      fontSize: 23,
+                                      color: NeedlincColors.white,
+                                      fontFamily: 'Comfortaa-Regular'),
+                                )
+                              ],
+                            ),
                           )
-                        ],
-                      ),
-                    ),
+                        : Text(
+                            'We provide a secure, safe and fast environment for both artisians and students',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 23,
+                              color: NeedlincColors.white,
+                              fontFamily: 'Comfortaa-Regular',
+                            ),
+                          ),
                   ),
                   const SizedBox(height: 135),
                 ],
@@ -91,11 +96,10 @@ class _WelcomePage2State extends State<WelcomePage2> {
                 ),
               ),
               // Next button
-              Visibility(
-                visible: showNext,
-                child: Container(
+              if (showNext)
+                Container(
                   alignment: Alignment.bottomRight,
-                  margin: const EdgeInsets.only(right: 20, top: 5),
+                  margin: const EdgeInsets.only(right: 20, top: 35),
                   child: ElevatedButton(
                     onPressed: () => Navigator.pushReplacement(
                         context,
@@ -117,10 +121,9 @@ class _WelcomePage2State extends State<WelcomePage2> {
                     ),
                   ),
                 ),
-              ),
               // Little circles below
               Container(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.fromLTRB(30, 5, 30, 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
