@@ -738,57 +738,62 @@ class _HomePageState extends State<HomePage> {
                     height: 160,
                     child: Row(
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          margin: const EdgeInsets.only(top: 50, bottom: 10,),
-                          decoration: BoxDecoration(
-                            color: NeedlincColors.black3,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  //TODO Profile Picture
-                                  GestureDetector(
-                                    onTap: ()
-                                    {
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(15.0),
-                                      margin: const EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            data['profilePicture'],
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
-                                        color: NeedlincColors.black3,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                  ),
-                                  //TODO Write a post
-                                  GestureDetector(
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            margin: const EdgeInsets.only(top: 50, bottom: 10,),
+                            decoration: BoxDecoration(
+                              color: NeedlincColors.black3,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    //TODO Profile Picture
+                                    GestureDetector(
                                       onTap: ()
                                       {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()),);
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
                                       },
-                                      child: const Padding(padding: EdgeInsets.all(8), child: Text("Write a post..."),))
-                                ],
-                              ),
-                              //TODO Select Gallary or Camera icon
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(width: 50.0,),
-                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
-                                ],
-                              )
-                            ],
+                                      child: Container(
+                                        padding: const EdgeInsets.all(15.0),
+                                        margin: const EdgeInsets.all(10.0),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              data['profilePicture'],
+                                            ),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          color: NeedlincColors.black3,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                    //TODO Write a post
+                                    InkWell(
+                                        onTap: ()
+                                        {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
+                                        },
+                                        child: const Padding(padding: EdgeInsets.all(8), child: Text("Write a post..."),))
+                                  ],
+                                ),
+                                //TODO Select Gallary or Camera icon
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(width: 50.0,),
+                                    IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                                    IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         //TODO (This is the News Icon close to the write a post page)

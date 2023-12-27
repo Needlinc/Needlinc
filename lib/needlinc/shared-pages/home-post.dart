@@ -45,6 +45,13 @@ class _HomePostPageState extends State<HomePostPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // imagePost = null;
+    // writeUp. = null;
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +64,7 @@ class _HomePostPageState extends State<HomePostPage> {
         actions: [
           Container(
             margin: const EdgeInsets.only(top: 15.0, right: 15.0),
-              child: Text("SAVE", style: GoogleFonts.spaceGrotesk(color: NeedlincColors.black1, decoration: TextDecoration.underline,),))
+              child: Text("", style: GoogleFonts.spaceGrotesk(color: NeedlincColors.black1, decoration: TextDecoration.underline,),))
         ],
         leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.cancel),
       ),
@@ -150,7 +157,6 @@ class _HomePostPageState extends State<HomePostPage> {
                       onChanged: (bool? newValue) {
                         setState(() {
                           freelancerOption = newValue!;
-                          print(freelancerOption);
                         });
                       },
                     ),
@@ -200,7 +206,6 @@ class _HomePostPageState extends State<HomePostPage> {
                             onSelected: (selected) {
                               setState(() {
                                 selectedOccupations = selected ? category : "";
-                                print('Selected Category: $selectedOccupations');
                               });
                             },
                             backgroundColor: selectedOccupations == category ? Colors.blue : null, // Set the background color to blue when selected
@@ -256,22 +261,39 @@ class _HomePostPageState extends State<HomePostPage> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    notLoading = false;
-                    setState(() {});
-                    if(imagePost != null) {
-                      notLoading = await UploadPost().homePagePostForImageAndWriteUp(context, imagePost,writeUp.text, selectedOccupations);
-                      Navigator.pop(context);
-                    }
-                    else if(imagePost != null && writeUp == null){
-                      notLoading = await UploadPost().homePagePostForImage(context, imagePost, selectedOccupations);
-                      Navigator.pop(context);
-                    }
-                    else if (imagePost == null){
-                      notLoading = await UploadPost().homePagePostForWriteUp(context, writeUp.text, selectedOccupations);
-                      Navigator.pop(context);
+                    if (imagePost == null && writeUp.text.isEmpty) {
+                        showSnackBar(context, "Empty fields");
+                        setState(() {
+                          notLoading = true;
+                        });
                     }
                     else{
-                      showSnackBar(context, "Empty fields");
+                        if (imagePost != null) {
+                          setState(() {
+                            notLoading = false;
+                          });
+                          notLoading =
+                          await UploadPost().homePagePostForImageAndWriteUp(
+                              context, imagePost, writeUp.text,
+                              selectedOccupations);
+                          Navigator.pop(context);
+                        }
+                        else if (imagePost != null && writeUp == null) {
+                          notLoading = await UploadPost().homePagePostForImage(
+                              context, imagePost, selectedOccupations);
+                          Navigator.pop(context);
+                        }
+                        else if (imagePost == null) {
+                          notLoading = await UploadPost().homePagePostForWriteUp(
+                              context, writeUp.text, selectedOccupations);
+                          Navigator.pop(context);
+                        }
+                        else {
+                          showSnackBar(context, "Empty fields");
+                          setState(() {
+                            notLoading = true;
+                          });
+                        }
                     }
                   },
                   style: ButtonStyle(

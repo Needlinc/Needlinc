@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -19,7 +17,6 @@ class UploadPost{
 
   Future<bool> homePagePostForImageAndWriteUp(context, image, String writeUp, String freelancerOption) async {
     try {
-      if(image != 'null' && writeUp != 'null'){
         // Use the provided uid for the user
         final User? user = _auth.currentUser;
 
@@ -53,8 +50,6 @@ class UploadPost{
           }
         });
         showSnackBar(context, 'Home page post successfully uploaded!');
-      }
-      showSnackBar(context, 'Empty post');
 
       return true;
     } catch (e) {
@@ -66,7 +61,6 @@ class UploadPost{
 
   Future<bool> homePagePostForImage(context, image, String freelancerOption) async {
     try {
-      if(image == 'null'){
         // Use the provided uid for the user
         final User? user = _auth.currentUser;
 
@@ -100,8 +94,7 @@ class UploadPost{
           }
         });
         showSnackBar(context, 'Home page post successfully uploaded!');
-      }
-      showSnackBar(context, 'empty post');
+
       return true;
     } catch (e) {
       showSnackBar(context, 'Error uploading post to homepage $e');
@@ -114,7 +107,6 @@ class UploadPost{
 
   Future<bool> homePagePostForWriteUp(context, String writeUp, String freelancerOption) async {
     try {
-      if(writeUp == 'null'){
         // Use the provided uid for the user
         final User? user = _auth.currentUser;
 
@@ -141,18 +133,12 @@ class UploadPost{
           }
         });
         showSnackBar(context, 'Home page post successfully uploaded!');
-      }
-      showSnackBar(context, 'empty post');
       return true;
     } catch (e) {
       showSnackBar(context, 'Error uploading post to homepage $e');
     }
     return true;
   }
-
-
-
-
 
 
 
@@ -303,10 +289,6 @@ class UploadPost{
     }
     return true;
   }
-
-
-
-
 
 
 }
