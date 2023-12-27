@@ -119,8 +119,8 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
       ),
     ),
       body: notLoading ? SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(
-          height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
             children: [

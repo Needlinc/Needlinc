@@ -505,7 +505,7 @@ class _HomePageState extends State<HomePage> {
                     return displayHomePosts(
                       context: context,
                       userName: userDetails['userName'],
-                      userId: userDetails['userId'],
+                      userId: FirebaseAuth.instance.currentUser!.uid,
                       address: userDetails['address'],
                       userCategory: userDetails['userCategory'],
                       profilePicture: userDetails['profilePicture'],
