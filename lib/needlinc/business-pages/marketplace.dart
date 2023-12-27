@@ -327,7 +327,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                           image: NetworkImage(
                                             userDetails["profilePicture"],
                                           ),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                         ),
                                         color: NeedlincColors.black3,
                                         shape: BoxShape.circle,
@@ -410,7 +410,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     image: NetworkImage(
                                       productDetails["image"],
                                     ),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                   color: NeedlincColors.black3,
                                   shape: BoxShape.rectangle,

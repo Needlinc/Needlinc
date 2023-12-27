@@ -471,7 +471,7 @@ class _CommentsPageState extends State<CommentsPage> {
                     IconButton(onPressed: () {
                       likeAndUnlike();
                     },
-                        icon: heartList.contains(userDetails!['userId']) ?
+                        icon: heartList.contains(FirebaseAuth.instance.currentUser!.uid) ?
                         Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)
@@ -588,7 +588,7 @@ class _CommentsPageState extends State<CommentsPage> {
                     IconButton(onPressed: () {
                       likeAndUnlike();
                     },
-                        icon: heartList.contains(userDetails!['userId']) ?
+                        icon: heartList.contains(FirebaseAuth.instance.currentUser!.uid) ?
                         Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)

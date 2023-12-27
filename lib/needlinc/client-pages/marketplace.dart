@@ -349,7 +349,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                           image: NetworkImage(
                                             userDetails["profilePicture"],
                                           ),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                         ),
                                         color: NeedlincColors.black3,
                                         shape: BoxShape.circle,
@@ -433,7 +433,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     image: NetworkImage(
                                       productDetails["image"],
                                     ),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                   color: NeedlincColors.black3,
                                   shape: BoxShape.rectangle,
@@ -449,7 +449,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                           onPressed: () {
                                             UploadPost().uploadHearts(context: context, sourceOption: 'marketPlacePage', id: productDetails['productId']);
                                           },
-                                          icon: productDetails['hearts'].contains(userDetails['userId']) ?
+                                          icon: productDetails['hearts'].contains(FirebaseAuth.instance.currentUser!.uid) ?
                                           Icon(
                                             Icons.favorite, size: 22,
                                             color: NeedlincColors.red,)
