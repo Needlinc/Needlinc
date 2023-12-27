@@ -109,10 +109,11 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
               alignment: Alignment.topLeft,
               child: Text(
-                writeUp,
-                style: const TextStyle(
-                    fontSize: 20
-                ),
+                  writeUp.length >= 123 ?
+                  writeUp.substring(0, 123)
+                      :
+                  writeUp,
+                  style: const TextStyle(fontSize: 18)
               ),
             ),
             InkWell(
@@ -389,10 +390,11 @@ class _HomePageState extends State<HomePage> {
               margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
               alignment: Alignment.topLeft,
               child: Text(
-                writeUp,
-                style: const TextStyle(
-                    fontSize: 20
-                ),
+                  writeUp.length >= 123 ?
+                  writeUp.substring(0, 123)
+                      :
+                  writeUp,
+                  style: const TextStyle(fontSize: 18)
               ),
             ),
             Row(

@@ -114,7 +114,9 @@ Future<void> userCategory({
 
 Future<String> uploadImageToFirebase(Uint8List imageBytes) async {
   try {
-    final Reference storageRef = FirebaseStorage.instance.ref().child('profilePictures/${FirebaseAuth.instance.currentUser!.uid}/${await getUserData('fullname')}.jpg');
+    String? userName;
+     userName = await getUserData('userName');
+    final Reference storageRef = FirebaseStorage.instance.ref().child('profilePictures/${FirebaseAuth.instance.currentUser!.uid}/${userName}.jpg');
     final UploadTask uploadTask = storageRef.putData(imageBytes);
 
     await uploadTask;

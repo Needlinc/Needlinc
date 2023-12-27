@@ -394,8 +394,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                 alignment: Alignment.topLeft,
                                 margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
                                 child: Text(
-                                    productDetails['description'].length >= 100 ?
-                                    productDetails['description'].substring(0, 100)
+                                    productDetails['description'].length >= 123 ?
+                                    productDetails['description'].substring(0, 123)
                                         :
                                     productDetails['description'],
                                     style: const TextStyle(fontSize: 18)),

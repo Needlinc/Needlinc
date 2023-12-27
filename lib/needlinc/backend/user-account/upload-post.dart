@@ -22,7 +22,7 @@ class UploadPost{
 
       final String randomUrl = randomAlphaNumeric(16);
 
-      final Reference storageRef = _firebaseStorage.ref().child('homePage/$randomUrl');
+      final Reference storageRef = _firebaseStorage.ref().child('homePage/${user!.uid}/$randomUrl');
       final UploadTask uploadTask = storageRef.putData(image);
 
       await uploadTask;
@@ -65,7 +65,7 @@ class UploadPost{
 
       final String randomUrl = randomAlphaNumeric(16);
 
-      final Reference storageRef = _firebaseStorage.ref().child('homePage/$randomUrl');
+      final Reference storageRef = _firebaseStorage.ref().child('homePage/${user!.uid}/$randomUrl');
       final UploadTask uploadTask = storageRef.putData(image);
 
       await uploadTask;
@@ -159,7 +159,7 @@ class UploadPost{
 
       final String randomUrl = randomAlphaNumeric(16);
 
-      final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/$randomUrl');
+      final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/${user!.uid}/$randomUrl');
       final UploadTask uploadTask = storageRef.putData(image);
 
       await uploadTask;
