@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/product-details.dart';
+import '../backend/user-account/upload-post.dart';
 import '../shared-pages/market-place-post.dart';
 import 'package:needlinc/needlinc/business-pages/business-main.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
@@ -422,9 +423,18 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                   Row(
                                     children: [
                                       IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.favorite_border, size: 22)),
-                                      Text("${productDetails['hearts']}", style: const TextStyle(fontSize: 15))
+                                          onPressed: () {
+                                            UploadPost().uploadHearts(context: context, sourceOption: 'marketPlacePage', id: productDetails['productId']);
+                                          },
+                                          icon: productDetails['hearts'].contains(userDetails['userId']) ?
+                                          Icon(
+                                            Icons.favorite, size: 22,
+                                            color: NeedlincColors.red,)
+                                              :
+                                          Icon(
+                                            Icons.favorite_border, size: 22,)
+                                      ),
+                                      Text("${productDetails['hearts'].length}", style: const TextStyle(fontSize: 15))
                                     ],
                                   ),
                                   const SizedBox(

@@ -57,7 +57,8 @@ class ProductDetailsPage extends StatelessWidget {
                         "₦ ${productDetails!['price']}",
                         style: const TextStyle(
                             fontSize: 18,
-                            color: Colors.green
+                            decoration: TextDecoration.none,
+                            color: NeedlincColors.black1
                         )),
                   ),
                   SizedBox(
@@ -69,7 +70,7 @@ class ProductDetailsPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.blue, // Set the background color
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10), // Set the border radius
                       ),

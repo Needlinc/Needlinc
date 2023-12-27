@@ -43,7 +43,7 @@ class UploadPost{
           'image': imageUrl,
           'writeUp': writeUp,
           'freelancerOption': freelancerOption ?? "null",
-          'hearts': 0,
+          'hearts': [],
           'comments': [],
           'postId': randomUrl,
           'timeStamp': millisecondsSinceEpoch
@@ -86,7 +86,7 @@ class UploadPost{
           'image': imageUrl,
           'writeUp': "null",
           'freelancerOption': freelancerOption ?? "null",
-          'hearts': 0,
+          'hearts': [],
           'comments': [],
           'postId': randomUrl,
           'timeStamp': millisecondsSinceEpoch
@@ -125,7 +125,7 @@ class UploadPost{
           'writeUp': writeUp,
           'freelancerOption': freelancerOption ?? "null",
           'postId': randomUrl,
-          'hearts': 0,
+          'hearts': [],
           'comments': [],
           'timeStamp': millisecondsSinceEpoch
         }
@@ -182,7 +182,7 @@ class UploadPost{
           'description': description,
           'price': price,
           'category': category,
-          'hearts': 0,
+          'hearts': [],
           'comments': [],
           'productId': randomUrl,
           'timeStamp': millisecondsSinceEpoch
@@ -212,7 +212,7 @@ class UploadPost{
         'userId': user!.uid,
         'message': message,
         'timeStamp': millisecondsSinceEpoch,
-        'hearts': 0,
+        'commentHearts': [],
       };
 
       // Step 1: Retrieve the current data
@@ -220,7 +220,6 @@ class UploadPost{
           .collection(sourceOption)
           .doc(id)
           .get();
-      print("${await documentSnapshot}");
       // Step 2: Modify the 'comments' array within 'postDetails'
       Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
 
@@ -246,6 +245,54 @@ class UploadPost{
     }
     return true;
   }
+
+
+
+  Future<dynamic> uploadHearts(
+      {required BuildContext context, required String sourceOption, required String id}) async {
+    try {
+
+      // Step 1: Retrieve the current data
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection(sourceOption)
+          .doc(id)
+          .get();
+      // Step 2: Modify the 'comments' array within 'postDetails'
+      Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
+
+      Map<String, dynamic> postDetails = sourceOption == 'homePage' ?
+      data['postDetails'] as Map<String, dynamic>? ?? {}
+          :
+      data['productDetails'] as Map<String, dynamic>? ?? {};
+
+      List<dynamic> currentArray = (postDetails['hearts'] as List<dynamic>) ?? [];
+
+
+      if (currentArray.contains(_auth.currentUser!.uid)) {
+        // If the name is found, remove it from the set
+        currentArray.remove(_auth.currentUser!.uid);
+
+      } else {
+        // If the name is not found, add it to the set
+        currentArray.add(_auth.currentUser!.uid);
+
+      }
+
+      postDetails['hearts'] = currentArray;
+
+      // Step 3: Update Firestore with the modified data
+      sourceOption == 'homePage' ?
+      await FirebaseFirestore.instance.collection(sourceOption).doc(id).update({'postDetails': postDetails})
+          :
+      await FirebaseFirestore.instance.collection(sourceOption).doc(id).update({'productDetails': postDetails});
+
+    } catch (e) {
+      showSnackBar(context, 'Error');
+    }
+    return true;
+  }
+
+
 
 
 

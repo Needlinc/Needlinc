@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
@@ -18,12 +20,118 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
 
-  Map<String, dynamic>? userDetails;
-  Map<String, dynamic>? postDetails;
+  Map<String, dynamic>? userDetails, postDetails;
+  List? hearts;
   String? image, profilePicture, writeUp, userName, userCategory, address, id, sourceOption;
-  int? hearts, commentCount;
+  int? commentCount;
   TextEditingController commentController = TextEditingController();
-  bool isNotLoading = true;
+  List heartList = [];
+  List commentHeartList = [];
+  List commentList = [];
+  bool commentHeartTap = false;
+  bool longPressComment = false;
+
+  likeAndUnlike() async {
+    try {
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+
+      // Step 1: Retrieve the current data
+
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection(sourceOption!)
+          .doc(id)
+          .get();
+      // Step 2: Modify the 'comments' array within 'postDetails'
+      Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
+
+      Map<String, dynamic> postDetails = sourceOption == 'homePage' ?
+      data['postDetails'] as Map<String, dynamic>? ?? {}
+          :
+      data['productDetails'] as Map<String, dynamic>? ?? {};
+
+      List<dynamic> currentArray = (postDetails['hearts'] as List<dynamic>) ?? [];
+
+
+      if (currentArray.contains(_auth.currentUser!.uid)) {
+        // If the name is found, remove it from the set
+        currentArray.remove(_auth.currentUser!.uid);
+
+      } else {
+        // If the name is not found, add it to the set
+        currentArray.add(_auth.currentUser!.uid);
+      }
+
+      setState(() {
+        heartList = currentArray;
+      });
+
+      postDetails['hearts'] = currentArray;
+
+      // Step 3: Update Firestore with the modified data
+      sourceOption == 'homePage' ?
+      await FirebaseFirestore.instance.collection(sourceOption!).doc(id).update({'postDetails': postDetails})
+          :
+      await FirebaseFirestore.instance.collection(sourceOption!).doc(id).update({'productDetails': postDetails});
+
+    } catch (e) {
+      showSnackBar(context, 'Error');
+    }
+    return true;
+  }
+
+
+
+  commentLikeAndUnlike(int index) async {
+    try {
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+
+      // Step 1: Retrieve the current data
+
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection(sourceOption!)
+          .doc(id)
+          .get();
+      // Step 2: Modify the 'comments' array within 'postDetails'
+      Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
+
+      Map<String, dynamic> postDetails = sourceOption == 'homePage' ?
+      data['postDetails'] as Map<String, dynamic>? ?? {}
+          :
+      data['productDetails'] as Map<String, dynamic>? ?? {};
+
+      List<dynamic> commentsArray = (postDetails['comments'] as List<dynamic>) ?? [];
+      List<dynamic> commentHeartsArray = commentsArray[index]['commentHearts'];
+
+      if (commentHeartsArray.contains(_auth.currentUser!.uid)) {
+        // If the name is found, remove it from the set
+        commentHeartsArray.remove(_auth.currentUser!.uid);
+
+      } else {
+        // If the name is not found, add it to the set
+        commentHeartsArray.add(_auth.currentUser!.uid);
+      }
+
+      setState(() {
+        commentHeartList = commentsArray;
+      });
+
+      commentHeartTap = true;
+
+      commentsArray[index]['commentHearts'] = commentHeartsArray;
+      postDetails['comments'] = commentsArray;
+
+      // Step 3: Update Firestore with the modified data
+      sourceOption == 'homePage' ?
+      await FirebaseFirestore.instance.collection(sourceOption!).doc(id).update({'postDetails': postDetails})
+          :
+      await FirebaseFirestore.instance.collection(sourceOption!).doc(id).update({'productDetails': postDetails});
+
+    } catch (e) {
+      showSnackBar(context, 'Error');
+    }
+    return true;
+  }
+
 
 
 
@@ -32,10 +140,6 @@ class _CommentsPageState extends State<CommentsPage> {
       showSnackBar(context, "Empty");
     }
     else {
-      setState(() {
-        isNotLoading = false;
-      });
-
       DateTime now = DateTime.now();
       int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
 
@@ -48,19 +152,64 @@ class _CommentsPageState extends State<CommentsPage> {
         'userId': await getUserData('userId'),
         'message': comment,
         'timeStamp': millisecondsSinceEpoch,
-        'hearts': 0,
+        'commentHearts': [],
       };
 
-      postDetails!['comments'].add(commentDetails);
-      commentCount = postDetails!['comments'].length;
+      setState(() {
+        commentList.add(commentDetails);
+        commentCount = commentList.length;
+      });
+
 
       await UploadPost().uploadComments(
           context: context, message: comment, sourceOption: sourceOption, id: id);
       setState(() {
         commentController.text = '';
-        isNotLoading = true;
       });
     }
+  }
+
+
+
+  deleteCommentMessageFromServer({required BuildContext context, required int index}) async {
+
+    try {
+      // Step 1: Retrieve the current data
+
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection(sourceOption!)
+          .doc(id)
+          .get();
+      // Step 2: Modify the 'comments' array within 'postDetails'
+      Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
+
+      Map<String, dynamic> postDetails = sourceOption == 'homePage' ?
+      data['postDetails'] as Map<String, dynamic>? ?? {}
+          :
+      data['productDetails'] as Map<String, dynamic>? ?? {};
+
+      List<dynamic> currentArray = (postDetails['comments'] as List<dynamic>) ?? [];
+
+      setState(() {
+        currentArray.removeAt(index);
+      });
+
+      setState(() {
+        commentList = currentArray;
+        commentCount = commentList.length;
+      });
+
+      // Step 3: Update Firestore with the modified data
+      sourceOption == 'homePage' ?
+      await FirebaseFirestore.instance.collection(sourceOption!).doc(id).update({'postDetails': postDetails})
+          :
+      await FirebaseFirestore.instance.collection(sourceOption!).doc(id).update({'productDetails': postDetails});
+      showSnackBar(context, "Deleted");
+
+    } catch (e) {
+      showSnackBar(context, 'Error');
+    }
+
   }
 
   @override
@@ -76,8 +225,10 @@ class _CommentsPageState extends State<CommentsPage> {
     image = postDetails!['image'];
     writeUp = sourceOption == 'homePage' ? postDetails!['writeUp'] : postDetails!['description'];
     commentCount = postDetails!['comments'].length;
+    commentList = postDetails!['comments'];
     id = sourceOption == 'homePage' ? postDetails!['postId'] : postDetails!['productId'];
     hearts = postDetails!['hearts'];
+    heartList = hearts!;
 
     // TODO: implement initState
     super.initState();
@@ -185,14 +336,18 @@ class _CommentsPageState extends State<CommentsPage> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: hearts == 0 ? Icon(
-                          Icons.favorite_border, size: 22,)
-                            : Icon(
+                    IconButton(onPressed: () {
+                      likeAndUnlike();
+                    },
+                        icon: heartList.contains(FirebaseAuth.instance.currentUser!.uid) ?
+                        Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)
+                            :
+                        Icon(
+                          Icons.favorite_border, size: 22,)
                     ),
-                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                    Text("${heartList.length}", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -313,14 +468,18 @@ class _CommentsPageState extends State<CommentsPage> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: hearts == 0 ? Icon(
-                          Icons.favorite_border, size: 22,)
-                            : Icon(
+                    IconButton(onPressed: () {
+                      likeAndUnlike();
+                    },
+                        icon: heartList.contains(userDetails!['userId']) ?
+                        Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)
+                            :
+                        Icon(
+                          Icons.favorite_border, size: 22,)
                     ),
-                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                    Text("${heartList.length}", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -426,14 +585,18 @@ class _CommentsPageState extends State<CommentsPage> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: hearts == 0 ? Icon(
-                          Icons.favorite_border, size: 22,)
-                            : Icon(
+                    IconButton(onPressed: () {
+                      likeAndUnlike();
+                    },
+                        icon: heartList.contains(userDetails!['userId']) ?
+                        Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)
+                            :
+                        Icon(
+                          Icons.favorite_border, size: 22,)
                     ),
-                    Text('$hearts', style: const TextStyle(fontSize: 15))
+                    Text("${heartList.length}", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -463,6 +626,8 @@ class _CommentsPageState extends State<CommentsPage> {
     return Center(child: CircularProgressIndicator(),);
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -472,8 +637,7 @@ class _CommentsPageState extends State<CommentsPage> {
           margin: const EdgeInsets.symmetric(vertical: 10),
           padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
           color: NeedlincColors.white,
-          child: isNotLoading ?
-          Container(
+          child: Container(
             margin: EdgeInsets.only(bottom: 35),
             child: ListView(
               physics: BouncingScrollPhysics(),
@@ -525,97 +689,122 @@ class _CommentsPageState extends State<CommentsPage> {
                   ],
                 ),
                 //TODO Individual comment
-                  postDetails!['comments'].length != 0 ?
-                  Column(
-                    children: [
-                      for(int index = postDetails!['comments'].length -1; index >= 0; index--)
-                      Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: (){
-                                  //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(17),
-                                  margin: const EdgeInsets.all(10),
-                                  decoration:  BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        "${postDetails!['comments'][index]['profilePicture']}",
-                                      ),
-                                      fit: BoxFit.cover,
+                commentList.length != 0 ?
+                Column(
+                  children: [
+                    for(int index = commentList.length -1; index >= 0; index--)
+                      InkWell(
+                        onLongPress: (){
+                          deleteCommentMessageFromServer(context: context, index: index);
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                //    Navigator.push(context, MaterialPageRoute(builder: (context) => NeedlincMainPage(currentPage: 4)));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(17),
+                                margin: const EdgeInsets.all(10),
+                                decoration:  BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      "${commentList[index]['profilePicture']}",
                                     ),
-                                    color: NeedlincColors.black3,
-                                    shape: BoxShape.circle,
+                                    fit: BoxFit.cover,
                                   ),
+                                  color: NeedlincColors.black3,
+                                  shape: BoxShape.circle,
                                 ),
                               ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("${commentList[index]['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                            Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                                            IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
+                                          ],
+                                        ),
+                                        Text("~${commentList[index]['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                                        Text("📍${commentList[index]['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
+                                    child: Text("${commentList[index]['message']}", style: TextStyle(fontSize: 13),),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                                margin: const EdgeInsets.only(top: 50.0, right: 5.0),
+                                child: commentHeartTap ?
+                                Row(
                                   children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width * 0.75,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("${postDetails!['comments'][index]['userName']}", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                                              Text("🟢 Now", style: TextStyle(fontSize: 9)),
-                                              IconButton(onPressed: (){}, icon: const Icon(Icons.more_horiz))
-                                            ],
-                                          ),
-                                          Text("~${postDetails!['comments'][index]['userCategory']}", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                                          Text("📍${postDetails!['comments'][index]['address']}", style: TextStyle(fontSize: 12, color: NeedlincColors.black2))
-                                        ],
-                                      ),
+                                    IconButton(onPressed: () {
+                                      commentLikeAndUnlike(index);
+
+                                    },
+                                        icon:  commentHeartList[index]['commentHearts'].contains(FirebaseAuth.instance.currentUser!.uid) ?
+                                        Icon(
+                                          Icons.favorite, size: 22,
+                                          color: NeedlincColors.red,)
+                                            :
+                                        Icon(
+                                          Icons.favorite_border, size: 22,)
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 5.0, bottom: 15.0),
-                                      child: Text("${postDetails!['comments'][index]['message']}", style: TextStyle(fontSize: 13),),
-                                    ),
+                                    Text("${commentHeartList[index]['commentHearts'].length}", style: const TextStyle(fontSize: 15))
                                   ],
-                                ),
-                              ),
-                              Container(
-                                  margin: const EdgeInsets.only(top: 50.0, right: 5.0),
-                                  child: Row(
-                                    children: [
-                                      IconButton(onPressed: () {},
-                                          icon:  Icon(
-                                            postDetails!['comments'][index]['hearts'] == 0 ?
-                                            Icons.favorite_border
-                                                :
-                                            Icons.favorite, size: 22, color: NeedlincColors.red,)),
-                                      Text("${postDetails!['comments'][index]['hearts']}", style: const TextStyle(fontSize: 15))
-                                    ],
-                                  )
-                              ),
-                            ],
-                       ),
-                    ],
-                  )
-                      :
-                      Center(
-                        child: Container(
-                          child: Text(
-                            'Be the first to comment',
-                                style: TextStyle(
-                                  fontSize: 20,
-                            )
+                                )
+                                    :
+                                Row(
+                                  children: [
+                                    IconButton(onPressed: () {
+                                      commentLikeAndUnlike(index);
+                                    },
+                                        icon:  commentList[index]['commentHearts'].contains(FirebaseAuth.instance.currentUser!.uid) ?
+                                        Icon(
+                                          Icons.favorite, size: 22,
+                                          color: NeedlincColors.red,)
+                                            :
+                                        Icon(
+                                          Icons.favorite_border, size: 22,)
+                                    ),
+                                    Text("${commentList[index]['commentHearts'].length}", style: const TextStyle(fontSize: 15))
+                                  ],
+                                )
+                            ),
+                          ],
                         ),
+                      ),
+                  ],
+                )
+                    :
+                Center(
+                  child: Container(
+                    child: Text(
+                        'Be the first to comment',
+                        style: TextStyle(
+                          fontSize: 20,
+                        )
                     ),
-                 ),
+                  ),
+                ),
               ],
             ),
-          )
-              :
-              Center(
-                child: CircularProgressIndicator(),
-              )
+          ),
         ),
       ),
     );

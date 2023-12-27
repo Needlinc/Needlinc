@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/shared-pages/messages.dart';
 import '../shared-pages/auth-pages/welcome.dart';
@@ -26,15 +27,18 @@ class _HomePageState extends State<HomePage> {
   Widget displayHomePosts({
     required BuildContext context,
     required String userName,
+    required String userId,
     required String address,
     required String userCategory,
     required String profilePicture,
     required String image,
     required String writeUp,
-    required int hearts,
+    required List heartsId,
+    required int heartCount,
     required int commentCount,
     required Map<String, dynamic> post,
-    required int timeStamp
+    required int timeStamp,
+    required String postId
   }){
     if(image != "null" && writeUp != "null"){
       return Container(
@@ -141,14 +145,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: hearts == 0 ? Icon(
-                          Icons.favorite_border, size: 22,)
-                            : Icon(
-                          Icons.favorite, size: 22,
-                        color: NeedlincColors.red,)
+                    IconButton(onPressed: () {
+                      UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
+                    },
+                        icon: heartsId.contains(userId) ?
+                          Icon(
+                            Icons.favorite, size: 22,
+                            color: NeedlincColors.red,)
+                            :
+                          Icon(
+                            Icons.favorite_border, size: 22,)
                     ),
-                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                    Text("$heartCount", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -272,14 +280,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: hearts == 0 ? Icon(
-                          Icons.favorite_border, size: 22,)
-                    : Icon(
+                    IconButton(onPressed: () {
+                      UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
+                    },
+                        icon: heartsId.contains(userId) ?
+                        Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)
+                            :
+                        Icon(
+                          Icons.favorite_border, size: 22,)
                     ),
-                    Text("$hearts", style: const TextStyle(fontSize: 15))
+                    Text("$heartCount", style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -386,14 +398,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                   children: [
-                    IconButton(onPressed: () {},
-                        icon: hearts == 0 ? Icon(
-                          Icons.favorite_border, size: 22,)
-                            : Icon(
+                    IconButton(onPressed: () {
+                      UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
+                    },
+                        icon: heartsId.contains(userId) ?
+                        Icon(
                           Icons.favorite, size: 22,
                           color: NeedlincColors.red,)
+                            :
+                        Icon(
+                          Icons.favorite_border, size: 22,)
                     ),
-                    Text('$hearts', style: const TextStyle(fontSize: 15))
+                    Text('$heartCount', style: const TextStyle(fontSize: 15))
                   ],
                 ),
                 const SizedBox(width: 10.0,),
@@ -464,14 +480,17 @@ class _HomePageState extends State<HomePage> {
                   return displayHomePosts(
                     context: context,
                     userName: userDetails['userName'],
+                    userId: userDetails['userId'],
                     address: userDetails['address'],
                     userCategory: userDetails['userCategory'],
                     profilePicture: userDetails['profilePicture'],
                     image: postDetails['image'],
                     writeUp: postDetails['writeUp'],
-                    hearts: postDetails['hearts'],
+                    heartCount: postDetails['hearts'].length,
+                    heartsId: postDetails['hearts'],
                     commentCount: postDetails['comments'].length,
                     post: data,
+                    postId: postDetails['postId'],
                     timeStamp: postDetails['timeStamp'],
                   );
                 },
