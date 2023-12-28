@@ -36,11 +36,21 @@ class _WelcomePage2State extends State<WelcomePage2> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: InkWell(
-          onTap: (){
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => const SignupPage()));
-          },
+        child: Builder(
+            builder: (BuildContext context) {
+              return GestureDetector(
+                onHorizontalDragEnd: (DragEndDetails details) {
+                  if (details.primaryVelocity! < 0) {
+                    setState(() {
+                      showNext = true;
+                    });
+                    // Swiped to the right
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const SignupPage()),
+                    // );
+                  }
+                },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -138,8 +148,10 @@ class _WelcomePage2State extends State<WelcomePage2> {
               ),
             ],
           ),
-        ),
+        );
+       }
       ),
+     ),
     );
   }
 }
