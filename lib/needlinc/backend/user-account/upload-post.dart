@@ -98,7 +98,6 @@ class UploadPost{
       return true;
     } catch (e) {
       showSnackBar(context, 'Error uploading post to homepage $e');
-      print("$e");
     }
     return true;
   }

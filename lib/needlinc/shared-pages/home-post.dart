@@ -44,13 +44,8 @@ class _HomePostPageState extends State<HomePostPage> {
     }
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    // imagePost = null;
-    // writeUp. = null;
-    super.initState();
-  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
