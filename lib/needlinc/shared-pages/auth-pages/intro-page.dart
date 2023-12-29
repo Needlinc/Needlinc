@@ -11,22 +11,17 @@ class WelcomePage2 extends StatefulWidget {
 }
 
 class _WelcomePage2State extends State<WelcomePage2> {
-  final words = [
-    'NEEDLINC connects all FUTO students to freelancers or workers who are nearby',
-    'We provide a secure, safe and fast environment for both artisians and students'
-  ];
-
   bool showNext = false;
   double small = 15, big = 19;
   final activeColor = NeedlincColors.blue1, inactiveColor = NeedlincColors.grey;
 
-  void _ShowNext() {
+  void _showNext() {
     setState(() {
       showNext = true;
     });
   }
 
-  void _HideNext() {
+  void _hideNext() {
     setState(() {
       showNext = false;
     });
@@ -35,22 +30,17 @@ class _WelcomePage2State extends State<WelcomePage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Builder(
-            builder: (BuildContext context) {
-              return GestureDetector(
-                onHorizontalDragEnd: (DragEndDetails details) {
-                  if (details.primaryVelocity! < 0) {
-                    setState(() {
-                      showNext = true;
-                    });
-                    // Swiped to the right
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => const SignupPage()),
-                    // );
-                  }
-                },
+      backgroundColor: NeedlincColors.white,
+      body: SafeArea(
+        child: GestureDetector(
+          onHorizontalDragEnd: (details) {
+            // Check if the user swiped left or right
+            if (details.primaryVelocity! > 0) {
+              _hideNext();
+            } else {
+              _showNext();
+            }
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -59,40 +49,62 @@ class _WelcomePage2State extends State<WelcomePage2> {
                 children: [
                   const backGround(),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.34,
-                    width: MediaQuery.of(context).size.width,
+                    height: 310,
                     padding: const EdgeInsets.only(left: 40, right: 40),
                     alignment: Alignment.center,
-                    child: Text(
-                      showNext ? words.last : words.first,
-                      style: const TextStyle(fontSize: 20, color: NeedlincColors.white),
-                      textAlign: TextAlign.center,
-                    ),
+                    child: !showNext
+                        ? RichText(
+                            textAlign: TextAlign.center,
+                            text: const TextSpan(
+                              text: 'NEEDLINC ',
+                              style: TextStyle(
+                                  fontSize: 23, color: NeedlincColors.white),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      'connects all FUTO students to freelancers or workers who are nearby',
+                                  style: TextStyle(
+                                      fontSize: 23,
+                                      color: NeedlincColors.white,
+                                      fontFamily: 'Comfortaa-Regular'),
+                                )
+                              ],
+                            ),
+                          )
+                        : Text(
+                            'We provide a secure, safe and fast environment for both artisians and students',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 23,
+                              color: NeedlincColors.white,
+                              fontFamily: 'Comfortaa-Regular',
+                            ),
+                          ),
                   ),
                   const SizedBox(height: 135),
                 ],
               ),
               // NeedLinc image
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.37,
-                margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                width: double.infinity,
+                height: 350,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/1.png"),
+                    image: AssetImage("assets/logo.png"),
                   ),
                 ),
               ),
               // Next button
-              Visibility(
-                visible: showNext,
-                child: Container(
+              if (showNext)
+                Container(
                   alignment: Alignment.bottomRight,
-                  margin: const EdgeInsets.only(right: 20, top: 60),
+                  margin: const EdgeInsets.only(right: 20, top: 35),
                   child: ElevatedButton(
-                    onPressed: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => const SignupPage())),
+                    onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignupPage())),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -109,17 +121,14 @@ class _WelcomePage2State extends State<WelcomePage2> {
                     ),
                   ),
                 ),
-              ),
               // Little circles below
               Container(
-                padding: const EdgeInsets.all(30.0),
-                height:
-                    showNext ? null : MediaQuery.of(context).size.height * 0.37,
+                padding: const EdgeInsets.fromLTRB(30, 5, 30, 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: _HideNext,
+                      onTap: _hideNext,
                       child: Container(
                         width: showNext ? small : big,
                         height: showNext ? small : big,
@@ -132,7 +141,7 @@ class _WelcomePage2State extends State<WelcomePage2> {
                     ),
                     const SizedBox(width: 4.0),
                     GestureDetector(
-                      onTap: _ShowNext,
+                      onTap: _showNext,
                       child: Container(
                         width: showNext ? big : small,
                         height: showNext ? big : small,
@@ -148,10 +157,8 @@ class _WelcomePage2State extends State<WelcomePage2> {
               ),
             ],
           ),
-        );
-       }
+        ),
       ),
-     ),
     );
   }
 }
