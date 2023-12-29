@@ -6,7 +6,7 @@ import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 import 'package:needlinc/needlinc/shared-pages/home-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/client-pages/client-main.dart';
-import 'package:needlinc/needlinc/shared-pages/messages.dart';
+import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 import '../backend/user-account/upload-post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
@@ -712,7 +712,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 //TODO Chat messaging feature(Already implemented UI)
                 Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Message()),);
+                  context, MaterialPageRoute(builder: (context) => Message()),);
               },
             ),
             ]

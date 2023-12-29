@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
-import 'package:needlinc/needlinc/shared-pages/messages.dart';
+import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 import '../shared-pages/auth-pages/welcome.dart';
 import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
@@ -679,7 +679,7 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.message),
                     onPressed: (){
                       //TODO Chat messaging feature(Already implemented message UI)
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const Message()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
                     },
                   ),
                 ],
