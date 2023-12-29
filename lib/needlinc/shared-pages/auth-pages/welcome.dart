@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome2.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/intro-page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -53,7 +53,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 });
               },
             ),
-            SizedBox(height: 65),
+            const SizedBox(height: 65),
             Container(
               width: double.infinity,
               height: 350,
@@ -64,10 +64,10 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 65),
+            const SizedBox(height: 65),
             if (shouldStartSecondAnimation)
               AnimatedTextKit(
-                pause: Duration(milliseconds: 500),
+                pause: const Duration(milliseconds: 500),
                 animatedTexts: [
                   TypewriterAnimatedText(
                     'Search, Seek, Find',

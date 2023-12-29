@@ -119,8 +119,8 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
       ),
     ),
       body: notLoading ? SingleChildScrollView(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(
-          height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
             children: [
@@ -145,7 +145,7 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
                       _selectFile(context, true);
                     },
                     child: Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.35,
                       padding: const EdgeInsets.all(100),
                       margin: const EdgeInsets.symmetric(horizontal: 4.0),
                       decoration: BoxDecoration(
