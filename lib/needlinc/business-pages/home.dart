@@ -2,12 +2,14 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
-import 'package:needlinc/needlinc/shared-pages/messages.dart';
+import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 import '../shared-pages/auth-pages/welcome.dart';
 import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/news.dart';
+import '../widgets/image-viewer.dart';
 import '../widgets/page-transition.dart';
 import 'business-main.dart';
 
@@ -21,372 +23,441 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
 
-  CollectionReference homePage = FirebaseFirestore.instance.collection('homePage');
-
 // Get The post data from the HomePost widget and send it to the screen for users to view
   Widget displayHomePosts({
     required BuildContext context,
     required String userName,
+    required String userId,
     required String address,
     required String userCategory,
     required String profilePicture,
     required String image,
     required String writeUp,
-    required double hearts,
-    required List comments,
-    required int timeStamp
+    required List heartsId,
+    required int heartCount,
+    required int commentCount,
+    required Map<String, dynamic> post,
+    required int timeStamp,
+    required String postId
   }){
     if(image != "null" && writeUp != "null"){
-      return Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-        color: NeedlincColors.white,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => BusinessMainPages(currentPage: 4),
-                    ));
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          profilePicture,
+      return InkWell(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  CommentsPage(post: post, sourceOption: 'homePage',)));
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+          color: NeedlincColors.white,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => BusinessMainPages(currentPage: 4),
+                      ));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            profilePicture,
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.fill,
+                        color: NeedlincColors.black3,
+                        shape: BoxShape.circle,
                       ),
-                      color: NeedlincColors.black3,
-                      shape: BoxShape.circle,
                     ),
                   ),
+                  SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.75,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween,
+                          children: [
+                            Text(userName, style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),),
+                            const Text("🟢 Now",
+                                style: TextStyle(fontSize: 9)),
+                            IconButton(onPressed: () {},
+                                icon: const Icon(Icons.more_horiz))
+                          ],
+                        ),
+                        Text(userCategory, style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600)),
+                        Text("📍$address", style: const TextStyle(
+                            fontSize: 12,
+                            color: NeedlincColors.black2))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
+                alignment: Alignment.topLeft,
+                child: Text(
+                    writeUp.length >= 123 ?
+                    writeUp.substring(0, 123)
+                        :
+                    writeUp,
+                    style: const TextStyle(fontSize: 18)
                 ),
-                SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.75,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment
-                            .spaceBetween,
-                        children: [
-                          Text(userName, style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),),
-                          const Text("🟢 Now",
-                              style: TextStyle(fontSize: 9)),
-                          IconButton(onPressed: () {},
-                              icon: const Icon(Icons.more_horiz))
-                        ],
+              ),
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                    imageUrls: [image],
+                    initialIndex: 0,
+                   ),
+                 ),
+               );
+              },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.55,
+                  margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        image,
                       ),
-                      Text(userCategory, style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600)),
-                      Text("📍$address", style: const TextStyle(
-                          fontSize: 12,
-                          color: NeedlincColors.black2))
+                      fit: BoxFit.cover,
+                    ),
+                    color: NeedlincColors.black3,
+                    shape: BoxShape.rectangle,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {
+                        UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
+                      },
+                          icon: heartsId.contains(userId) ?
+                            Icon(
+                              Icons.favorite, size: 22,
+                              color: NeedlincColors.red,)
+                              :
+                            Icon(
+                              Icons.favorite_border, size: 22,)
+                      ),
+                      Text("$heartCount", style: const TextStyle(fontSize: 15))
                     ],
                   ),
-                )
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
-              alignment: Alignment.topLeft,
-              child: Text(
-                writeUp,
-                style: const TextStyle(
-                    fontSize: 20
-                ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width * 0.55,
-              margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
+                  const SizedBox(width: 10.0,),
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                CommentsPage(post: post, sourceOption: 'homePage',)));
+                      },
+                          icon: const Icon(
+                            Icons.maps_ugc_outlined, size: 20,)),
+                      Text("${commentCount}", style: const TextStyle(fontSize: 15))
+                    ],
                   ),
-                  fit: BoxFit.cover,
-                ),
-                color: NeedlincColors.black3,
-                shape: BoxShape.rectangle,
-              ),
-            ),
-            const SizedBox(height: 30.0,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    IconButton(onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border, size: 22,)),
-                    Text("$hearts", style: const TextStyle(fontSize: 15))
-                  ],
-                ),
-                const SizedBox(width: 10.0,),
-                Row(
-                  children: [
-                    IconButton(onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) =>
-                          const CommentsPage()));
-                    },
-                        icon: const Icon(
-                          Icons.maps_ugc_outlined, size: 20,)),
-                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
-                  ],
-                ),
-                const SizedBox(width: 10.0,),
-                IconButton(onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark_border, size: 20,)),
-                const SizedBox(width: 10.0,),
-                IconButton(onPressed: () {},
-                    icon: const Icon(Icons.share, size: 20,))
-              ],
-            )
-          ],
+                  const SizedBox(width: 10.0,),
+                  IconButton(onPressed: () {},
+                      icon: const Icon(
+                        Icons.bookmark_border, size: 20,)),
+                  const SizedBox(width: 10.0,),
+                  IconButton(onPressed: () {},
+                      icon: const Icon(Icons.share, size: 20,))
+                ],
+              )
+            ],
+          ),
         ),
       );
     }
     if(image != "null" && writeUp == "null"){
-      return Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-        color: NeedlincColors.white,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => BusinessMainPages(currentPage: 4),
-                    ));
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          profilePicture,
+      return InkWell(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  CommentsPage(post: post, sourceOption: 'homePage',)));
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+          color: NeedlincColors.white,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => BusinessMainPages(currentPage: 4),
+                      ));
+                    },
+                    child: InkWell(
+                      onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                            imageUrls: [image],
+                            initialIndex: 0,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              profilePicture,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                          color: NeedlincColors.black3,
+                          shape: BoxShape.circle,
                         ),
-                        fit: BoxFit.fill,
                       ),
-                      color: NeedlincColors.black3,
-                      shape: BoxShape.circle,
                     ),
                   ),
+                  SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.75,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween,
+                          children: [
+                            Text(userName, style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),),
+                            const Text("🟢 Now",
+                                style: TextStyle(fontSize: 9)),
+                            IconButton(onPressed: () {},
+                                icon: const Icon(Icons.more_horiz))
+                          ],
+                        ),
+                        Text(userCategory, style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600)),
+                        Text("📍$address", style: const TextStyle(
+                            fontSize: 12,
+                            color: NeedlincColors.black2))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width * 0.55,
+                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      image,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  color: NeedlincColors.black3,
+                  shape: BoxShape.rectangle,
                 ),
-                SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.75,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start,
+              ),
+              const SizedBox(height: 30.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment
-                            .spaceBetween,
-                        children: [
-                          Text(userName, style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),),
-                          const Text("🟢 Now",
-                              style: TextStyle(fontSize: 9)),
-                          IconButton(onPressed: () {},
-                              icon: const Icon(Icons.more_horiz))
-                        ],
+                      IconButton(onPressed: () {
+                        UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
+                      },
+                          icon: heartsId.contains(userId) ?
+                          Icon(
+                            Icons.favorite, size: 22,
+                            color: NeedlincColors.red,)
+                              :
+                          Icon(
+                            Icons.favorite_border, size: 22,)
                       ),
-                      Text(userCategory, style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600)),
-                      Text("📍$address", style: const TextStyle(
-                          fontSize: 12,
-                          color: NeedlincColors.black2))
+                      Text("$heartCount", style: const TextStyle(fontSize: 15))
                     ],
                   ),
-                )
-              ],
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width * 0.55,
-              margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
+                  const SizedBox(width: 10.0,),
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                CommentsPage(post: post, sourceOption: 'homePage',)));
+                      },
+                          icon: const Icon(
+                            Icons.maps_ugc_outlined, size: 20,)),
+                      Text("${commentCount}", style: const TextStyle(fontSize: 15))
+                    ],
                   ),
-                  fit: BoxFit.cover,
-                ),
-                color: NeedlincColors.black3,
-                shape: BoxShape.rectangle,
-              ),
-            ),
-            const SizedBox(height: 30.0,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    IconButton(onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border, size: 22,)),
-                    Text("$hearts", style: const TextStyle(fontSize: 15))
-                  ],
-                ),
-                const SizedBox(width: 10.0,),
-                Row(
-                  children: [
-                    IconButton(onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) =>
-                          const CommentsPage()));
-                    },
-                        icon: const Icon(
-                          Icons.maps_ugc_outlined, size: 20,)),
-                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
-                  ],
-                ),
-                const SizedBox(width: 10.0,),
-                IconButton(onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark_border, size: 20,)),
-                const SizedBox(width: 10.0,),
-                IconButton(onPressed: () {},
-                    icon: const Icon(Icons.share, size: 20,))
-              ],
-            )
-          ],
+                  const SizedBox(width: 10.0,),
+                  IconButton(onPressed: () {},
+                      icon: const Icon(
+                        Icons.bookmark_border, size: 20,)),
+                  const SizedBox(width: 10.0,),
+                  IconButton(onPressed: () {},
+                      icon: const Icon(Icons.share, size: 20,))
+                ],
+              )
+            ],
+          ),
         ),
       );
     }
     if(image == "null" && writeUp != "null"){
-      return Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
-        color: NeedlincColors.white,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => BusinessMainPages(currentPage: 4),
-                    ));
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          profilePicture,
+      return InkWell(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  CommentsPage(post: post, sourceOption: 'homePage',)));
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+          color: NeedlincColors.white,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => BusinessMainPages(currentPage: 4),
+                      ));
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            profilePicture,
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.fill,
+                        color: NeedlincColors.black3,
+                        shape: BoxShape.circle,
                       ),
-                      color: NeedlincColors.black3,
-                      shape: BoxShape.circle,
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.75,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment
-                            .spaceBetween,
-                        children: [
-                          Text(userName, style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),),
-                          const Text("🟢 Now",
-                              style: TextStyle(fontSize: 9)),
-                          IconButton(onPressed: () {},
-                              icon: const Icon(Icons.more_horiz))
-                        ],
-                      ),
-                      Text(userCategory, style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600)),
-                      Text("📍$address", style: const TextStyle(
-                          fontSize: 12,
-                          color: NeedlincColors.black2))
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
-              alignment: Alignment.topLeft,
-              child: Text(
-                writeUp,
-                style: const TextStyle(
-                    fontSize: 20
+                  SizedBox(
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.75,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment
+                          .start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween,
+                          children: [
+                            Text(userName, style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),),
+                            const Text("🟢 Now",
+                                style: TextStyle(fontSize: 9)),
+                            IconButton(onPressed: () {},
+                                icon: const Icon(Icons.more_horiz))
+                          ],
+                        ),
+                        Text(userCategory, style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600)),
+                        Text("📍$address", style: const TextStyle(
+                            fontSize: 12,
+                            color: NeedlincColors.black2))
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10, left: 65, bottom: 10),
+                alignment: Alignment.topLeft,
+                child: Text(
+                    writeUp.length >= 123 ?
+                    writeUp.substring(0, 123)
+                        :
+                    writeUp,
+                    style: const TextStyle(fontSize: 18)
                 ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    IconButton(onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border, size: 22,)),
-                    Text('$hearts', style: const TextStyle(fontSize: 15))
-                  ],
-                ),
-                const SizedBox(width: 10.0,),
-                Row(
-                  children: [
-                    IconButton(onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) =>
-                          const CommentsPage()));
-                    },
-                        icon: const Icon(
-                          Icons.maps_ugc_outlined, size: 20,)),
-                    Text("${comments.length}", style: const TextStyle(fontSize: 15))
-                  ],
-                ),
-                const SizedBox(width: 10.0,),
-                IconButton(onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark_border, size: 20,)),
-                const SizedBox(width: 10.0,),
-                IconButton(onPressed: () {},
-                    icon: const Icon(Icons.share, size: 20,))
-              ],
-            )
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {
+                        UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
+                      },
+                          icon: heartsId.contains(userId) ?
+                          Icon(
+                            Icons.favorite, size: 22,
+                            color: NeedlincColors.red,)
+                              :
+                          Icon(
+                            Icons.favorite_border, size: 22,)
+                      ),
+                      Text('$heartCount', style: const TextStyle(fontSize: 15))
+                    ],
+                  ),
+                  const SizedBox(width: 10.0,),
+                  Row(
+                    children: [
+                      IconButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                            CommentsPage(post: post, sourceOption: 'homePage',)));
+                      },
+                          icon: const Icon(
+                            Icons.maps_ugc_outlined, size: 20,)),
+                      Text("${commentCount}", style: const TextStyle(fontSize: 15))
+                    ],
+                  ),
+                  const SizedBox(width: 10.0,),
+                  IconButton(onPressed: () {},
+                      icon: const Icon(
+                        Icons.bookmark_border, size: 20,)),
+                  const SizedBox(width: 10.0,),
+                  IconButton(onPressed: () {},
+                      icon: const Icon(Icons.share, size: 20,))
+                ],
+              )
+            ],
+          ),
         ),
       );
     }
@@ -397,56 +468,64 @@ class _HomePageState extends State<HomePage> {
   Widget HomePosts(BuildContext context){
     return Container(
         margin: const EdgeInsets.only(top: 160.0),
-        child: FutureBuilder<QuerySnapshot>(
-          future: homePage.get(),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('homePage')
+              .orderBy('postDetails.timeStamp', descending: true)
+              .snapshots(), // Use the stream method instead of the get method
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return const Text("Something went wrong");
+              return Center(child: const Text("Something went wrong"));
             }
-            if (snapshot.connectionState == ConnectionState.done) {
+
+            if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
               List<DocumentSnapshot> dataList = snapshot.data!.docs;
               return ListView.builder(
-                  itemCount: dataList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var data = dataList[index].data() as Map<String, dynamic>;
-                    Map<String, dynamic>? userDetails = data['userDetails'];
-                    Map<String, dynamic>? productDetails = data['postDetails'];
-                    if (userDetails == null) {
-                      print(userDetails);
-                      // Handle the case when userDetails are missing in a document.
-                      return const Text("User details not found");
-                    }
-                    if (productDetails == null) {
-                      print(productDetails);
-                      // Handle the case when userDetails are missing in a document.
-                      return const Text("User details not found");
-                    }
-                    if(userDetails['userCategory'] == 'null'){
-                      return const Center(
-                        child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
-                      );
-                    }
-                    return displayHomePosts(
-                      context: context,
-                      userName: userDetails['userName'],
-                      address: userDetails['address'],
-                      userCategory: userDetails['userCategory'],
-                      profilePicture: userDetails['profilePicture'],
-                      image: productDetails['image'],
-                      writeUp: productDetails['writeUp'],
-                      hearts: 1.2,
-                      comments: [],
-                      timeStamp: productDetails['timeStamp'],
+                itemCount: dataList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = dataList[index].data() as Map<String, dynamic>;
+
+                  Map<String, dynamic>? userDetails = data['userDetails'];
+                  Map<String, dynamic>? postDetails = data['postDetails'];
+                  if (userDetails == null) {
+                    // Handle the case when userDetails are missing in a document.
+                    return Center(child: const Text("User details not found"));
+                  }
+                  if (postDetails == null) {
+                    // Handle the case when userDetails are missing in a document.
+                    return Center(child: const Text("User details not found"));
+                  }
+                  if(userDetails['userCategory'] == 'null'){
+                    return const Center(
+                      child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
                     );
                   }
+                  return displayHomePosts(
+                    context: context,
+                    userName: userDetails['userName'],
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                    address: userDetails['address'],
+                    userCategory: userDetails['userCategory'],
+                    profilePicture: userDetails['profilePicture'],
+                    image: postDetails['image'],
+                    writeUp: postDetails['writeUp'],
+                    heartCount: postDetails['hearts'].length,
+                    heartsId: postDetails['hearts'],
+                    commentCount: postDetails['comments'].length,
+                    post: data,
+                    postId: postDetails['postId'],
+                    timeStamp: postDetails['timeStamp'],
+                  );
+                },
               );
             }
-            // While waiting for the data to be fetched, show a loading indicator
+
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
+
             return const WelcomePage();
           },
         )
@@ -600,7 +679,7 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.message),
                     onPressed: (){
                       //TODO Chat messaging feature(Already implemented message UI)
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const Message()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
                     },
                   ),
                 ],
@@ -659,57 +738,62 @@ class _HomePageState extends State<HomePage> {
                     height: 160,
                     child: Row(
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          margin: const EdgeInsets.only(top: 50, bottom: 10,),
-                          decoration: BoxDecoration(
-                            color: NeedlincColors.black3,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  //TODO Profile Picture
-                                  GestureDetector(
-                                    onTap: ()
-                                    {
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(15.0),
-                                      margin: const EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                            data['profilePicture'],
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
-                                        color: NeedlincColors.black3,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                  ),
-                                  //TODO Write a post
-                                  GestureDetector(
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            margin: const EdgeInsets.only(top: 50, bottom: 10,),
+                            decoration: BoxDecoration(
+                              color: NeedlincColors.black3,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    //TODO Profile Picture
+                                    GestureDetector(
                                       onTap: ()
                                       {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()),);
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)),);
                                       },
-                                      child: const Padding(padding: EdgeInsets.all(8), child: Text("Write a post..."),))
-                                ],
-                              ),
-                              //TODO Select Gallary or Camera icon
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(width: 50.0,),
-                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
-                                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
-                                ],
-                              )
-                            ],
+                                      child: Container(
+                                        padding: const EdgeInsets.all(15.0),
+                                        margin: const EdgeInsets.all(10.0),
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              data['profilePicture'],
+                                            ),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          color: NeedlincColors.black3,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                    //TODO Write a post
+                                    InkWell(
+                                        onTap: ()
+                                        {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePostPage()),);
+                                        },
+                                        child: const Padding(padding: EdgeInsets.all(8), child: Text("Write a post..."),))
+                                  ],
+                                ),
+                                //TODO Select Gallary or Camera icon
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(width: 50.0,),
+                                    IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.photo_library_outlined, color: NeedlincColors.blue1,)),
+                                    IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePostPage()));}, icon: const Icon(Icons.camera_alt_outlined, color: NeedlincColors.blue1,))
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         //TODO (This is the News Icon close to the write a post page)
@@ -749,7 +833,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               );
             }
-
             // While waiting for the data to be fetched, show a loading indicator
             return const Center(child: CircularProgressIndicator());
           },

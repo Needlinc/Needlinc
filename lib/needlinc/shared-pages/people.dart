@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:needlinc/needlinc/business-pages/profile.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/chat_UI.dart';
+import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 
 
 class PeoplePage extends StatefulWidget {
@@ -218,7 +218,8 @@ class _PeoplePageState extends State<PeoplePage> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Message()));
+                                                  Navigator.push(
+                                                    context, MaterialPageRoute(builder: (context) => Message()),);
                                                 },
                                                 style: ButtonStyle(
                                                   backgroundColor:

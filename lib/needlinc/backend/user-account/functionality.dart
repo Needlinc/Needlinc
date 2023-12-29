@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,7 +115,11 @@ Future<void> userCategory({
 
 Future<String> uploadImageToFirebase(Uint8List imageBytes) async {
   try {
-    final Reference storageRef = FirebaseStorage.instance.ref().child('profilePictures/${FirebaseAuth.instance.currentUser!.uid}/${await getUserData('fullname')}.jpg');
+    String userId = await FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot userDetails = await FirebaseFirestore.instance.collection("'users").doc(userId).get();
+    String fullName = userDetails['fullName'];
+    String userName = userDetails['userName'];
+    final Reference storageRef = FirebaseStorage.instance.ref().child('profilePictures/${userId}/${userName}-${fullName}.jpg');
     final UploadTask uploadTask = storageRef.putData(imageBytes);
 
     await uploadTask;
