@@ -9,7 +9,6 @@ import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import '../../backend/authentication/sign-up.dart';
 import '../user-type.dart';
 
-
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
 
@@ -22,17 +21,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   bool notLoading = true;
   Uint8List? profilePicture;
 
-  String saveUserInformation(){
+  String saveUserInformation() {
     // Storing data in local storage
-   SignUp(
-       context,
-       fullNameController.text.trim(),
-       userNameController.text.trim(),
-       emailController.text,
-       passwordController.text.trim(),
-       profilePicture!
-   ).signUpWithEmailPassword();
-   return 'Success';
+    SignUp(
+            context,
+            fullNameController.text.trim(),
+            userNameController.text.trim(),
+            emailController.text,
+            passwordController.text.trim(),
+            profilePicture!)
+        .signUpWithEmailPassword();
+    return 'Success';
   }
 
   void _ShowAddPhoto() {
@@ -53,7 +52,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPassController = TextEditingController();
-  bool passToggle = true, confirmToggle = true;
+  bool confirmToggle = true;
+  bool viewPassword = true;
 
   //This modal shows image selection either from gallery or camera
   void _showPicker(BuildContext context) {
@@ -108,9 +108,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   Future _selectFile(bool imageFrom) async {
     try {
       XFile? imageFile = await ImagePicker().pickImage(
-          source: imageFrom ? ImageSource.gallery : ImageSource.camera
-      );
-      if (imageFile != null){
+          source: imageFrom ? ImageSource.gallery : ImageSource.camera);
+      if (imageFile != null) {
         profilePicture = await imageFile.readAsBytes();
         setState(() {});
       }
@@ -123,364 +122,394 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: notLoading ? Stack(
-        children: [
-          const backGround(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
-            child: Column(
-              children: [
-                // Top arrow
-                Row(
-                  mainAxisAlignment: addPhoto
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.start,
-                  children: [
-                    // Back arrow
-                    IconButton(
-                      onPressed: () {
-                        if (addPhoto == false) {
-                          Navigator.pop(context);
-                        }
-                        _HideAddPhoto();
-                      },
-                      icon: const Icon(
-                        Icons
-                            .arrow_back_ios_new, // Specify the icon you want to use
-                        size: 30, // Adjust the icon size as needed
-                        color: NeedlincColors.white, // Customize the icon color
-                      ),
-                    ),
-                    // Page title
-                    Visibility(
-                      visible: addPhoto,
-                      child: const Text(
-                        'NEEDLINC',
-                        style: TextStyle(
-                            color: NeedlincColors.white, fontSize: 12),
-                      ),
-                    ),
-                    // Skip button
-                    Visibility(
-                      visible: addPhoto,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const UserType()));
-                        },
-                        child: const Text(
-                          '',
-                          style: TextStyle(
-                              color: NeedlincColors.white, fontSize: 21),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 50),
-                // main Card
-                Column(
-                  children: [
-                    Text(
-                      addPhoto ? 'Add Profile photo' : 'NEEDLINC',
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w400,
-                        color: NeedlincColors.white,
-                      ),
-                    ),
-                    // body
-                    const SizedBox(height: 10),
-                    Visibility(
-                      visible: !addPhoto,
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.fromLTRB(27, 30, 27, 24),
-                        decoration: BoxDecoration(
-                          color: NeedlincColors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: NeedlincColors.grey,
-                              offset: Offset(0, 3),
-                              blurRadius: 3.0,
-                              spreadRadius: 1.0,
-                            )
-                          ],
-                        ),
-                        child: Form(
-                          key: _formField,
-                          child: Column(
-                            children: [
-                              // Create New Account
-                              const Text(
-                                'Create New Account',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              // Enter Full Name
-                              TextFormField(
-                                controller: fullNameController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter full name";
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: 'Enter Full Name',
-                                  contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: Borders.FocusedBorder,
-                                  enabledBorder: Borders.EnabledBorder,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              // Enter User Name
-                              TextFormField(
-                                keyboardType: TextInputType.emailAddress,
-                                controller: userNameController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter Username";
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: 'Enter User Name',
-                                  contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: Borders.FocusedBorder,
-                                  enabledBorder: Borders.EnabledBorder,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              // Email
-                              TextFormField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter Email";
-                                  }
-                                  return null;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: 'Email',
-                                  contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: Borders.FocusedBorder,
-                                  enabledBorder: Borders.EnabledBorder,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              // Create Password
-                              TextFormField(
-                                obscureText: passToggle,
-                                controller: passwordController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Enter Password";
-                                  } else if (passwordController.text.length < 8) {
-                                    return "Password must be more than 8 characters";
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  suffix: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        if(passToggle) {
-                                          passToggle = !passToggle;
-                                        }
-                                      });
-                                    },
-                                    child: Icon(passToggle
-                                        ? Icons.visibility_off
-                                        : Icons.visibility),
-                                  ),
-                                  hintText: 'Create Password',
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: Borders.FocusedBorder,
-                                  enabledBorder: Borders.EnabledBorder,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              // Confirm Password
-                              TextFormField(
-                                obscureText: confirmToggle,
-                                controller: confirmPassController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "confirm Password";
-                                  } else if (confirmPassController.text !=
-                                      passwordController.text) {
-                                    return "Passwords not match";
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  suffix: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        confirmToggle = !confirmToggle;
-                                      });
-                                    },
-                                    child: Icon(confirmToggle
-                                        ? Icons.visibility_off
-                                        : Icons.visibility),
-                                  ),
-                                  hintText: 'Confirm Password',
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                                  focusedBorder: Borders.FocusedBorder,
-                                  enabledBorder: Borders.EnabledBorder,
-                                ),
-                              ),
-                              const SizedBox(height: 17),
-                              // create new account button
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_formField.currentState!.validate()) {
-                                    _ShowAddPhoto();
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: NeedlincColors.blue1,
-                                  fixedSize: const Size(double.maxFinite, 30),
-                                  shape: const BeveledRectangleBorder(
-                                    borderRadius: BorderRadius.zero,
-                                  ),
-                                ),
-                                child: const Text('Create New Account'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    // picture container
-                    Visibility(
-                      visible: addPhoto,
-                      child: Stack(alignment: Alignment.bottomRight, children: [
-                        Container(
-                            height: 210,
-                            width: 210,
-                            decoration: BoxDecoration(
-                              color: NeedlincColors.white,
-                              borderRadius: BorderRadius.circular(150),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: NeedlincColors.grey,
-                                  offset: Offset(0, 3),
-                                  blurRadius: 3.0,
-                                  spreadRadius: 1.0,
-                                )
-                              ],
-                            ),
-                            child: profilePicture == null
-                                ? 
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage("assets/1.png"),
-                                    ),
-                                    borderRadius: BorderRadius.circular(200)
-                                  ),
-                                  
-                                )
-                                : CircleAvatar(
-                              radius: 60,
-                              backgroundImage: MemoryImage(profilePicture!),
-                            )
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: NeedlincColors.blue1,
-                            borderRadius: BorderRadius.circular(28),
-                            border: Border.all(
-                              color: NeedlincColors.white,
-                              width: 5,
-                            ),
-                          ),
-                          child: Align(
-                            child: InkWell(
-                              onTap: () {
-                                _showPicker(context);
-                              },
-                              child: const Icon(Icons.add,
-                                  size: 35,
-                                  weight: 50,
-                                  color: NeedlincColors.white),
-                            ),
-                          ),
-                        ),
-                      ]),
-                    )
-                  ],
-                ),
-                // Next button
-                Visibility(
-                  visible: addPhoto,
-                  child: Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      padding: const EdgeInsets.only(right: 15, bottom: 55),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if(profilePicture != null){
-                            notLoading = false;
-                            setState(() {});
-                            saveUserInformation();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Gender()));
-                            notLoading = true;
-                            emailController.clear();
-                            fullNameController.clear();
-                            userNameController.clear();
-                            passwordController.clear();
-                            confirmPassController.clear();
-                          }
-                          else{
-                            showSnackBar(context, "Add a photo for this account");
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          backgroundColor: NeedlincColors.blue1,
-                          padding: const EdgeInsets.all(16),
-                        ),
-                        child: const Text(
-                          'NEXT',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
+        appBar: AppBar(
+          backgroundColor: NeedlincColors.blue1,
+          foregroundColor: NeedlincColors.white,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              if (addPhoto == false) {
+                Navigator.pop(context);
+              }
+              _HideAddPhoto();
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios_new, // Specify the icon you want to use
+              size: 30, // Adjust the icon size as needed
             ),
           ),
-        ],
-      )
-          :
-          const Center(child: CircularProgressIndicator(),)
-    );
+          centerTitle: true,
+          title: addPhoto
+              ? const Text(
+                  'NEEDLINC',
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                )
+              : null,
+          actions: [
+            if (addPhoto)
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserType()));
+                },
+                child: Text(
+                  'Skip',
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: NeedlincColors.white,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        body: SafeArea(
+          child: notLoading
+              ? SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  child: Stack(
+                    children: [
+                      const backGround(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 50),
+                            // main Card
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  addPhoto ? 'Add Profile photo' : 'NEEDLINC',
+                                  style: const TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w400,
+                                    color: NeedlincColors.white,
+                                  ),
+                                ),
+                                // body
+                                const SizedBox(height: 10),
+                                if (!addPhoto)
+                                  Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        27, 30, 27, 24),
+                                    decoration: BoxDecoration(
+                                      color: NeedlincColors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: NeedlincColors.grey,
+                                          offset: Offset(0, 3),
+                                          blurRadius: 3.0,
+                                          spreadRadius: 1.0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Form(
+                                      key: _formField,
+                                      child: Column(
+                                        children: [
+                                          // Create New Account
+                                          const Text(
+                                            'Create New Account',
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          // Enter Full Name
+                                          TextFormField(
+                                            controller: fullNameController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Enter full name";
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              hintText: 'Enter Full Name',
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              focusedBorder:
+                                                  Borders.FocusedBorder,
+                                              enabledBorder:
+                                                  Borders.EnabledBorder,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          // Enter User Name
+                                          TextFormField(
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                            controller: userNameController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Enter Username";
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              hintText: 'Enter User Name',
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              focusedBorder:
+                                                  Borders.FocusedBorder,
+                                              enabledBorder:
+                                                  Borders.EnabledBorder,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          // Email
+                                          TextFormField(
+                                            controller: emailController,
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Enter Email";
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              hintText: 'Email',
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              focusedBorder:
+                                                  Borders.FocusedBorder,
+                                              enabledBorder:
+                                                  Borders.EnabledBorder,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          // Create Password
+                                          TextFormField(
+                                            obscureText: viewPassword,
+                                            controller: passwordController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "Enter Password";
+                                              } else if (passwordController
+                                                      .text.length <
+                                                  8) {
+                                                return "Password must be more than 8 characters";
+                                              }
+                                              return null;
+                                            },
+                                            decoration: InputDecoration(
+                                              suffix: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    viewPassword =
+                                                        !viewPassword;
+                                                  });
+                                                },
+                                                child: Icon(viewPassword
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility),
+                                              ),
+                                              hintText: 'Create Password',
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              focusedBorder:
+                                                  Borders.FocusedBorder,
+                                              enabledBorder:
+                                                  Borders.EnabledBorder,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          // Confirm Password
+                                          TextFormField(
+                                            obscureText: confirmToggle,
+                                            controller: confirmPassController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return "confirm Password";
+                                              } else if (confirmPassController
+                                                      .text !=
+                                                  passwordController.text) {
+                                                return "Passwords not match";
+                                              }
+                                              return null;
+                                            },
+                                            decoration: InputDecoration(
+                                              suffix: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    confirmToggle =
+                                                        !confirmToggle;
+                                                  });
+                                                },
+                                                child: Icon(confirmToggle
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility),
+                                              ),
+                                              hintText: 'Confirm Password',
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              focusedBorder:
+                                                  Borders.FocusedBorder,
+                                              enabledBorder:
+                                                  Borders.EnabledBorder,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 17),
+                                          // create new account button
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              if (_formField.currentState!
+                                                  .validate()) {
+                                                _ShowAddPhoto();
+                                              }
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  NeedlincColors.blue1,
+                                              fixedSize: const Size(
+                                                  double.maxFinite, 30),
+                                              shape:
+                                                  const BeveledRectangleBorder(
+                                                borderRadius: BorderRadius.zero,
+                                              ),
+                                            ),
+                                            child: const Text(
+                                                'Create New Account'),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                // picture container
+                                if (addPhoto)
+                                  Stack(
+                                      alignment: Alignment.bottomRight,
+                                      children: [
+                                        Container(
+                                            height: 210,
+                                            width: 210,
+                                            decoration: const BoxDecoration(
+                                              color: NeedlincColors.white,
+                                              shape: BoxShape.circle,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: NeedlincColors.grey,
+                                                  offset: Offset(0, 3),
+                                                  blurRadius: 3.0,
+                                                  spreadRadius: 1.0,
+                                                )
+                                              ],
+                                            ),
+                                            child: profilePicture == null
+                                                ? Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: AssetImage(
+                                                            "assets/logo.png"),
+                                                      ),
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  )
+                                                : CircleAvatar(
+                                                    radius: 60,
+                                                    backgroundImage:
+                                                        MemoryImage(
+                                                            profilePicture!),
+                                                  )),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 30),
+                                          width: 45,
+                                          height: 45,
+                                          decoration: BoxDecoration(
+                                            color: NeedlincColors.blue1,
+                                            borderRadius:
+                                                BorderRadius.circular(28),
+                                            border: Border.all(
+                                              color: NeedlincColors.white,
+                                              width: 5,
+                                            ),
+                                          ),
+                                          child: Align(
+                                            child: InkWell(
+                                              onTap: () {
+                                                _showPicker(context);
+                                              },
+                                              child: const Icon(Icons.add,
+                                                  size: 35,
+                                                  weight: 50,
+                                                  color: NeedlincColors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ])
+                              ],
+                            ),
+                            // Next button
+                            const SizedBox(height: 360),
+                            if (addPhoto)
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                padding: const EdgeInsets.only(
+                                    right: 15, bottom: 55),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (profilePicture != null) {
+                                      notLoading = false;
+                                      setState(() {});
+                                      saveUserInformation();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Gender()));
+                                      notLoading = true;
+                                      emailController.clear();
+                                      fullNameController.clear();
+                                      userNameController.clear();
+                                      passwordController.clear();
+                                      confirmPassController.clear();
+                                    } else {
+                                      showSnackBar(context,
+                                          "Add a photo for this account");
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    backgroundColor: NeedlincColors.blue1,
+                                    padding: const EdgeInsets.all(16),
+                                  ),
+                                  child: const Text(
+                                    'NEXT',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
+        ));
   }
 }
