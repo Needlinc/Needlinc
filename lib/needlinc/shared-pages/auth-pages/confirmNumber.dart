@@ -11,7 +11,8 @@ import '../user-type.dart';
 class confirmNumber extends StatefulWidget {
   final String verificationId;
   final String phoneNumber;
-  const confirmNumber(this.verificationId, {super.key, required this.phoneNumber});
+  const confirmNumber(this.verificationId,
+      {super.key, required this.phoneNumber});
 
   @override
   State<confirmNumber> createState() => _confirmNumberState();
@@ -27,8 +28,6 @@ class _confirmNumberState extends State<confirmNumber> {
   final TextEditingController pin4Controller = TextEditingController();
   final TextEditingController pin5Controller = TextEditingController();
   final TextEditingController pin6Controller = TextEditingController();
-
-
 
   @override
   void initState() {
@@ -72,7 +71,6 @@ class _confirmNumberState extends State<confirmNumber> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +111,8 @@ class _confirmNumberState extends State<confirmNumber> {
                       },
                       child: const Text(
                         '',
-                        style: TextStyle(color: NeedlincColors.blue1, fontSize: 21),
+                        style: TextStyle(
+                            color: NeedlincColors.blue1, fontSize: 21),
                       ),
                     ),
                   ],
