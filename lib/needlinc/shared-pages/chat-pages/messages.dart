@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:needlinc/needlinc/colors/colors.dart";
+import 'package:needlinc/needlinc/shared-pages/chat-pages/chat_screen.dart';
 
 // TODO: Creating a message class
 class MessageTab {
@@ -102,7 +103,9 @@ class _MessageState extends State<Message> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainPage()));
+                        },
                         leading: CircleAvatar(child: Image.asset("assets/logo.png"), radius: 25),
                         title: Text(
                           "${MessageTabs[index].sender}",

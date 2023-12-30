@@ -9,7 +9,7 @@ import '../client-pages/profile.dart';
 
 class NeedlincMainPage extends StatefulWidget {
   int? currentPage;
-   NeedlincMainPage({required this.currentPage});
+   NeedlincMainPage({super.key, required this.currentPage});
 
   @override
   State<NeedlincMainPage> createState() => _NeedlincMainPageState();
@@ -20,13 +20,13 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
   @override
   void initState() {
     // TODO: implement initState
-    _currentPage = (widget.currentPage == null ? 0 : widget.currentPage)!;
+    _currentPage = (widget.currentPage ?? 0);
     super.initState();
   }
 
 
   //TODO(Already done) This List is for Icons that are active
-  List<IconData> _activeIcons = [
+  final List<IconData> _activeIcons = [
     Icons.home,
     Icons.shopping_cart,
     Icons.people,
@@ -35,7 +35,7 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
   ];
 
   //TODO(Already done) This List is for Icons that are inactive
-  List<IconData> _inactiveIcons = [
+  final List<IconData> _inactiveIcons = [
     Icons.home_outlined,
     Icons.shopping_cart_outlined,
     Icons.people_outline,
@@ -46,12 +46,12 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
   //TODO(Already done) This is widget switches pages on a selected tap
   Widget PageTransition(int currentPage){
     switch(currentPage){
-      case 0: return HomePage();
-      case 1: return MarketplacePage();
-      case 2: return PeoplePage();
-      case 3: return NotificationsPage();
-      case 4: return ProfilePage();
-      default: return HomePage();
+      case 0: return const HomePage();
+      case 1: return const MarketplacePage();
+      case 2: return const PeoplePage();
+      case 3: return const NotificationsPage();
+      case 4: return const ProfilePage();
+      default: return const HomePage();
     }
   }
 
@@ -63,7 +63,7 @@ class _NeedlincMainPageState extends State<NeedlincMainPage> {
         bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Colors.transparent,
           color: NeedlincColors.black3,
-          animationDuration: Duration(milliseconds: 400),
+          animationDuration: const Duration(milliseconds: 400),
           onTap: (index){
             setState(() {});
             _currentPage = index;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 
 class DropdownMenuWidget extends StatefulWidget {
+  const DropdownMenuWidget({super.key});
+
   @override
   _DropdownMenuWidgetState createState() => _DropdownMenuWidgetState();
 }
@@ -13,7 +15,7 @@ class _DropdownMenuWidgetState extends State<DropdownMenuWidget> {
     return Container(
       height: 40,
       width: 155,
-      padding: EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         color: NeedlincColors.white,
         borderRadius: BorderRadius.circular(20.0),

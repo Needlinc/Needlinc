@@ -6,8 +6,8 @@ class SizeTransition1 extends PageRouteBuilder {
   SizeTransition1(this.page)
       : super(
     pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(milliseconds: 1000),
-    reverseTransitionDuration: Duration(milliseconds: 200),
+    transitionDuration: const Duration(milliseconds: 1000),
+    reverseTransitionDuration: const Duration(milliseconds: 200),
     transitionsBuilder: (context, animation, anotherAnimation, child) {
       animation = CurvedAnimation(
           curve: Curves.fastLinearToSlowEaseIn,
@@ -17,8 +17,8 @@ class SizeTransition1 extends PageRouteBuilder {
         alignment: Alignment.bottomCenter,
         child: SizeTransition(
           sizeFactor: animation,
-          child: page,
           axisAlignment: 0,
+          child: page,
         ),
       );
     },
@@ -31,8 +31,8 @@ class SizeTransition2 extends PageRouteBuilder {
   SizeTransition2(this.page)
       : super(
     pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(milliseconds: 1000),
-    reverseTransitionDuration: Duration(milliseconds: 200),
+    transitionDuration: const Duration(milliseconds: 1000),
+    reverseTransitionDuration: const Duration(milliseconds: 200),
     transitionsBuilder: (context, animation, anotherAnimation, child) {
       animation = CurvedAnimation(
           curve: Curves.fastLinearToSlowEaseIn,
@@ -42,8 +42,8 @@ class SizeTransition2 extends PageRouteBuilder {
         alignment: Alignment.topCenter,
         child: SizeTransition(
           sizeFactor: animation,
-          child: page,
           axisAlignment: 0,
+          child: page,
         ),
       );
     },
@@ -56,8 +56,8 @@ class SizeTransition3 extends PageRouteBuilder {
   SizeTransition3(this.page)
       : super(
     pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(seconds: 2),
-    reverseTransitionDuration: Duration(seconds: 2),
+    transitionDuration: const Duration(seconds: 2),
+    reverseTransitionDuration: const Duration(seconds: 2),
     transitionsBuilder: (context, animation, anotherAnimation, child) {
       animation = CurvedAnimation(
           curve: Curves.bounceInOut,
@@ -68,8 +68,8 @@ class SizeTransition3 extends PageRouteBuilder {
         child: SizeTransition(
           axis: Axis.horizontal,
           sizeFactor: animation,
-          child: page,
           axisAlignment: 0,
+          child: page,
         ),
       );
     },
@@ -82,8 +82,8 @@ class SizeTransition4 extends PageRouteBuilder {
   SizeTransition4(this.page)
       : super(
     pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(milliseconds: 1000),
-    reverseTransitionDuration: Duration(milliseconds: 200),
+    transitionDuration: const Duration(milliseconds: 1000),
+    reverseTransitionDuration: const Duration(milliseconds: 200),
     transitionsBuilder: (context, animation, anotherAnimation, child) {
       animation = CurvedAnimation(
           curve: Curves.fastLinearToSlowEaseIn,
@@ -94,8 +94,8 @@ class SizeTransition4 extends PageRouteBuilder {
         child: SizeTransition(
           axis: Axis.horizontal,
           sizeFactor: animation,
-          child: page,
           axisAlignment: 0,
+          child: page,
         ),
       );
     },
@@ -108,8 +108,8 @@ class SizeTransition5 extends PageRouteBuilder {
   SizeTransition5(this.page)
       : super(
     pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: Duration(seconds: 2),
-    reverseTransitionDuration: Duration(seconds: 1),
+    transitionDuration: const Duration(seconds: 2),
+    reverseTransitionDuration: const Duration(seconds: 1),
     transitionsBuilder: (context, animation, anotherAnimation, child) {
       animation = CurvedAnimation(
           curve: Curves.fastLinearToSlowEaseIn,
@@ -120,8 +120,8 @@ class SizeTransition5 extends PageRouteBuilder {
         child: SizeTransition(
           axis: Axis.horizontal,
           sizeFactor: animation,
-          child: page,
           axisAlignment: 0,
+          child: page,
         ),
       );
     },

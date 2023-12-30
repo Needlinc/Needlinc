@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/authSuccess.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/location.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 
 import '../../colors/colors.dart';
 import '../../widgets/TextFieldBorder.dart';
+import '../user-type.dart';
 
 class confirmNumber extends StatefulWidget {
-  const confirmNumber({super.key});
+  final String verificationId;
+  final String phoneNumber;
+  const confirmNumber(this.verificationId,
+      {super.key, required this.phoneNumber});
 
   @override
   State<confirmNumber> createState() => _confirmNumberState();
@@ -16,13 +20,63 @@ class confirmNumber extends StatefulWidget {
 
 class _confirmNumberState extends State<confirmNumber> {
   int lastDigit = 765;
+  final TextEditingController _otpController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController pin1Controller = TextEditingController();
+  final TextEditingController pin2Controller = TextEditingController();
+  final TextEditingController pin3Controller = TextEditingController();
+  final TextEditingController pin4Controller = TextEditingController();
+  final TextEditingController pin5Controller = TextEditingController();
+  final TextEditingController pin6Controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _otpController.text = widget.verificationId;
+  }
+
+  void verifyOTP() async {
+    // Combine the OTP digits from the controllers
+    String otp = '';
+    otp += pin1Controller.text;
+    otp += pin2Controller.text;
+    otp += pin3Controller.text;
+    otp += pin4Controller.text;
+    otp += pin5Controller.text;
+    otp += pin6Controller.text;
+
+    print('This is the OTP: $otp');
+
+    // Check if the OTP is valid
+    if (otp.length != 6) {
+      print('Invalid OTP');
+      return;
+    }
+
+    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: widget.verificationId,
+      smsCode: otp,
+    );
+
+    try {
+      await _auth.signInWithCredential(credential);
+      // User is now authenticated, navigate to the next page
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Success()),
+      );
+    } catch (e) {
+      // Handle verification failure, e.g., invalid OTP.
+      print('Verification failed: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          backGround(),
+          const backGround(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
             child: Column(
@@ -34,7 +88,7 @@ class _confirmNumberState extends State<confirmNumber> {
                     // Back arrow
                     IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons
                             .arrow_back_ios_new, // Specify the icon you want to use
                         size: 30, // Adjust the icon size as needed
@@ -42,29 +96,34 @@ class _confirmNumberState extends State<confirmNumber> {
                       ),
                     ),
                     // Page title
-                    Text(
+                    const Text(
                       'NEEDLINC',
                       style:
                           TextStyle(color: NeedlincColors.white, fontSize: 12),
                     ),
                     // Skip button
-                    Container(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Text(
-                        '      ',
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UserType()));
+                      },
+                      child: const Text(
+                        '',
                         style: TextStyle(
-                            color: NeedlincColors.white, fontSize: 21),
+                            color: NeedlincColors.blue1, fontSize: 21),
                       ),
-                    )
+                    ),
                   ],
                 ),
-                SizedBox(height: 70),
+                const SizedBox(height: 70),
                 // main Card
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Card title
-                    Text(
+                    const Text(
                       'Confirm code',
                       style: TextStyle(
                         fontSize: 30,
@@ -77,7 +136,7 @@ class _confirmNumberState extends State<confirmNumber> {
                       child: Text(
                         'You were sent a 4 digit code to your phone number ~ ********$lastDigit ',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: NeedlincColors.white,
                         ),
@@ -89,7 +148,7 @@ class _confirmNumberState extends State<confirmNumber> {
                       decoration: BoxDecoration(
                         color: NeedlincColors.white,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: NeedlincColors.grey,
                             offset: Offset(0, 3),
@@ -113,8 +172,9 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin1Controller,
                                 onSaved: (pin1) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -130,7 +190,7 @@ class _confirmNumberState extends State<confirmNumber> {
                               height: 54,
                               width: 50,
                               child: TextFormField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -139,6 +199,7 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin2Controller,
                                 onSaved: (pin2) {},
                                 keyboardType: TextInputType.number,
                                 textAlign: TextAlign.center,
@@ -157,8 +218,9 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin3Controller,
                                 onSaved: (pin3) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -179,8 +241,55 @@ class _confirmNumberState extends State<confirmNumber> {
                                     FocusScope.of(context).nextFocus();
                                   }
                                 },
+                                controller: pin4Controller,
                                 onSaved: (pin4) {},
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
+                                ),
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(1),
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 54,
+                              width: 50,
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
+                                controller: pin5Controller,
+                                onSaved: (pin5) {},
+                                decoration: const InputDecoration(
+                                  focusedBorder: Borders.FocusedBorder,
+                                  enabledBorder: Borders.EnabledBorder,
+                                ),
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(1),
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 54,
+                              width: 50,
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  if (value.length == 1) {
+                                    FocusScope.of(context).nextFocus();
+                                  }
+                                },
+                                controller: pin6Controller,
+                                onSaved: (pin6) {},
+                                decoration: const InputDecoration(
                                   focusedBorder: Borders.FocusedBorder,
                                   enabledBorder: Borders.EnabledBorder,
                                 ),
@@ -201,9 +310,11 @@ class _confirmNumberState extends State<confirmNumber> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.only(right: 15, bottom: 55),
+                    padding: const EdgeInsets.only(right: 15, bottom: 55),
                     child: ElevatedButton(
                       onPressed: () {
+                        //TODO
+                        verifyOTP();
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => Success()));
                       },
@@ -212,9 +323,9 @@ class _confirmNumberState extends State<confirmNumber> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         backgroundColor: NeedlincColors.blue1,
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                       ),
-                      child: Text(
+                      child: const Text(
                         'NEXT',
                         style: TextStyle(
                           fontSize: 17,

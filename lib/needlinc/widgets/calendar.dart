@@ -2,6 +2,8 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 
+import '../backend/user-account/functionality.dart';
+
 class Calendar extends StatefulWidget {
   const Calendar({Key? key, required this.title}) : super(key: key);
 
@@ -42,29 +44,29 @@ class _CalendarState extends State<Calendar> {
       },
       child: selectADate == null ?
       Container(
-        padding: EdgeInsets.all(5.0),
-        child: Text(
+        padding: const EdgeInsets.all(5.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: NeedlincColors.black1),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: const Text(
             "Select your date of birth",
             style: TextStyle(
                 fontSize: 20.0
             ),
           ),
-        decoration: BoxDecoration(
-          border: Border.all(color: NeedlincColors.black1),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
       )
        : Container(
-        padding: EdgeInsets.all(5.0),
-        child: Text(
-            "${_buildSelectedDates()}",
-          style: TextStyle(
-            fontSize: 20.0
-          ),
-        ),
+        padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           border: Border.all(color: NeedlincColors.black1),
           borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Text(
+            _buildSelectedDates(),
+          style: const TextStyle(
+            fontSize: 20.0
+          ),
         ),
       ),
     );
@@ -90,6 +92,8 @@ class _CalendarState extends State<Calendar> {
 
 
   String _buildSelectedDates() {
-    return _selectedDates.map((date) => date?.toString().substring(0, 10) ?? 'null').join(', ');
+    final dateOfBirth = _selectedDates.map((date) => date?.toString().substring(0, 10) ?? 'null').join(', ');
+    getDateOfBirth(birthDay: dateOfBirth);
+    return dateOfBirth;
   }
 }

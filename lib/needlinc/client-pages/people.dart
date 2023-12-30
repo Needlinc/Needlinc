@@ -14,7 +14,7 @@ class _PeoplePageState extends State<PeoplePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "FREELANCERS",
           style: TextStyle(color: NeedlincColors.blue2, fontSize: 14),
         ),
@@ -26,12 +26,12 @@ class _PeoplePageState extends State<PeoplePage> {
         children: [
           Container(
             color: NeedlincColors.white,
-            padding: EdgeInsets.symmetric(horizontal: 5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
             width: MediaQuery.of(context).size.width,
             height: 45,
             child: ListView(
               physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
               scrollDirection: Axis.horizontal,
               children: [
                 _buildCategory("All", NeedlincColors.blue1),
@@ -43,24 +43,24 @@ class _PeoplePageState extends State<PeoplePage> {
               ],
             ),
           ),
-          SizedBox(height: 10), // Add spacing
+          const SizedBox(height: 10), // Add spacing
 
           Expanded(
             child: AnimationLimiter(
               child: ListView.builder(
                 padding: EdgeInsets.all(MediaQuery.of(context).size.width / 30),
-                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 itemCount: 20,
                 itemBuilder: (BuildContext context, int index) {
                   return AnimationConfiguration.staggeredList(
                     position: index,
-                    delay: Duration(milliseconds: 100),
+                    delay: const Duration(milliseconds: 100),
                     child: SlideAnimation(
-                      duration: Duration(milliseconds: 2500),
+                      duration: const Duration(milliseconds: 2500),
                       curve: Curves.fastLinearToSlowEaseIn,
                       verticalOffset: -250,
                       child: ScaleAnimation(
-                        duration: Duration(milliseconds: 1500),
+                        duration: const Duration(milliseconds: 1500),
                         curve: Curves.fastLinearToSlowEaseIn,
                         child: _buildFreelancerCard(),
                       ),
@@ -77,22 +77,22 @@ class _PeoplePageState extends State<PeoplePage> {
 
   Widget _buildCategory(String text, Color color) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       alignment: Alignment.center,
-      padding: EdgeInsets.all(4),
-      child: Text(
-        text,
-        style: TextStyle(color: NeedlincColors.white),
-      ),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
           color: color, borderRadius: BorderRadius.circular(20)),
+      child: Text(
+        text,
+        style: const TextStyle(color: NeedlincColors.white),
+      ),
     );
   }
 
   Widget _buildFreelancerCard() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
       decoration: BoxDecoration(
         color: NeedlincColors.white,
         borderRadius: BorderRadius.circular(16.0),
@@ -101,7 +101,7 @@ class _PeoplePageState extends State<PeoplePage> {
             color: NeedlincColors.black2.withOpacity(0.5),
             spreadRadius: 3,
             blurRadius: 10,
-            offset: Offset(0, 6),
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -111,9 +111,9 @@ class _PeoplePageState extends State<PeoplePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.all(20),
-                margin: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(20),
+                margin: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
                       "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -124,29 +124,28 @@ class _PeoplePageState extends State<PeoplePage> {
                   shape: BoxShape.circle,
                 ),
               ),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "John Doe",
                       style:
                       TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
-                    Text("~Electrician",
+                    const Text("~Electrician",
                         style: TextStyle(
                             fontSize: 13, fontWeight: FontWeight.w600)),
-                    Text("📍John Paul's kitchen, eziobodor",
+                    const Text("📍John Paul's kitchen, eziobodor",
                         style: TextStyle(
                             fontSize: 12, color: NeedlincColors.black2)),
-                    SizedBox(height: 25.0),
+                    const SizedBox(height: 25.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton(
                           onPressed: () {},
-                          child: Text("View Profile"),
                           style: ButtonStyle(
                             backgroundColor:
                             MaterialStateProperty.all<Color>(
@@ -155,14 +154,14 @@ class _PeoplePageState extends State<PeoplePage> {
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(color: Colors.blue),
+                                side: const BorderSide(color: Colors.blue),
                               ),
                             ),
                           ),
+                          child: const Text("View Profile"),
                         ),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Text("Message"),
                           style: ButtonStyle(
                             backgroundColor:
                             MaterialStateProperty.all<Color>(
@@ -171,10 +170,11 @@ class _PeoplePageState extends State<PeoplePage> {
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0),
-                                side: BorderSide(color: Colors.blue),
+                                side: const BorderSide(color: Colors.blue),
                               ),
                             ),
                           ),
+                          child: const Text("Message"),
                         ),
                       ],
                     ),

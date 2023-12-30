@@ -1,47 +1,72 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
+import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 
 class UserAccount {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String uid;
 
   UserAccount(this.uid);
 
   Future<void> updateUserProfile({
+    required BuildContext context,
     required String fullName,
-    required String nickName,
+    required String userName,
     required String email,
     required String password,
-  //  required PickedFile profilePicture,
+    required String profilePicture,
+    required String userID
   }) async {
     try {
       // Use the provided uid for the user
       final User? user = _auth.currentUser;
-      if (user!.uid != uid) {
-        print('User ID does not match the provided UID.');
-        return;
-      }
-
-      // // Upload profile picture to Firebase Storage
-      // final Reference storageRef = _storage.ref().child('profile_pictures/$uid.jpg');
-      // final File imageFile = File(profilePicture.path);
-      // await storageRef.putFile(imageFile);
-      // final String downloadURL = await storageRef.getDownloadURL();
-
+      addProfilePictureUrl(url: profilePicture);
       // Update user data in Firestore
-      await _firestore.collection('users').doc(uid).set({
+      await _firestore.collection('users').doc(user!.uid).set({
         'fullName': fullName,
-        'nickName': nickName,
+        'userName': userName,
         'password': password,
         'email': email,
-     //   'profile_picture_url': downloadURL,
+        'profilePicture': profilePicture,
+        'userId': userID,
+        'userCategory': 'null'
+      });
+
+    } catch (e) {
+      showSnackBar(context, 'Error $e');
+    }
+  }
+
+
+
+
+
+
+  Future<void> updateUserCompleteProfile() async {
+    try {
+      // Use the provided uid for the user
+      final User? user = _auth.currentUser;
+
+      //Getting the stored profile data from local storage to upload to firebasefirestore
+      final gender = await getUserData('gender');
+      final profileOption = await getUserData('profileOption');
+      final birthDay = await getUserData('birthDay');
+      final location = await getUserData('address');
+      final phoneNumber = await getUserData('phoneNumber');
+      final userCategory = await getUserData('userCategory');
+
+      // Update user data in Firestore
+      await _firestore.collection('users').doc(user!.uid).update({
+        'gender': gender,
+        'profileOption': profileOption,
+        'birthDay': birthDay,
+        'address': location,
+        'phoneNumber': phoneNumber,
+        'userCategory': userCategory
       });
 
       print('User profile updated successfully!');
@@ -49,4 +74,7 @@ class UserAccount {
       print('Error updating user profile: $e');
     }
   }
+
+
+
 }

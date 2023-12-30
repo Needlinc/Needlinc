@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
-import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome2.dart';
-import 'package:needlinc/needlinc/widgets/login-background.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/intro-page.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -12,56 +11,78 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  bool shouldStartSecondAnimation = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // Set a delay to navigate to the second screen after 3 seconds
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomePage2()));
+    Future.delayed(const Duration(seconds: 7), () {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const WelcomePage2()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        Stack(
+      backgroundColor: NeedlincColors.white,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            backGround(),
+            AnimatedTextKit(
+              pause: const Duration(milliseconds: 500),
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  'NEEDLINC',
+                  speed: const Duration(milliseconds: 150),
+                  textStyle: const TextStyle(
+                    color: NeedlincColors.blue1,
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+              isRepeatingAnimation: false,
+              onFinished: () {
+                // Start the second animation after the first one is finished
+                setState(() {
+                  shouldStartSecondAnimation = true;
+                });
+              },
+            ),
+            const SizedBox(height: 65),
             Container(
-              height: MediaQuery.of(context).size.height * 0.34,
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              child: AnimatedTextKit(
+              width: double.infinity,
+              height: 350,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("assets/Logo.png"),
+                ),
+              ),
+            ),
+            const SizedBox(height: 65),
+            if (shouldStartSecondAnimation)
+              AnimatedTextKit(
+                pause: const Duration(milliseconds: 500),
                 animatedTexts: [
                   TypewriterAnimatedText(
-                    'NEEDLINC',
-                    speed: Duration(milliseconds: 220),
-                    textStyle: TextStyle(
-                      color: NeedlincColors.white,
-                      fontSize: 45,
+                    'Search, Seek, Find',
+                    speed: const Duration(milliseconds: 150),
+                    textStyle: const TextStyle(
+                      color: NeedlincColors.blue1,
+                      fontSize: 20,
                     ),
                   ),
                 ],
                 isRepeatingAnimation: false,
               ),
-            ),
           ],
         ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.37,
-          margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage("logo.png"),
-            ),
-          ),
-        ),
-      ]),
+      ),
     );
   }
 }

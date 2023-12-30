@@ -20,7 +20,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            Container(
+            SizedBox(
               height: 120,
               child: DrawerHeader(
                 child: Stack(
@@ -39,7 +39,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                           decoration: BoxDecoration(
                               color: NeedlincColors.blue3,
                               borderRadius: BorderRadius.circular(10.0)
@@ -54,7 +54,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                                 child: Container(
                                   height: 40,
                                   width: 40,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: NetworkImage(
                                         "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
@@ -67,12 +67,12 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
-                                    Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                    const Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
+                                    Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
                                   ],
                                 ),
                               ),
@@ -85,51 +85,51 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                 ),
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.settings, color: NeedlincColors.blue2,),
               title: Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
               // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-                leading: Icon(Icons.input, color: NeedlincColors.blue2,),
-                title: Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
+                leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
+                title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
-              title: Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
+              title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.people_outline, color: NeedlincColors.blue2),
-              title: Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+              title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.notifications, color: NeedlincColors.blue2,),
-              title: Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
+              title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.person_outline, color: NeedlincColors.blue2,),
-              title: Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
+              title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.question_mark, color: NeedlincColors.blue2,),
-              title: Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.question_mark, color: NeedlincColors.blue2,),
+              title: const Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-              leading: Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
-              title: Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
+              title: const Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
           ],
@@ -139,24 +139,24 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
       appBar: AppBar(
           backgroundColor: NeedlincColors.white,
           elevation: 0,
-          iconTheme: IconThemeData(color: NeedlincColors.blue1),
+          iconTheme: const IconThemeData(color: NeedlincColors.blue1),
           title: Container(
-              margin: EdgeInsets.only(left: 60.0),
-              child: Text("Jobs for You", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)
+              margin: const EdgeInsets.only(left: 60.0),
+              child: const Text("Jobs for You", style: TextStyle(fontSize: 15,color: NeedlincColors.blue1),)
           ),
           actions: [
             Row(
               children: [
                 IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  icon: Icon(Icons.people),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  icon: const Icon(Icons.people),
                   onPressed: (){
                     //TODO Chat messaging feature
                   },
                 ),
                 IconButton(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  icon: Icon(Icons.message),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  icon: const Icon(Icons.message),
                   onPressed: (){
                     //TODO Chat messaging feature
                   },
@@ -166,13 +166,13 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
           ]
       ),
       //TODO Body
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 0.0, left: 10.0),
+              margin: const EdgeInsets.only(top: 0.0, left: 10.0),
               child: Text(
                 "Pending Jobs",
                 style: GoogleFonts.oxygen(
@@ -185,7 +185,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width * 0.95,
               margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.74, left: 10.0),
-              child: Divider(
+              child: const Divider(
                 color: NeedlincColors.blue2,
               ),
             ),
@@ -195,13 +195,13 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.055, left: 10.0),
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 children: [
                   //TODO Appointment Cards
                   for(int i = 0; i < 5; i++)
                     Container(
-                      margin: EdgeInsets.only(right: 20.0),
-                      padding: EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.only(right: 20.0),
+                      padding: const EdgeInsets.all(8.0),
                       height: 100,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
@@ -220,12 +220,12 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(bottom: 45.0),
-                                  padding: EdgeInsets.all(50.0),
+                                  margin: const EdgeInsets.only(bottom: 45.0),
+                                  padding: const EdgeInsets.all(50.0),
                                   width: 40.0,
                                   height: 40.0,
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                           image: NetworkImage("https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow"),
                                           fit: BoxFit.cover
                                       ),
@@ -236,8 +236,8 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                               //TODO Time registered for appointment
                               Container(
                                 width: 200,
-                                margin: EdgeInsets.only(left: 5.0),
-                                child: Text(
+                                margin: const EdgeInsets.only(left: 5.0),
+                                child: const Text(
                                   "You have an appointment with Emeka John by 7:30pm on Friday 12th",
                                   textAlign: TextAlign.center,
                                 ),
@@ -248,22 +248,22 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                           Row(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(6.5),
-                                margin: EdgeInsets.only(left: 65.0,),
-                                child: Text(
+                                padding: const EdgeInsets.all(6.5),
+                                margin: const EdgeInsets.only(left: 65.0,),
+                                decoration: BoxDecoration(
+                                    color: NeedlincColors.grey,
+                                    borderRadius: BorderRadius.circular(20.0)
+                                ),
+                                child: const Text(
                                   'Cancel',
                                   style: TextStyle(
                                       color: NeedlincColors.blue2
                                   ),
                                 ),
-                                decoration: BoxDecoration(
-                                    color: NeedlincColors.grey,
-                                    borderRadius: BorderRadius.circular(20.0)
-                                ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(left: 75.0,),
-                                child: Text(
+                                margin: const EdgeInsets.only(left: 75.0,),
+                                child: const Text(
                                   "Edit",
                                   style: TextStyle(
                                     color: NeedlincColors.blue2,
@@ -283,7 +283,7 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
             Container(
               width: MediaQuery.of(context).size.width * 0.95,
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.23, left: 10.0),
-              child: Divider(
+              child: const Divider(
                 color: NeedlincColors.blue2,
               ),
             ),
@@ -304,13 +304,13 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
               height: MediaQuery.of(context).size.height * 0.6,
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3, left: 10.0),
               child: ListView(
-                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 children: [
                   //TODO Appointment Card
                   for(int i = 0; i < 5; i++)
                     Container(
-                      margin: EdgeInsets.only(right: 20.0, bottom: 10.0),
-                      padding: EdgeInsets.all(8.0),
+                      margin: const EdgeInsets.only(right: 20.0, bottom: 10.0),
+                      padding: const EdgeInsets.all(8.0),
                       height: 140,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
@@ -330,12 +330,12 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(bottom: 45.0),
-                                  padding: EdgeInsets.all(50.0),
+                                  margin: const EdgeInsets.only(bottom: 45.0),
+                                  padding: const EdgeInsets.all(50.0),
                                   width: 40.0,
                                   height: 40.0,
                                   decoration: BoxDecoration(
-                                      image: DecorationImage(
+                                      image: const DecorationImage(
                                           image: NetworkImage("https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow"),
                                           fit: BoxFit.cover
                                       ),
@@ -348,8 +348,8 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                                   //TODO Identity Info.
                                   Container(
                                     width: 200,
-                                    margin: EdgeInsets.only(left: 5.0, bottom: 8.0),
-                                    child: Text(
+                                    margin: const EdgeInsets.only(left: 5.0, bottom: 8.0),
+                                    child: const Text(
                                       "John Doe just posted a Job",
                                       textAlign: TextAlign.center,
                                     ),
@@ -357,15 +357,15 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                                   //TODO Time registered for appointment
                                   Container(
                                     width: 200,
-                                    margin: EdgeInsets.only(left: 5.0),
-                                    child: Text(
+                                    margin: const EdgeInsets.only(left: 5.0),
+                                    child: const Text(
                                       "You have an appointment with Emeka John by 7:30pm on Friday 12th",
                                       textAlign: TextAlign.center,
                                     ),
                                   )
                                 ],
                               ),
-                              Text("🟢 Now", style: TextStyle(fontSize: 9)),
+                              const Text("🟢 Now", style: TextStyle(fontSize: 9)),
                             ],
                           ),
                           //TODO The two buttons underneath the appointment cards
@@ -373,17 +373,17 @@ class _ClientToFreelancerState extends State<ClientToFreelancer> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Container(
-                                padding: EdgeInsets.all(6.5),
-                                margin: EdgeInsets.only(left: 65.0,),
-                                child: Text(
+                                padding: const EdgeInsets.all(6.5),
+                                margin: const EdgeInsets.only(left: 65.0,),
+                                decoration: BoxDecoration(
+                                    color: NeedlincColors.blue1,
+                                    borderRadius: BorderRadius.circular(20.0)
+                                ),
+                                child: const Text(
                                   'Message',
                                   style: TextStyle(
                                       color: NeedlincColors.white
                                   ),
-                                ),
-                                decoration: BoxDecoration(
-                                    color: NeedlincColors.blue1,
-                                    borderRadius: BorderRadius.circular(20.0)
                                 ),
                               ),
                             ],

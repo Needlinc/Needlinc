@@ -1,8 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
-
+import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import 'firebase_options.dart';
+import 'needlinc/shared-pages/auth-pages/addNumber.dart';
+import 'needlinc/shared-pages/auth-pages/sign-in.dart';
+import 'needlinc/shared-pages/user-type.dart';
+
+
 
 
 void main() async {
@@ -12,7 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(Home());
+  runApp(const Home()); // change the Settings() to Home()
 }
 
 class Home extends StatelessWidget {
@@ -20,27 +26,48 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
+      routes: {
+        '/': (context) => Settings(), //replace with const RootPage()
+        '//': (context) => const SignupPage(),
+      },    );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class RootPage extends StatefulWidget {
+  const RootPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<RootPage> createState() => _RootPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WelcomePage();
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return const UserType();
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('${snapshot.error}'),
+            );
+          }
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return const WelcomePage();
+      },
+    );
   }
 }

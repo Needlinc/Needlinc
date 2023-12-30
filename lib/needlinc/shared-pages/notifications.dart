@@ -79,6 +79,8 @@ date: "Yesterday",
 )
 ];
 
+   NotificationView({super.key});
+
 
 @override
   Widget build(BuildContext context) {
@@ -95,7 +97,7 @@ date: "Yesterday",
                   "${Notifications[index].notification}",
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
