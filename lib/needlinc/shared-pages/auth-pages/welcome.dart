@@ -60,7 +60,7 @@ class _WelcomePageState extends State<WelcomePage> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: AssetImage("assets/logo.png"),
+                  image: AssetImage("assets/Logo.png"),
                 ),
               ),
             ),
