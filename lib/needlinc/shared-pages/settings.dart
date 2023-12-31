@@ -36,18 +36,18 @@ class _SettingsState extends State<Settings> {
         elevation: 0.0,
       ),
       body: Container(
-        margin: EdgeInsets.only(),
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: Height * 0.03),
-            Text("Display"),
+            Text("Display", style: TextStyle(fontSize:25, fontWeight: FontWeight.w700)),
+            SizedBox(height: Height * 0.005 ),
             Center(
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -74,13 +74,13 @@ class _SettingsState extends State<Settings> {
 
             SizedBox(height: Height * 0.03),
 
-            Text("Notifications"),
-            SizedBox(height: Height * 0.01),
+            Text("Notifications",style: TextStyle(fontSize:25, fontWeight: FontWeight.w700) ),
+            SizedBox(height: Height * 0.005),
             Center(
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -111,7 +111,7 @@ class _SettingsState extends State<Settings> {
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -141,7 +141,7 @@ class _SettingsState extends State<Settings> {
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -172,7 +172,7 @@ class _SettingsState extends State<Settings> {
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -199,13 +199,13 @@ class _SettingsState extends State<Settings> {
 
             SizedBox(height: Height * 0.03),
 
-            Text("App Permissons"),
+            Text("App Permissons", style: TextStyle(fontSize:25, fontWeight: FontWeight.w700)),
             Text("This allows you to control which permissions on the aopp"),
             Center(
               child:Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -234,7 +234,7 @@ class _SettingsState extends State<Settings> {
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -263,7 +263,7 @@ class _SettingsState extends State<Settings> {
               child: Container(
                 padding: EdgeInsets.all(3.0),
                 width: Width * 0.95,
-                height: Height * 0.03,
+                height: Height * 0.035,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -286,20 +286,139 @@ class _SettingsState extends State<Settings> {
                   ),
                 )
               )
-            ),//location
+            ),
+
             SizedBox(height: Height * 0.03),
-            Text("Account"),
-            SizedBox(height: Height * 0.02),
-            Container(
-              
-            ),// change Password
-            Container(), //Deactivate account
+
+            Text("Account", style: TextStyle(fontSize:25, fontWeight: FontWeight.w700)),
+            SizedBox(height: Height * 0.005),
+            Center(
+              child: Container(
+                padding: EdgeInsets.only(left: 4),
+                width: Width * 0.95,
+                height: Height * 0.035,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Change Password"),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios, size: 13, color: NeedlincColors.blue2),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                    color: NeedlincColors.blue2,
+                    width: 2.0,
+                  ),
+                )
+              ),
+            ),
+
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(3.0),
+                width: Width * 0.95,
+                  height: Height * 0.035,
+                  child: TextButton(
+                    onPressed:() {
+                      //TODO: Impleement the Deactivate action 
+                    },
+                    child: Row(
+                      children: [
+                        Text("Deactivate account", style: TextStyle(color: Colors.black),),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: NeedlincColors.blue2,
+                      width: 2.0,
+                    ),
+                  )
+              ),
+            ),
+
             SizedBox(height: Height * 0.02,),
-            Container(),//Upgrade to Professional account
-            SizedBox(height: Height * 0.2),
-            Container(),// Leave Feedback
+
+            Center(
+              child: Container(
+                padding: EdgeInsets.only(left: 4),
+                width: Width * 0.95,
+                height: Height * 0.04,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Upgrade to Professional Account"),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward_ios, size: 13, color: NeedlincColors.blue2),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                    color: NeedlincColors.blue2,
+                    width: 2.0,
+                  ),
+                )
+              ),
+            ),
+        
             SizedBox(height: Height * 0.02),
-            Container(),//Delete Account
+
+            Center( 
+              child: Container(
+                width: Width * 0.95,
+                height: Height * 0.04,
+                padding: EdgeInsets.all(3.0),
+                child: TextButton(
+                  onPressed:() {
+                    //TODO: Impleement the Deactivate action 
+                  },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text("Leave Feedback", style: TextStyle(color: Colors.black),),
+                  ],
+                ),
+                ),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                    color: NeedlincColors.blue2,
+                    width: 2.0,
+                  ),
+                )
+              ),
+            ),
+
+            SizedBox(height: Height * 0.02),
+
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(3.0),
+                width: Width * 0.95,
+                  height: Height * 0.04,
+                  child: TextButton(
+                    onPressed:() {
+                      //TODO: Impleement the Deactivate action 
+                    },
+                    child: Text("Delete Account", style: TextStyle(color: Colors.red),),
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                      color: NeedlincColors.blue2,
+                      width: 2.0,
+                    ),
+                  )
+              ),
+            ),
 
           ],
         ),
