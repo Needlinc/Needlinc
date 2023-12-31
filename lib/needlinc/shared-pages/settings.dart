@@ -200,7 +200,7 @@ class _SettingsState extends State<Settings> {
             SizedBox(height: Height * 0.03),
 
             Text("App Permissons", style: TextStyle(fontSize:25, fontWeight: FontWeight.w700)),
-            Text("This allows you to control which permissions on the aopp"),
+            Text("This allows you to control which permissions on the app"),
             Center(
               child:Container(
                 padding: EdgeInsets.all(3.0),
@@ -383,6 +383,7 @@ class _SettingsState extends State<Settings> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Icon(Icons.thumb_up_outlined, color: Colors.black),
                     Text("Leave Feedback", style: TextStyle(color: Colors.black),),
                   ],
                 ),

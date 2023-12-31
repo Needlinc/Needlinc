@@ -32,7 +32,7 @@ return MaterialApp(
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const RootPage(), //replace with const RootPage()
+        '/': (context) => Settings(), //replace with const RootPage()
         '//': (context) => const SignupPage(),
       },    );
   }
