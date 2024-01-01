@@ -4,6 +4,7 @@ import '../colors/colors.dart';
 import '../shared-pages/edit-profile.dart';
 import 'business-main.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import '../shared-pages/settings.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -51,14 +52,14 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                const ListTile(
+                 ListTile(
                   leading: Icon(
                     Icons.settings,
                     color: NeedlincColors.blue2,
                   ),
                   title: Text('Settings',
                       style: TextStyle(color: NeedlincColors.blue2)),
-                  // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));},
                 ),
                 const Divider(),
                 ListTile(
@@ -175,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  bool isOwner = false;
+  bool isOwner = true;
   bool isCoverPhoto = true;
   bool isReviews = true;
   bool isPosts = false;

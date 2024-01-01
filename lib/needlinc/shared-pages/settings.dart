@@ -23,7 +23,12 @@ class _SettingsState extends State<Settings> {
      double Width = screenSize.width;
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          }
+        ),
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
         title: const Text(
