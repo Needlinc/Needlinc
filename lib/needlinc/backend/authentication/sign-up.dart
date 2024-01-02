@@ -28,7 +28,7 @@ class SignUp {
         email: email,
         password: password,
       );
-             String profilePictureUrl = await uploadImageToFirebase(profilePicture);
+             String profilePictureUrl = await uploadProfilePicture(profilePicture);
 
              UserAccount(userCredential.user!.uid).updateUserProfile(
                context: context,

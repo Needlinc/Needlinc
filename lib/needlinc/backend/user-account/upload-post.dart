@@ -16,6 +16,8 @@ class UploadPost{
   DateTime now = DateTime.now();
   final String randomUrl = randomAlphaNumeric(16);
 
+
+  //Todo Upload Home Post for Images and Write Ups
   Future<bool> homePagePostForImageAndWriteUp(
       BuildContext context,
       List<Uint8List> images,
@@ -69,7 +71,7 @@ class UploadPost{
 
 
 
-  //Todo Image
+  //Todo Upload Home Post for Images
 
   Future<bool> homePagePostForImage(
       BuildContext context,
@@ -124,6 +126,8 @@ class UploadPost{
 
 
 
+
+  //Todo Upload Home Post for Write Ups
   Future<bool> homePagePostForWriteUp(context, String writeUp, String freelancerOption) async {
     try {
         // Use the provided uid for the user
@@ -160,7 +164,7 @@ class UploadPost{
   }
 
 
-
+  //Todo upload MarketPlace Uploading function
   Future<bool> MarketPlacePost({
     required BuildContext context,
     required List<Uint8List> images,
@@ -218,7 +222,7 @@ class UploadPost{
 
 
 
-
+   //Todo Uploading Homepage and MarketPlace Comments
   Future<dynamic> uploadComments(
       {required BuildContext context, required String message, required String sourceOption, required String id}) async {
     try {
@@ -269,7 +273,7 @@ class UploadPost{
   }
 
 
-
+     //Todo Uploading Homepage and MarketPlace uploadHearts
   Future<dynamic> uploadHearts(
       {required BuildContext context, required String sourceOption, required String id}) async {
     try {
