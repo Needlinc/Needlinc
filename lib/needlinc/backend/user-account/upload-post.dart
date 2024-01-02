@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,7 +14,7 @@ class UploadPost{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   DateTime now = DateTime.now();
-
+  final String randomUrl = randomAlphaNumeric(16);
 
   Future<bool> homePagePostForImageAndWriteUp(
       BuildContext context,
@@ -29,7 +28,6 @@ class UploadPost{
 
       // Upload each image and collect URLs
       for (var image in images) {
-        final String randomUrl = randomAlphaNumeric(16);
         final Reference storageRef = _firebaseStorage.ref().child('homePage/${user!.uid}/$randomUrl');
         final UploadTask uploadTask = storageRef.putData(image);
 
@@ -41,7 +39,7 @@ class UploadPost{
       int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
 
       // Update user data in Firestore
-      await _firestore.collection('homePage').doc(randomAlphaNumeric(16)).set({
+      await _firestore.collection('homePage').doc(randomUrl).set({
         'userDetails': {
           'profilePicture': await getUserData('profilePicture'),
           'fullName': await getUserData('fullName'),
@@ -56,7 +54,7 @@ class UploadPost{
           'freelancerOption': freelancerOption ?? "null",
           'hearts': [],
           'comments': [],
-          'postId': randomAlphaNumeric(16),
+          'postId': randomUrl,
           'timeStamp': millisecondsSinceEpoch
         }
       });
@@ -96,7 +94,7 @@ class UploadPost{
       int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
 
       // Update user data in Firestore
-      await _firestore.collection('homePage').doc(randomAlphaNumeric(16)).set({
+      await _firestore.collection('homePage').doc(randomUrl).set({
         'userDetails': {
           'profilePicture': await getUserData('profilePicture'),
           'fullName': await getUserData('fullName'),
@@ -111,7 +109,7 @@ class UploadPost{
           'freelancerOption': freelancerOption ?? "null",
           'hearts': [],
           'comments': [],
-          'postId': randomAlphaNumeric(16),
+          'postId': randomUrl,
           'timeStamp': millisecondsSinceEpoch
         }
       });
@@ -131,7 +129,7 @@ class UploadPost{
         // Use the provided uid for the user
         final User? user = _auth.currentUser;
 
-        final String randomUrl = randomAlphaNumeric(16);
+
         int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
         // Update user data in Firestore
         await _firestore.collection('homePage').doc(randomUrl).set({
@@ -144,7 +142,7 @@ class UploadPost{
             'userId': user!.uid,
           },
           'postDetails': {
-            'image': [],
+            'images': [],
             'writeUp': writeUp,
             'freelancerOption': freelancerOption ?? "null",
             'postId': randomUrl,
@@ -163,34 +161,31 @@ class UploadPost{
 
 
 
-  Future<bool> MarketPlacePost(
-      {
-        required BuildContext context,
-        required List<Uint8List> images,
-        required String description,
-        required String productName,
-        required String price,
-        required String category
-      }) async {
+  Future<bool> MarketPlacePost({
+    required BuildContext context,
+    required List<Uint8List> images,
+    required String description,
+    required String productName,
+    required String price,
+    required String category,
+  }) async {
     try {
-      // Use the provided uid for the user
       final User? user = _auth.currentUser;
+      final String productUrl = randomAlphaNumeric(16); // Unique identifier for the product
       List<String> imageUrls = [];
-      final String productUrl = randomAlphaNumeric(16);
-      // Upload each image and collect URLs
+
       for (var image in images) {
-        final String productUrl = randomAlphaNumeric(16);
-        final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/${user!.uid}/$productUrl');
+        final String imageId = randomAlphaNumeric(16); // Unique identifier for each image
+        final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/${user!.uid}/$productUrl/$imageId');
         final UploadTask uploadTask = storageRef.putData(image);
 
-        await uploadTask;
+        await uploadTask.whenComplete(() => null);
         String imageUrl = await storageRef.getDownloadURL();
         imageUrls.add(imageUrl);
       }
 
-      int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
+      int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
 
-      // Update user data in Firestore
       await _firestore.collection('marketPlacePage').doc(productUrl).set({
         'userDetails': {
           'profilePicture': await getUserData('profilePicture'),
@@ -201,7 +196,7 @@ class UploadPost{
           'userId': user!.uid,
         },
         'productDetails': {
-          'image': imageUrls,
+          'images': imageUrls, // Note: Field name changed to 'images' to reflect that it's a list
           'name': productName,
           'description': description,
           'price': price,
@@ -209,16 +204,18 @@ class UploadPost{
           'hearts': [],
           'comments': [],
           'productId': productUrl,
-          'timeStamp': millisecondsSinceEpoch
-        }
+          'timeStamp': millisecondsSinceEpoch,
+        },
       });
+
       showSnackBar(context, 'Market Place page post successfully uploaded!');
       return true;
     } catch (e) {
-      showSnackBar(context, 'Error uploading post to Market Place page $e');
+      showSnackBar(context, 'Error uploading post to Market Place page: $e');
+      return false;
     }
-    return true;
   }
+
 
 
 
@@ -282,6 +279,8 @@ class UploadPost{
           .collection(sourceOption)
           .doc(id)
           .get();
+      showSnackBar(context, "source-option: ${sourceOption}\nid: ${id}");
+      print("source-option: ${sourceOption}\nid: ${id}");
       // Step 2: Modify the 'comments' array within 'postDetails'
       Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
 

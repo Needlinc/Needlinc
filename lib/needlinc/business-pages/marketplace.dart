@@ -408,7 +408,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      "${productDetails["image"][0]}",
+                                      "${productDetails["images"][0]}",
                                     ),
                                     fit: BoxFit.cover,
                                   ),

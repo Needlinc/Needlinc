@@ -22,9 +22,10 @@ class _CommentsPageState extends State<CommentsPage> {
 
   Map<String, dynamic>? userDetails, postDetails;
   List? hearts;
-  String? image, profilePicture, writeUp, userName, userCategory, address, id, sourceOption;
+  String? profilePicture, writeUp, userName, userCategory, address, id, sourceOption;
   int? commentCount;
   TextEditingController commentController = TextEditingController();
+  List<String> images = [];
   List heartList = [];
   List commentHeartList = [];
   List commentList = [];
@@ -222,7 +223,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
     sourceOption = widget.sourceOption;
     postDetails = sourceOption == 'homePage' ? widget.post['postDetails'] : widget.post['productDetails'];
-    image = postDetails!['image'];
+    images = List<String>.from(postDetails?['images'] ?? []);
     writeUp = sourceOption == 'homePage' ? postDetails!['writeUp'] : postDetails!['description'];
     commentCount = postDetails!['comments'].length;
     commentList = postDetails!['comments'];
@@ -236,7 +237,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
 
   Widget displayHomePosts(){
-    if(image != "null" && writeUp != "null"){
+    if(images.isNotEmpty && writeUp != "null"){
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 12.0),
@@ -308,7 +309,7 @@ class _CommentsPageState extends State<CommentsPage> {
             InkWell(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                  imageUrls: [image!],
+                  imageUrls: images,
                   initialIndex: 0,
                     ),
                   ),
@@ -322,7 +323,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     image: NetworkImage(
-                      image!,
+                      images[0],
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -373,7 +374,7 @@ class _CommentsPageState extends State<CommentsPage> {
         ),
       );
     }
-    if(image != "null" && writeUp == "null"){
+    if(images.isNotEmpty && writeUp == "null"){
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 12.0),
@@ -391,7 +392,7 @@ class _CommentsPageState extends State<CommentsPage> {
                   child: InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                        imageUrls: [image!],
+                        imageUrls: images,
                         initialIndex: 0,
                           ),
                         ),
@@ -454,7 +455,7 @@ class _CommentsPageState extends State<CommentsPage> {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: NetworkImage(
-                    image!,
+                    images[0],
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -507,7 +508,7 @@ class _CommentsPageState extends State<CommentsPage> {
         ),
       );
     }
-    if(image == "null" && writeUp != "null"){
+    if(images.isEmpty && writeUp != "null"){
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 12.0),
