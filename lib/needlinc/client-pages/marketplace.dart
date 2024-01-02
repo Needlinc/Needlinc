@@ -420,8 +420,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     productDetails['description'].substring(0, 123)
                                         :
                                     productDetails['description'],
-                                    style: const TextStyle(fontSize: 18)
-                                ),
+                                    style: const TextStyle(fontSize: 18)),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
@@ -431,7 +430,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      productDetails["image"],
+                                      "${productDetails["image"][0]}",
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -449,7 +448,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                           onPressed: () {
                                             UploadPost().uploadHearts(context: context, sourceOption: 'marketPlacePage', id: productDetails['productId']);
                                           },
-                                          icon: productDetails['hearts'].contains(FirebaseAuth.instance.currentUser!.uid) ?
+                                          icon: productDetails['hearts'].contains(userDetails['userId']) ?
                                           Icon(
                                             Icons.favorite, size: 22,
                                             color: NeedlincColors.red,)

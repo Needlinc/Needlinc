@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     required String address,
     required String userCategory,
     required String profilePicture,
-    required String image,
+    required List<String> images,
     required String writeUp,
     required List heartsId,
     required int heartCount,
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     required int timeStamp,
     required String postId
   }){
-    if(image != "null" && writeUp != "null"){
+    if(images.isNotEmpty && writeUp != "null"){
       return InkWell(
         onTap: (){
           Navigator.push(context, MaterialPageRoute(
@@ -123,12 +123,12 @@ class _HomePageState extends State<HomePage> {
               InkWell(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                    imageUrls: [image],
+                    imageUrls: images as List<String>,
                     initialIndex: 0,
-                   ),
-                 ),
-               );
-              },
+                  ),
+                  ),
+                  );
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width * 0.55,
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                       image: NetworkImage(
-                        image,
+                        images[0],
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -156,12 +156,12 @@ class _HomePageState extends State<HomePage> {
                         UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
                       },
                           icon: heartsId.contains(userId) ?
-                            Icon(
-                              Icons.favorite, size: 22,
-                              color: NeedlincColors.red,)
+                          Icon(
+                            Icons.favorite, size: 22,
+                            color: NeedlincColors.red,)
                               :
-                            Icon(
-                              Icons.favorite_border, size: 22,)
+                          Icon(
+                            Icons.favorite_border, size: 22,)
                       ),
                       Text("$heartCount", style: const TextStyle(fontSize: 15))
                     ],
@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
-    if(image != "null" && writeUp == "null"){
+    if(images.isNotEmpty && writeUp == "null"){
       return InkWell(
         onTap: (){
           Navigator.push(context, MaterialPageRoute(
@@ -216,11 +216,11 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: InkWell(
                       onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                            imageUrls: [image],
-                            initialIndex: 0,
-                            ),
-                          ),
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
+                          imageUrls: images as List<String>,
+                          initialIndex: 0,
+                        ),
+                        ),
                         );
                       },
                       child: Container(
@@ -280,7 +280,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     image: NetworkImage(
-                      image,
+                      images[0],
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -335,7 +335,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
-    if(image == "null" && writeUp != "null"){
+    if(images.isEmpty && writeUp != "null"){
       return InkWell(
         onTap: (){
           Navigator.push(context, MaterialPageRoute(
@@ -440,7 +440,7 @@ class _HomePageState extends State<HomePage> {
                       IconButton(onPressed: () {
                         Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
-                            CommentsPage(post: post, sourceOption: 'homePage',)));
+                                CommentsPage(post: post, sourceOption: 'homePage',)));
                       },
                           icon: const Icon(
                             Icons.maps_ugc_outlined, size: 20,)),
@@ -467,39 +467,32 @@ class _HomePageState extends State<HomePage> {
   //Get Data from firebase and send it to the Display widget
   Widget HomePosts(BuildContext context){
     return Container(
-        margin: const EdgeInsets.only(top: 160.0),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection('homePage')
-              .orderBy('postDetails.timeStamp', descending: true)
-              .snapshots(), // Use the stream method instead of the get method
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Center(child: const Text("Something went wrong"));
-            }
-
-            if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
-              List<DocumentSnapshot> dataList = snapshot.data!.docs;
-              return ListView.builder(
+      margin: const EdgeInsets.only(top: 160.0),
+      child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('homePage')
+            .orderBy('postDetails.timeStamp', descending: true)
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: const Text("Something went wrong"));
+          }
+          if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
+            List<DocumentSnapshot> dataList = snapshot.data!.docs;
+            return ListView.builder(
                 itemCount: dataList.length,
                 itemBuilder: (BuildContext context, int index) {
                   var data = dataList[index].data() as Map<String, dynamic>;
-
                   Map<String, dynamic>? userDetails = data['userDetails'];
                   Map<String, dynamic>? postDetails = data['postDetails'];
-                  if (userDetails == null) {
-                    // Handle the case when userDetails are missing in a document.
+
+                  if (userDetails == null || postDetails == null) {
                     return Center(child: const Text("User details not found"));
                   }
-                  if (postDetails == null) {
-                    // Handle the case when userDetails are missing in a document.
-                    return Center(child: const Text("User details not found"));
-                  }
-                  if(userDetails['userCategory'] == 'null'){
-                    return const Center(
-                      child: Text("There is a problem with your account, try reaching us via needlinc@gmail.com to help you out, we want to see that you have no problem trying to use needlinc to meet your needs, thank you...!"),
-                    );
-                  }
+
+                  // Cast images list to List<String>
+                  List<String> images = List<String>.from(postDetails['images']);
+
                   return displayHomePosts(
                     context: context,
                     userName: userDetails['userName'],
@@ -507,7 +500,7 @@ class _HomePageState extends State<HomePage> {
                     address: userDetails['address'],
                     userCategory: userDetails['userCategory'],
                     profilePicture: userDetails['profilePicture'],
-                    image: postDetails['image'],
+                    images: images,
                     writeUp: postDetails['writeUp'],
                     heartCount: postDetails['hearts'].length,
                     heartsId: postDetails['hearts'],
@@ -516,19 +509,15 @@ class _HomePageState extends State<HomePage> {
                     postId: postDetails['postId'],
                     timeStamp: postDetails['timeStamp'],
                   );
-                },
-              );
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            return const WelcomePage();
-          },
-        )
+                }
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return const WelcomePage();
+        },
+      ),
     );
   }
 

@@ -131,3 +131,36 @@ Future<String> uploadImageToFirebase(Uint8List imageBytes) async {
     return ('Error uploading image to Firebase Storage: $error');
   }
 }
+
+
+
+//Todo working on multi-images
+
+
+
+Future<List<String>> uploadImagesToFirebase(List<Uint8List> imageList) async {
+  try {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot userDetails = await FirebaseFirestore.instance.collection("users").doc(userId).get();
+    String fullName = userDetails['fullName'];
+    String userName = userDetails['userName'];
+
+    List<String> imageUrls = [];
+
+    for (int i = 0; i < imageList.length; i++) {
+      Uint8List imageBytes = imageList[i];
+
+      final Reference storageRef = FirebaseStorage.instance.ref().child('profilePictures/$userId/${userName}-${fullName}_$i.jpg');
+      final UploadTask uploadTask = storageRef.putData(imageBytes);
+
+      await uploadTask;
+      final imageUrl = await storageRef.getDownloadURL();
+      imageUrls.add(imageUrl);
+    }
+
+    return imageUrls;
+  } catch (error) {
+    print('Error uploading images to Firebase Storage: $error');
+    return ['Error uploading images to Firebase Storage: $error'];
+  }
+}

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -15,91 +17,111 @@ class UploadPost{
   DateTime now = DateTime.now();
 
 
-  Future<bool> homePagePostForImageAndWriteUp(context, image, String writeUp, String freelancerOption) async {
+  Future<bool> homePagePostForImageAndWriteUp(
+      BuildContext context,
+      List<Uint8List> images,
+      String writeUp,
+      String freelancerOption
+      ) async {
     try {
-        // Use the provided uid for the user
-        final User? user = _auth.currentUser;
+      final User? user = _auth.currentUser;
+      List<String> imageUrls = [];
 
+      // Upload each image and collect URLs
+      for (var image in images) {
         final String randomUrl = randomAlphaNumeric(16);
-
         final Reference storageRef = _firebaseStorage.ref().child('homePage/${user!.uid}/$randomUrl');
         final UploadTask uploadTask = storageRef.putData(image);
 
         await uploadTask;
+        String imageUrl = await storageRef.getDownloadURL();
+        imageUrls.add(imageUrl);
+      }
 
-        final imageUrl = await storageRef.getDownloadURL();
-        int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
-        // Update user data in Firestore
-        await _firestore.collection('homePage').doc(randomUrl).set({
-          'userDetails': {
-            'profilePicture': await getUserData('profilePicture'),
-            'fullName': await getUserData('fullName'),
-            'userName': await getUserData('userName'),
-            'userCategory': await getUserData('userCategory'),
-            'address': await getUserData('address'),
-            'userId': user!.uid,
-          },
-          'postDetails': {
-            'image': imageUrl,
-            'writeUp': writeUp,
-            'freelancerOption': freelancerOption ?? "null",
-            'hearts': [],
-            'comments': [],
-            'postId': randomUrl,
-            'timeStamp': millisecondsSinceEpoch
-          }
-        });
-        showSnackBar(context, 'Home page post successfully uploaded!');
+      int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
+
+      // Update user data in Firestore
+      await _firestore.collection('homePage').doc(randomAlphaNumeric(16)).set({
+        'userDetails': {
+          'profilePicture': await getUserData('profilePicture'),
+          'fullName': await getUserData('fullName'),
+          'userName': await getUserData('userName'),
+          'userCategory': await getUserData('userCategory'),
+          'address': await getUserData('address'),
+          'userId': user!.uid,
+        },
+        'postDetails': {
+          'images': imageUrls, // Storing multiple image URLs
+          'writeUp': writeUp,
+          'freelancerOption': freelancerOption ?? "null",
+          'hearts': [],
+          'comments': [],
+          'postId': randomAlphaNumeric(16),
+          'timeStamp': millisecondsSinceEpoch
+        }
+      });
+      showSnackBar(context, 'Home page post successfully uploaded!');
 
       return true;
     } catch (e) {
-      showSnackBar(context, 'Error uploading post to homepage $e');
+      showSnackBar(context, 'Error uploading post to homepage: $e');
+      return false;
     }
-    return true;
   }
 
 
-  Future<bool> homePagePostForImage(context, image, String freelancerOption) async {
+
+  //Todo Image
+
+  Future<bool> homePagePostForImage(
+      BuildContext context,
+      List<Uint8List> images,
+      String freelancerOption
+      ) async {
     try {
-        // Use the provided uid for the user
-        final User? user = _auth.currentUser;
+      final User? user = _auth.currentUser;
+      List<String> imageUrls = [];
 
+      // Upload each image and collect URLs
+      for (var image in images) {
         final String randomUrl = randomAlphaNumeric(16);
-
         final Reference storageRef = _firebaseStorage.ref().child('homePage/${user!.uid}/$randomUrl');
         final UploadTask uploadTask = storageRef.putData(image);
 
         await uploadTask;
+        String imageUrl = await storageRef.getDownloadURL();
+        imageUrls.add(imageUrl);
+      }
 
-        final imageUrl = await storageRef.getDownloadURL();
-        int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
-        // Update user data in Firestore
-        await _firestore.collection('homePage').doc(randomUrl).set({
-          'userDetails': {
-            'profilePicture': await getUserData('profilePicture'),
-            'fullName': await getUserData('fullName'),
-            'userName': await getUserData('userName'),
-            'userCategory': await getUserData('userCategory'),
-            'address': await getUserData('address'),
-            'userId': user!.uid,
-          },
-          'postDetails': {
-            'image': imageUrl,
-            'writeUp': "null",
-            'freelancerOption': freelancerOption ?? "null",
-            'hearts': [],
-            'comments': [],
-            'postId': randomUrl,
-            'timeStamp': millisecondsSinceEpoch
-          }
-        });
-        showSnackBar(context, 'Home page post successfully uploaded!');
+      int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
+
+      // Update user data in Firestore
+      await _firestore.collection('homePage').doc(randomAlphaNumeric(16)).set({
+        'userDetails': {
+          'profilePicture': await getUserData('profilePicture'),
+          'fullName': await getUserData('fullName'),
+          'userName': await getUserData('userName'),
+          'userCategory': await getUserData('userCategory'),
+          'address': await getUserData('address'),
+          'userId': user!.uid,
+        },
+        'postDetails': {
+          'images': imageUrls, // Storing multiple image URLs
+          'writeUp': "null",
+          'freelancerOption': freelancerOption ?? "null",
+          'hearts': [],
+          'comments': [],
+          'postId': randomAlphaNumeric(16),
+          'timeStamp': millisecondsSinceEpoch
+        }
+      });
+      showSnackBar(context, 'Home page post successfully uploaded!');
 
       return true;
     } catch (e) {
-      showSnackBar(context, 'Error uploading post to homepage $e');
+      showSnackBar(context, 'Error uploading post to homepage: $e');
+      return false;
     }
-    return true;
   }
 
 
@@ -122,7 +144,7 @@ class UploadPost{
             'userId': user!.uid,
           },
           'postDetails': {
-            'image': "null",
+            'image': [],
             'writeUp': writeUp,
             'freelancerOption': freelancerOption ?? "null",
             'postId': randomUrl,
@@ -144,7 +166,7 @@ class UploadPost{
   Future<bool> MarketPlacePost(
       {
         required BuildContext context,
-        required image,
+        required List<Uint8List> images,
         required String description,
         required String productName,
         required String price,
@@ -153,18 +175,23 @@ class UploadPost{
     try {
       // Use the provided uid for the user
       final User? user = _auth.currentUser;
+      List<String> imageUrls = [];
+      final String productUrl = randomAlphaNumeric(16);
+      // Upload each image and collect URLs
+      for (var image in images) {
+        final String productUrl = randomAlphaNumeric(16);
+        final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/${user!.uid}/$productUrl');
+        final UploadTask uploadTask = storageRef.putData(image);
 
-      final String randomUrl = randomAlphaNumeric(16);
+        await uploadTask;
+        String imageUrl = await storageRef.getDownloadURL();
+        imageUrls.add(imageUrl);
+      }
 
-      final Reference storageRef = _firebaseStorage.ref().child('marketPlacePage/${user!.uid}/$randomUrl');
-      final UploadTask uploadTask = storageRef.putData(image);
-
-      await uploadTask;
-
-      final imageUrl = await storageRef.getDownloadURL();
       int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
+
       // Update user data in Firestore
-      await _firestore.collection('marketPlacePage').doc(randomUrl).set({
+      await _firestore.collection('marketPlacePage').doc(productUrl).set({
         'userDetails': {
           'profilePicture': await getUserData('profilePicture'),
           'fullName': await getUserData('fullName'),
@@ -174,14 +201,14 @@ class UploadPost{
           'userId': user!.uid,
         },
         'productDetails': {
-          'image': imageUrl,
+          'image': imageUrls,
           'name': productName,
           'description': description,
           'price': price,
           'category': category,
           'hearts': [],
           'comments': [],
-          'productId': randomUrl,
+          'productId': productUrl,
           'timeStamp': millisecondsSinceEpoch
         }
       });
@@ -192,6 +219,7 @@ class UploadPost{
     }
     return true;
   }
+
 
 
   Future<dynamic> uploadComments(
