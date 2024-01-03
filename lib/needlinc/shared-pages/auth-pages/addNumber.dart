@@ -99,46 +99,43 @@ class _PhoneNumberState extends State<PhoneNumber> {
                               ),
                             ),
                             const SizedBox(height: 19),
-                            SizedBox(
-                              height: 40,
-                              child: PhoneFormField(
-                                //  initialValue: PhoneNumber(isoCode: 'US'),
-                                controller: phoneNumberController,
-                                defaultCountry: IsoCode.NG,
-                                onChanged: (number) {
-                                  if (number != null) {
-                                    // Access the entered phone number using the phoneNumber parameter
-                                    // print(
-                                    //     "Entered Phone Number: +${number.countryCode}${number.nsn}");
-                                    // Now you can use phoneNumber.phoneNumber as needed
-                                    addPhoneNumber(
-                                        phoneNumber:
-                                            "+${number.countryCode}${number.nsn}");
-                                  }
-                                },
-                                onSubmitted: (number) {
-                                  if (number != null) {
-                                    // Access the entered phone number using the phoneNumber parameter
-                                    // print(
-                                    //     "Entered Phone Number: +${number.characters}");
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const Success(),
-                                      ),
-                                    );
-                                  }
-                                },
-                                onSaved: (number) {
-                                  if (number != null) {
-                                    addPhoneNumber(phoneNumber: "$number");
-                                  }
-                                },
-                                decoration: const InputDecoration(
-                                  labelText: 'Phone Number',
-                                  focusedBorder: Borders.FocusedBorder,
-                                  enabledBorder: Borders.EnabledBorder,
-                                ),
+                            PhoneFormField(
+                              //  initialValue: PhoneNumber(isoCode: 'US'),
+                              controller: phoneNumberController,
+                              defaultCountry: IsoCode.NG,
+                              onChanged: (number) {
+                                if (number != null) {
+                                  // Access the entered phone number using the phoneNumber parameter
+                                  // print(
+                                  //     "Entered Phone Number: +${number.countryCode}${number.nsn}");
+                                  // Now you can use phoneNumber.phoneNumber as needed
+                                  addPhoneNumber(
+                                      phoneNumber:
+                                          "+${number.countryCode}${number.nsn}");
+                                }
+                              },
+                              onSubmitted: (number) {
+                                if (number != null) {
+                                  // Access the entered phone number using the phoneNumber parameter
+                                  // print(
+                                  //     "Entered Phone Number: +${number.characters}");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Success(),
+                                    ),
+                                  );
+                                }
+                              },
+                              onSaved: (number) {
+                                if (number != null) {
+                                  addPhoneNumber(phoneNumber: "$number");
+                                }
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'Phone Number',
+                                focusedBorder: Borders.FocusedBorder,
+                                enabledBorder: Borders.EnabledBorder,
                               ),
                             ),
                           ],

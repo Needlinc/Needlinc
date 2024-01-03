@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
-
 import '../../backend/user-account/functionality.dart';
 import '../../colors/colors.dart';
 import '../../widgets/TextFieldBorder.dart';

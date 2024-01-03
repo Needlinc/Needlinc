@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/backend/user-account/user-online-information.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/Occupation.dart';
 import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../colors/colors.dart';
@@ -299,17 +300,22 @@ class _CategoryPageState extends State<CategoryPage> {
                               {
                                 userCategory(
                                     context: context, userType: 'Freelancer');
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const UserType()));
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const UserType()));
+                                            const Occupation()));
                               }
                               break;
                             case 'Business':
                               {
-                                // userCategory(
-                                //     context: context, userType: 'Business');
+                                userCategory(
+                                    context: context, userType: 'Business');
                                 // Navigator.push(
                                 //     context,
                                 //     MaterialPageRoute(

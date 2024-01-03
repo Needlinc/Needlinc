@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
+import '../../backend/user-account/functionality.dart';
 import '../../colors/colors.dart';
+import '../../widgets/TextFieldBorder.dart';
+import '../user-type.dart';
 
 class Occupation extends StatefulWidget {
   const Occupation({super.key});
@@ -26,7 +29,11 @@ class _OccupationState extends State<Occupation> {
     'Tailor',
     'Other',
   ];
-  String? value;
+  String? selectedOccupation; // Variable to store the value
+
+  // Controller for the 'Other' text field
+  final TextEditingController _otherOccupationController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,24 +66,84 @@ class _OccupationState extends State<Occupation> {
               padding: const EdgeInsets.all(15),
               child: Column(
                 children: [
+                  // DropdownButtonFormField for predefined occupations
                   Container(
                     height: 38,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: NeedlincColors.white,
                       border: Border.all(),
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                          value: value,
-                          isExpanded: true,
-                          hint: const Text('What do you do for a living?'),
-                          items: occupations.map(occupationList).toList(),
-                          onChanged: (value) =>
-                              setState(() => this.value = value)),
+                        value: selectedOccupation,
+                        isExpanded: true,
+                        hint: const Text('What do you do for a living?'),
+                        items: occupations.map(occupationList).toList(),
+                        onChanged: (value) {
+                          setState(() => selectedOccupation = value);
+                        },
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 16.0),
+                  // Text field for 'Other' occupation
+                  if (selectedOccupation == 'Other')
+                    SizedBox(
+                      height: 38,
+                      child: TextFormField(
+                        controller: _otherOccupationController,
+                        decoration: const InputDecoration(
+                            labelText: 'Enter Other Occupation',
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 8.0),
+                            focusedBorder: Borders.FocusedBorder,
+                            enabledBorder: Borders.EnabledBorder,
+                            filled: true,
+                            fillColor: NeedlincColors.white),
+                        onFieldSubmitted: (value) {
+                          setState(() => selectedOccupation = value);
+                          // Add the entered occupation to the list
+                          if (!occupations.contains(value)) {
+                            occupations.insert(occupations.length - 1, value);
+                          }
+                        },
+                      ),
+                    ),
+                  // Next button
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      padding: const EdgeInsets.only(right: 15, bottom: 55),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          userCategory(
+                              context: context, userType: 'Freelancer');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const UserType()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          backgroundColor: NeedlincColors.blue1,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                        ),
+                        child: const Text(
+                          'NEXT',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
