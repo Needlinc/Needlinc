@@ -45,7 +45,7 @@ class _SuccessState extends State<Success> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 105),
+                  SizedBox(height: 70),
                   // Successful message
                   Text(
                     'You have Successfully created your Needlinc account',

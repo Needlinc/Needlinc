@@ -114,7 +114,7 @@ class _GenderState extends State<Gender> {
             child: const Text(
               'Skip',
               style: TextStyle(
-                fontSize: 21,
+                fontSize: 16,
                 color: NeedlincColors.white,
               ),
             ),
@@ -129,9 +129,7 @@ class _GenderState extends State<Gender> {
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 80,
-                  ),
+                  const SizedBox(height: 55),
                   // main Card
                   Column(
                     children: [
@@ -145,7 +143,7 @@ class _GenderState extends State<Gender> {
                         ),
                       ),
                       // body
-                      const SizedBox(height: 40.0),
+                      const SizedBox(height: 15),
                       if (!addBirth)
                         Container(
                           width: double.infinity,
@@ -255,15 +253,15 @@ class _GenderState extends State<Gender> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           backgroundColor: NeedlincColors.blue1,
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                         ),
                         child: const Text(
                           'NEXT',
                           style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

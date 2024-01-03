@@ -163,7 +163,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               child: const Text(
                 'Skip',
                 style: TextStyle(
-                  fontSize: 21,
+                  fontSize: 16,
                   color: NeedlincColors.white,
                 ),
               ),
@@ -183,7 +183,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
                       child: Column(
                         children: [
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 40),
                           // main Card
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -191,7 +191,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                               Text(
                                 addPhoto ? 'Add Profile photo' : 'NEEDLINC',
                                 style: const TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 26,
                                   fontWeight: FontWeight.w400,
                                   color: NeedlincColors.white,
                                 ),
@@ -202,7 +202,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 Container(
                                   width: double.infinity,
                                   padding:
-                                      const EdgeInsets.fromLTRB(27, 30, 27, 24),
+                                      const EdgeInsets.fromLTRB(27, 28, 27, 24),
                                   decoration: BoxDecoration(
                                     color: NeedlincColors.white,
                                     borderRadius: BorderRadius.circular(10),
@@ -223,7 +223,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                         const Text(
                                           'Create New Account',
                                           style: TextStyle(
-                                            fontSize: 24,
+                                            fontSize: 23,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -293,9 +293,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           validator: (value) {
-                                            if (value!.isEmpty) {
+                                            bool emailValid = RegExp(
+                                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                .hasMatch(value!);
+
+                                            if (value.isEmpty) {
                                               return "Enter Email";
+                                            } else if (!emailValid) {
+                                              return "Enter Valid Email";
                                             }
+
                                             return null;
                                           },
                                           decoration: const InputDecoration(
@@ -485,7 +492,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                             ],
                           ),
                           // Next button
-                          const SizedBox(height: 360),
+                          const SizedBox(height: 270),
                           if (addPhoto)
                             Container(
                               alignment: Alignment.bottomRight,
@@ -515,15 +522,16 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   backgroundColor: NeedlincColors.blue1,
-                                  padding: const EdgeInsets.all(16),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
                                 ),
                                 child: const Text(
                                   'NEXT',
                                   style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
