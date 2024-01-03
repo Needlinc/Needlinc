@@ -17,7 +17,7 @@ class DeletePost {
 
 
   //Todo Delete Home Post for Images and Write Ups
-  Future<bool> deleteHomePagePost(BuildContext context, String postId) async {
+  Future<bool> deleteHomePageImageAndWriteupPost(BuildContext context, String postId) async {
     try {
       final User? user = _auth.currentUser;
       if (user == null) {

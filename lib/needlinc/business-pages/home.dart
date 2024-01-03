@@ -2,10 +2,10 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/backend/user-account/delete-post.dart';
 import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
-import 'package:needlinc/needlinc/widgets/snack-bar.dart';
 import '../shared-pages/auth-pages/welcome.dart';
 import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
@@ -95,7 +95,9 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight.bold),),
                             const Text("🟢 Now",
                                 style: TextStyle(fontSize: 9)),
-                            IconButton(onPressed: () {},
+                            IconButton(onPressed: () {
+                              DeletePost().deleteHomePageImageAndWriteupPost(context, postId);
+                            },
                                 icon: const Icon(Icons.more_horiz))
                           ],
                         ),
@@ -153,7 +155,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      IconButton(onPressed: () {
+                      IconButton(
+                        onPressed: () {
                         UploadPost().uploadHearts(context: context, sourceOption: 'homePage', id: postId);
                       },
                           icon: heartsId.contains(userId) ?
@@ -258,7 +261,9 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight.bold),),
                             const Text("🟢 Now",
                                 style: TextStyle(fontSize: 9)),
-                            IconButton(onPressed: () {},
+                            IconButton(onPressed: () {
+                              DeletePost().deleteHomePageImagePost(context, postId);
+                            },
                                 icon: const Icon(Icons.more_horiz))
                           ],
                         ),
@@ -390,7 +395,9 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight.bold),),
                             const Text("🟢 Now",
                                 style: TextStyle(fontSize: 9)),
-                            IconButton(onPressed: () {},
+                            IconButton(onPressed: () {
+                              DeletePost().deleteHomePageWriteUpPost(context, postId);
+                            },
                                 icon: const Icon(Icons.more_horiz))
                           ],
                         ),

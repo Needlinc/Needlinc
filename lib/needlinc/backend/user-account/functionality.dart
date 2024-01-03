@@ -24,23 +24,17 @@ import 'package:shared_preferences/shared_preferences.dart';
     }
 
 
-
-
-
     Future<void> getGender({
       required String gender,
     }) async {
-
       // Add user gender info in local storage
       saveUserData('gender', gender);
-
     }
 
 
     Future<void> displayProfileOption({
       required bool profileOption,
     }) async {
-
       // Add user data in local storage
       saveUserData('profileOption', '$profileOption');
 
@@ -51,10 +45,8 @@ import 'package:shared_preferences/shared_preferences.dart';
     Future<void> getDateOfBirth({
       required String birthDay,
     }) async {
-
       // Add user birth day date in local storage
       saveUserData('birthDay', birthDay);
-
     }
 
 
@@ -62,35 +54,28 @@ import 'package:shared_preferences/shared_preferences.dart';
     Future<void> addLocation({
       required String location,
     }) async {
-
       // Add user birth day date in local storage
       saveUserData('address', location);
-
     }
 
     Future<void> addPhoneNumber({
       required String phoneNumber,
     }) async {
-
       // Add user birth day date in local storage
       saveUserData('phoneNumber', phoneNumber);
-
     }
 
     Future<void> addProfilePictureUrl({
       required String url,
     }) async {
-
       // Add user birth day date in local storage
       saveUserData('profilePicture', url);
-
     }
 
     Future<void> userCategory({
       required BuildContext context,
       required String userType,
     }) async {
-
       // Add user birth day date in local storage
       saveUserData('userCategory', userType);
       showSnackBar(context, 'User profile updated successfully!');
@@ -98,7 +83,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 
-       //Todo upload Profile Picture to FirebaseStorage
+    //Todo upload Profile Picture to FirebaseStorage
     Future<String> uploadProfilePicture(Uint8List imageBytes) async {
       try {
         final String randomUrl = randomAlphaNumeric(16);
@@ -115,7 +100,9 @@ import 'package:shared_preferences/shared_preferences.dart';
       }
     }
 
-       //Todo Delete Profile Picture from FirebaseStorage
+
+
+    //Todo Delete Profile Picture from FirebaseStorage
     Future<String> deleteProfilePicture(String imageUrl) async {
       try {
         final Reference storageRef = FirebaseStorage.instance.refFromURL(imageUrl);
