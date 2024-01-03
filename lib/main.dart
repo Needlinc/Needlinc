@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
+import 'package:needlinc/needlinc/shared-pages/contracts.dart';
 import 'firebase_options.dart';
 import 'needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'needlinc/shared-pages/auth-pages/sign-in.dart';
 import 'needlinc/shared-pages/user-type.dart';
-
 
 
 
@@ -31,7 +31,7 @@ return MaterialApp(
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const RootPage(),
+        '/': (context) => const RootPage(), // Replace with const RootPage
         '//': (context) => const SignupPage(),
       },    );
   }
