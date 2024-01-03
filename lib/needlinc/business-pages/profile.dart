@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                  ListTile(
                   title: Text('Settings',
                       style: TextStyle(color: Colors.black)),
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));},
                 ),
                 const Divider(),
                 ListTile(

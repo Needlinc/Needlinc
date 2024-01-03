@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/upload-post.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
 import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
+import 'package:needlinc/needlinc/shared-pages/people.dart';
+import 'package:needlinc/needlinc/business-pages/profile.dart';
+import 'package:needlinc/needlinc/business-pages/marketplace.dart';
+import '../shared-pages/settings.dart';
+import '../shared-pages/notifications.dart';
 import '../shared-pages/auth-pages/welcome.dart';
 import '../shared-pages/home-post.dart';
 import '../colors/colors.dart';
@@ -610,37 +615,37 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
                 title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()))},
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsPage()))},
               ),
               const Divider(),
               ListTile(
                   leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
                   title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                  onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 0)))}
+                  onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))}
               ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
                 title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 1)))},
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => MarketplacePage()))},
               ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
                 title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 2)))},
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => PeoplePage()))},
               ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
                 title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 3)))},
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationsPage()))},
               ),
               const Divider(),
               ListTile(
                 leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
                 title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)))},
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()))},
               ),
               const Divider(),
               ListTile(
@@ -670,15 +675,13 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     icon: const Icon(Icons.people),
                     onPressed: (){
-                      //TODO Chat messaging feature
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PeoplePage()),);
                     },
                   ),
                   IconButton(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     icon: const Icon(Icons.message),
                     onPressed: (){
-                      //TODO Chat messaging feature(Already implemented message UI)
                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
                     },
                   ),

@@ -58,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
                  ListTile(
                   title: Text('Settings',
                       style: TextStyle(color: Colors.black)),
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));},
                 ),
                 const Divider(),
                 ListTile(
@@ -75,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Saved',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             Contracts()))
                   },
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Reviews/Ratings',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             Contracts()))
                   },
@@ -95,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Contact Us',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             Contracts()))
                   },
@@ -105,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Help',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             Contracts()))
                   },
