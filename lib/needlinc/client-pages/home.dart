@@ -12,6 +12,12 @@ import '../colors/colors.dart';
 import '../shared-pages/news.dart';
 import '../widgets/image-viewer.dart';
 import '../widgets/page-transition.dart';
+import 'package:needlinc/needlinc/shared-pages/people.dart';
+import 'package:needlinc/needlinc/business-pages/profile.dart';
+import 'package:needlinc/needlinc/business-pages/marketplace.dart';
+import '../shared-pages/settings.dart';
+import '../shared-pages/notifications.dart';
+
 
 
 class HomePage extends StatefulWidget {
@@ -623,8 +629,8 @@ class _HomePageState extends State<HomePage> {
                 title: const Text(
                     'Settings', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => const HomePage()))
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SettingsPage()))
                 },
               ),
               const Divider(),
@@ -633,8 +639,8 @@ class _HomePageState extends State<HomePage> {
                   title: const Text('Back to Home',
                       style: TextStyle(color: NeedlincColors.blue2)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ClientMainPages(currentPage: 0)))
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => HomePage()))
                   }
               ),
               const Divider(),
@@ -644,8 +650,8 @@ class _HomePageState extends State<HomePage> {
                 title: const Text('Marketplace',
                     style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => ClientMainPages(currentPage: 1)))
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>MarketplacePage()))
                 },
               ),
               const Divider(),
@@ -655,8 +661,8 @@ class _HomePageState extends State<HomePage> {
                 title: const Text('Freelancers',
                     style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => ClientMainPages(currentPage: 2)))
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => PeoplePage()))
                 },
               ),
               const Divider(),
@@ -666,8 +672,8 @@ class _HomePageState extends State<HomePage> {
                 title: const Text('Notifications',
                     style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => ClientMainPages(currentPage: 3)))
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => NotificationsPage()))
                 },
               ),
               const Divider(),
@@ -678,7 +684,7 @@ class _HomePageState extends State<HomePage> {
                     'Profile', style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => ClientMainPages(currentPage: 4)))
+                      builder: (context) => ProfilePage()))
                 },
               ),
               const Divider(),
@@ -710,9 +716,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               icon: const Icon(Icons.message),
               onPressed: () {
-                //TODO Chat messaging feature(Already implemented UI)
-                Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Message()),);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Message()),);
               },
             ),
             ]

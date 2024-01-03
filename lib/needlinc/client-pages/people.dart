@@ -14,6 +14,13 @@ class _PeoplePageState extends State<PeoplePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: NeedlincColors.blue1),
+          onPressed: () {
+            Navigator.pop(context);
+          }
+        ),
+
         title: const Text(
           "FREELANCERS",
           style: TextStyle(color: NeedlincColors.blue2, fontSize: 14),
