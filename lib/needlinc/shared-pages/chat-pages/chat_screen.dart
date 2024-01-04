@@ -1,52 +1,46 @@
+import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:flutter/material.dart';
 import "package:grouped_list/grouped_list.dart";
 import "package:intl/intl.dart";
 import "package:needlinc/needlinc/colors/colors.dart";
 import "package:needlinc/needlinc/shared-pages/chat-pages/set_appointment.dart";
 
+import "../../backend/user-account/upload-chat.dart";
 
-class MainPage extends StatefulWidget {
+
+class ChatScreen extends StatefulWidget {
+  final String myUserId;
+  final String otherUserId;
+  final String myUserName;
+  final String otherUserName;
+
+  // Add a constructor to ChatScreen that takes userId as a parameter
+  ChatScreen({
+    Key? key,
+    required this.myUserId,
+    required this.otherUserId,
+    required this.myUserName,
+    required this.otherUserName
+  }) : super(key: key);
+
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-final TextEditingController _textController = TextEditingController(); //text controller parameter for the message field
-int numberOfLines = _textController.text.split("\n").length;
-class _MainPageState extends State<MainPage> {
-  List<Message> messages = [
-    Message(
-        text: "Needlinc app is the best",
-        date: DateTime.now().subtract(Duration(minutes: 13)),
-        isMe: false
-    ),
-    Message(
-        text: "Needlinc app is the best",
-        date: DateTime.now().subtract(Duration(minutes: 14)),
-        isMe: false
-    ),
-    Message(
-        text: "Needlinc app is the best",
-        date: DateTime.now().subtract(Duration(minutes: 15)),
-        isMe: true
-    ),
-    Message(
-        text: "Needlinc app is the best",
-        date: DateTime.now().subtract(Duration(minutes: 16)),
-        isMe: false
-    ),
-    Message(
-        text: "Needlinc app is the best",
-        date: DateTime.now().subtract(Duration(minutes: 17)),
-        isMe: true
-    ),
-    Message(
-        text: "Needlinc app is the best",
-        date: DateTime.now().subtract(Duration(minutes: 18)),
-        isMe: true
-    ),
-  ];
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _textController = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
+    // Stream for listening to messages
+    Stream<QuerySnapshot> messageStream = FirebaseFirestore.instance
+        .collection('chats')
+        .doc("${widget.myUserId}${widget.otherUserId}")
+        .collection('${widget.myUserId}${widget.otherUserId}')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -86,58 +80,35 @@ class _MainPageState extends State<MainPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            child: GroupedListView<Message, DateTime>(
-                padding: const EdgeInsets.all(8),
-                reverse: true,
-                order: GroupedListOrder.DESC,
-                useStickyGroupSeparators: true,
-                floatingHeader: true,
-                elements: messages,
-                groupBy: (message) => DateTime(
-                    message.date.year,
-                    message.date.month,
-                    message.date.day
-                ),
-                groupHeaderBuilder: (Message message) =>  SizedBox(
-                  height: 40,
-                  child: Center(
-                    child: Card(
-                      color: NeedlincColors.blue2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          DateFormat.yMMMd().format(message.date),
-                          style:  const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                itemBuilder: (context, Message message) => Align(
-                    alignment: message.isMe
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
-                    child: message.isMe == true ? Card(
-                      elevation: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Text(message.text),
-                      ),
-                    )
-                        :
-                    Card(
-                      elevation: 8,
-                      color: NeedlincColors.blue3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Text(message.text),
-                      ),
-                    )
+            child: StreamBuilder<QuerySnapshot>(
+              stream: messageStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
 
-                )
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (!snapshot.hasData) {
+                  return Text("User not found");
+                }
+
+                var userDocument = snapshot.data!;
+                // Here, you can use `userDocument` to get user-specific data
+                // For demonstration, let's assume 'messages' is a field in the user document
+                // var messages = userDocument['messages'] as List<Message>;
+
+                // Dummy messages list (replace this with data from Firestore)
+
+
+                return Container(
+
+                );
+              },
             ),
           ),
-
           //The bottom bar of the app including the message field
           Container(
             padding: EdgeInsets.all(2),
@@ -180,13 +151,9 @@ class _MainPageState extends State<MainPage> {
                             ),
                             maxLines: null,
                             onSubmitted: (text) {
-                              final message = Message(
-                                text: text,
-                                date: DateTime.now(),
-                                isMe: true,
-                              );
+                              sendMessage(myUserName: widget.myUserName, otherUserName: widget.otherUserName, myUserId: widget.myUserId, otherUserId: widget.otherUserId, replyTo: '', text: _textController.text, image: [], recipientToken: '');
+                              print(widget.myUserName);
                               setState(() {
-                                messages.add(message);
                                 _textController.clear();
                               });
                             },
@@ -197,18 +164,13 @@ class _MainPageState extends State<MainPage> {
                         IconButton(
                           icon: Icon(Icons.send),
                           onPressed: () {
-                            final text = _textController.text;
-                            if (text.isNotEmpty) {
-                              final message = Message(
-                                text: text,
-                                date: DateTime.now(),
-                                isMe: true,
-                              );
-                              setState(() {
-                                messages.add(message);
-                                _textController.clear();
-                              });
-                            }
+
+                            sendMessage(myUserName: widget.myUserName, otherUserName: widget.otherUserName, myUserId: widget.myUserId, otherUserId: widget.otherUserId, replyTo: '', text: _textController.text, image: [], recipientToken: '');
+                            print(widget.myUserName);
+                            setState(() {
+                              _textController.clear();
+                            });
+
                           },
                           color: NeedlincColors.blue1,
                         ),
@@ -235,19 +197,8 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-    ) ;
+    );
   }
 }
 
-//Message class
-class Message {
-  final String text;
-  final date;
-  final isMe;
-
-  Message({
-    required this.text,
-    required this.date,
-    required this.isMe,
-  });
-}
+//

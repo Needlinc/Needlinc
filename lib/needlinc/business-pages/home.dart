@@ -676,7 +676,7 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.message),
                     onPressed: (){
                       //TODO Chat messaging feature(Already implemented message UI)
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=> Messages()),);
                     },
                   ),
                 ],

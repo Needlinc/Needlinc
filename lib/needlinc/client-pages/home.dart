@@ -710,7 +710,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 //TODO Chat messaging feature(Already implemented UI)
                 Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Message()),);
+                  context, MaterialPageRoute(builder: (context) => Messages()),);
               },
             ),
             ]

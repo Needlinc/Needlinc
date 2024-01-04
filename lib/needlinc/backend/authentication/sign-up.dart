@@ -33,7 +33,7 @@ class SignUp {
              UserAccount(userCredential.user!.uid).updateUserProfile(
                context: context,
                fullName: fullName,
-               userName: userName,
+               userName: userName.toLowerCase(),
                email: email,
                password: password,
                profilePicture: profilePictureUrl,
@@ -42,7 +42,7 @@ class SignUp {
 
       saveUserData('profilePicture', profilePictureUrl);
       saveUserData('fullName', fullName);
-      saveUserData('userName', userName);
+      saveUserData('userName', userName.toLowerCase());
       saveUserData('email', email);
       saveUserData('password', password);
 
