@@ -2,6 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/contracts.dart';
 import 'package:needlinc/needlinc/shared-pages/edit-profile.dart';
+import 'package:needlinc/needlinc/shared-pages/saved_post.dart';
 import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import '../../main.dart';
 import '../backend/authentication/logout.dart';
@@ -77,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () => {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            Contracts()))
+                            Saved_Post()))
                   },
                 ),
                 const Divider(),
@@ -85,9 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Reviews/Ratings',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            Contracts()))
+                    // TODO: Implement the Revew/Ratings actions
                   },
                 ),
                 const Divider(),
@@ -95,9 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Contact Us',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            Contracts()))
+                    // TODO: Implement the Contact Us page and its action
                   },
                 ),
                 const Divider(),
@@ -105,9 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Help',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            Contracts()))
+                    //TODO: Implement the Help page and it's page
                   },
                 ),
                 const Divider(),
