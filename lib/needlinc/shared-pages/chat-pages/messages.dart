@@ -1,10 +1,9 @@
-import "dart:async";
-
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:needlinc/needlinc/colors/colors.dart";
 import 'package:needlinc/needlinc/shared-pages/chat-pages/chat_screen.dart';
+import "package:needlinc/needlinc/widgets/snack-bar.dart";
 
 
 class Messages extends StatefulWidget {
@@ -23,26 +22,6 @@ class _MessagesState extends State<Messages> {
   late String myUserName;
   late String myProfilePicture;
   Stream<QuerySnapshot>? chatsStream;
-  int? numberOfChats;
-
-  void getNumberOfChats() async {
-    try {
-      // Reference to the "chats" collection
-      CollectionReference chatsCollection = FirebaseFirestore.instance.collection('chats');
-
-      // Get the documents in the collection
-      QuerySnapshot querySnapshot = await chatsCollection.get();
-
-      // Get the number of documents in the collection
-       numberOfChats = querySnapshot.size;
-
-      // Now, you can use 'numberOfChats' as needed
-      print('Number of chats: $numberOfChats');
-    } catch (e) {
-      print('Error getting number of chats: $e');
-    }
-  }
-
 
   void getMyNameAndmyUserId() async {
     myUserId = await FirebaseAuth.instance.currentUser!.uid;
@@ -50,15 +29,11 @@ class _MessagesState extends State<Messages> {
     myUserName = myInitUserName['userName'];
     myProfilePicture = myInitUserName['profilePicture'];
 
-
-    CollectionReference chatsCollection = FirebaseFirestore.instance.collection('chats');
-    QuerySnapshot querySnapshot = await chatsCollection.where('userIds', arrayContains: myUserId).get();
-    numberOfChats = querySnapshot.size;
-
     chatsStream = FirebaseFirestore.instance.collection('chats')
+        .where('userIds', arrayContains: myUserId)
         .orderBy('timeStamp', descending: true)
         .snapshots();
-    setState(() {});
+      setState(() {});
   }
 
 
@@ -107,18 +82,10 @@ class _MessagesState extends State<Messages> {
   }
 
 
-  void fetchData() {
-    getMyNameAndmyUserId();
-    // Schedule the next execution after 5 seconds
-    Timer(Duration(seconds: 10), fetchData);
-  }
-
-
 @override
   void initState() {
     // TODO: implement initState
   getMyNameAndmyUserId();
-  fetchData();
     super.initState();
   }
 
@@ -255,7 +222,7 @@ class _MessagesState extends State<Messages> {
                 var chats = snapshot.data?.docs ?? [];
 
                 return ListView.builder(
-                  itemCount: numberOfChats,
+                  itemCount: chats.length,
                   itemBuilder: (context, index) {
                     var chat = chats[index].data() as Map<String, dynamic>;
 
