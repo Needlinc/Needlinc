@@ -69,7 +69,7 @@ Future<void> sendMessage({
           "userTokens": [myToken, otherToken],
           "userIds": [myUserId, otherUserId],
           "chatId": "${chatId}",
-          "timeStamp": millisecondsSinceEpoch,
+          "timeStamp": FieldValue.serverTimestamp(),
           "block": false
         }
     );
