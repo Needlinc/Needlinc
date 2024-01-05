@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/client-pages/marketplace.dart';
-import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 import 'package:needlinc/needlinc/shared-pages/notifications.dart';
 import 'package:needlinc/needlinc/shared-pages/people.dart';
 import 'package:needlinc/needlinc/client-pages/home.dart';
@@ -48,7 +47,7 @@ class _ClientMainPagesState extends State<ClientMainPages> {
   //TODO(Already done) This is widget switches pages on a selected tap
   Widget PageTransition(int currentPage){
     switch(currentPage){
-      case 0: return Messages();
+      case 0: return const HomePage();
       case 1: return const MarketplacePage();
       case 2: return const PeoplePage();
       case 3: return const NotificationsPage();

@@ -63,7 +63,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
     else {
       chatId = chatDocumentId;
-      print("$chatId");
     }
 
 
@@ -77,9 +76,6 @@ class _ChatScreenState extends State<ChatScreen> {
         .snapshots();
     // Call setState if necessary to refresh the StreamBuilder
     setState(() {});
-
-
-
   }
 
 

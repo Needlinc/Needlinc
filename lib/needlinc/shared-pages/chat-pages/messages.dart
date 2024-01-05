@@ -29,10 +29,7 @@ class _MessagesState extends State<Messages> {
     myUserName = myInitUserName['userName'];
     myProfilePicture = myInitUserName['profilePicture'];
 
-      chatsStream = FirebaseFirestore.instance.collection('chats')
-          .where('userIds', arrayContains: myUserId)
-          .snapshots()
-    ;
+    chatsStream = FirebaseFirestore.instance.collection('chats').orderBy('timestamp', descending: true).snapshots();
       setState(() {});
   }
 
