@@ -253,6 +253,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       //TODO(Already done) This is the App Menu Bar
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: NeedlincColors.blue1),
         title: Row(
           children: [
