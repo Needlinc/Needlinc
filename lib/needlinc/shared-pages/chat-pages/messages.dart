@@ -3,6 +3,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:needlinc/needlinc/colors/colors.dart";
 import 'package:needlinc/needlinc/shared-pages/chat-pages/chat_screen.dart';
+import "package:needlinc/needlinc/widgets/snack-bar.dart";
 
 
 class Messages extends StatefulWidget {
@@ -19,12 +20,20 @@ class _MessagesState extends State<Messages> {
   bool isSearching = false;
   late String myUserId;
   late String myUserName;
+  late String myProfilePicture;
+  Stream<QuerySnapshot>? chatsStream;
 
   void getMyNameAndmyUserId() async {
     myUserId = await FirebaseAuth.instance.currentUser!.uid;
     DocumentSnapshot<Map<String, dynamic>> myInitUserName = await FirebaseFirestore.instance.collection('users').doc(myUserId).get();
     myUserName = myInitUserName['userName'];
-    print(myUserName);
+    myProfilePicture = myInitUserName['profilePicture'];
+
+      chatsStream = FirebaseFirestore.instance.collection('chats')
+          .where('userIds', arrayContains: myUserId)
+          .snapshots()
+    ;
+      setState(() {});
   }
 
 
@@ -151,8 +160,9 @@ class _MessagesState extends State<Messages> {
                   children: [
                     ListTile(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen(otherUserId: user['userId'], myUserId: myUserId, myUserName: myUserName, otherUserName: user['userName'],)));
-                      },
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen(myProfilePicture: myProfilePicture, otherProfilePicture: user['profilePicture'], otherUserId: user['userId'], myUserId: myUserId, myUserName: myUserName, otherUserName: user['userName'],)));
+                        searchUsers('');
+                        },
                       leading: Container(
                         width: 50,  // width and height of the Container
                         height: 50,
@@ -183,7 +193,7 @@ class _MessagesState extends State<Messages> {
                         ),
                         child: Center(
                           child: Text(
-                              "${3}",
+                              "DateTime",
                               style: TextStyle(fontWeight: FontWeight.w600, color: NeedlincColors.white )),
                         ),
                       )
@@ -197,7 +207,7 @@ class _MessagesState extends State<Messages> {
             )
                 :
             StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('users').snapshots(),
+              stream: chatsStream ?? FirebaseFirestore.instance.collection('users').snapshots(),
               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return Text('Something went wrong');
@@ -207,18 +217,30 @@ class _MessagesState extends State<Messages> {
                   return Text("Loading");
                 }
 
-                var users = snapshot.data?.docs ?? [];
+                var chats = snapshot.data?.docs ?? [];
 
                 return ListView.builder(
-                  itemCount: users.length,
+                  itemCount: chats.length,
                   itemBuilder: (context, index) {
-                    var user = users[index].data() as Map<String, dynamic>;
+                    var chat = chats[index].data() as Map<String, dynamic>;
+
+                    // Assuming 'myUserId' is the current user's ID
+                    int otherUserIndex = chat["userIds"].indexOf(myUserId) == 0 ? 1 : 0;
+                    String otherUserName = chat["userNames"][otherUserIndex];
+                    String otherUserProfilePicture = chat["profilePictures"][otherUserIndex];
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ListTile(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen(otherUserId: user['userId'], myUserId: myUserId, myUserName: myUserName, otherUserName: user['userName'],)));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatScreen(
+                              myProfilePicture: myProfilePicture,
+                              otherProfilePicture: otherUserProfilePicture,
+                              otherUserId: chat['userIds'][otherUserIndex],
+                              myUserId: myUserId,
+                              myUserName: myUserName,
+                              otherUserName: otherUserName,
+                            )));
                           },
                           leading: Container(
                             width: 50,  // width and height of the Container
@@ -226,14 +248,14 @@ class _MessagesState extends State<Messages> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,  // Makes the container circular
                               image: DecorationImage(
-                                image: NetworkImage("${user['profilePicture']}"),  // Path to your image
+                                image: NetworkImage("$otherUserProfilePicture"),  // Path to your image
                                 fit: BoxFit.cover,  // Ensures the image covers the container
                               ),
                             ),
                           ),
 
                           title: Text(
-                            user['userName'],
+                            "$otherUserName",
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
@@ -250,7 +272,7 @@ class _MessagesState extends State<Messages> {
                             ),
                             child: Center(
                               child: Text(
-                                  "${3}",
+                                  "DateTime",
                                   style: TextStyle(fontWeight: FontWeight.w600, color: NeedlincColors.white )),
                             ),
                           )

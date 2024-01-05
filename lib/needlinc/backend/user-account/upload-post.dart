@@ -13,7 +13,6 @@ class UploadPost{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-  DateTime now = DateTime.now();
   final String randomUrl = randomAlphaNumeric(16);
 
 
@@ -38,7 +37,6 @@ class UploadPost{
         imageUrls.add(imageUrl);
       }
 
-      int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
 
       // Update user data in Firestore
       await _firestore.collection('homePage').doc(randomUrl).set({
@@ -57,7 +55,7 @@ class UploadPost{
           'hearts': [],
           'comments': [],
           'postId': randomUrl,
-          'timeStamp': millisecondsSinceEpoch
+          'timeStamp': FieldValue.serverTimestamp(),
         }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
@@ -93,7 +91,6 @@ class UploadPost{
         imageUrls.add(imageUrl);
       }
 
-      int millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
 
       // Update user data in Firestore
       await _firestore.collection('homePage').doc(randomUrl).set({
@@ -112,7 +109,7 @@ class UploadPost{
           'hearts': [],
           'comments': [],
           'postId': randomUrl,
-          'timeStamp': millisecondsSinceEpoch
+          'timeStamp': FieldValue.serverTimestamp(),
         }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
@@ -134,7 +131,6 @@ class UploadPost{
         final User? user = _auth.currentUser;
 
 
-        int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
         // Update user data in Firestore
         await _firestore.collection('homePage').doc(randomUrl).set({
           'userDetails': {
@@ -152,7 +148,7 @@ class UploadPost{
             'postId': randomUrl,
             'hearts': [],
             'comments': [],
-            'timeStamp': millisecondsSinceEpoch
+            'timeStamp': FieldValue.serverTimestamp(),
           }
         });
         showSnackBar(context, 'Home page post successfully uploaded!');
@@ -227,7 +223,6 @@ class UploadPost{
       {required BuildContext context, required String message, required String sourceOption, required String id}) async {
     try {
       final User? user = _auth.currentUser;
-      int millisecondsSinceEpoch = now.millisecondsSinceEpoch;
 
       Map<String, dynamic> comment = {
         'profilePicture': await getUserData('profilePicture'),
@@ -237,7 +232,7 @@ class UploadPost{
         'address': await getUserData('address'),
         'userId': user!.uid,
         'message': message,
-        'timeStamp': millisecondsSinceEpoch,
+        'timeStamp': FieldValue.serverTimestamp(),
         'commentHearts': [],
       };
 
@@ -283,8 +278,6 @@ class UploadPost{
           .collection(sourceOption)
           .doc(id)
           .get();
-      showSnackBar(context, "source-option: ${sourceOption}\nid: ${id}");
-      print("source-option: ${sourceOption}\nid: ${id}");
       // Step 2: Modify the 'comments' array within 'postDetails'
       Map<String, dynamic> data = await documentSnapshot.data() as Map<String, dynamic>? ?? {};
 
