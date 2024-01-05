@@ -2,6 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/contracts.dart';
 import 'package:needlinc/needlinc/shared-pages/edit-profile.dart';
+import 'package:needlinc/needlinc/shared-pages/reviews_ratings.dart';
 import 'package:needlinc/needlinc/shared-pages/saved_post.dart';
 import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import '../../main.dart';
@@ -87,6 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
                     // TODO: Implement the Revew/Ratings actions
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reviews_Ratings()))
                   },
                 ),
                 const Divider(),

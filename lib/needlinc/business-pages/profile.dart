@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/contracts.dart';
+import 'package:needlinc/needlinc/shared-pages/reviews_ratings.dart';
 import 'package:needlinc/needlinc/shared-pages/saved_post.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
@@ -84,7 +85,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Reviews/Ratings',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    //TODO: Implement this page and function
+                    
+                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reviews_Ratings()))
                   },
                 ), 
                 const Divider(),
