@@ -72,7 +72,7 @@ class _ChatScreenState extends State<ChatScreen> {
         .collection('chats')
         .doc(chatId!)
         .collection(chatId!)
-        .orderBy('timestamp', descending: false)
+        .orderBy('timeStamp', descending: false)
         .snapshots();
     // Call setState if necessary to refresh the StreamBuilder
     setState(() {});

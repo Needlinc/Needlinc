@@ -28,7 +28,7 @@ Future<void> sendMessage({
     "text": text,
     "image": image,
     "reactions": [],
-    "timestamp": FieldValue.serverTimestamp(),
+    "timeStamp": FieldValue.serverTimestamp(),
     "isRead": false,
     "recipientToken": myToken,
     "senderToken": otherToken,
@@ -69,7 +69,7 @@ Future<void> sendMessage({
           "userTokens": [myToken, otherToken],
           "userIds": [myUserId, otherUserId],
           "chatId": "${chatId}",
-          "timestamp": millisecondsSinceEpoch,
+          "timeStamp": millisecondsSinceEpoch,
           "block": false
         }
     );
