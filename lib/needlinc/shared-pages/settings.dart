@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 
-class Settings extends StatefulWidget {
+class SettingsPage extends StatefulWidget {
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsState extends State<Settings> {
+class _SettingsPageState extends State<SettingsPage> {
   bool _isSwitched = false;  
   bool _isSwitched1 = false;
   bool _isSwitched2 = false;
@@ -32,7 +32,7 @@ class _SettingsState extends State<Settings> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.blue,
         title: const Text(
-            "Settings",
+            "SettingsPage",
           style: TextStyle(
             //color: Colors.blue,
             fontSize: 14,

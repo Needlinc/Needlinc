@@ -103,7 +103,9 @@ class _ContractsState extends State<Contracts> {
                 ),
               ),
             ),
+
             Divider(height: 2.0, color: NeedlincColors.blue2, thickness: 2.0, indent: screenSize.width * 0.05, endIndent: screenSize.width * 0.05,),
+            
             Expanded(
               child: ListView.builder(
                 itemCount: items.length,
