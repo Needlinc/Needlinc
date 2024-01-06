@@ -157,7 +157,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         decoration: BoxDecoration(
-                          color: userId == chatData['myUserId'] ? NeedlincColors.white : NeedlincColors.black2,
+                          color: userId == chatData['myUserId'] ? NeedlincColors.blue2 : NeedlincColors.black2,
                           borderRadius: BorderRadius.circular(20.0),
                           boxShadow: [
                             BoxShadow(
@@ -186,13 +186,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 10),
+                                /**
                                 Expanded(
                                   child: Text(
                                     chatData['myUserName'],
-                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
+                                */
                               ],
                             ),
                             const SizedBox(height: 5),
