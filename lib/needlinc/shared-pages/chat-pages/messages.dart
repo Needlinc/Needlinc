@@ -3,7 +3,6 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:needlinc/needlinc/colors/colors.dart";
 import 'package:needlinc/needlinc/shared-pages/chat-pages/chat_screen.dart';
-import "package:needlinc/needlinc/widgets/snack-bar.dart";
 
 
 class Messages extends StatefulWidget {
