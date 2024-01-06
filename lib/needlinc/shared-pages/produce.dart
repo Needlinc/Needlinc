@@ -13,11 +13,40 @@ class Product {
 class Produce extends StatefulWidget {
   final Product product;
 
-  Produce({required this.product});
+  const Produce({super.key, required this.product});
 
   @override
   _ProduceState createState() => _ProduceState();
 }
+
+String longProductDescription = '''
+Introducing the TechMaster Pro Series X1X Ultra Performance Laptop - Your Gateway to Limitless Possibilities!
+
+Unleash the power of cutting-edge technology with the TechMaster Pro Series X1X. Packed with an Intel Core i9 processor, 32GB of RAM, and a lightning-fast 1TB SSD, this laptop is designed to handle your most demanding tasks with ease.
+
+The stunning 15.6-inch 4K OLED display delivers breathtaking visuals, bringing your content to life with vibrant colors and razor-sharp clarity. Immerse yourself in a cinematic experience whether you're working on a graphic design project, editing high-resolution videos, or enjoying your favorite movies and games.
+
+Equipped with the latest NVIDIA GeForce RTX 3080 graphics card, the TechMaster Pro Series X1X ensures seamless performance for graphics-intensive applications. Witness realistic graphics and enjoy smooth gameplay, taking your gaming and creative work to a whole new level.
+
+Designed for productivity, the backlit keyboard and precision touchpad provide a comfortable and efficient typing experience. The laptop's sleek aluminum chassis not only looks stylish but also ensures durability, making it your reliable companion on the go.
+
+Connectivity is never an issue with an array of ports, including Thunderbolt 4, USB-C, HDMI, and more. Stay productive with the TechMaster Pro Series X1X, whether you're in the office, at home, or on the road.
+
+Experience the future of computing with the TechMaster Pro Series X1X - where performance meets elegance. Elevate your workflow, enhance your creativity, and conquer every task effortlessly.
+
+Tech Specs:
+- Processor: Intel Core i9
+- RAM: 32GB DDR4
+- Storage: 1TB SSD
+- Display: 15.6-inch 4K OLED
+- Graphics: NVIDIA GeForce RTX 3080
+- Ports: Thunderbolt 4, USB-C, HDMI, and more
+
+Get ready to redefine what's possible with the TechMaster Pro Series X1X Ultra Performance Laptop. Your journey to unparalleled performance starts here!
+''';
+
+String url =
+    'https://th.bing.com/th/id/R.7f2bc68b1fa5cc45c51ed1b0934c536c?rik=9uKjT2TpMh2iyg&riu=http%3a%2f%2fwww.hdwallpaperspulse.com%2fwp-content%2fuploads%2f2016%2f05%2f28%2fmountain-beautiful-landscape-hd.jpeg&ehk=jT468bV4MzI8DkoGzy%2f%2bWe2T1lN6HTvoZe05S5IN%2fkQ%3d&risl=&pid=ImgRaw&r=0';
 
 class _ProduceState extends State<Produce> {
   bool showFullDescription = false;
@@ -108,7 +137,7 @@ class _ProduceState extends State<Produce> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'N${widget.product.price!.toStringAsFixed(2)}',
+                                  '₦${widget.product.price!.toStringAsFixed(2)}',
                                   style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.green,
@@ -197,7 +226,7 @@ Padding previousPosts(String? description, double? price, String? picture) {
                   const SizedBox(height: 6),
                   if (price != null)
                     Text(
-                      'N${price.toStringAsFixed(2)}',
+                      '₦${price.toStringAsFixed(2)}',
                       style: const TextStyle(
                         color: Colors.green,
                         fontSize: 13,
@@ -225,35 +254,6 @@ Padding previousPosts(String? description, double? price, String? picture) {
     ),
   );
 }
-
-String longProductDescription = '''
-Introducing the TechMaster Pro Series X1X Ultra Performance Laptop - Your Gateway to Limitless Possibilities!
-
-Unleash the power of cutting-edge technology with the TechMaster Pro Series X1X. Packed with an Intel Core i9 processor, 32GB of RAM, and a lightning-fast 1TB SSD, this laptop is designed to handle your most demanding tasks with ease.
-
-The stunning 15.6-inch 4K OLED display delivers breathtaking visuals, bringing your content to life with vibrant colors and razor-sharp clarity. Immerse yourself in a cinematic experience whether you're working on a graphic design project, editing high-resolution videos, or enjoying your favorite movies and games.
-
-Equipped with the latest NVIDIA GeForce RTX 3080 graphics card, the TechMaster Pro Series X1X ensures seamless performance for graphics-intensive applications. Witness realistic graphics and enjoy smooth gameplay, taking your gaming and creative work to a whole new level.
-
-Designed for productivity, the backlit keyboard and precision touchpad provide a comfortable and efficient typing experience. The laptop's sleek aluminum chassis not only looks stylish but also ensures durability, making it your reliable companion on the go.
-
-Connectivity is never an issue with an array of ports, including Thunderbolt 4, USB-C, HDMI, and more. Stay productive with the TechMaster Pro Series X1X, whether you're in the office, at home, or on the road.
-
-Experience the future of computing with the TechMaster Pro Series X1X - where performance meets elegance. Elevate your workflow, enhance your creativity, and conquer every task effortlessly.
-
-Tech Specs:
-- Processor: Intel Core i9
-- RAM: 32GB DDR4
-- Storage: 1TB SSD
-- Display: 15.6-inch 4K OLED
-- Graphics: NVIDIA GeForce RTX 3080
-- Ports: Thunderbolt 4, USB-C, HDMI, and more
-
-Get ready to redefine what's possible with the TechMaster Pro Series X1X Ultra Performance Laptop. Your journey to unparalleled performance starts here!
-''';
-
-String url =
-    'https://th.bing.com/th/id/R.7f2bc68b1fa5cc45c51ed1b0934c536c?rik=9uKjT2TpMh2iyg&riu=http%3a%2f%2fwww.hdwallpaperspulse.com%2fwp-content%2fuploads%2f2016%2f05%2f28%2fmountain-beautiful-landscape-hd.jpeg&ehk=jT468bV4MzI8DkoGzy%2f%2bWe2T1lN6HTvoZe05S5IN%2fkQ%3d&risl=&pid=ImgRaw&r=0';
 
 void main() {
   runApp(const MyApp());
