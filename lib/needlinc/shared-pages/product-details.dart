@@ -5,8 +5,11 @@ import '../widgets/image-viewer.dart';
 class ProductDetailsPage extends StatelessWidget {
     ProductDetailsPage({userDetails, required this.productDetails});
     Map<String, dynamic>? userDetails, productDetails;
+
   @override
   Widget build(BuildContext context) {
+    List<dynamic> imagesArray = productDetails!["images"] as List<dynamic>; // Get the dynamic list
+    List<String> images = imagesArray.map((e) => e.toString()).toList(); // Convert to List<String>
     return  Container(
       color: NeedlincColors.white,
       child: ListView(
@@ -14,7 +17,7 @@ class ProductDetailsPage extends StatelessWidget {
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                imageUrls: ["${productDetails!["image"]}"],
+                imageUrls: images,
                 initialIndex: 0,
                ),
               ),
@@ -25,7 +28,7 @@ class ProductDetailsPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage("${productDetails!["image"]}"),
+                  image: NetworkImage("${productDetails!["images"][0]}"),
                   fit: BoxFit.cover,
                 ),
               ),

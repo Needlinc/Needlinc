@@ -225,7 +225,7 @@ class _PeoplePageState extends State<PeoplePage> {
                                               ElevatedButton(
                                                 onPressed: () {
                                                   Navigator.push(
-                                                    context, MaterialPageRoute(builder: (context) => Message()),);
+                                                    context, MaterialPageRoute(builder: (context) => Messages()),);
                                                 },
                                                 style: ButtonStyle(
                                                   backgroundColor:

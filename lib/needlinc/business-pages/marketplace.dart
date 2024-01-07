@@ -16,7 +16,6 @@ import '../../main.dart';
 import '../colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 
-
 class MarketplacePage extends StatefulWidget {
   const MarketplacePage({Key? key}) : super(key: key);
 
@@ -25,8 +24,8 @@ class MarketplacePage extends StatefulWidget {
 }
 
 class _MarketplacePageState extends State<MarketplacePage> {
-
-  CollectionReference marketPlacePosts = FirebaseFirestore.instance.collection('marketPlacePage');
+  CollectionReference marketPlacePosts =
+      FirebaseFirestore.instance.collection('marketPlacePage');
   CollectionReference user = FirebaseFirestore.instance.collection('users');
 
   @override
@@ -56,17 +55,22 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5.0, horizontal: 10.0),
                           decoration: BoxDecoration(
                               color: NeedlincColors.blue3,
-                              borderRadius: BorderRadius.circular(10.0)
-                          ),
+                              borderRadius: BorderRadius.circular(10.0)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              BusinessMainPages(
+                                                  currentPage: 4)));
                                 },
                                 child: Container(
                                   height: 40,
@@ -84,12 +88,24 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                                padding: const EdgeInsets.fromLTRB(
+                                    10.0, 0.0, 0.0, 0.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text("Richard John", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),),
-                                    Container(color: NeedlincColors.black2, width: 180, height: 2.0, margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),)
+                                    const Text(
+                                      "Richard John",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16),
+                                    ),
+                                    Container(
+                                      color: NeedlincColors.black2,
+                                      width: 180,
+                                      height: 2.0,
+                                      margin: const EdgeInsets.fromLTRB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                    )
                                   ],
                                 ),
                               ),
@@ -103,50 +119,97 @@ class _MarketplacePageState extends State<MarketplacePage> {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
-              title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsPage()))},
+              leading: const Icon(
+                Icons.settings,
+                color: NeedlincColors.blue2,
+              ),
+              title: const Text('Settings',
+                  style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SettingsPage()))
+              },
             ),
             const Divider(),
             ListTile(
-                leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
-                title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))}
+                leading: const Icon(
+                  Icons.input,
+                  color: NeedlincColors.blue2,
+                ),
+                title: const Text('Back to Home',
+                    style: TextStyle(color: NeedlincColors.blue2)),
+                onTap: () => {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => HomePage()))
+                    }),
+            const Divider(),
+            ListTile(
+              leading: const Icon(
+                Icons.shopping_cart_outlined,
+                color: NeedlincColors.blue2,
+              ),
+              title: const Text('Marketplace',
+                  style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MarketPlacePostPage()))
+              },
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
-              title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => MarketPlacePostPage()))},
+              leading:
+                  const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+              title: const Text('Freelancers',
+                  style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => PeoplePage()))
+              },
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
-              title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => PeoplePage()))},
+              leading: const Icon(
+                Icons.notifications,
+                color: NeedlincColors.blue2,
+              ),
+              title: const Text('Notifications',
+                  style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => NotificationsPage()))
+              },
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
-              title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationsPage()))},
+              leading: const Icon(
+                Icons.person_outline,
+                color: NeedlincColors.blue2,
+              ),
+              title: const Text('Profile',
+                  style: TextStyle(color: NeedlincColors.blue2)),
+              onTap: () => {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProfilePage()))
+              },
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
-              title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()))},
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.question_mark, color: NeedlincColors.blue2,),
-              title: const Text('FAQs/Help', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(
+                Icons.question_mark,
+                color: NeedlincColors.blue2,
+              ),
+              title: const Text('FAQs/Help',
+                  style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.headset_mic, color: NeedlincColors.blue2,),
-              title: const Text('Contact Us', style: TextStyle(color: NeedlincColors.blue2)),
+              leading: const Icon(
+                Icons.headset_mic,
+                color: NeedlincColors.blue2,
+              ),
+              title: const Text('Contact Us',
+                  style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {Navigator.of(context).pop()},
             ),
           ],
@@ -162,8 +225,10 @@ class _MarketplacePageState extends State<MarketplacePage> {
           children: [
             Container(
                 margin: const EdgeInsets.only(bottom: 8.0),
-                child: const Text("MARKET PLACE", style: TextStyle(fontSize: 15,color: Colors.blue),)
-            ),
+                child: const Text(
+                  "MARKET PLACE",
+                  style: TextStyle(fontSize: 15, color: Colors.blue),
+                )),
             Container(
               height: 35,
               width: 300,
@@ -177,7 +242,9 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 children: <Widget>[
                   const Icon(Icons.search),
                   const SizedBox(width: 2.0),
-                  const VerticalDivider(thickness: 2,),
+                  const VerticalDivider(
+                    thickness: 2,
+                  ),
                   const SizedBox(width: 4),
                   Expanded(
                     child: TextField(
@@ -205,15 +272,23 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   IconButton(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     icon: const Icon(Icons.message),
-                    onPressed: (){
-                      //TODO Chat messaging feature
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Message()),);
+                    onPressed: () {
+                      // Chat messaging feature
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Messages()),
+                      );
                     },
                   ),
                   //TODO This container is for the small circular profile  picture  at the app bar in the market place page
                   GestureDetector(
-                    onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BusinessMainPages(currentPage: 4)));
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  BusinessMainPages(currentPage: 4)));
                     },
                     child: Container(
                       padding: const EdgeInsets.all(12.0),
@@ -241,18 +316,26 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   borderRadius: BorderRadius.circular(10.0),
                   boxShadow: [
                     BoxShadow(
-                      color: NeedlincColors.black2.withOpacity(0.8), // Shadow color
+                      color: NeedlincColors.black2
+                          .withOpacity(0.8), // Shadow color
                       spreadRadius: 4, // Spread radius
                       blurRadius: 5, // Blur radius
-                      offset: const Offset(0, 6), // Offset in the form of (dx, dy)
+                      offset:
+                          const Offset(0, 6), // Offset in the form of (dx, dy)
                     ),
                   ],
                 ),
                 child: IconButton(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  icon: const Icon(Icons.draw_outlined, color: NeedlincColors.white,),
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MarketPlacePostPage()));
+                  icon: const Icon(
+                    Icons.draw_outlined,
+                    color: NeedlincColors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MarketPlacePostPage()));
                   },
                 ),
               ),
@@ -263,7 +346,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: user.doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> userSnapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<DocumentSnapshot> userSnapshot) {
           if (userSnapshot.hasError) {
             return const Text("Something went wrong");
           }
@@ -272,11 +356,13 @@ class _MarketplacePageState extends State<MarketplacePage> {
             return const Text("Document does not exist");
           }
 
-          Map<String, dynamic>? userDetails = userSnapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic>? userDetails =
+              userSnapshot.data!.data() as Map<String, dynamic>;
 
           return StreamBuilder<QuerySnapshot>(
             stream: marketPlacePosts.snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> postsSnapshot) {
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot> postsSnapshot) {
               if (postsSnapshot.hasError) {
                 return const Text("Something went wrong");
               }
@@ -288,7 +374,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     itemCount: dataList.length,
                     itemBuilder: (BuildContext context, int index) {
                       var data = dataList[index].data() as Map<String, dynamic>;
-                      Map<String, dynamic>? productDetails = data['productDetails'];
+                      Map<String, dynamic>? productDetails =
+                          data['productDetails'];
 
                       if (productDetails == null) {
                         // Handle the case when productDetails are missing in a document.
@@ -296,21 +383,30 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       }
 
                       return InkWell(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                              ProductDetailsPage(userDetails: data['userDetails'], productDetails: data['productDetails'],)));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductDetailsPage(
+                                        userDetails: data['userDetails'],
+                                        productDetails: data['productDetails'],
+                                      )));
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 6.0),
-                          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 6.0),
+                          padding:
+                              const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
                           decoration: BoxDecoration(
                             color: NeedlincColors.white,
                             boxShadow: [
                               BoxShadow(
-                                color: NeedlincColors.black3.withOpacity(0.8), // Shadow color
+                                color: NeedlincColors.black3
+                                    .withOpacity(0.8), // Shadow color
                                 spreadRadius: 4, // Spread radius
                                 blurRadius: 5, // Blur radius
-                                offset: const Offset(0, 6), // Offset in the form of (dx, dy)
+                                offset: const Offset(
+                                    0, 6), // Offset in the form of (dx, dy)
                               ),
                             ],
                           ),
@@ -319,11 +415,12 @@ class _MarketplacePageState extends State<MarketplacePage> {
                               Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: (){
+                                    onTap: () {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => BusinessMainPages(currentPage: 4),
+                                          builder: (context) =>
+                                              BusinessMainPages(currentPage: 4),
                                         ),
                                       );
                                     },
@@ -343,29 +440,36 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.70,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.70,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               userDetails["userName"],
                                               style: const TextStyle(
-                                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             const Text(
                                               "🟢 Now",
                                               style: TextStyle(fontSize: 9),
                                             ),
                                             IconButton(
-                                                onPressed: () {}, icon: const Icon(Icons.more_horiz))
+                                                onPressed: () {},
+                                                icon: const Icon(
+                                                    Icons.more_horiz))
                                           ],
                                         ),
                                         Text("~${userDetails['userCategory']}",
                                             style: const TextStyle(
-                                                fontSize: 13, fontWeight: FontWeight.w600)),
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600)),
                                         Text("📍 ${userDetails['address']}",
                                             style: const TextStyle(
                                                 fontSize: 12,
@@ -380,9 +484,9 @@ class _MarketplacePageState extends State<MarketplacePage> {
                               ),
                               Container(
                                 alignment: Alignment.topLeft,
-                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                                child: Text(
-                                    productDetails['name'],
+                                margin: const EdgeInsets.fromLTRB(
+                                    70.0, 0.0, 0.0, 10.0),
+                                child: Text(productDetails['name'],
                                     style: const TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
@@ -390,33 +494,34 @@ class _MarketplacePageState extends State<MarketplacePage> {
                               ),
                               Container(
                                 alignment: Alignment.topLeft,
-                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
-                                child: Text(
-                                    "₦ ${productDetails['price']}",
+                                margin: const EdgeInsets.fromLTRB(
+                                    70.0, 0.0, 0.0, 10.0),
+                                child: Text("₦ ${productDetails['price']}",
                                     style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.green
-                                    )),
+                                        fontSize: 16, color: Colors.green)),
                               ),
                               Container(
                                 alignment: Alignment.topLeft,
-                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 0.0, 10.0),
+                                margin: const EdgeInsets.fromLTRB(
+                                    70.0, 0.0, 0.0, 10.0),
                                 child: Text(
-                                    productDetails['description'].length >= 123 ?
-                                    productDetails['description'].substring(0, 123)
-                                        :
-                                    productDetails['description'],
+                                    productDetails['description'].length >= 123
+                                        ? productDetails['description']
+                                            .substring(0, 123)
+                                        : productDetails['description'],
                                     style: const TextStyle(fontSize: 18)),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.width * 0.55,
-                                margin: const EdgeInsets.fromLTRB(70.0, 0.0, 10.0, 10.0),
+                                height:
+                                    MediaQuery.of(context).size.width * 0.55,
+                                margin: const EdgeInsets.fromLTRB(
+                                    70.0, 0.0, 10.0, 10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      productDetails["image"],
+                                      "${productDetails["images"][0]}",
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -432,17 +537,26 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            UploadPost().uploadHearts(context: context, sourceOption: 'marketPlacePage', id: productDetails['productId']);
+                                            UploadPost().uploadHearts(
+                                                context: context,
+                                                sourceOption: 'marketPlacePage',
+                                                id: productDetails[
+                                                    'productId']);
                                           },
-                                          icon: productDetails['hearts'].contains(userDetails['userId']) ?
-                                          Icon(
-                                            Icons.favorite, size: 22,
-                                            color: NeedlincColors.red,)
-                                              :
-                                          Icon(
-                                            Icons.favorite_border, size: 22,)
-                                      ),
-                                      Text("${productDetails['hearts'].length}", style: const TextStyle(fontSize: 15))
+                                          icon: productDetails['hearts']
+                                                  .contains(
+                                                      userDetails['userId'])
+                                              ? Icon(
+                                                  Icons.favorite,
+                                                  size: 22,
+                                                  color: NeedlincColors.red,
+                                                )
+                                              : Icon(
+                                                  Icons.favorite_border,
+                                                  size: 22,
+                                                )),
+                                      Text("${productDetails['hearts'].length}",
+                                          style: const TextStyle(fontSize: 15))
                                     ],
                                   ),
                                   const SizedBox(
@@ -452,13 +566,22 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     children: [
                                       IconButton(
                                           onPressed: () {
-                                            Navigator.push(context, MaterialPageRoute(
-                                                builder: (context) => CommentsPage(post: data, sourceOption: 'marketPlacePage',)
-                                            )
-                                            );
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CommentsPage(
+                                                          post: data,
+                                                          sourceOption:
+                                                              'marketPlacePage',
+                                                        )));
                                           },
-                                          icon: const Icon(Icons.maps_ugc_outlined, size: 20)),
-                                      Text("${productDetails['comments'].length}", style: const TextStyle(fontSize: 15))
+                                          icon: const Icon(
+                                              Icons.maps_ugc_outlined,
+                                              size: 20)),
+                                      Text(
+                                          "${productDetails['comments'].length}",
+                                          style: const TextStyle(fontSize: 15))
                                     ],
                                   ),
                                   const SizedBox(
@@ -466,13 +589,16 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                   ),
                                   IconButton(
                                       onPressed: () {},
-                                      icon: const Icon(Icons.bookmark_border, size: 20)),
+                                      icon: const Icon(Icons.bookmark_border,
+                                          size: 20)),
                                   const SizedBox(
                                     width: 10.0,
                                   ),
                                   IconButton(
                                       onPressed: () {},
-                                      icon: const Icon(Icons.shopping_cart_outlined, size: 22)),
+                                      icon: const Icon(
+                                          Icons.shopping_cart_outlined,
+                                          size: 22)),
                                   const SizedBox(
                                     width: 10.0,
                                   ),
@@ -485,8 +611,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                           ),
                         ),
                       );
-                    }
-                );
+                    });
               }
 
               if (postsSnapshot.connectionState == ConnectionState.waiting) {
