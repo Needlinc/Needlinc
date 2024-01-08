@@ -2,13 +2,18 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/business-pages/home.dart';
+import 'package:needlinc/needlinc/shared-pages/notifications.dart';
+import 'package:needlinc/needlinc/business-pages/profile.dart';
+import 'package:needlinc/needlinc/client-pages/people.dart';
 import 'package:needlinc/needlinc/shared-pages/comments.dart';
-import '../../main.dart';
+import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import '../backend/user-account/upload-post.dart';
 import '../colors/colors.dart';
 import '../shared-pages/market-place-post.dart';
 import '../shared-pages/product-details.dart';
 import 'client-main.dart';
+
 
 class MarketplacePage extends StatefulWidget {
   const MarketplacePage({Key? key}) : super(key: key);
@@ -98,37 +103,38 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ListTile(
               leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
               title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const RootPage()))},
+              onTap: () { // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsPage()))
+                        },
             ),
             const Divider(),
             ListTile(
                 leading: const Icon(Icons.input, color: NeedlincColors.blue2,),
                 title: const Text('Back to Home', style: TextStyle(color: NeedlincColors.blue2)),
-                onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 0)))}
+                onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()))}
             ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.shopping_cart_outlined, color: NeedlincColors.blue2,),
               title: const Text('Marketplace', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 1)))},
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => MarketplacePage()))},
             ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: const Text('Freelancers', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 2)))},
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => PeoplePage()))},
             ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.notifications, color: NeedlincColors.blue2,),
               title: const Text('Notifications', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 3)))},
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => NotificationsPage()))},
             ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.person_outline, color: NeedlincColors.blue2,),
               title: const Text('Profile', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ClientMainPages(currentPage: 4)))},
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()))},
             ),
             const Divider(),
             ListTile(
@@ -420,8 +426,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                     productDetails['description'].substring(0, 123)
                                         :
                                     productDetails['description'],
-                                    style: const TextStyle(fontSize: 18)
-                                ),
+                                    style: const TextStyle(fontSize: 18)),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
@@ -431,7 +436,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      productDetails["image"],
+                                      "${productDetails["images"][0]}",
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -449,7 +454,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                           onPressed: () {
                                             UploadPost().uploadHearts(context: context, sourceOption: 'marketPlacePage', id: productDetails['productId']);
                                           },
-                                          icon: productDetails['hearts'].contains(FirebaseAuth.instance.currentUser!.uid) ?
+                                          icon: productDetails['hearts'].contains(userDetails['userId']) ?
                                           Icon(
                                             Icons.favorite, size: 22,
                                             color: NeedlincColors.red,)
