@@ -1,27 +1,31 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import '../widgets/image-viewer.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-
   Map<String, dynamic>? userDetails, productDetails;
 
-   ProductDetailsPage({super.key, required this.userDetails, required this.productDetails});
+  ProductDetailsPage(
+      {super.key, required this.userDetails, required this.productDetails});
 
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-
-  bool showFullDescription = true;
+  bool showFullDescription = false;
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> imagesArray = widget.productDetails!["images"] as List<dynamic>; // Get the dynamic list
-    List<String> images = imagesArray.map((e) => e.toString()).toList(); // Convert to List<String>
-    return  Scaffold(
-        appBar: AppBar(
+    List<dynamic> imagesArray = widget.productDetails!["images"]
+        as List<dynamic>; // Get the dynamic list
+    List<String> images = imagesArray
+        .map((e) => e.toString())
+        .toList(); // Convert to List<String>
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: NeedlincColors.white,
         foregroundColor: NeedlincColors.blue1,
         leading: IconButton(
@@ -37,20 +41,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                    imageUrls: images,
-                    initialIndex: 0,
-                  ),
-                  ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageViewer(
+                        imageUrls: images,
+                        initialIndex: 0,
+                      ),
+                    ),
                   );
                 },
                 child: Container(
-                  height: MediaQuery.of(context).size.height/3,
+                  height: MediaQuery.of(context).size.height / 3,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage("${widget.productDetails!["images"][0]}"),
+                      image: NetworkImage(
+                          "${widget.productDetails!["images"][0]}"),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -72,14 +80,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text(
+                            Text(
                               widget.productDetails!['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 19, fontWeight: FontWeight.w500),
                             ),
                             Text(
                               widget.productDetails!['description'],
-                              maxLines: showFullDescription ? null : 2,
+                              maxLines: showFullDescription ? null : 3,
                               overflow: showFullDescription
                                   ? TextOverflow.visible
                                   : TextOverflow.ellipsis,
@@ -144,13 +152,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     const SizedBox(height: 20),
                     const Text(
                       'Previous posts of user',
-                      style:
-                      TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: NeedlincColors.blue1,
+                      ),
                     ),
                   ],
                 ),
               ),
-               previousPosts(context: context, description: widget.productDetails!['description'], price: widget.productDetails!['price'], picture: widget.productDetails!['images'])
+              previousPosts(
+                context: context,
+                name: widget.productDetails!['name'],
+                description: widget.productDetails!['description'],
+                price: widget.productDetails!['price'],
+                picture: widget.productDetails!['images'],
+              )
             ],
           ),
         ),
@@ -160,66 +177,77 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 }
 
 // Previous Post list container
-Padding previousPosts({required BuildContext context, String? description, String? price, List<dynamic>? picture}) {
+Padding previousPosts(
+    {required BuildContext context,
+    String? name,
+    String? description,
+    String? price,
+    List<dynamic>? picture}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 0.5),
     child: InkWell(
       onTap: () {},
       child: Column(
         children: [
-          for(int index = 0; index < 5; index++)
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (description != null)
-                        Container(
-                          width: MediaQuery.of(context).size.width * .85,
-                          child: Text(
-                            description,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
+          for (int index = 0; index < 5; index++)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (name != null)
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ),
-                      const SizedBox(height: 6),
-                      if (price != null)
-                        Text(
-                          '₦${price}',
-                          style: const TextStyle(
-                            color: Colors.green,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                    ],
-                  ),
-                  if (picture!.length != 0)
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage("${
-                            picture[0]
-                          }"),
-                        ),
+                          if (description != null)
+                            Text(
+                              description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          const SizedBox(height: 6),
+                          if (price != null)
+                            Text(
+                              '₦$price',
+                              style: const TextStyle(
+                                color: Colors.green,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                        ],
                       ),
-                    )
-                ],
+                    ),
+                    if (picture!.isNotEmpty)
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage("${picture[0]}"),
+                          ),
+                        ),
+                      )
+                  ],
+                ),
               ),
             ),
-          ),
         ],
       ),
     ),

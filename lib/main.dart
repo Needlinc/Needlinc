@@ -2,14 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
-import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import 'firebase_options.dart';
-import 'needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'needlinc/shared-pages/auth-pages/sign-in.dart';
 import 'needlinc/shared-pages/user-type.dart';
-
-
-
 
 void main() async {
   // Initialize Firebase
@@ -26,7 +21,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-return MaterialApp(
+    return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -34,7 +29,8 @@ return MaterialApp(
       routes: {
         '/': (context) => RootPage(), //replace with const RootPage()
         '//': (context) => const SignupPage(),
-      },    );
+      },
+    );
   }
 }
 
@@ -46,7 +42,6 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

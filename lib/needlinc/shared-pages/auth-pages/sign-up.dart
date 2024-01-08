@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -120,8 +121,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         setState(() {});
       }
     } on PlatformException catch (e) {
-      // TODO
-      print('Failed to select image: $e');
+      if (kDebugMode) {
+        print('Failed to select image: $e');
+      }
     }
   }
 
