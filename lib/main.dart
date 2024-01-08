@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/business-pages/home.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
 import 'firebase_options.dart';
 import 'needlinc/shared-pages/auth-pages/sign-in.dart';
 import 'needlinc/shared-pages/user-type.dart';
+
 
 void main() async {
   // Initialize Firebase
@@ -27,7 +29,7 @@ class Home extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => RootPage(), //replace with const RootPage()
+        '/': (context) => const RootPage(),
         '//': (context) => const SignupPage(),
       },
     );

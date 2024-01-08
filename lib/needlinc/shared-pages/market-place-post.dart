@@ -17,7 +17,7 @@ class MarketPlacePostPage extends StatefulWidget {
 
 class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
 
-  Uint8List? imagePost;
+  List<Uint8List>? imagePosts = [];
   TextEditingController productDescription = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController productPriceController = TextEditingController();
@@ -46,20 +46,36 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
     "Aesthetics",
   ];
 
-  Future _selectFile(context, bool imageFrom) async {
+
+
+  Future<void> _selectFile(BuildContext context, bool imageFrom) async {
     try {
-      XFile? imageFile = await ImagePicker().pickImage(
-          source: imageFrom ? ImageSource.gallery : ImageSource.camera
-      );
-      if (imageFile != null){
-        imagePost = await imageFile.readAsBytes();
+      List<Uint8List> imageBytes = [];
+
+      if (imageFrom) {
+        final List<XFile>? imageFiles = await ImagePicker().pickMultiImage();
+        if (imageFiles != null) {
+          imageBytes = await Future.wait(imageFiles.map((file) => file.readAsBytes()));
+        }
+      } else {
+        XFile? imageFile = await ImagePicker().pickImage(source: ImageSource.camera);
+        if (imageFile != null) {
+          Uint8List singleImageByte = await imageFile.readAsBytes();
+          imageBytes.add(singleImageByte);
+        }
+      }
+
+      if (imageBytes.isNotEmpty) {
+        imagePosts = imageBytes;
         setState(() {});
       }
+
     } on PlatformException catch (e) {
-      // TODO
       showSnackBar(context, "Failed to select image: $e");
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,18 +92,37 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
             onTap: () async {
               notLoading = false;
               setState(() {});
-              if(imagePost != null){
-                UploadPost().MarketPlacePost(context: context, image: imagePost, description: productDescription.text, productName: productNameController.text, price: productPriceController.text, category: selectedCategory);
-                Navigator.pop(context);
+              if(imagePosts!.isNotEmpty &&
+                  productDescription.text.isNotEmpty &&
+                  productNameController.text.isNotEmpty &&
+                  productPriceController.text.isNotEmpty &&
+                  selectedCategory != null) {
+
+                bool success = await UploadPost().MarketPlacePost(
+                    context: context,
+                    images: imagePosts!,
+                    description: productDescription.text,
+                    productName: productNameController.text,
+                    price: productPriceController.text,
+                    category: selectedCategory
+                );
+
+                if (success) {
+                  Navigator.pop(context);
+                } else {
+                  notLoading = true;
+                  setState(() {});
+                  showSnackBar(context, 'Failed to upload to Market Place page');
+                }
               } else {
                 notLoading = true;
+                setState(() {});
                 // Handle the case where at least one field is empty
                 String errorMessage = 'The following fields are empty:';
-
-                if (imagePost == null) {
+                if (imagePosts!.isEmpty) {
                   errorMessage += ' Image';
                 }
-                if (productDescription == null) {
+                if (productDescription.text.isEmpty) {
                   errorMessage += ' Description';
                 }
                 if (productNameController.text.isEmpty) {
@@ -99,10 +134,10 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
                 if (selectedCategory == null) {
                   errorMessage += ' Category';
                 }
-
                 showSnackBar(context, errorMessage);
               }
             },
+
             child: Container(
               padding: const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0, bottom: 0.0),
               margin: const EdgeInsets.only(top: 15.0, right: 15.0),
@@ -126,13 +161,13 @@ class _MarketPlacePostPageState extends State<MarketPlacePostPage> {
             children: [
               Row(
                 children: [
-                  imagePost != null ? Container(
+                  imagePosts!.isNotEmpty ? Container(
                     width: MediaQuery.of(context).size.width * 0.4,
                     padding: const EdgeInsets.all(100),
                     margin: const EdgeInsets.symmetric(horizontal: 4.0),
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: MemoryImage(imagePost!),
+                        image: MemoryImage(imagePosts![0]),
                         fit: BoxFit.fill,
                       ),
                       borderRadius: BorderRadius.circular(10),

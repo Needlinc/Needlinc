@@ -125,10 +125,10 @@ class _MarketplacePageState extends State<MarketplacePage> {
               ),
               title: const Text('Settings',
                   style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () {
-              //   Navigator.of(context).push(
-              //       MaterialPageRoute(builder: (context) => SettingsPage()))
-                   },
+              onTap: () => {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SettingsPage()))
+              },
             ),
             const Divider(),
             ListTile(
@@ -274,11 +274,11 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     icon: const Icon(Icons.message),
                     onPressed: () {
                       // Chat messaging feature
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const Messages()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Messages()),
+                      );
                     },
                   ),
                   //TODO This container is for the small circular profile  picture  at the app bar in the market place page
@@ -322,6 +322,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       blurRadius: 5, // Blur radius
                       offset:
                       const Offset(0, 6), // Offset in the form of (dx, dy)
+
                     ),
                   ],
                 ),

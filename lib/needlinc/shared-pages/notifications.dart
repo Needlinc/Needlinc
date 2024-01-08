@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../colors/colors.dart';
 
 
 class NotificationsPage extends StatefulWidget {
@@ -14,6 +14,12 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: NeedlincColors.blue1),
+          onPressed: () {
+            Navigator.pop(context);
+          }
+        ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.blue,

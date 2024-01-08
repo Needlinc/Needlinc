@@ -103,8 +103,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ListTile(
               leading: const Icon(Icons.settings, color: NeedlincColors.blue2,),
               title: const Text('Settings', style: TextStyle(color: NeedlincColors.blue2)),
-              onTap: () { // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsPage()))
-                        },
+              onTap: () => {Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsPage()))},
             ),
             const Divider(),
             ListTile(

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/shared-pages/contracts.dart';
+import 'package:needlinc/needlinc/shared-pages/reviews_ratings.dart';
+import 'package:needlinc/needlinc/shared-pages/saved_post.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
 import '../shared-pages/edit-profile.dart';
 import 'business-main.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import '../shared-pages/settings.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -51,131 +55,71 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                const ListTile(
-                  leading: Icon(
-                    Icons.settings,
-                    color: NeedlincColors.blue2,
-                  ),
+                 ListTile(
                   title: Text('Settings',
-                      style: TextStyle(color: NeedlincColors.blue2)),
-                  // onTap: () => {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()))},
+                      style: TextStyle(color: Colors.black)),
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));},
                 ),
                 const Divider(),
                 ListTile(
-                    leading: const Icon(
-                      Icons.input,
-                      color: NeedlincColors.blue2,
-                    ),
-                    title: const Text('Back to Home',
-                        style: TextStyle(color: NeedlincColors.blue2)),
+                    title: const Text('Contracts',
+                        style: TextStyle(color: Colors.black)),
                     onTap: () => {
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      BusinessMainPages(currentPage: 0)))
+                                      Contracts()))
                         }),
                 const Divider(),
                 ListTile(
-                  leading: const Icon(
-                    Icons.shopping_cart_outlined,
-                    color: NeedlincColors.blue2,
-                  ),
-                  title: const Text('Marketplace',
-                      style: TextStyle(color: NeedlincColors.blue2)),
+                  title: const Text('Saved',
+                      style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            BusinessMainPages(currentPage: 1)))
+                            Saved_Post()))
                   },
                 ),
                 const Divider(),
                 ListTile(
-                  leading: const Icon(Icons.people_outline,
-                      color: NeedlincColors.blue2),
-                  title: const Text('Freelancers',
-                      style: TextStyle(color: NeedlincColors.blue2)),
+                  title: const Text('Reviews/Ratings',
+                      style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            BusinessMainPages(currentPage: 2)))
+                    
+                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reviews_Ratings()))
                   },
-                ),
+                ), 
                 const Divider(),
                 ListTile(
-                  leading: const Icon(
-                    Icons.notifications,
-                    color: NeedlincColors.blue2,
-                  ),
-                  title: const Text('Notifications',
-                      style: TextStyle(color: NeedlincColors.blue2)),
-                  onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            BusinessMainPages(currentPage: 3)))
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.person_outline,
-                    color: NeedlincColors.blue2,
-                  ),
-                  title: const Text('Profile',
-                      style: TextStyle(color: NeedlincColors.blue2)),
-                  onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            BusinessMainPages(currentPage: 4)))
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.question_mark,
-                    color: NeedlincColors.blue2,
-                  ),
-                  title: const Text('FAQs/Help',
-                      style: TextStyle(color: NeedlincColors.blue2)),
-                  onTap: () => {Navigator.of(context).pop()},
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(
-                    Icons.headset_mic,
-                    color: NeedlincColors.blue2,
-                  ),
                   title: const Text('Contact Us',
-                      style: TextStyle(color: NeedlincColors.blue2)),
+                      style: TextStyle(color: Colors.black)),
+                  onTap: () => {
+                    //TODO: Implement this page and function
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  title: const Text('Help',
+                      style: TextStyle(color: Colors.black)),
+                  onTap: () => {
+                    // TODO: Implement this function
+                  },
+                ),
+                const Divider(),
+                ListTile(
+                  title: const Text('Log out',
+                      style: TextStyle(color: Colors.red)),
                   onTap: () => {Navigator.of(context).pop()},
                 ),
-                Center(
-                  child: InkWell(
-                    onTap: () {
-                      signOutUser();
-
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil('//', (route) => false);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(20.0),
-                      child: const Text(
-                        "Sign Out/Log Out",
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                const Divider(),
+               
               ],
             ),
           );
         });
   }
 
-  bool isOwner = false;
+  bool isOwner = true;
   bool isCoverPhoto = true;
   bool isReviews = true;
   bool isPosts = false;
@@ -313,6 +257,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       //TODO(Already done) This is the App Menu Bar
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: NeedlincColors.blue1),
         title: const Text(
           "John Doe",
