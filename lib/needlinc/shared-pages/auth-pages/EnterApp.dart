@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/backend/user-account/user-online-information.dart';
+import 'package:needlinc/needlinc/shared-pages/auth-pages/Occupation.dart';
 import 'package:needlinc/needlinc/shared-pages/user-type.dart';
 import 'package:needlinc/needlinc/widgets/login-background.dart';
 import '../../colors/colors.dart';
+import 'BizNameAndExp.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -47,7 +49,7 @@ class _CategoryPageState extends State<CategoryPage> {
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
               child: Column(
                 children: [
-                  const SizedBox(height: 55),
+                  const SizedBox(height: 50),
                   const Text(
                     'Choose your category',
                     textAlign: TextAlign.center,
@@ -57,7 +59,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       color: NeedlincColors.white,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Column(
                     children: [
                       Row(
@@ -296,24 +298,34 @@ class _CategoryPageState extends State<CategoryPage> {
                               break;
                             case 'Freelancer':
                               {
-                                userCategory(
-                                    context: context, userType: 'Freelancer');
+                                // userCategory(
+                                //     context: context, userType: 'Freelancer');
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const UserType()));
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const UserType()));
+                                            const Occupation()));
                               }
                               break;
                             case 'Business':
                               {
-                                userCategory(
-                                    context: context, userType: 'Business');
+                                // userCategory(
+                                //     context: context, userType: 'Business');
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const UserType()));
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const UserType()));
+                                            const BizNameAndExp()));
                               }
                               break;
                             case 'Blogger':
@@ -333,15 +345,15 @@ class _CategoryPageState extends State<CategoryPage> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           backgroundColor: NeedlincColors.blue1,
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                         ),
                         child: const Text(
                           'NEXT',
                           style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

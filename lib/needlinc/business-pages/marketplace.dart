@@ -25,7 +25,7 @@ class MarketplacePage extends StatefulWidget {
 
 class _MarketplacePageState extends State<MarketplacePage> {
   CollectionReference marketPlacePosts =
-      FirebaseFirestore.instance.collection('marketPlacePage');
+  FirebaseFirestore.instance.collection('marketPlacePage');
   CollectionReference user = FirebaseFirestore.instance.collection('users');
 
   @override
@@ -139,9 +139,9 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 title: const Text('Back to Home',
                     style: TextStyle(color: NeedlincColors.blue2)),
                 onTap: () => {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => HomePage()))
-                    }),
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HomePage()))
+                }),
             const Divider(),
             ListTile(
               leading: const Icon(
@@ -158,7 +158,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
             const Divider(),
             ListTile(
               leading:
-                  const Icon(Icons.people_outline, color: NeedlincColors.blue2),
+              const Icon(Icons.people_outline, color: NeedlincColors.blue2),
               title: const Text('Freelancers',
                   style: TextStyle(color: NeedlincColors.blue2)),
               onTap: () => {
@@ -321,7 +321,8 @@ class _MarketplacePageState extends State<MarketplacePage> {
                       spreadRadius: 4, // Spread radius
                       blurRadius: 5, // Blur radius
                       offset:
-                          const Offset(0, 6), // Offset in the form of (dx, dy)
+                      const Offset(0, 6), // Offset in the form of (dx, dy)
+
                     ),
                   ],
                 ),
@@ -357,7 +358,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
           }
 
           Map<String, dynamic>? userDetails =
-              userSnapshot.data!.data() as Map<String, dynamic>;
+          userSnapshot.data!.data() as Map<String, dynamic>;
 
           return StreamBuilder<QuerySnapshot>(
             stream: marketPlacePosts.snapshots(),
@@ -375,7 +376,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     itemBuilder: (BuildContext context, int index) {
                       var data = dataList[index].data() as Map<String, dynamic>;
                       Map<String, dynamic>? productDetails =
-                          data['productDetails'];
+                      data['productDetails'];
 
                       if (productDetails == null) {
                         // Handle the case when productDetails are missing in a document.
@@ -388,15 +389,15 @@ class _MarketplacePageState extends State<MarketplacePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ProductDetailsPage(
-                                        userDetails: data['userDetails'],
-                                        productDetails: data['productDetails'],
-                                      )));
+                                    userDetails: data['userDetails'],
+                                    productDetails: data['productDetails'],
+                                  )));
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 6.0),
                           padding:
-                              const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
+                          const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 12.0),
                           decoration: BoxDecoration(
                             color: NeedlincColors.white,
                             boxShadow: [
@@ -444,11 +445,11 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                         0.70,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               userDetails["userName"],
@@ -507,14 +508,14 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                 child: Text(
                                     productDetails['description'].length >= 123
                                         ? productDetails['description']
-                                            .substring(0, 123)
+                                        .substring(0, 123)
                                         : productDetails['description'],
                                     style: const TextStyle(fontSize: 18)),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 height:
-                                    MediaQuery.of(context).size.width * 0.55,
+                                MediaQuery.of(context).size.width * 0.55,
                                 margin: const EdgeInsets.fromLTRB(
                                     70.0, 0.0, 10.0, 10.0),
                                 decoration: BoxDecoration(
@@ -541,20 +542,20 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                                 context: context,
                                                 sourceOption: 'marketPlacePage',
                                                 id: productDetails[
-                                                    'productId']);
+                                                'productId']);
                                           },
                                           icon: productDetails['hearts']
-                                                  .contains(
-                                                      userDetails['userId'])
+                                              .contains(
+                                              userDetails['userId'])
                                               ? Icon(
-                                                  Icons.favorite,
-                                                  size: 22,
-                                                  color: NeedlincColors.red,
-                                                )
+                                            Icons.favorite,
+                                            size: 22,
+                                            color: NeedlincColors.red,
+                                          )
                                               : Icon(
-                                                  Icons.favorite_border,
-                                                  size: 22,
-                                                )),
+                                            Icons.favorite_border,
+                                            size: 22,
+                                          )),
                                       Text("${productDetails['hearts'].length}",
                                           style: const TextStyle(fontSize: 15))
                                     ],
@@ -573,7 +574,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                                                         CommentsPage(
                                                           post: data,
                                                           sourceOption:
-                                                              'marketPlacePage',
+                                                          'marketPlacePage',
                                                         )));
                                           },
                                           icon: const Icon(

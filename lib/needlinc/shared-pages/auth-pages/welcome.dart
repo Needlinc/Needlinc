@@ -15,9 +15,9 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // implement initState
     super.initState();
-    // Set a delay to navigate to the second screen after 3 seconds
+    // Set a delay to navigate to the second screen after 7 seconds
     Future.delayed(const Duration(seconds: 7), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const WelcomePage2()));
@@ -40,7 +40,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   speed: const Duration(milliseconds: 150),
                   textStyle: const TextStyle(
                     color: NeedlincColors.blue1,
-                    fontSize: 48,
+                    fontSize: 42,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -53,7 +53,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 });
               },
             ),
-            const SizedBox(height: 65),
+            const SizedBox(height: 57),
             Container(
               width: double.infinity,
               height: 350,
@@ -64,7 +64,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 65),
+            const SizedBox(height: 57),
             if (shouldStartSecondAnimation)
               AnimatedTextKit(
                 pause: const Duration(milliseconds: 500),
@@ -74,7 +74,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     speed: const Duration(milliseconds: 150),
                     textStyle: const TextStyle(
                       color: NeedlincColors.blue1,
-                      fontSize: 20,
+                      fontSize: 22,
                     ),
                   ),
                 ],

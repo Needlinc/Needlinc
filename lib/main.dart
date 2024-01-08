@@ -3,13 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/business-pages/home.dart';
 import 'package:needlinc/needlinc/shared-pages/auth-pages/welcome.dart';
-import 'package:needlinc/needlinc/shared-pages/reviews_ratings.dart';
-import 'package:needlinc/needlinc/shared-pages/saved_post.dart';
 import 'firebase_options.dart';
-import 'needlinc/shared-pages/auth-pages/addNumber.dart';
 import 'needlinc/shared-pages/auth-pages/sign-in.dart';
 import 'needlinc/shared-pages/user-type.dart';
-
 
 
 void main() async {
@@ -27,15 +23,16 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-return MaterialApp(
+    return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const RootPage(), // Replace with const RootPage
+        '/': (context) => const RootPage(),
         '//': (context) => const SignupPage(),
-      },    );
+      },
+    );
   }
 }
 
@@ -47,7 +44,6 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

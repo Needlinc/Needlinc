@@ -1,121 +1,255 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import '../widgets/image-viewer.dart';
 
-class ProductDetailsPage extends StatelessWidget {
-    ProductDetailsPage({userDetails, required this.productDetails});
-    Map<String, dynamic>? userDetails, productDetails;
+class ProductDetailsPage extends StatefulWidget {
+  Map<String, dynamic>? userDetails, productDetails;
+
+  ProductDetailsPage(
+      {super.key, required this.userDetails, required this.productDetails});
+
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  bool showFullDescription = false;
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> imagesArray = productDetails!["images"] as List<dynamic>; // Get the dynamic list
-    List<String> images = imagesArray.map((e) => e.toString()).toList(); // Convert to List<String>
-    return  Container(
-      color: NeedlincColors.white,
-      child: ListView(
-        children: [
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(
-                imageUrls: images,
-                initialIndex: 0,
-               ),
-              ),
-             );
-            },
-            child: Container(
-              height: MediaQuery.of(context).size.height/3,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage("${productDetails!["images"][0]}"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    List<dynamic> imagesArray = widget.productDetails!["images"]
+        as List<dynamic>; // Get the dynamic list
+    List<String> images = imagesArray
+        .map((e) => e.toString())
+        .toList(); // Convert to List<String>
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: NeedlincColors.white,
+        foregroundColor: NeedlincColors.blue1,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.close),
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                    productDetails!['name'],
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      color: NeedlincColors.black1,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              Column(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top: 10),
-                    child: Text(
-                        "₦ ${productDetails!['price']}",
-                        style: const TextStyle(
-                            fontSize: 18,
-                            decoration: TextDecoration.none,
-                            color: NeedlincColors.black1
-                        )),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add your onPressed logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blue, // Set the background color
-                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // Set the border radius
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageViewer(
+                        imageUrls: images,
+                        initialIndex: 0,
                       ),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.shopping_bag,
-                          color: Colors.white, // Set the icon color
-                        ),
-                        SizedBox(width: 8), // Add some space between the icon and text
-                        Text(
-                          'Purchase',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white, // Set the text color
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                  );
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "${widget.productDetails!["images"][0]}"),
+                      fit: BoxFit.cover,
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Card(
+                      color: NeedlincColors.white,
+                      elevation: 1,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.productDetails!['name'],
+                              style: const TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              widget.productDetails!['description'],
+                              maxLines: showFullDescription ? null : 3,
+                              overflow: showFullDescription
+                                  ? TextOverflow.visible
+                                  : TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showFullDescription = !showFullDescription;
+                                  });
+                                },
+                                child: Text(
+                                  showFullDescription ? 'See Less' : 'See More',
+                                  style: const TextStyle(
+                                    color: NeedlincColors.blue1,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            // Price and Buy button
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "₦ ${widget.productDetails!['price']}",
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    // Implement the logic to handle the buy button press
+                                    // You can navigate to a checkout page or show a confirmation dialog.
+                                  },
+                                  label: const Text(
+                                    'Buy Now',
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.shopping_bag_outlined,
+                                    size: 18,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: NeedlincColors.blue1,
+                                    foregroundColor: NeedlincColors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Previous posts of user',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: NeedlincColors.blue1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              previousPosts(
+                context: context,
+                name: widget.productDetails!['name'],
+                description: widget.productDetails!['description'],
+                price: widget.productDetails!['price'],
+                picture: widget.productDetails!['images'],
+              )
             ],
           ),
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0.0),
-            child: Text(
-              productDetails!['description'],
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: NeedlincColors.black1,
-                decoration: TextDecoration.none,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
+}
+
+// Previous Post list container
+Padding previousPosts(
+    {required BuildContext context,
+    String? name,
+    String? description,
+    String? price,
+    List<dynamic>? picture}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 0.5),
+    child: InkWell(
+      onTap: () {},
+      child: Column(
+        children: [
+          for (int index = 0; index < 5; index++)
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (name != null)
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          if (description != null)
+                            Text(
+                              description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          const SizedBox(height: 6),
+                          if (price != null)
+                            Text(
+                              '₦$price',
+                              style: const TextStyle(
+                                color: Colors.green,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    if (picture!.isNotEmpty)
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage("${picture[0]}"),
+                          ),
+                        ),
+                      )
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    ),
+  );
 }

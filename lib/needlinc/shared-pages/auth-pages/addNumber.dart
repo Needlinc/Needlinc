@@ -73,9 +73,9 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         ),
                       ),
                       // body
-                      const SizedBox(height: 35),
+                      const SizedBox(height: 15),
                       Container(
-                        padding: const EdgeInsets.fromLTRB(15, 30, 15, 30),
+                        padding: const EdgeInsets.fromLTRB(15, 27, 15, 30),
                         decoration: BoxDecoration(
                           color: NeedlincColors.white,
                           borderRadius: BorderRadius.circular(20),
@@ -94,11 +94,11 @@ class _PhoneNumberState extends State<PhoneNumber> {
                             const Text(
                               'Select Country',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 22),
+                            const SizedBox(height: 19),
                             PhoneFormField(
                               //  initialValue: PhoneNumber(isoCode: 'US'),
                               controller: phoneNumberController,
@@ -158,15 +158,15 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           backgroundColor: NeedlincColors.blue1,
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                         ),
                         child: const Text(
                           'NEXT',
                           style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 14,
                             fontWeight: FontWeight.w700,
                           ),
                         ),

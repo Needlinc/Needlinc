@@ -47,18 +47,21 @@ class _LocationState extends State<Location> {
                 'Add Location',
                 style: TextStyle(
                   color: NeedlincColors.blue1,
-                  fontSize: 30,
+                  fontSize: 26,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 10),
-              TextFormField(
-                controller: locationController,
-                decoration: const InputDecoration(
-                  hintText: 'Where do you stay?',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                  focusedBorder: Borders.FocusedBorder,
-                  enabledBorder: Borders.EnabledBorder,
+              SizedBox(
+                height: 40,
+                child: TextFormField(
+                  controller: locationController,
+                  decoration: const InputDecoration(
+                    hintText: 'Where do you stay?',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                    focusedBorder: Borders.FocusedBorder,
+                    enabledBorder: Borders.EnabledBorder,
+                  ),
                 ),
               ),
               // Next button
@@ -76,15 +79,15 @@ class _LocationState extends State<Location> {
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       backgroundColor: NeedlincColors.blue1,
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                     ),
                     child: const Text(
                       'NEXT',
                       style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 14,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
