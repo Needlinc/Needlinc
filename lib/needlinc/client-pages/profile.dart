@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/shared-pages/contracts.dart';
 import 'package:needlinc/needlinc/shared-pages/edit-profile.dart';
+import 'package:needlinc/needlinc/shared-pages/reviews_ratings.dart';
+import 'package:needlinc/needlinc/shared-pages/saved_post.dart';
 import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import '../../main.dart';
 import '../backend/authentication/logout.dart';
@@ -42,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                  ListTile(
                   title: Text('Settings',
                       style: TextStyle(color: Colors.black)),
-                  //  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));},
                 ),
                 const Divider(),
                 ListTile(
@@ -59,9 +61,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Saved',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
-                            Contracts()))
+                            Saved_Post()))
                   },
                 ),
                 const Divider(),
@@ -69,9 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Reviews/Ratings',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            Contracts()))
+                    // TODO: Implement the Revew/Ratings actions
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Reviews_Ratings()))
                   },
                 ),
                 const Divider(),
@@ -79,9 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Contact Us',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            Contracts()))
+                    // TODO: Implement the Contact Us page and its action
                   },
                 ),
                 const Divider(),
@@ -89,9 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: const Text('Help',
                       style: TextStyle(color: Colors.black)),
                   onTap: () => {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) =>
-                            Contracts()))
+                    //TODO: Implement the Help page and it's page
                   },
                 ),
                 const Divider(),
@@ -192,6 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       //TODO(Already done) This is the App Menu Bar
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(color: NeedlincColors.blue1),
         title: Row(
           children: [

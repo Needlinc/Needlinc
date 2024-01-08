@@ -124,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
         elevation: 0.0,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
@@ -152,13 +152,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     var chatData = data[index].data() as Map<String, dynamic>; // Access each document's data
 
                     return Align(
-                      alignment: userId == chatData['myUserId'] ? Alignment.topRight : Alignment.topLeft,
+                      alignment: userId == chatData['myUserId'] ? Alignment.centerRight : Alignment.centerLeft,
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding: const EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
-                          color: userId == chatData['myUserId'] ? NeedlincColors.white : NeedlincColors.black2,
-                          borderRadius: BorderRadius.circular(20.0),
+                          color: userId == chatData['myUserId'] ? NeedlincColors.blue2 : NeedlincColors.white,
+                          borderRadius: BorderRadius.circular(10.0),
                           boxShadow: [
                             BoxShadow(
                               color: NeedlincColors.black3.withOpacity(0.8),
@@ -168,42 +168,11 @@ class _ChatScreenState extends State<ChatScreen> {
                             ),
                           ],
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: userId == chatData['myUserId'] ? NetworkImage("${widget.myProfilePicture}") : NetworkImage("${widget.otherProfilePicture}"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    chatData['myUserName'],
-                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              chatData['text'],
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ],
+                        child: Text(
+                          chatData['text'].replaceAll(RegExp(r'\n\s*\n'), ""),
+                          style: const TextStyle(fontSize: 18),
                         ),
-                      ),
-                    );
+                    ));
                   },
                 );
               },
