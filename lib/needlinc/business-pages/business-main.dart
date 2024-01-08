@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:needlinc/needlinc/business-pages/marketplace.dart';
 import 'package:needlinc/needlinc/shared-pages/notifications.dart';
-import 'package:needlinc/needlinc/business-pages/profile.dart';
+import 'package:needlinc/needlinc/shared-pages/profile.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:needlinc/needlinc/business-pages/client-to-freelancer%20post.dart';

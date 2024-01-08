@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:needlinc/needlinc/business-pages/profile.dart';
+import 'package:needlinc/needlinc/shared-pages/profile.dart';
 import 'package:needlinc/needlinc/colors/colors.dart';
 import 'package:needlinc/needlinc/shared-pages/chat-pages/messages.dart';
 
@@ -200,7 +200,7 @@ class _PeoplePageState extends State<PeoplePage> {
                                             children: [
                                               ElevatedButton(
                                                 onPressed: () {
-                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ProfilePage()));
+                                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfilePage()));
                                                 },
                                                 style: ButtonStyle(
                                                   backgroundColor:

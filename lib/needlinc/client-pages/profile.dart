@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:needlinc/needlinc/backend/user-account/functionality.dart';
 import 'package:needlinc/needlinc/shared-pages/contracts.dart';
 import 'package:needlinc/needlinc/shared-pages/edit-profile.dart';
 import 'package:needlinc/needlinc/shared-pages/settings.dart';
 import '../../main.dart';
 import '../backend/authentication/logout.dart';
 import '../colors/colors.dart';
+import '../shared-pages/auth-pages/welcome.dart';
 import 'client-main.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -16,28 +20,8 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class broadcasts {
-  String? text;
-  String? picture;
-
-  broadcasts({required this.text, required this.picture});
-}
-
-class posts {
-  String? text;
-  String? picture;
-
-  posts({required this.text, required this.picture});
-}
-
-class marketPlace {
-  String? text;
-  String? picture;
-
-  marketPlace({required this.text, required this.picture});
-}
-
 class _ProfilePageState extends State<ProfilePage> {
+
   bottomMenuBar() {
     showModalBottomSheet(
         showDragHandle: true,
@@ -58,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
                  ListTile(
                   title: Text('Settings',
                       style: TextStyle(color: Colors.black)),
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));},
+                  //  onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));},
                 ),
                 const Divider(),
                 ListTile(
@@ -123,130 +107,85 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  bool isOwner = true;
+
+
+
+  Widget SlideingPages({required String userCategory, required String userId}) {
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: Column(
+        children: [
+          if (screenView == "post")
+            Center(
+              child: Container(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('homePage')
+                      .where('userDetails.userId', isEqualTo: userId)
+                      .snapshots(),
+                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(child: const Text("Something went wrong"));
+                    }
+                    if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
+                      List<DocumentSnapshot> dataList = snapshot.data!.docs;
+                      var data;
+                      List<Widget> postsList = [];
+
+                      for (int index = 0; index < dataList.length; index++) {
+                        data = dataList[index].data() as Map<String, dynamic>;
+                        Map<String, dynamic>? userDetails = data['userDetails'];
+                        Map<String, dynamic>? postDetails = data['postDetails'];
+
+                        if (userDetails == null || postDetails == null) {
+                          postsList.add(Center(child: const Text("User details not found")));
+                        } else {
+                          // Cast images list to List<String>
+                          List<String> images = List<String>.from(postDetails['images']);
+
+                          // Add the homePage widget to the list
+                          postsList.add(homePage(text: postDetails['writeUp'], picture: images));
+                        }
+                      }
+
+                      return Column(
+                        children: postsList,
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return const WelcomePage();
+                  },
+                ),
+              ),
+            )
+          else
+            Center(
+              child: Container(
+                child: Text('MarketPlace'),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+
+
+
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String? userId;
   static bool isBlogger = true;
   bool isBroadcast = true;
   bool isPosts = !isBlogger;
   bool isMarketPlace = false;
-  static List<broadcasts> broadcastList = [
-    broadcasts(
-        text:
-            'BROADCAST Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    broadcasts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture: null),
-    broadcasts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    broadcasts(
-        text: null,
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    broadcasts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-  ];
+  Color? postColor;
+  Color? marketPlaceColor;
+  String screenView = "post";
 
-  static List<posts> postList = [
-    posts(
-        text:
-            'POST Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture: null),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text: null,
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    posts(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-  ];
-
-  static List<marketPlace> marketPlaceList = [
-    marketPlace(
-        text:
-            'MARKETPLACE Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture: null),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text: null,
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-    marketPlace(
-        text:
-            'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur ma',
-        picture:
-            'https://th.bing.com/th/id/OIP.G12T_MUuIKWw7XklDIqzhwHaE8?pid=ImgDet&rs=1'),
-  ];
-
-  int listCounter = isBlogger ? broadcastList.length : postList.length;
 
   @override
   Widget build(BuildContext context) {
@@ -257,18 +196,18 @@ class _ProfilePageState extends State<ProfilePage> {
         title: Row(
           children: [
             const Text(
-              'John Doe',
+              '',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 13,
               ),
             ),
-            if (isBlogger) const Icon(Icons.mic, size: 16)
+           // if (isBlogger) const Icon(Icons.mic, size: 16)
           ],
         ),
         actions: [
-          // TODO Drop down menu for Profile page
-          if (isOwner)
+        //  TODO Drop down menu for Profile page
+          if (true)
             InkWell(
               onTap: bottomMenuBar,
               child: Container(
@@ -280,562 +219,299 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: NeedlincColors.white,
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Profile Picture
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        "https://tpc.googlesyndication.com/simgad/9072106819292482259?sqp=-oaymwEMCMgBEMgBIAFQAVgB&rs=AOga4qn5QB4xLcXAL0KU8kcs5AmJLo3pow",
-                      ),
-                      fit: BoxFit.fill,
-                    ),
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: 20),
-                // Name and profile details
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          isOwner ? 'John Doe' : 'Emeka Doe',
-                          style: GoogleFonts.dosis(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                        if (isBlogger) Icon(Icons.mic, size: 22)
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    Text(
-                      "070 8786 0987",
-                      style: GoogleFonts.arimo(
-                        fontSize: 13,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    Text(
-                      "debra.holt@example.com",
-                      style: GoogleFonts.arimo(
-                        fontSize: 13,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          // message or edit button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  if (isOwner) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const editProfile()));
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  backgroundColor: NeedlincColors.blue1,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
-                ),
-                child: Text(
-                  isOwner ? 'Edit Profile' : 'Message',
-                  style: const TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 5),
-              if (!isOwner)
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        contentPadding: EdgeInsets.all(0),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
+      body: Container(
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('users') // Replace with your collection name
+              .doc('${_auth.currentUser!.uid}') // Replace with your document ID
+              .snapshots(),
+          builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: const Text("Something went wrong"));
+            }
+            if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.done) {
+              var userData = snapshot.data?.data() as Map<String, dynamic>;
+              return Stack(
+                children: [
+                  Column(
                           children: [
-                            dialogMenu(
-                              'Add Rating',
-                              Icons.star,
-                              Colors.amber[400],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // Profile Picture
+                                  Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          "${userData['profilePicture']}",
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  SizedBox(width: 20),
+                                  // Name and profile details
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                             '${userData['userName']}',
+                                            style: GoogleFonts.dosis(
+                                                fontWeight: FontWeight.w600, fontSize: 16),
+                                          ),
+                                          if (isBlogger) Icon(Icons.mic, size: 22)
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        "${userData['phoneNumber']}",
+                                        style: GoogleFonts.arimo(
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(
+                                        "${userData['email']}",
+                                        style: GoogleFonts.arimo(
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            dialogMenu(
-                              'Share profile link',
-                              Icons.link,
+                            // message or edit button
+                            ElevatedButton(
+                              onPressed: () {
+                                if (userData['userId'] == _auth.currentUser!.uid) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const editProfile()));
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                backgroundColor: NeedlincColors.blue1,
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                              ),
+                              child: Text(
+                                 'Edit Profile',
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
                             ),
-                            dialogMenu(
-                              'Report this account',
-                              Icons.report,
-                              NeedlincColors.red,
-                            ),
-                            dialogMenu(
-                              'Block',
-                              Icons.block,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.pending_outlined,
-                    size: 30,
+                            const SizedBox(height: 10),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+
+                                      setState(() {
+                                        postColor = NeedlincColors.blue1;
+                                        marketPlaceColor = NeedlincColors.black1;
+                                        screenView = "post";
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: marketPlaceColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.3),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        userData['userCategory'] == 'Blogger' ? 'News Post' : 'Home Post',
+                                        style: TextStyle(
+                                          color: postColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+
+                                      setState(() {
+                                        postColor = NeedlincColors.black1;
+                                        marketPlaceColor = NeedlincColors.blue1;
+                                        screenView = "marketPlace";
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: postColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.3),
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        'MarketPlace',
+                                        style: TextStyle(
+                                          color: marketPlaceColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                      ]
                   ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 15),
-          // Toggle options
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Container(
+                    margin: EdgeInsets.only(top: 220.0),
+                      child: SlideingPages(userCategory: userData['userCategory'], userId: _auth.currentUser!.uid),
+                  )
+                ],
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return const WelcomePage();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Widget homePage ({required String text, required List<String> picture}){
+  return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: NeedlincColors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (isBlogger) options('Broadcast', isBroadcast),
-              options('Posts', isPosts),
-              options('MarketPlace', isMarketPlace),
+              text != null ? Text(text) : Text(""),
+              const SizedBox(height: 8),
+              picture != null ?
+                Container(
+                  width: double.infinity,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(picture[0]),
+                    ),
+                  ),
+                )
+              :
+              Container(
+                width: double.infinity,
+                height: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(""),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              // Icons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.favorite,
+                          color: NeedlincColors.red,
+                        ),
+                      ),
+                      const Text('400'),
+                    ],
+                  ),
+                  const SizedBox(width: 12),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.maps_ugc_outlined),
+                      ),
+                      const Text('400'),
+                    ],
+                  ),
+                  const SizedBox(width: 12),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.bookmark, color: Colors.amber[300]),
+                  ),
+                  const SizedBox(width: 12),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.share,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-          const SizedBox(height: 10),
-          // posts / marketPlace Renderer
-          if (listCounter != 0)
-            Flexible(
-              child: AnimationLimiter(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: listCounter,
-                  itemBuilder: (context, index) {
-                    if (isBlogger) if (isBroadcast) {
-                      return listBroadcastItems(
-                        broadcastList[index].text,
-                        broadcastList[index].picture,
-                        index,
-                      );
-                    }
-                    if (isPosts) {
-                      return listPostItems(
-                        postList[index].text,
-                        postList[index].picture,
-                        index,
-                      );
-                    }
-                    if (isMarketPlace) {
-                      return listMarketPlaceItems(
-                        marketPlaceList[index].text,
-                        marketPlaceList[index].picture,
-                        index,
-                      );
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
-
-          if (listCounter == 0)
-            const Flexible(
-              child: Center(
-                child: Text(
-                  'No Posts',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-        ],
+        ),
       ),
     );
-  }
-
-  // ShowOption widget
-  GestureDetector options(String text, bool activeOption) {
-    return GestureDetector(
-      onTap: () {
-        switch (text) {
-          case 'Broadcast':
-            setState(() {
-              isBroadcast = true;
-              isPosts = false;
-              isMarketPlace = false;
-              listCounter = broadcastList.length;
-            });
-            break;
-          case 'Posts':
-            setState(() {
-              isBroadcast = false;
-              isPosts = true;
-              isMarketPlace = false;
-              listCounter = postList.length;
-            });
-            break;
-          case 'MarketPlace':
-            setState(() {
-              isBroadcast = false;
-              isPosts = false;
-              isMarketPlace = true;
-              listCounter = marketPlaceList.length;
-            });
-            break;
-        }
-      },
-      child: Column(
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-                color:
-                    activeOption ? NeedlincColors.blue1 : NeedlincColors.blue3),
-          ),
-          if (activeOption)
-            Container(
-              height: 2,
-              width: 60,
-              color: NeedlincColors.blue1,
-            )
-        ],
-      ),
-    );
-  }
-
-  // Show Dialog Widget
-  Container dialogMenu(String text,
-      [IconData? icon, Color? iconColor, Widget? location]) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(7),
-      decoration: BoxDecoration(
-        color: NeedlincColors.grey,
-        border: Border.symmetric(
-          horizontal: BorderSide(
-              width: 0.5, color: NeedlincColors.black1.withOpacity(0.5)),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(
-            icon,
-            color: iconColor,
-          ),
-          Text(text),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.arrow_forward_ios,
-              color: NeedlincColors.blue2,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-// Broadcast list container
-Padding listBroadcastItems(String? text, String? picture, int index) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: AnimationConfiguration.staggeredList(
-      position: index,
-      delay: Duration(milliseconds: 100),
-      child: SlideAnimation(
-        duration: const Duration(milliseconds: 2500),
-        curve: Curves.fastLinearToSlowEaseIn,
-        child: FadeInAnimation(
-          curve: Curves.fastLinearToSlowEaseIn,
-          duration: const Duration(milliseconds: 2500),
-          child: Container(
-            decoration: BoxDecoration(
-              color: NeedlincColors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (text != null) Text(text),
-                  const SizedBox(height: 8),
-                  if (picture != null)
-                    Container(
-                      width: double.infinity,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(picture),
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 8),
-                  // Icons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: NeedlincColors.red,
-                            ),
-                          ),
-                          const Text('400'),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.maps_ugc_outlined),
-                          ),
-                          const Text('400'),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.share,
-                          size: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-// Post list container
-Padding listPostItems(String? text, String? picture, int index) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: AnimationConfiguration.staggeredList(
-      position: index,
-      delay: const Duration(milliseconds: 100),
-      child: SlideAnimation(
-        duration: const Duration(milliseconds: 2500),
-        curve: Curves.fastLinearToSlowEaseIn,
-        child: FadeInAnimation(
-          curve: Curves.fastLinearToSlowEaseIn,
-          duration: const Duration(milliseconds: 2500),
-          child: Container(
-            decoration: BoxDecoration(
-              color: NeedlincColors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (text != null) Text(text),
-                  const SizedBox(height: 8),
-                  if (picture != null)
-                    Container(
-                      width: double.infinity,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(picture),
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 8),
-                  // Icons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: NeedlincColors.red,
-                            ),
-                          ),
-                          const Text('400'),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.maps_ugc_outlined),
-                          ),
-                          const Text('400'),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.share,
-                          size: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-// market list container
-Padding listMarketPlaceItems(String? text, String? picture, int index) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-    child: AnimationConfiguration.staggeredList(
-      position: index,
-      delay: Duration(milliseconds: 100),
-      child: SlideAnimation(
-        duration: const Duration(milliseconds: 2500),
-        curve: Curves.fastLinearToSlowEaseIn,
-        child: FadeInAnimation(
-          curve: Curves.fastLinearToSlowEaseIn,
-          duration: const Duration(milliseconds: 2500),
-          child: Container(
-            decoration: BoxDecoration(
-              color: NeedlincColors.white,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (text != null) Text(text),
-                  const SizedBox(height: 8),
-                  if (picture != null)
-                    Container(
-                      width: double.infinity,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(picture),
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 8),
-                  // Icons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.shopping_cart_outlined,
-                          color: NeedlincColors.white,
-                        ),
-                        label: const Text(
-                          'Buy',
-                          style: TextStyle(color: NeedlincColors.white),
-                        ),
-                        style: TextButton.styleFrom(
-                          backgroundColor: NeedlincColors.blue1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite,
-                              color: NeedlincColors.red,
-                            ),
-                          ),
-                          const Text('400'),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.maps_ugc_outlined),
-                          ),
-                          const Text('400'),
-                        ],
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bookmark, color: Colors.amber[300]),
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.share,
-                          size: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
 }

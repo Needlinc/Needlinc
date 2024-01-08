@@ -14,6 +14,7 @@ class UploadPost{
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   final String randomUrl = randomAlphaNumeric(16);
+  DateTime now = DateTime.now();
 
 
   //Todo Upload Home Post for Images and Write Ups
@@ -55,7 +56,7 @@ class UploadPost{
           'hearts': [],
           'comments': [],
           'postId': randomUrl,
-          'timeStamp': FieldValue.serverTimestamp(),
+          'timeStamp': now.millisecondsSinceEpoch,
         }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
@@ -109,7 +110,7 @@ class UploadPost{
           'hearts': [],
           'comments': [],
           'postId': randomUrl,
-          'timeStamp': FieldValue.serverTimestamp(),
+          'timeStamp': now.millisecondsSinceEpoch,
         }
       });
       showSnackBar(context, 'Home page post successfully uploaded!');
@@ -148,7 +149,7 @@ class UploadPost{
             'postId': randomUrl,
             'hearts': [],
             'comments': [],
-            'timeStamp': FieldValue.serverTimestamp(),
+            'timeStamp': now.millisecondsSinceEpoch,
           }
         });
         showSnackBar(context, 'Home page post successfully uploaded!');
@@ -232,7 +233,7 @@ class UploadPost{
         'address': await getUserData('address'),
         'userId': user!.uid,
         'message': message,
-        'timeStamp': FieldValue.serverTimestamp(),
+        'timeStamp': now.millisecondsSinceEpoch,
         'commentHearts': [],
       };
 
